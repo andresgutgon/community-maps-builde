@@ -6,7 +6,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$': '<rootDir>/__mocks__/fileMock.js',
-    '^@maps/middlewares/(.*)$': '<rootDir>/src/middlewares/$1'
+    '^@maps/lib/(.*)$': '<rootDir>/src/lib/$1'
   },
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
   testEnvironment: 'jsdom',

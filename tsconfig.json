@@ -8,7 +8,7 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@maps/middlewares/*": ["middlewares/*"]
+      "@maps/lib/*": ["lib/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
