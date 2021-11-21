@@ -14,8 +14,15 @@ describe('api/[community]/config', () => {
       url: `/api/${DEMO_PATH}/config`,
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
+        // Mock the fetch done inside /[community]/config
+        // This API endpoint is calling the external Odoo server
+        // and we don't want to have it running
+        global.fetchMock(data.config)
+
         const response = await fetch();
+
         expect(response.status).toBe(200);
+
         expect(await response.json()).toStrictEqual(data.config)
       }
     });
