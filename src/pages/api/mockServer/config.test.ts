@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
+import data from '@maps/data/demoData'
 import configHandler from './config'
 
 const DEMO_TOKEN = process.env.DEMO_SECRET_TOKEN
@@ -17,11 +18,7 @@ describe('api/mockServer/config', () => {
           }
         });
         expect(response.status).toBe(200);
-        expect(await response.json()).toStrictEqual({
-          theme: {
-            color: 'green'
-          }
-        })
+        expect(await response.json()).toStrictEqual(data.config)
       }
     });
   })

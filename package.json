@@ -6,6 +6,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
+    "lint_and_tsc": "yarn lint && yarn tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "next build"
