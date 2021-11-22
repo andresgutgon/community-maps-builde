@@ -63,8 +63,9 @@ With that we can start talking with an Odoo complient server to serve maps and m
 
 ### MAP_TYPE model
 - `type` - `mobility`, `housing`, `energy`
-- `form_schema` - (look for a way to relate static form schema and show in this endpoint
-- `crowdfounding`
+- `form_schema` - look for a way to relate static form schema and show in this endpoint
+  - NOTE: The shape of the form is related with the type of crowdfounding.
+- `crowdfounding_types` - Is this a 1 -- n relation between `map_type` and `crowdfounding_type`?
   - `none` - by default is interest in users
   - `ammount_of_money` - (ABSOLUTE) User compromise a fixed amount of money
   - `loan` - (ABSOLUTE) User compromises a contribution and he receives a yearly interest + some benefits on the service (optional) + return of the contribution after loan period is over.
@@ -84,7 +85,7 @@ With that we can start talking with an Odoo complient server to serve maps and m
 - `slug` - Useful when clicking in the marker.
 - `map_type_id` - Relation with the map type it belongs. Ex.: `mobility`
 - `category_type` - `mobility` => `car`, `van`, `cargo_bite`, `charger`
-- `status` - `active` | `founding` (others?)
+- `status` - `active` | `planned` | `founding` (others?)
 - `founding_progress` - A percentage of the crowfounding accomplished
 - `end_founding_date_at` - Marker can have an end crowdfounding date(time)
 
