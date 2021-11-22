@@ -18,19 +18,21 @@ const Map = () => {
       </Head>
 
       <div className="container flex items-center p-4 mx-auto min-h-screen justify-center">
-        <div id='map' className='bg-red-500 w-[1000px] h-[600px]'></div>
+        <div id='map' className='bg-gray-50 w-[1000px] h-[600px]'></div>
       </div>
 
       <Script
         id='getStarted'
         dangerouslySetInnerHTML={{
           __html: `
-            var map = L.map('map').setView([41.382894, 2.177432], 13)
-            var Stadia_AlidadeSmooth = L.tileLayer('', {
-              maxZoom: 20,
-                attribution: ''
-                });
+            var center = [41.382894, 2.177432]
+            // Leaflet initialization
+            var map = L.map('map')
 
+            // Set Center of map and zoom level
+            map.setView(center, 14)
+
+            // Tiles provider
             var titleProvider = L.tileLayer(
               'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
               {
@@ -38,8 +40,11 @@ const Map = () => {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               }
             )
-
             titleProvider.addTo(map)
+
+            // Add a humble marker
+            var marker = L.marker(center)
+            marker.addTo(map)
           `,
         }}
       />
