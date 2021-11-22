@@ -1,0 +1,22 @@
+image: node:16.5.0
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - setup
+  - lint
+  - test
+
+setup:
+  stage: setup
+  script: yarn install
+
+lint:
+  stage: lint
+  script: yarn lint_and_tsc
+
+test:
+  stage: test
+  script: yarn test

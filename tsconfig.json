@@ -6,6 +6,11 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": "./src",
+    "paths": {
+      "@maps/lib/*": ["lib/*"],
+      "@maps/data/*": ["data/*"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,

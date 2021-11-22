@@ -1,4 +1,4 @@
-export default function Home() {
+const Home = () => {
   return (
     <div className="container flex items-center p-4 mx-auto min-h-screen justify-center">
       <main>
@@ -9,3 +9,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home
