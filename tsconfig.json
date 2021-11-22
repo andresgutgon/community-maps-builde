@@ -9,7 +9,8 @@
     "baseUrl": "./src",
     "paths": {
       "@maps/lib/*": ["lib/*"],
-      "@maps/data/*": ["data/*"]
+      "@maps/data/*": ["data/*"],
+      "@maps/types/*": ["types/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

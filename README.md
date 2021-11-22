@@ -48,9 +48,12 @@ Within the type we define the type of crowdfounding if any.
 ### Endpoints
 These are the endpoints an Odoo server has to have to use this builder
 - `/:community_id/config` - Community config like `theme: { color: '#someColor' }`
-- `/community_id/maps` - Helpful for displaying all maps of that Odoo instance in the Wordpress plugin
 - `/:community_id/:map_id/types` - As defined in the relations a map can have 1 or more types
 - `/:community_id/:map_id/markers` - Grouped markers of all types in that map. Index of markers with basic info
+    - filters:
+      - progress_start: 0 // SQL markes.progress < start > end;
+      - progress_end: 75
+      - categerory
 -  `/:community_id/:map_id/markers/:id` - Extended info of a marker
 
 ### COMMUNITY model
@@ -85,9 +88,12 @@ With that we can start talking with an Odoo complient server to serve maps and m
 - `slug` - Useful when clicking in the marker.
 - `map_type_id` - Relation with the map type it belongs. Ex.: `mobility`
 - `category_type` - `mobility` => `car`, `van`, `cargo_bite`, `charger`
-- `status` - `active` | `planned` | `founding` (others?)
+- `active` - `boolean`
 - `founding_progress` - A percentage of the crowfounding accomplished
-- `end_founding_date_at` - Marker can have an end crowdfounding date(time)
+  - 0% founded
+  - <= 80%
+  - > 80% funded (Hot marker)
+  - 100% Funded
 
 **TODO**: Better understand how the different crowfounding models works.
 
@@ -108,5 +114,8 @@ yarn test:watch
 
 ### Deployment
 TO BE DEFINED
+
+### RESOURCES
+- [Leaflet tile providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)
 
 

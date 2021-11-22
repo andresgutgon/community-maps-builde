@@ -3,9 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import withHeaderBearerToken from '@maps/lib/middlewares/withHeaderBearerToken'
 import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerToken'
 
-const maps = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
+const markers = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
+  const { map_id } = request.query
   const serverResponse = await fetch(
-    `${communityHost}/maps`,
+    `${communityHost}/maps/${map_id}/markers`,
     {
       method: 'GET',
       headers: tokenHeaders
@@ -15,4 +16,4 @@ const maps = async ({ request, response, tokenHeaders, communityHost }: Response
   response.status(200).json(data)
 }
 
-export default withHeaderBearerToken(maps)
+export default withHeaderBearerToken(markers)

@@ -1,5 +1,9 @@
 import Head from 'next/head'
 import Script from 'next/script'
+
+// TODO:
+// - Make a Provider / Reducer
+// - Handle API errors 404/402
 const useMap = () => {
 
 }

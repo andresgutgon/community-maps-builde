@@ -7,7 +7,7 @@ const STATUS_MAPPING = {
   "Operatiu": "active"
 }
 const mobilityCategories = [
-  'car', 'van', 'charger_bite', 'charger'
+  'car', 'van', 'bike_charger', 'car_charger'
 ]
 /**
  * This is a one off script to populate markers
@@ -19,7 +19,6 @@ async function fetchMarkers () {
   const data = await response.json()
   const markers = data.data.parkings.map(marker => {
     const [lat, long] = marker.position.split(',')
-    // Random pick a category for the marker
     const categoryType = mobilityCategories[
       Math.floor(Math.random() * mobilityCategories.length)
     ]
@@ -32,7 +31,7 @@ async function fetchMarkers () {
       name: marker.title,
       slug: marker.name,
       address,
-      status: STATUS_MAPPING[marker.parking_status] || 'planned',
+      active: STATUS_MAPPING[marker.parking_status] === 'active',
       categoryType,
       mapTypeId: 1 // Hardcoded for now
     }
