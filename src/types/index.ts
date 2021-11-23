@@ -56,6 +56,7 @@ export const TILES = {
   },
   stadiaOutdoors: {
     url: 'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
+    free: false,
     minZoom: DEFAULT_MIN_ZOOM,
     maxZoom: 20,
     attributions: [
