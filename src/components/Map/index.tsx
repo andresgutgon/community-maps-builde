@@ -42,7 +42,8 @@ const MapWrapper = () => {
           )
           titleProvider.addTo(map)
 
-          const defaultIcon = new window.L.Icon({
+          delete L.Icon.Default.prototype._getIconUrl;
+          window.L.Icon.Default.mergeOptions({
             iconUrl: '/marker-icon.png',
             iconRetinaUrl: '/marker-icon-2x.png',
             shadowUrl: '/marker-shadow.png'
@@ -50,7 +51,7 @@ const MapWrapper = () => {
           // Add a humble marker
           const markers = ${JSON.stringify(markers)}
           markers.map((marker) => {
-            var marker = window.L.marker([marker.lat, marker.long], { icon: defaultIcon })
+            var marker = window.L.marker([marker.lat, marker.long])
             marker.addTo(map)
           })
         `,

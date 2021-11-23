@@ -1,10 +1,10 @@
-import { CommunityType, TitleStyle } from '@maps/types/index'
+import { CommunityType, TileStyle } from '@maps/types/index'
 
 const data = {
   config: {
     theme: {
       color: 'green',
-      tileStyle: 'arcgisonlineLightGray' as TitleStyle
+      tileStyle: 'stadiaOutdoors' as TileStyle
     },
     maps: [
       {

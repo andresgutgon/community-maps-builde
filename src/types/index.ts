@@ -53,6 +53,23 @@ export const TILES = {
       ...SHARED_ATTRIBUTIONS,
       { linkText: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ' }
     ]
+  },
+  stadiaOutdoors: {
+    url: 'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
+    minZoom: DEFAULT_MIN_ZOOM,
+    maxZoom: 20,
+    attributions: [
+      ...SHARED_ATTRIBUTIONS,
+      {
+        linkText: '&copy; Stadia Maps',
+        link: 'https://stadiamaps.com'
+      },
+      {
+        linkText: 'OpenMapTiles',
+        link: 'https://openmaptiles.org/'
+      }
+    ]
+
   }
 }
 export type TileStyle = keyof typeof TILES
