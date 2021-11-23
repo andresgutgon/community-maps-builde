@@ -10,7 +10,8 @@
     "paths": {
       "@maps/lib/*": ["lib/*"],
       "@maps/data/*": ["data/*"],
-      "@maps/types/*": ["types/*"]
+      "@maps/types/*": ["types/*"],
+      "@maps/components/*": ["components/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

@@ -11,29 +11,51 @@ enum Category {
   car_charger = 'car_charger'
 }
 
-type MapAttribution = {
-  link: string,
-  linkText: string
+export type MapAttribution = {
+  linkText: string,
+  link?: string
 }
 
-type Tile = {
+export type Tile = {
   url: string,
+  free: boolean,
+  minZoom: number,
   maxZoom: number,
   attributions: Array<MapAttribution>
 }
-const TILES = {
+const SHARED_ATTRIBUTIONS = [
+  {
+    link: 'https://www.openstreetmap.org/copyright',
+    linkText: 'OpenStreetMap'
+  }
+]
+/**
+ * You can see a list of providers here:
+ * http://leaflet-extras.github.io/leaflet-providers/preview/index.html
+ *
+ * NOTE: Some providers might require API key and be a paid service.
+ */
+const DEFAULT_MIN_ZOOM = 7
+export const TILES = {
   osm: {
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    free: true,
+    minZoom: DEFAULT_MIN_ZOOM,
     maxZoom: 19,
+    attributions: SHARED_ATTRIBUTIONS
+  },
+  arcgisonlineLightGray: {
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    free: false, // 2.000.000 tiles / month
+    minZoom: DEFAULT_MIN_ZOOM,
+    maxZoom: 16,
     attributions: [
-      {
-        link: 'https://www.openstreetmap.org/copyright',
-        linkText: 'OpenStreetMap'
-      }
+      ...SHARED_ATTRIBUTIONS,
+      { linkText: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ' }
     ]
   }
 }
-export type TitleStyle = keyof typeof TILES
+export type TileStyle = keyof typeof TILES
 
 export type Marker = {
   slug: string
@@ -55,12 +77,12 @@ export type Map = {
   name: string
   description: string | null
   map_types: Array<MapType>
-  tyleStyle?: TitleStyle
+  tyleStyle?: TileStyle
 }
 
 type Theme = {
   color: string,
-  titleStyle: TitleStyle
+  tileStyle: TileStyle
 }
 
 export type Config = {

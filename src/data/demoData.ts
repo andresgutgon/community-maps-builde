@@ -4,7 +4,7 @@ const data = {
   config: {
     theme: {
       color: 'green',
-      tileStyle: 'osm' as TitleStyle
+      tileStyle: 'arcgisonlineLightGray' as TitleStyle
     },
     maps: [
       {
