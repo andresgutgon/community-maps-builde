@@ -4,6 +4,10 @@ import { testApiHandler } from 'next-test-api-route-handler'
 import data from '@maps/data/demoData'
 import configHandler from './config'
 
+import fetchMock from "jest-fetch-mock"
+global.fetch = fetchMock
+fetchMock.mockResponse(JSON.stringify(data.config))
+
 const DEMO_TOKEN = process.env.DEMO_SECRET_TOKEN
 const DEMO_PATH = 'demo'
 
@@ -14,11 +18,6 @@ describe('api/[community]/config', () => {
       url: `/api/${DEMO_PATH}/config`,
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
-        // Mock the fetch done inside /[community]/config
-        // This API endpoint is calling the external Odoo server
-        // and we don't want to have it running
-        global.fetchMock(data.config)
-
         const response = await fetch();
 
         expect(response.status).toBe(200);

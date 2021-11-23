@@ -1,28 +1,56 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
-import data from '@maps/data/demoData'
+import markers from '@maps/data/markers.json'
 import handler from './index'
 
+import fetchMock from "jest-fetch-mock"
+global.fetch = fetchMock
+
 const DEMO_TOKEN = process.env.DEMO_SECRET_TOKEN
+const DEMO_HOST = process.env.DEMO_HOST
 const DEMO_PATH = 'demo'
 const MAP_SLUG = 'first-map'
-const firstMap = data.config.maps.find(m => m.slug === MAP_SLUG)
 
 describe('api/[community]/maps/[id]/markers', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks()
+  })
+
   it('is token protected and map exists', async () => {
     await testApiHandler({
       handler,
       url: `/api/${DEMO_PATH}/maps/${MAP_SLUG}/markers`,
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
-        global.fetchMock(firstMap)
-
+        fetchMock.mockResponse(
+          JSON.stringify(markers),
+          { status: 200 }
+        )
         const response = await fetch();
 
         expect(response.status).toBe(200);
 
-        expect(await response.json()).toStrictEqual(firstMap)
+        expect(await response.json()).toStrictEqual(markers)
+      }
+    });
+  })
+
+  it('it handles a not found map', async () => {
+    await testApiHandler({
+      handler,
+      url: `/api/${DEMO_PATH}/maps/__LOL_NOT_FOUND_MAP_SLUG_/markers`,
+      params: { community: DEMO_PATH },
+      test: async ({ fetch }) => {
+        fetchMock.mockResponse(
+          JSON.stringify({ message: 'Not found map' }),
+          { status: 404 }
+        )
+        const response = await fetch();
+
+        expect(response.status).toBe(404);
+
+        expect(await response.json()).toStrictEqual({ message: 'Not found map' })
       }
     });
   })

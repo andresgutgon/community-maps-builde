@@ -13,7 +13,7 @@ const markers = async ({ request, response, tokenHeaders, communityHost }: Respo
     }
   )
   const data = await serverResponse.json()
-  response.status(200).json(data)
+  response.status(serverResponse.status).json(data)
 }
 
 export default withHeaderBearerToken(markers)
