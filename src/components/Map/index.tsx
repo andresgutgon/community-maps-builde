@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import { renderToString } from 'react-dom/server'
 
 import * as Leaflet from 'leaflet'
 import 'leaflet.markercluster'
@@ -13,15 +14,19 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import { CommunityProvider, useMap } from '@maps/components/CommunityProvider'
 import type { MapAttribution, Marker as MarkerType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
+import { Icon, ICONS } from '@maps/components/Icon'
 
-// TODO: Custom icons
-delete (Leaflet.Icon.Default.prototype as any)._getIconUrl
-Leaflet.Icon.Default.mergeOptions({
-  iconUrl: '/marker-icon.png',
-  iconRetinaUrl: '/marker-icon-2x.png',
-  shadowUrl: '/marker-shadow.png'
-})
-
+function buildIcon (progress: number, icon: string): Leaflet.DivIcon {
+  const iconSvg = ICONS[icon] || ICONS[ICONS.car]
+  return Leaflet.divIcon({
+    className: 'custom-icon',
+    html: renderToString(<Icon progress={progress} icon={iconSvg} />),
+    iconSize:    [32, 32],
+    iconAnchor:  [16, 40],
+    popupAnchor: [2, -42],
+    tooltipAnchor: [2, -40],
+  })
+}
 const MapWrapper = () => {
   const [map, setMap] = useState<Leaflet.Map>(null)
   const clusterRef = useRef<MarkerClusterGroup>(null)
@@ -34,6 +39,11 @@ const MapWrapper = () => {
   }, [map])
   if (loading) return null
 
+  const oneMarker = [
+    { custom: true, goalProgress: 67, lat: '42.702294', long: '0.793881', name: 'Som Mobilitat - Vielha' },
+    { custom: false, goalProgress: 67, lat: '42.702294', long: '0.793881', name: 'Som Mobilitat - Vielha' },
+  ]
+  const points = oneMarker
   return (
     <MapContainer
       whenCreated={setMap}
@@ -46,14 +56,13 @@ const MapWrapper = () => {
         disableClusteringAtZoom={12}
         removeOutsideVisibleBounds={true}
       >
-        {markers.map(({ lat, long, name: title }: MarkerType, index: number) => {
+        {markers.map(({ lat, long, name: title, goalProgress, categoryType }: MarkerType, index: number) => {
           const latLong = { lat: parseFloat(lat), lng: parseFloat(long) }
-          // Extend LatLngBounds with coordinates
-          // bounds.extend(latLong)
+          const icon = buildIcon(goalProgress, categoryType)
           return (
-            <Marker key={index} position={latLong}>
+            <Marker key={index} position={latLong} icon={icon}>
               <Popup>
-                {`\`{ lat: '\$\{lat\}', long: '\$\{long\}\', name: '\$\{title\}' }\``}
+                {`\`{ lat: '${lat}', long: '${long}', name: '${title}' }\``}
               </Popup>
             </Marker>
           )

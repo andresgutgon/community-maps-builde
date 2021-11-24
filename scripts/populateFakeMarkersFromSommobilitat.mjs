@@ -9,6 +9,8 @@ const STATUS_MAPPING = {
 const mobilityCategories = [
   'car', 'van', 'bike_charger', 'car_charger'
 ]
+const randomProgress = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+
 /**
  * This is a one off script to populate markers
  * for the demo data. Ignore if you're not developing in this repo.
@@ -33,6 +35,7 @@ async function fetchMarkers () {
       address,
       active: STATUS_MAPPING[marker.parking_status] === 'active',
       categoryType,
+      goalProgress: randomProgress(0, 100),
       mapTypeId: 1 // Hardcoded for now
     }
   })
