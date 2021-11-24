@@ -1,82 +1,74 @@
+import { useEffect, useState, useRef } from 'react'
+import { renderToString } from 'react-dom/server'
+
+import * as Leaflet from 'leaflet'
+import 'leaflet.markercluster'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import MarkerClusterGroup from 'react-leaflet-markercluster'
+
 // Styles from Leaflet and plugins
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
-import * as L from 'leaflet'
-import 'leaflet.markercluster'
-import Script from 'next/script'
-
 import { CommunityProvider, useMap } from '@maps/components/CommunityProvider'
-import type { MapAttribution, Marker } from '@maps/types/index'
+import type { MapAttribution, Marker as MarkerType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
+import { Icon, ICONS } from '@maps/components/Icon'
 
-
-window.L = L
-
+function buildIcon (progress: number, icon: string): Leaflet.DivIcon {
+  const iconSvg = ICONS[icon] || ICONS[ICONS.car]
+  return Leaflet.divIcon({
+    className: 'custom-icon',
+    html: renderToString(<Icon progress={progress} icon={iconSvg} />),
+    iconSize:    [32, 32],
+    iconAnchor:  [16, 40],
+    popupAnchor: [2, -42],
+    tooltipAnchor: [2, -40],
+  })
+}
 const MapWrapper = () => {
+  const [map, setMap] = useState<Leaflet.Map>(null)
+  const clusterRef = useRef<MarkerClusterGroup>(null)
   const { loading, config, markers } = useMap()
   const tile = useTile(config)
+  useEffect(() => {
+    if (!map) return;
 
+    map.fitBounds(clusterRef.current.getBounds());
+  }, [map])
   if (loading) return null
 
+  const oneMarker = [
+    { custom: true, goalProgress: 67, lat: '42.702294', long: '0.793881', name: 'Som Mobilitat - Vielha' },
+    { custom: false, goalProgress: 67, lat: '42.702294', long: '0.793881', name: 'Som Mobilitat - Vielha' },
+  ]
+  const points = oneMarker
   return (
-    <Script
-      id='getStarted'
-      dangerouslySetInnerHTML={{
-        __html: `
-          var center = [41.382894, 2.177432]
-          // Leaflet initialization
-          var map = window.L.map('map')
-
-          // Set Center of map and zoom level
-          map.setView(center, 9)
-
-          // Tiles provider
-          var titleProvider = window.L.tileLayer(
-            "${tile.url}",
-            {
-              minZoom: ${tile.minZoom},
-              maxZoom: ${tile.maxZoom},
-              attribution: "${tile.attributions.map((attribution: MapAttribution) => {
-                if (!attribution.link) return attribution.linkText
-                return `<a href=${attribution.link} target='_blank'>${attribution.linkText}</a>`
-              }).join(' | ')}"
-            }
+    <MapContainer
+      whenCreated={setMap}
+      className='bg-gray-50 w-screen h-screen'
+    >
+      <TileLayer {...tile} />
+      <MarkerClusterGroup
+        ref={clusterRef}
+        showCoverageOnHover={false}
+        disableClusteringAtZoom={12}
+        removeOutsideVisibleBounds={true}
+      >
+        {markers.map(({ lat, long, name: title, goalProgress, categoryType }: MarkerType, index: number) => {
+          const latLong = { lat: parseFloat(lat), lng: parseFloat(long) }
+          const icon = buildIcon(goalProgress, categoryType)
+          return (
+            <Marker key={index} position={latLong} icon={icon}>
+              <Popup>
+                {`\`{ lat: '${lat}', long: '${long}', name: '${title}' }\``}
+              </Popup>
+            </Marker>
           )
-          titleProvider.addTo(map)
-
-          // Set the right icon URLs
-          delete L.Icon.Default.prototype._getIconUrl;
-          window.L.Icon.Default.mergeOptions({
-            iconUrl: '/marker-icon.png',
-            iconRetinaUrl: '/marker-icon-2x.png',
-            shadowUrl: '/marker-shadow.png'
-          })
-
-          // Marker clusters
-          var markersCluster = window.L.markerClusterGroup({
-            showCoverageOnHover: false,
-            disableClusteringAtZoom: 12,
-            removeOutsideVisibleBounds: true
-          });
-
-          const markersData = ${JSON.stringify(markers)}
-          const markerList = markersData.map((marker) =>
-            window.L.marker(
-              [marker.lat, marker.long],
-              { title: marker.name }
-            )
-          )
-
-          // Add markers to the cluster
-          markersCluster.addLayers(markerList)
-
-          // Add cluster to the map
-          map.addLayer(markersCluster)
-        `,
-      }}
-    />
+        })}
+      </MarkerClusterGroup>
+    </MapContainer>
   )
 }
 
@@ -87,7 +79,6 @@ type Props = {
 const Map = ({ community, mapId }: Props) => {
   return (
     <CommunityProvider community={community} mapId={mapId}>
-      <div id='map' className='bg-gray-50 w-[1000px] h-[600px]'></div>
       <MapWrapper />
     </CommunityProvider>
   )

@@ -4,7 +4,7 @@ export enum CommunityType {
   energy = 'energy'
 }
 
-enum Category {
+export enum Category {
   car = 'car',
   van = 'van',
   bike_charger = 'bike_charger',
@@ -48,7 +48,7 @@ export const TILES = {
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
     free: false, // 2.000.000 tiles / month
     minZoom: DEFAULT_MIN_ZOOM,
-    maxZoom: 16,
+    maxZoom: 14,
     attributions: [
       ...SHARED_ATTRIBUTIONS,
       { linkText: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ' }
@@ -83,6 +83,7 @@ export type Marker = {
   name: string
   address: string | null
   active: boolean
+  goalProgress: number,
   categoryType: Category
 }
 
