@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { renderToString } from 'react-dom/server'
+import cn from 'classnames'
 
 import * as Leaflet from 'leaflet'
 import 'leaflet.markercluster'
@@ -14,16 +14,30 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import { CommunityProvider, useMap } from '@maps/components/CommunityProvider'
 import type { MapAttribution, Marker as MarkerType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
-import { Icon, ICONS } from '@maps/components/Icon'
+import { ICONS } from '@maps/lib/icons'
 
-function buildIcon (progress: number, icon: string): Leaflet.DivIcon {
-  const iconSvg = ICONS[icon] || ICONS[ICONS.car]
+delete (Leaflet.Icon.Default.prototype as any)._getIconUrl
+Leaflet.Icon.Default.mergeOptions({
+    iconUrl: '/marker-icon.png',
+    iconRetinaUrl: '/marker-icon-2x.png',
+    shadowUrl: '/marker-shadow.png'
+})
+
+function buildIcon (progress: number, category: string): Leaflet.DivIcon {
+  const icon = ICONS[category] || ICONS[ICONS.car]
   return Leaflet.divIcon({
-    className: 'custom-icon',
-    html: renderToString(<Icon progress={progress} icon={iconSvg} />),
-    iconSize:    [32, 32],
-    iconAnchor:  [16, 40],
-    popupAnchor: [2, -42],
+    className: null,
+    html: `
+      <div class='h-10 w-10 relative rounded bg-gray-900 shadow-xl flex items-center justify-center'>
+        <i class="${cn('fas text-white text-base', icon)}"></i>
+        <div class='pointer-events-none h-2 w-8 -bottom-2 absolute flex justify-center'>
+          <div class='-mt-2 p-1 w-3 h-3 rounded-sm bg-gray-900 shadow-xl transform rotate-45'></div>
+        </div>
+      </div>
+    `,
+    iconSize:    [40, 40],
+    iconAnchor:  [19, 46],
+    popupAnchor: [2, -50],
     tooltipAnchor: [2, -40],
   })
 }
@@ -39,11 +53,6 @@ const MapWrapper = () => {
   }, [map])
   if (loading) return null
 
-  const oneMarker = [
-    { custom: true, goalProgress: 67, lat: '42.702294', long: '0.793881', name: 'Som Mobilitat - Vielha' },
-    { custom: false, goalProgress: 67, lat: '42.702294', long: '0.793881', name: 'Som Mobilitat - Vielha' },
-  ]
-  const points = oneMarker
   return (
     <MapContainer
       whenCreated={setMap}

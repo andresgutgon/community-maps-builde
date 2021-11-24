@@ -4,7 +4,7 @@ const data = {
   config: {
     theme: {
       color: 'green',
-      tileStyle: 'stadiaOutdoors' as TileStyle
+      tileStyle: 'osm' as TileStyle
     },
     maps: [
       {
