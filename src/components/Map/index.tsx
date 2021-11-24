@@ -98,7 +98,7 @@ type Props = {
 const Map = ({ community, mapId }: Props) => {
   return (
     <CommunityProvider community={community} mapId={mapId}>
-      <div id='map' className='bg-gray-50 w-[1000px] h-[600px]'></div>
+      <div id='map' className='bg-gray-50 w-screen h-screen' />
       <MapWrapper />
     </CommunityProvider>
   )
