@@ -25,12 +25,12 @@ const MapWrapper = () => {
       id='getStarted'
       dangerouslySetInnerHTML={{
         __html: `
-          var center = [41.382894, 2.177432]
+          // var center = [41.382894, 2.177432]
           // Leaflet initialization
           var map = window.L.map('map')
 
           // Set Center of map and zoom level
-          map.setView(center, 9)
+          // map.setView(center, 9)
 
           // Tiles provider
           var titleProvider = window.L.tileLayer(
@@ -61,13 +61,24 @@ const MapWrapper = () => {
             removeOutsideVisibleBounds: true
           });
 
+          const fitBoundsPadding = [${markers.length > 20 ? '1, 1' : '100, 100'}]
           const markersData = ${JSON.stringify(markers)}
-          const markerList = markersData.map((marker) =>
-            window.L.marker(
-              [marker.lat, marker.long],
-              { title: marker.name }
-            )
-          )
+
+          // Instantiate LatLngBounds object
+          var bounds = window.L.latLngBounds()
+
+          const markerList = markersData.map(({ lat, long, name: title }) => {
+            const latLong = [lat, long]
+
+            // Extend LatLngBounds with coordinates
+            bounds.extend(latLong)
+
+            const marker = window.L.marker(latLong, { title })
+            marker.bindPopup(\`{ lat: '\$\{lat\}', long: '\$\{long\}\', name: '\$\{title\}' }\`)
+            return marker
+          })
+
+          map.fitBounds(bounds, { padding: fitBoundsPadding})
 
           // Add markers to the cluster
           markersCluster.addLayers(markerList)
