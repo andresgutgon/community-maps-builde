@@ -12,7 +12,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 import { CommunityProvider, useMap } from '@maps/components/CommunityProvider'
-import type { MapAttribution, Marker as MarkerType } from '@maps/types/index'
+import type { Category, MapAttribution, Marker as MarkerType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
 import { ICONS } from '@maps/lib/icons'
 
@@ -23,15 +23,53 @@ Leaflet.Icon.Default.mergeOptions({
     shadowUrl: '/marker-shadow.png'
 })
 
-function buildIcon (progress: number, category: string): Leaflet.DivIcon {
+type BuildIconProps = { category: Category, dark: boolean }
+function buildIcon ({ category, dark }: BuildIconProps): Leaflet.DivIcon {
   const icon = ICONS[category] || ICONS[ICONS.car]
   return Leaflet.divIcon({
     className: null,
     html: `
-      <div class='h-10 w-10 relative rounded bg-gray-900 shadow-xl flex items-center justify-center'>
-        <i class="${cn('fas text-white text-base', icon)}"></i>
-        <div class='pointer-events-none h-2 w-8 -bottom-2 absolute flex justify-center'>
-          <div class='-mt-2 p-1 w-3 h-3 rounded-sm bg-gray-900 shadow-xl transform rotate-45'></div>
+      <div
+        class="${
+          cn(
+            'h-10 w-10 relative rounded shadow-xl',
+            {
+              'bg-gray-900': !dark,
+              'border border-gray-900 bg-gray-200': dark,
+            }
+        )}"
+        >
+        <div
+          class="${
+            cn(
+              'rounded absolute inset-0 z-10 flex items-center justify-center',
+              {
+                'bg-gray-900': !dark,
+                'bg-gray-200': dark,
+              }
+          )}"
+          >
+          <i class="${
+            cn(
+              'fas text-base',
+              icon,
+              {
+                'text-white ': !dark,
+                'text-gray-800 ': dark,
+              }
+            )}"
+          ></i>
+        </div>
+        <div class='pointer-events-none h-2 w-10 -bottom-2 absolute flex justify-center'>
+          <div class="${
+            cn(
+              '-mt-2 p-1 w-3 h-3 rounded-sm shadow-xl transform rotate-45',
+              {
+                'bg-gray-900 ': !dark,
+                'border border-gray-900 bg-gray-200': dark,
+              }
+            )}"
+          ></div>
         </div>
       </div>
     `,
@@ -54,10 +92,7 @@ const MapWrapper = () => {
   if (loading) return null
 
   return (
-    <MapContainer
-      whenCreated={setMap}
-      className='bg-gray-50 w-screen h-screen'
-    >
+    <MapContainer whenCreated={setMap} className='bg-gray-50 w-screen h-screen'>
       <TileLayer {...tile} />
       <MarkerClusterGroup
         ref={clusterRef}
@@ -65,9 +100,9 @@ const MapWrapper = () => {
         disableClusteringAtZoom={12}
         removeOutsideVisibleBounds={true}
       >
-        {markers.map(({ lat, long, name: title, goalProgress, categoryType }: MarkerType, index: number) => {
+        {markers.map(({ lat, long, name: title, categoryType }: MarkerType, index: number) => {
           const latLong = { lat: parseFloat(lat), lng: parseFloat(long) }
-          const icon = buildIcon(goalProgress, categoryType)
+          const icon = buildIcon({ category: categoryType, dark: tile.dark })
           return (
             <Marker key={index} position={latLong} icon={icon}>
               <Popup>

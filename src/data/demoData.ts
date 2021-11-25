@@ -1,10 +1,11 @@
 import { CommunityType, TileStyle } from '@maps/types/index'
+import { TILES } from '@maps/lib/tiles'
 
 const data = {
   config: {
     theme: {
       color: 'green',
-      tileStyle: 'osm' as TileStyle
+      tileStyle: 'stadiaOutdoors' as TileStyle
     },
     maps: [
       {
