@@ -31,7 +31,7 @@ Within the type we define the type of crowdfounding if any.
                                                |           n          |
                                                |                      |
                                                |                      |
-                                               |       map_type(s)    |
+                                               |       forms(s)       |
                                                |                      |
                                                |                      |
                                                |           1          |
