@@ -1,5 +1,14 @@
+import type { IGeocoder } from '@maps/components/SearchControl/geocoders'
 import { TILES } from '@maps/lib/tiles'
 
+export enum MapLocale {
+  es = 'es',
+  ca = 'ca'
+}
+export enum GeocoderService {
+  nominatim = 'nominatim',
+  arcgis = 'arcgis'
+}
 export enum CommunityType {
   mobility = 'mobility',
   housing = 'housing',
