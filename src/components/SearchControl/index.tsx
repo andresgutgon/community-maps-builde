@@ -122,6 +122,9 @@ const SearchControl = ({ locale }: Props) => {
   const { keyboardProps } = useKeyboard({
     onKeyDown: (event) => {
       switch (event.key) {
+        case 'Escape':
+          setVisible(false)
+          break;
         case 'ArrowDown':
         case 'Tab':
           setVisible(true)
