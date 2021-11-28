@@ -136,7 +136,7 @@ const SearchControl = ({ locale }: Props) => {
         <input
           {...keyboardProps}
           autoComplete='off'
-          className='w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-2 px-3 placeholder-gray-500 placeholder-opacity-50'
+          className='w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-2 pl-1 pr-2 placeholder-gray-500 placeholder-opacity-50'
           placeholder={searching ? 'Buscando...' : 'Buscar una dirección...'}
           type='text'
           onChange={onChange}
