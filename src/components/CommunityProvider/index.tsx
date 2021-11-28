@@ -3,14 +3,14 @@ import { ReactNode, createContext, useEffect, useState, useContext } from 'react
 import { Marker, Config } from '@maps/types/index'
 
 interface ContextProps {
-  markers: Array<Marker>;
+  places: Array<Marker>;
   config: Config | null;
   loading: boolean
 }
 const CommunityContext = createContext<ContextProps | null>({
   config: null,
   loading: true,
-  markers: []
+  places: []
 })
 
 type ProviderProps = {
@@ -22,10 +22,10 @@ type ProviderProps = {
 export const CommunityProvider = ({ community, mapId, children }: ProviderProps) => {
   const [loading, setLoading] = useState(true)
   const [config, setConfig] = useState(null)
-  const [markers, setMarkers] = useState([])
+  const [places, setPlaces] = useState([])
   useEffect(() => {
     async function loadData () {
-      const [configResponse, markersResponse] = await Promise.all([
+      const [configResponse, placesResponse] = await Promise.all([
         fetch(`/api/${community}/config`),
         fetch(`/api/${community}/maps/${mapId}/markers`)
       ])
@@ -33,22 +33,22 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
       const config = await configResponse.json()
       setConfig(config)
 
-      // Markers
-      const markers = await markersResponse.json()
-      setMarkers(markers)
+      // Places
+      const places = await placesResponse.json()
+      setPlaces(places)
 
       setLoading(false)
     }
     loadData()
   }, [community, mapId])
   return (
-    <CommunityContext.Provider value={{ loading, markers, config }}>
+    <CommunityContext.Provider value={{ loading, places, config }}>
       {children}
     </CommunityContext.Provider>
   )
 }
 
-export const useMap = () => {
+export const useMapData = () => {
   const context = useContext(CommunityContext)
 
   if (context === undefined) {

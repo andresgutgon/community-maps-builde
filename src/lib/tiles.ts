@@ -6,7 +6,7 @@
  */
 const TILE_DEFAULTS = {
   dark: false,
-  minZoom: 7
+  minZoom: 3
 }
 
 const SHARED_ATTRIBUTIONS = [
