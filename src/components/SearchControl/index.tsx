@@ -2,6 +2,7 @@ import { SyntheticEvent, ChangeEvent, useState } from 'react'
 import cn from 'classnames'
 import { FocusScope, useFocusManager } from '@react-aria/focus'
 import { useKeyboard } from '@react-aria/interactions'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { useMap, useMapEvents } from 'react-leaflet'
 
@@ -89,6 +90,7 @@ const ResultItem = ({ onEsc, result, onClick }: ResultItemProps) => {
 type Props = { locale: MapLocale }
 const SearchControl = ({ locale }: Props) => {
   const map = useMap()
+  const intl = useIntl()
   const [visible, setVisible] = useState(false)
   const [searching, setSearching] = useState(false)
   const geocoder = useGeocoder({ service: GeocoderService.nominatim, locale })
@@ -124,15 +126,21 @@ const SearchControl = ({ locale }: Props) => {
       switch (event.key) {
         case 'Escape':
           setVisible(false)
-          break;
+          break
         case 'ArrowDown':
         case 'Tab':
           setVisible(true)
-          break;
+          break
       }
     }
   })
   const disabled = !search || searching
+  const placeholder = intl.formatMessage({
+    defaultMessage: 'Buscar una dirección', id: 'IVA/Y9',
+  })
+  const placeholderLoading = intl.formatMessage({
+    defaultMessage: 'Buscando', id: 'ctskGr'
+  })
   return (
     <div className='relative'>
       <form onSubmit={onSubmit} autoComplete="off" className='space-x-1 '>
@@ -140,14 +148,14 @@ const SearchControl = ({ locale }: Props) => {
           {...keyboardProps}
           autoComplete='off'
           className='w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-2 pl-1 pr-2 placeholder-gray-500 placeholder-opacity-50'
-          placeholder={searching ? 'Buscando...' : 'Buscar una dirección...'}
+          placeholder={`${searching ? placeholderLoading : placeholder}...`}
           type='text'
           onChange={onChange}
           value={search}
         />
         {/* FIXME: Do the theming starting with the button */}
         <button type='submit' disabled={disabled} className='rounded bg-[#facb00] text-[#3f3e3e] disabled:bg-gray-200 disabled:bg-opacity-80 py-2 text-base px-4 disabled:text-gray-600 disabled:text-opacity-80 disabled:cursor-default'>
-          Buscar
+          <FormattedMessage defaultMessage='Buscar' id="eOuNie" />
         </button>
       </form>
       {visible && (

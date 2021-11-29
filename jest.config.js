@@ -23,5 +23,21 @@ module.exports = {
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  globalSetup: '<rootDir>/__test__/setupEnv.js'
+  globalSetup: '<rootDir>/__test__/setupEnv.js',
+  globals: {
+    'ts-jest': {
+      astTransformers: {
+        before: [
+          {
+            path: '@formatjs/ts-transformer/ts-jest-integration',
+            options: {
+              // options
+              overrideIdFn: '[sha512:contenthash:base64:6]',
+              ast: true
+            }
+          }
+        ]
+      }
+    }
+  }
 }

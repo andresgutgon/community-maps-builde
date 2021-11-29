@@ -1,15 +1,18 @@
 {
-  "name": "nextjs-tailwindcss-typescript-starter",
+  "name": "coopdevs-community-maps",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "lint_and_tsc": "yarn lint && yarn tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "next build"
+    "extract:i18n": "formatjs extract 'src/{pages,components}/**/*.{js,ts,tsx}' --out-file 'content/locales/es.json' --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+    "compile:i18n": "formatjs compile-folder --ast content/locales content/compiled-locales",
+    "i18n": "yarn extract:i18n && yarn compile:i18n",
+    "build": "yarn i18n && next build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
@@ -21,10 +24,13 @@
     "next": "12.0.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-intl": "^5.22.0",
     "react-leaflet": "^3.2.2",
     "react-leaflet-markercluster": "^3.0.0-rc1"
   },
   "devDependencies": {
+    "@formatjs/cli": "^4.4.0",
+    "@formatjs/ts-transformer": "^3.6.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@types/leaflet": "^1.7.6",
     "@types/leaflet.markercluster": "^1.4.6",
@@ -35,6 +41,7 @@
     "babel-jest": "^27.3.1",
     "eslint": "<8.0.0",
     "eslint-config-next": "12.0.4",
+    "eslint-plugin-formatjs": "^2.18.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",
     "jest-fetch-mock": "^3.0.3",
@@ -42,6 +49,7 @@
     "postcss": "^8.3.11",
     "postcss-import": "^14.0.2",
     "tailwindcss": "^2.2.19",
+    "ts-jest": "^27.0.7",
     "typescript": "4.4.4"
   }
 }
