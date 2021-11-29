@@ -1,6 +1,7 @@
 # What is this?
 This is a NextJS application running a Node server that is used to serve community maps to show ammount of contributions.
 It communicates with our Odoo community servers to get the information about their places and also to request new users contributions
+![Map Image](/public/map.png)
 
 ## DOCUMENTATION
 - [Data model](/doc/data-model.md)
