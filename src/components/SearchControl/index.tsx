@@ -159,18 +159,32 @@ const SearchControl = ({ locale }: Props) => {
         </button>
       </form>
       {visible && (
-        <ul className='rounded shadow py-1 absolute top-14 -left-3 -right-3 bg-white'>
-          <FocusScope restoreFocus autoFocus>
-            {results.map((result: GeocodingResult, index: number) => (
-              <li key={index}>
-                <ResultItem
-                  result={result}
-                  onClick={onClickResult}
-                  onEsc={onEscape}
-                />
-              </li>
-            ))}
-          </FocusScope>
+        <ul
+          className={cn(
+            'rounded shadow py-1 absolute top-14 -left-3 -right-3 bg-white',
+            { 'bg-white': results.length > 0, 'bg-gray-200': !results.length }
+          )}
+        >
+          {!results.length && (
+            <li className='p-3 w-full'>
+              <span className='flex flex-col text-center text-sm text-gray-800'>
+                <FormattedMessage defaultMessage='Lo sentimos, no hay resultados para esta dirección' id="Pga9q2" />
+              </span>
+            </li>
+          )}
+          {results.length > 0 && (
+            <FocusScope restoreFocus autoFocus>
+              {results.map((result: GeocodingResult, index: number) => (
+                <li key={index}>
+                  <ResultItem
+                    result={result}
+                    onClick={onClickResult}
+                    onEsc={onEscape}
+                  />
+                </li>
+              ))}
+            </FocusScope>
+          )}
         </ul>
       )}
     </div>
