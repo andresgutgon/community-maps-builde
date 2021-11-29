@@ -8,7 +8,7 @@ import { useMap, useMapEvents } from 'react-leaflet'
 
 import type { NominatimResult, IGeocoder, GeocodingResult } from '@maps/components/SearchControl/geocoders'
 
-import { MapLocale, GeocoderService } from '@maps/types/index'
+import { GeocoderService } from '@maps/types/index'
 
 import useGeocoder from './useGeocoder'
 
@@ -87,7 +87,7 @@ const ResultItem = ({ onEsc, result, onClick }: ResultItemProps) => {
   )
 }
 
-type Props = { locale: MapLocale }
+type Props = { locale: string }
 const SearchControl = ({ locale }: Props) => {
   const map = useMap()
   const intl = useIntl()

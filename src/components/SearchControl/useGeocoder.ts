@@ -3,11 +3,11 @@ import { Control } from 'leaflet'
 import type { IGeocoder, GeocodingResult } from '@maps/components/SearchControl/geocoders'
 
 import { nominatim } from './geocoders/index'
-import { MapLocale, GeocoderService } from '@maps/types/index'
+import { GeocoderService } from '@maps/types/index'
 
 type UseGeocoderProps = {
   service: GeocoderService,
-  locale: MapLocale
+  locale: string
 }
 const useGeocoder = ({ service, locale }: UseGeocoderProps): IGeocoder => {
   return useMemo(
