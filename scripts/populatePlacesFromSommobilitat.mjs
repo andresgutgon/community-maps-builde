@@ -12,28 +12,28 @@ const mobilityCategories = [
 const randomProgress = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 /**
- * This is a one off script to populate markers
+ * This is a one off script to populate places
  * for the demo data. Ignore if you're not developing in this repo.
- * The data should be already in `./src/data/markers.json`
+ * The data should be already in `./src/data/places.json`
  */
-async function fetchMarkers () {
+async function fetchPlaces () {
   const response = await fetch('https://www.sommobilitat.coop/wp-admin/admin-ajax.php?action=getparkings')
   const data = await response.json()
-  const markers = data.data.parkings.map(marker => {
-    const [lat, long] = marker.position.split(',')
+  const places = data.data.parkings.map(place => {
+    const [lat, long] = place.position.split(',')
     const categoryType = mobilityCategories[
       Math.floor(Math.random() * mobilityCategories.length)
     ]
     const address = new RegExp(/Adreça a decidir/).test('Adreça a decidir')
       ? null
-      : marker.address
+      : place.address
     return {
       lat: lat.trim(),
       long: long.trim(),
-      name: marker.title,
-      slug: marker.name,
+      name: place.title,
+      slug: place.name,
       address,
-      active: STATUS_MAPPING[marker.parking_status] === 'active',
+      active: STATUS_MAPPING[place.parking_status] === 'active',
       categoryType,
       goalProgress: randomProgress(0, 100),
       mapTypeId: 1 // Hardcoded for now
@@ -41,9 +41,9 @@ async function fetchMarkers () {
   })
 
   fs.writeFileSync(
-    './src/data/markers.json',
-    JSON.stringify(markers)
+    './src/data/places.json',
+    JSON.stringify(places)
   )
 }
 
-fetchMarkers()
+fetchPlaces()

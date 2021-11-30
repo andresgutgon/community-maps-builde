@@ -6,7 +6,7 @@ import { useMap, MapContainer, ZoomControl, TileLayer, Marker, Popup } from 'rea
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
-import type { Category, MapAttribution, Marker as MarkerType } from '@maps/types/index'
+import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
 import ReactControl from '@maps/components/ReactControl/index'
 import Search from '@maps/components/SearchControl'
@@ -15,7 +15,7 @@ import buildIcon from './buildIcon'
 import buttomStyles from '@maps/components/Button/index.module.css'
 
 /**
- * Set default Leaflet icon marker
+ * Set default Leaflet icon place
  * Not used but is the way to let Leaflet know where
  * are these images in this project
  */
@@ -54,14 +54,14 @@ const MapWrapper = () => {
       </ReactControl>
       <ZoomControl position='topleft' />
 
-      {/* The places. These are the markers of this map */}
+      {/* The places. These are the places of this map */}
       <MarkerClusterGroup
         ref={clusterRef}
         showCoverageOnHover={false}
         disableClusteringAtZoom={12}
         removeOutsideVisibleBounds={true}
       >
-        {places.map(({ lat, long, name: title, categoryType }: MarkerType, index: number) => {
+        {places.map(({ lat, long, name: title, categoryType }: PlaceType, index: number) => {
           const latLong = { lat: parseFloat(lat), lng: parseFloat(long) }
           const icon = buildIcon({ category: categoryType, dark: tile.dark })
           return (

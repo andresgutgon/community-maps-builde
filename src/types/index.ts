@@ -32,7 +32,7 @@ export type Tile = {
 }
 export type TileStyle = keyof typeof TILES
 
-export type Marker = {
+export type Place = {
   slug: string
   mapTypeId: number
   lat: string

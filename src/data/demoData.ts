@@ -14,7 +14,7 @@ const data = {
         description: 'A description of this map maybe',
         map_types: [
           {
-            id: 1, // Hardcoded to match fake markers
+            id: 1, // Hardcoded to match fake places
             type: CommunityType.mobility
           }
         ]

@@ -16,7 +16,7 @@ SOMMCONEXIO_HOST=https://somconnexion-odoo.org/api/maps
 ```
 If we find this ENV variavle we then can make requests to this server with a `SECRET_TOKEN` env varible that
 this server has to have provisioned. This way only maps server can make requests to their API for creating
-marker submissions.
+place submissions.
 
 We'll make this request to get the config for a map with `:map_id` (A number or a slug).
 ```
