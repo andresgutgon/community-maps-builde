@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Control, ControlOptions, DomUtil, DomEvent,  Map as LeafletMap, Icon } from 'leaflet'
 import 'leaflet.markercluster'
-import { useMap, MapContainer, ZoomControl, TileLayer, Marker, Popup } from 'react-leaflet'
+import { useMap, MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
@@ -10,9 +10,8 @@ import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/i
 import useTile from '@maps/components/CommunityProvider/useTile'
 import ReactControl from '@maps/components/ReactControl/index'
 import Search from '@maps/components/SearchControl'
-
-import buildIcon from './buildIcon'
-import buttomStyles from '@maps/components/Button/index.module.css'
+import Place from '@maps/components/Place'
+import SubmissionForm from './SubmissionForm'
 
 /**
  * Set default Leaflet icon place
@@ -31,54 +30,80 @@ const MapWrapper = () => {
   const { loading, config, places } = useMapData()
   const tile = useTile(config)
   const [map, setMap] = useState<LeafletMap>(null)
+  const [openPlace, setPlaceModal] = useState<PlaceType>(null)
+  const [isOpen, setModal] = useState<boolean>(false)
   const clusterRef = useRef<MarkerClusterGroup>(null)
+  const closePlaceFn = () => setPlaceModal(null)
   useEffect(() => {
     if (!map) return;
 
     map.fitBounds(clusterRef.current.getBounds());
   }, [map])
+  useEffect(() => {
+    if (open) return
 
+    setPlaceModal(null)
+  }, [isOpen])
+
+  // FIXME: Remove this effect
+  useEffect(() => {
+    if (loading) return;
+
+    setModal(true)
+    setPlaceModal(places[0])
+  }, [places, loading, setPlaceModal])
 
   if (loading) return null
 
   return (
-    <MapContainer
-      zoomControl={false}
-      whenCreated={setMap}
-      className='bg-gray-50 w-screen h-screen'
-    >
-      <ReactControl position='topleft'>
-        <div className='shadow rounded bg-white p-3'>
-          <Search locale={locale} />
-        </div>
-      </ReactControl>
-      <ZoomControl position='topleft' />
-
-      {/* The places. These are the places of this map */}
-      <MarkerClusterGroup
-        ref={clusterRef}
-        showCoverageOnHover={false}
-        disableClusteringAtZoom={12}
-        removeOutsideVisibleBounds={true}
+    <>
+      <MapContainer
+        zoomControl={false}
+        whenCreated={setMap}
+        className='z-40 bg-gray-50 w-screen h-screen'
       >
-        {places.map(({ lat, long, name: title, categoryType }: PlaceType, index: number) => {
-          const latLong = { lat: parseFloat(lat), lng: parseFloat(long) }
-          const icon = buildIcon({ category: categoryType, dark: tile.dark })
-          return (
-            <Marker key={index} position={latLong} icon={icon}>
-              <Popup>
-                <div className='text-red-700'>
-                  {`\`{ lat: '${lat}', long: '${long}', name: '${title}' }\``}
-                </div>
-              </Popup>
-            </Marker>
-          )
-        })}
-      </MarkerClusterGroup>
+        <ReactControl position='topleft'>
+          <div className='shadow rounded bg-white p-3'>
 
-      {/* The tiles and the attribution in the map*/}
-      <TileLayer {...tile} />
-    </MapContainer>
+            {/*
+              FIXME: Load this with dynamic import like
+              the SubmissionForm.
+              FIXME: Make this component responsive
+              Put icons on mobile and on touch expand
+            */}
+            <Search locale={locale} />
+          </div>
+        </ReactControl>
+        <ZoomControl position='topleft' />
+
+        {/* The places. These are the places of this map */}
+        <MarkerClusterGroup
+          ref={clusterRef}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={12}
+          removeOutsideVisibleBounds={true}
+        >
+          {places.map((place: PlaceType, index: number) =>
+            <Place
+              key={index}
+              place={place}
+              openPlaceFn={() => {
+                setPlaceModal(place)
+                setModal(true)
+              }}
+            />
+          )}
+        </MarkerClusterGroup>
+
+        {/* The tiles and the attribution in the map*/}
+        <TileLayer {...tile} />
+      </MapContainer>
+      <SubmissionForm
+        isOpen={isOpen}
+        closePlaceFn={() => setModal(false)}
+        place={openPlace}
+      />
+    </>
   )
 }
 

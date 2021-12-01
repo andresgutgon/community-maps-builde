@@ -1,6 +1,12 @@
 {
+  "CVLHyq": {
+    "defaultMessage": "Selecciona las opciones más adecuadas para tí"
+  },
   "IVA/Y9": {
     "defaultMessage": "Buscar una dirección"
+  },
+  "MwlsML": {
+    "defaultMessage": "Cerrar modal"
   },
   "Pga9q2": {
     "defaultMessage": "Lo sentimos, no hay resultados para esta dirección"
@@ -10,5 +16,11 @@
   },
   "eOuNie": {
     "defaultMessage": "Buscar"
+  },
+  "ifARjC": {
+    "defaultMessage": "Participar"
+  },
+  "nZLeaQ": {
+    "defaultMessage": "Cancelar"
   }
 }
