@@ -17,7 +17,7 @@ const ModalWrapper = forwardRef<
   HTMLDivElement | HTMLFormElement, ModalWrapperProps
 >(function ModalWrapper({ closeFn, onSubmit, children }, ref) {
   let props: ElementProps = {
-    className: 'inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-lg lg:max-w-xl sm:w-full'
+    className: 'inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-lg sm:w-full'
   }
   props = onSubmit ? {
     ...props,
@@ -81,18 +81,6 @@ export default function Modal({
           >
             <ModalWrapper closeFn={closeFn} onSubmit={onSubmit}>
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
-                  <Button
-                    size={ButtonSize.none}
-                    style={ButtonStyles.transparent}
-                    onClick={() => closeFn()}
-                  >
-                    <span className="sr-only">
-                      <FormattedMessage defaultMessage='Cerrar modal' id='MwlsML' />
-                    </span>
-                    <XIcon className="h-6 w-6" aria-hidden="true" />
-                  </Button>
-                </div>
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 space-y-2 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
@@ -106,6 +94,18 @@ export default function Modal({
                 {children ? (
                   <div className='mt-6 mb-4'>{children}</div>
                 ): null}
+                <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+                  <Button
+                    size={ButtonSize.none}
+                    style={ButtonStyles.transparent}
+                    onClick={() => closeFn()}
+                  >
+                    <span className="sr-only">
+                      <FormattedMessage defaultMessage='Cerrar modal' id='MwlsML' />
+                    </span>
+                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                  </Button>
+                </div>
               </div>
               {footer ? (
                 <div className="space-y-2 sm:space-y-0 space-x-3 space-x-reverse bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
