@@ -1,6 +1,15 @@
 {
+  "1uGo7W": {
+    "defaultMessage": "Este campo es numérico"
+  },
+  "3Fs00I": {
+    "defaultMessage": "El campo {fieldName} es obligatorio"
+  },
   "CVLHyq": {
     "defaultMessage": "Selecciona las opciones más adecuadas para tí"
+  },
+  "IOnTHc": {
+    "defaultMessage": "Participar"
   },
   "IVA/Y9": {
     "defaultMessage": "Buscar una dirección"
@@ -17,10 +26,10 @@
   "eOuNie": {
     "defaultMessage": "Buscar"
   },
-  "ifARjC": {
-    "defaultMessage": "Participar"
-  },
   "nZLeaQ": {
     "defaultMessage": "Cancelar"
+  },
+  "zaaFVR": {
+    "defaultMessage": "El formato de email no es válido"
   }
 }

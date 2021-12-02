@@ -8,6 +8,7 @@ It communicates with our Odoo community servers to get the information about the
 - [Security](/doc/security.md)
 - [Translations (i18n)](/doc/i18n.md)
 - [Icons for places](/doc/icons.md)
+- [JSON Schema Forms](/doc/json-schema-forms.md)
 
 ### Development
 - You need to have installed in your machine [Node > 16.x.x](https://nodejs.org/en/)

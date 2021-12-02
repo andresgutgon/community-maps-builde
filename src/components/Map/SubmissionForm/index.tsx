@@ -1,31 +1,36 @@
-import { useState, SyntheticEvent } from 'react'
+import { lazy, useEffect, useState, SyntheticEvent } from 'react'
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { JsonForms } from '@jsonforms/react'
+import { JsonFormsCore } from '@jsonforms/core'
 import { JsonFormsStyleContext, vanillaCells, vanillaRenderers } from '@jsonforms/vanilla-renderers'
+import { JsonForms } from '@jsonforms/react'
+import { ErrorObject } from 'ajv'
 
 import Button, { Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import Dialog from '@maps/components/Dialog'
 import type { Place as PlaceType } from '@maps/types/index'
 import { formStyles } from '@maps/lib/jsonForms/styles'
+import { useTranslateError } from './useTranslateError'
 
 const jsonSchema = {
   "type":"object",
   "properties":{
     "name":{
-      "type":"string",
-      "maxLength": 3
+      "type":"string"
     },
     "telephone":{
       "type":"integer"
     },
     "email":{
-      "type":"string"
+      "type":"string",
+      "format": "email"
     },
     "identifier":{
       "type":"string"
     }
   },
-  "required":[
+  "required": [
     "name",
     "telephone",
     "email",
@@ -39,7 +44,7 @@ const uiSchema = {
     {
       "type":"Control",
       "scope":"#/properties/name",
-      "label": "Nombre",
+      "label": "Nombre"
     },
     {
       "type":"Control",
@@ -70,11 +75,17 @@ type Props = {
   closePlaceFn: () => void
 }
 export default function SubmissionForm ({ isOpen, closePlaceFn, place }: Props) {
-  const [data, setData] = useState({})
+  const { locale } = useRouter()
+  const [localizeFn, setLocalizeFn] = useState()
+  const [data, setData] = useState({ telephone: '33' })
+  const translateError = useTranslateError()
   const intl = useIntl()
-  console.log('DATA', data)
   const onSubmit = async (closeFn: Function) => {
     console.log('Submit')
+  }
+  const onChange = ({ data, errors }: JsonFormsCore) => {
+    //console.log('Data', data)
+    setData(data)
   }
   return (
     <Dialog
@@ -117,7 +128,8 @@ export default function SubmissionForm ({ isOpen, closePlaceFn, place }: Props) 
           data={data}
           renderers={vanillaRenderers}
           cells={vanillaCells}
-          onChange={({ data, errors }) => setData(data)}
+          onChange={onChange}
+          i18n={{ translateError }}
         />
       </JsonFormsStyleContext.Provider>
     </Dialog>
