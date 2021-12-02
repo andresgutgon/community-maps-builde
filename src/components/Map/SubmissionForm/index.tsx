@@ -77,7 +77,7 @@ type Props = {
 export default function SubmissionForm ({ isOpen, closePlaceFn, place }: Props) {
   const { locale } = useRouter()
   const [localizeFn, setLocalizeFn] = useState()
-  const [data, setData] = useState({ telephone: '33' })
+  const [data, setData] = useState({})
   const translateError = useTranslateError()
   const intl = useIntl()
   const onSubmit = async (closeFn: Function) => {
@@ -87,6 +87,8 @@ export default function SubmissionForm ({ isOpen, closePlaceFn, place }: Props) 
     //console.log('Data', data)
     setData(data)
   }
+  // Clean form data when dialog is closed
+  useEffect(() => { if (!isOpen) { setData({}) } }, [isOpen])
   return (
     <Dialog
       onSubmit={onSubmit}
