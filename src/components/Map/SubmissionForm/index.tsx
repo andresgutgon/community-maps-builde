@@ -12,7 +12,8 @@ const jsonSchema = {
   "type":"object",
   "properties":{
     "name":{
-      "type":"string"
+      "type":"string",
+      "maxLength": 3
     },
     "telephone":{
       "type":"integer"
@@ -38,12 +39,12 @@ const uiSchema = {
     {
       "type":"Control",
       "scope":"#/properties/name",
-      "label": "Nombre"
+      "label": "Nombre",
     },
     {
       "type":"Control",
       "scope":"#/properties/email",
-      "label":"Email",
+      "label":"Email"
     },
     {
       "type": 'HorizontalLayout',
@@ -110,6 +111,9 @@ export default function SubmissionForm ({ isOpen, closePlaceFn, place }: Props) 
         <JsonForms
           schema={jsonSchema}
           uischema={uiSchema}
+          config={{
+            hideRequiredAsterisk: true
+          }}
           data={data}
           renderers={vanillaRenderers}
           cells={vanillaCells}

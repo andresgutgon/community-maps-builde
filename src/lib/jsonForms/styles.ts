@@ -34,11 +34,11 @@ export const formStyles = {
     },
     {
       name: 'control.validation',
-      classNames: ['hidden text-sm py-1 px-2 rounded-sm text-red-600 bg-red-100 border border-red-200']
+      classNames: ['text-sm py-1 px-2 rounded-sm']
     },
     {
       name: 'control.validation.error',
-      classNames: ['block']
+      classNames: ['block text-red-600 bg-red-50 border border-red-100']
     },
     {
       name: 'control.description',
