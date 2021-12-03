@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
-import data from '@maps/data/demoData'
+import config from '@maps/data/config'
 import configHandler from './config'
 
 import fetchMock from "jest-fetch-mock"
 global.fetch = fetchMock
-fetchMock.mockResponse(JSON.stringify(data.config))
+fetchMock.mockResponse(JSON.stringify(config))
 
 const DEMO_TOKEN = process.env.DEMO_SECRET_TOKEN
 const DEMO_PATH = 'demo'
@@ -22,7 +22,7 @@ describe('api/[community]/config', () => {
 
         expect(response.status).toBe(200);
 
-        expect(await response.json()).toStrictEqual(data.config)
+        expect(await response.json()).toStrictEqual(config)
       }
     });
   })

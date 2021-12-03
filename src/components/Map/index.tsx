@@ -100,7 +100,7 @@ const MapWrapper = () => {
       </MapContainer>
       <SubmissionForm
         isOpen={isOpen}
-        closePlaceFn={() => setModal(false)}
+        closeFn={() => setModal(false)}
         place={openPlace}
       />
     </>

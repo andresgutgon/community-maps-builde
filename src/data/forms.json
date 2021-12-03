@@ -1,0 +1,59 @@
+{
+  "first-map": {
+    "jsonSchema": {
+      "type":"object",
+      "properties":{
+        "name":{
+          "type":"string"
+        },
+        "telephone":{
+          "type":"integer"
+        },
+        "email":{
+          "type":"string",
+          "format": "email"
+        },
+        "identifier":{
+          "type":"string"
+        }
+      },
+      "required": [
+        "name",
+        "telephone",
+        "email",
+        "identifier"
+      ]
+    },
+    "uiSchema": {
+      "type":"VerticalLayout",
+      "elements":[
+        {
+          "type":"Control",
+          "scope":"#/properties/name",
+          "label": "Nombre"
+        },
+        {
+          "type":"Control",
+          "scope":"#/properties/email",
+          "label":"Email"
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope":"#/properties/telephone",
+              "label": "Teléfono"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/identifier",
+              "label":"DNI"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+

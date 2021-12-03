@@ -6,7 +6,7 @@ import { ICONS } from '@maps/lib/icons'
 
 type BuildIconProps = { category: Category }
 export default function buildIcon ({ category }: BuildIconProps): DivIcon {
-  const icon = ICONS[category] || ICONS[ICONS.car]
+  const icon = ICONS[category.iconKey] || ICONS[ICONS.car]
   return divIcon({
     className: null,
     html: `

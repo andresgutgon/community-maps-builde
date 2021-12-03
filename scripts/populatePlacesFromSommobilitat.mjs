@@ -20,8 +20,8 @@ async function fetchPlaces () {
   const response = await fetch('https://www.sommobilitat.coop/wp-admin/admin-ajax.php?action=getparkings')
   const data = await response.json()
   const places = data.data.parkings.map(place => {
-    const [lat, long] = place.position.split(',')
-    const categoryType = mobilityCategories[
+    const [lat, lng] = place.position.split(',')
+    const categorySlug = mobilityCategories[
       Math.floor(Math.random() * mobilityCategories.length)
     ]
     const address = new RegExp(/Adreça a decidir/).test('Adreça a decidir')
@@ -29,14 +29,13 @@ async function fetchPlaces () {
       : place.address
     return {
       lat: lat.trim(),
-      long: long.trim(),
+      lng: lng.trim(),
       name: place.title,
       slug: place.name,
       address,
       active: STATUS_MAPPING[place.parking_status] === 'active',
-      categoryType,
       goalProgress: randomProgress(0, 100),
-      mapTypeId: 1 // Hardcoded for now
+      category_slug:  categorySlug
     }
   })
 

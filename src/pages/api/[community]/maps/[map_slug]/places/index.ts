@@ -4,9 +4,9 @@ import withHeaderBearerToken from '@maps/lib/middlewares/withHeaderBearerToken'
 import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerToken'
 
 const places = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
-  const { map_id } = request.query
+  const { map_slug: slug } = request.query
   const serverResponse = await fetch(
-    `${communityHost}/maps/${map_id}/places`,
+    `${communityHost}/maps/${slug}/places`,
     {
       method: 'GET',
       headers: tokenHeaders

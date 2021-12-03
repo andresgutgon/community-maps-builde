@@ -1,21 +1,12 @@
+import { JsonSchema, HorizontalLayout, VerticalLayout, GroupLayout } from '@jsonforms/core'
 import type { IGeocoder } from '@maps/components/SearchControl/geocoders'
 import { TILES } from '@maps/lib/tiles'
 
+export type { JsonSchema, } from '@jsonforms/core'
+export type UIJsonFormSchema = HorizontalLayout | VerticalLayout | GroupLayout
 export enum GeocoderService {
   nominatim = 'nominatim',
   arcgis = 'arcgis'
-}
-export enum CommunityType {
-  mobility = 'mobility',
-  housing = 'housing',
-  energy = 'energy'
-}
-
-export enum Category {
-  car = 'car',
-  van = 'van',
-  bike_charger = 'bike_charger',
-  car_charger = 'car_charger'
 }
 
 export type MapAttribution = {
@@ -32,28 +23,53 @@ export type Tile = {
 }
 export type TileStyle = keyof typeof TILES
 
-export type Place = {
-  slug: string
-  mapTypeId: number
-  lat: string
-  long: string
-  name: string
-  address: string | null
-  active: boolean
-  goalProgress: number,
-  categoryType: Category
+export enum CategoryIcon {
+  car = 'car',
+  van = 'van',
+  bike_charger = 'bike_charger',
+  car_charger = 'car_charger'
 }
 
-export type MapType = {
-  id: number,
-  type: CommunityType
+export enum CategoryColor {
+  brand = 'brand',
+  pink = 'pink',
+  blue = 'blue',
+  green = 'green',
+  orange = 'orange',
+  black = 'black',
+  purple = 'purple'
 }
+
 export type Map = {
   slug: string
   name: string
   description: string | null
-  map_types: Array<MapType>
   tyleStyle?: TileStyle
+}
+
+export type Category = {
+  slug: string
+  map_slug: string
+  iconKey: CategoryIcon
+  iconColor: CategoryColor
+  name: string
+  description: string | null
+}
+
+export type Form = {
+  jsonSchema: JsonSchema,
+  uiSchema: UIJsonFormSchema
+}
+
+export type Place = {
+  slug: string
+  category_slug: string
+  lat: string
+  lng: string
+  name: string
+  address: string | null
+  active: boolean
+  goalProgress: number
 }
 
 type Theme = {
@@ -62,6 +78,8 @@ type Theme = {
 }
 
 export type Config = {
-  theme: Theme,
-  maps: Array<Map>
+  theme: Theme
+  maps: Record<string, Map>
+  forms: Record<string, Form>
+  categories: Record<string, Category>
 }

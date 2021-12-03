@@ -11,7 +11,8 @@
       "@maps/lib/*": ["lib/*"],
       "@maps/data/*": ["data/*"],
       "@maps/types/*": ["types/*"],
-      "@maps/components/*": ["components/*"]
+      "@maps/components/*": ["components/*"],
+      "@maps/hooks/*": ["hooks/*"]
     },
     "plugins": [
       {

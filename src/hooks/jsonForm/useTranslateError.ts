@@ -1,7 +1,14 @@
 import { useIntl } from 'react-intl'
 import { UISchemaElement, Translator } from '@jsonforms/core'
 import { ErrorObject } from 'ajv'
-export const useTranslateError = () => {
+
+export type TranslateErrorFn = (
+  error: ErrorObject,
+  _translate: Translator,
+  uischema: UISchemaElement
+) => string
+
+export const useTranslateError = (): TranslateErrorFn => {
   const intl = useIntl()
   return (
     error: ErrorObject,
