@@ -37,6 +37,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
       footer={
         <>
           <Button
+            disabled={!form.isValid}
             type={ButtonType.submit}
             fullWidth
             style={ButtonStyles.branded}
@@ -58,13 +59,11 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
         <JsonForms
           schema={form.jsonSchema}
           uischema={form.uiSchema}
-          config={{
-            hideRequiredAsterisk: true
-          }}
           data={form.data}
           renderers={vanillaRenderers}
           cells={vanillaCells}
           onChange={form.onChange}
+          validationMode={form.validationMode}
           i18n={{ translateError: form.translateError }}
         />
       </JsonFormsStyleContext.Provider>

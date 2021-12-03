@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState } from 'react'
-import { JsonFormsCore } from '@jsonforms/core'
+import { ValidationMode, JsonFormsCore } from '@jsonforms/core'
 
 import type { Form, JsonSchema, UIJsonFormSchema, Config, Place } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
@@ -22,6 +22,8 @@ function findForm (config: Config, place: Place | null): Form | null {
   return config.mapForms[category.map_slug]
 }
 
+const showValidationMode = 'ValidateAndShow' as ValidationMode
+const noValidationMode = 'NoValidation' as ValidationMode
 type Props = {
   place: Place | null,
   isOpen: boolean
@@ -30,6 +32,8 @@ type OnChangeFn = (jsonForm: JsonFormsCore) => void
 type ReturnType = {
   translateError: TranslateErrorFn,
   jsonSchema: JsonSchema,
+  isValid: boolean,
+  validationMode: ValidationMode,
   uiSchema: UIJsonFormSchema,
   onSubmit: (closeFn: Function) => void,
   onChange: OnChangeFn,
@@ -37,9 +41,30 @@ type ReturnType = {
 }
 const useForm = ({ place, isOpen }: Props): ReturnType | null=> {
   const [data, setData] = useState({})
+  const [errors, setErrors] = useState([])
+  const [validationMode, setValidationMode] = useState<ValidationMode>(noValidationMode)
+  const [isValid, setValid] = useState(false)
   const { config } = useMapData()
   const translateError = useTranslateError()
   const form = useMemo(() => findForm(config, place), [place, config])
+  const jsonSchema = form?.jsonSchema
+  const requiredFields = useMemo(() => jsonSchema?.required || [], [jsonSchema])
+  const uiSchema = form?.uiSchema
+
+
+  // Check all fields that are required are filled by the user
+  useEffect(() => {
+    if (validationMode === showValidationMode) return
+    const dataKeys = Object.keys(data)
+    if (!requiredFields.length) {
+      setValidationMode(noValidationMode)
+    } else if (requiredFields.every(required => dataKeys.includes(required))) {
+      setValidationMode(showValidationMode)
+    }
+  }, [data, validationMode, requiredFields])
+  useEffect(() => {
+    setValid(validationMode === showValidationMode && !errors.length)
+  }, [validationMode, errors])
 
   // NOTE:
   // because we never destroy de Dialog to get animation
@@ -48,9 +73,9 @@ const useForm = ({ place, isOpen }: Props): ReturnType | null=> {
 
   if (!form) return null
 
-  const { jsonSchema, uiSchema } = form
   const onChange = ({ data, errors }: JsonFormsCore) => {
     setData(data)
+    setErrors(errors)
   }
   const onSubmit = async (closeFn: Function) => {
     console.log('Submit')
@@ -61,6 +86,8 @@ const useForm = ({ place, isOpen }: Props): ReturnType | null=> {
     uiSchema,
     onSubmit,
     onChange,
+    validationMode,
+    isValid,
     data
   }
 }

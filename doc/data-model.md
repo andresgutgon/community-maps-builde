@@ -87,8 +87,10 @@ erDiagram
     CATEGORY {
         string slug
         string map_slug
-        string icon
-        string color
+        string name
+        string description
+        string iconKey
+        string iconColor
     }
 
     PLACE {
