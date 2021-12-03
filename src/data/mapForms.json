@@ -3,6 +3,10 @@
     "jsonSchema": {
       "type":"object",
       "properties":{
+        "contribution_type": {
+          "type": "string",
+          "enum": ["prepaid", "sponsorship"]
+        },
         "name":{
           "type":"string"
         },
@@ -11,13 +15,15 @@
         },
         "email":{
           "type":"string",
-          "format": "email"
+          "format": "email",
+          "description": "Tu email para poder contactarte"
         },
         "identifier":{
           "type":"string"
         }
       },
       "required": [
+        "contribution_type",
         "name",
         "telephone",
         "email",
@@ -28,27 +34,52 @@
       "type":"VerticalLayout",
       "elements":[
         {
-          "type":"Control",
-          "scope":"#/properties/name",
-          "label": "Nombre"
-        },
-        {
-          "type":"Control",
-          "scope":"#/properties/email",
-          "label":"Email"
-        },
-        {
-          "type": "HorizontalLayout",
+          "type": "Group",
+          "label": "Tu aportación",
           "elements": [
             {
               "type": "Control",
-              "scope":"#/properties/telephone",
-              "label": "Teléfono"
-            },
+              "scope": "#/properties/contribution_type",
+              "label": "Tipo de contribución",
+              "options": {
+                "format": "radio"
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Datos personales",
+          "elements": [
             {
-              "type": "Control",
-              "scope": "#/properties/identifier",
-              "label":"DNI"
+              "type":"VerticalLayout",
+              "elements":[
+                {
+                  "type":"Control",
+                  "scope":"#/properties/name",
+                  "label": "Nombre"
+                },
+                {
+                  "type":"Control",
+                  "scope":"#/properties/email",
+                  "label":"Email"
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope":"#/properties/telephone",
+                      "label": "Teléfono"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/identifier",
+                      "label":"DNI"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

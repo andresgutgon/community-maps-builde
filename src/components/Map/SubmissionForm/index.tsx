@@ -60,6 +60,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
           schema={form.jsonSchema}
           uischema={form.uiSchema}
           data={form.data}
+          config={{ showUnfocusedDescription: true }}
           renderers={vanillaRenderers}
           cells={vanillaCells}
           onChange={form.onChange}

@@ -10,7 +10,7 @@ export const formStyles = {
   styles: [
     {
       name: 'vertical.layout',
-      classNames: ['space-y-4 ']
+      classNames: ['space-y-6']
     },
     {
       name: 'horizontal.layout',
@@ -22,7 +22,7 @@ export const formStyles = {
     },
     {
       name: 'control',
-      classNames: ['flex flex-col w-full space-y-1']
+      classNames: ['flex flex-col w-full space-y-2']
     },
     {
       name: 'control.label',
@@ -34,15 +34,23 @@ export const formStyles = {
     },
     {
       name: 'control.validation',
-      classNames: ['text-sm py-1 px-2 rounded-sm']
+      classNames: ['text-xs']
     },
     {
       name: 'control.validation.error',
-      classNames: ['block text-red-600 bg-red-50 border border-red-100']
+      classNames: ['py-1 px-2 rounded-sm block text-red-600 bg-red-50 border border-red-100']
     },
     {
-      name: 'control.description',
-      classNames: ['text-sm text-gray-500']
+      name: 'input.description',
+      classNames: ['text-xs text-gray-500']
+    },
+    {
+      name: 'group.layout',
+      classNames: ['w-full space-y-4 rounded border border-gray-200 pt-2 pb-4 px-4']
+    },
+    {
+      name: 'group.label',
+      classNames: ['px-2 text-xs text-gray-400 uppercase tracking-wide']
     }
   ]
 }
