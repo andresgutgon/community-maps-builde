@@ -66,8 +66,9 @@ Now let's see visually these relations:
 %%{init: {"theme": "default", "er": { "layoutDirection": "LR", "useMaxWidth": true } }}%%
 erDiagram
     COMMUNITY ||--|{ MAP : contains
-    MAP ||--|{ FORM: has_many
-    FORM ||--|{ CATEGORY: has_many
+    MAP ||--|{ CATEGORY: has_many
+    MAP ||--|{ FORM: one
+    CATEGORY ||--|| FORM: one
     CATEGORY ||--|{ PLACE: has_many
     PLACE ||--|{ PLACE_SUBMISSION: has_many
 
@@ -77,18 +78,21 @@ erDiagram
     }
 
     FORM {
-        integer mapId
-        json submission_schema
+        string entity_type
+        integer entity_id
+        json jsonSchema
+        json uiSchema
     }
 
     CATEGORY {
-        integer form_id
+        string slug
+        string map_slug
         string icon
         string color
     }
 
     PLACE {
-        integer category_id
+        integer category_slug
         string lat
         string lng
         string name

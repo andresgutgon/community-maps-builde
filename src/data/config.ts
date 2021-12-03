@@ -1,6 +1,7 @@
 import { Form, Category, TileStyle } from '@maps/types/index'
 import { TILES } from '@maps/lib/tiles'
-import forms from './forms.json'
+import mapForms from './mapForms.json'
+import categoryForms from './categoryForms.json'
 import categories from './categories.json'
 
 const data = {
@@ -8,7 +9,8 @@ const data = {
     color: 'green',
     tileStyle: 'osm' as TileStyle
   },
-  forms: forms as Record<string, Form>,
+  mapForms: mapForms as Record<string, Form>,
+  categoryForms: categoryForms as Record<string, Form>,
   categories: categories as Record<string, Category>,
   maps: {
     'first-map': {

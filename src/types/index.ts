@@ -30,12 +30,12 @@ export enum CategoryIcon {
   car_charger = 'car_charger'
 }
 
-export enum CategoryColor {
+export enum IconColor {
   brand = 'brand',
   pink = 'pink',
   blue = 'blue',
   green = 'green',
-  orange = 'orange',
+  yellow = 'yellow',
   black = 'black',
   purple = 'purple'
 }
@@ -51,7 +51,7 @@ export type Category = {
   slug: string
   map_slug: string
   iconKey: CategoryIcon
-  iconColor: CategoryColor
+  iconColor: IconColor
   name: string
   description: string | null
 }
@@ -80,6 +80,7 @@ type Theme = {
 export type Config = {
   theme: Theme
   maps: Record<string, Map>
-  forms: Record<string, Form>
+  mapForms: Record<string, Form>
+  categoryForms: Record<string, Form>
   categories: Record<string, Category>
 }
