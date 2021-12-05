@@ -5,14 +5,18 @@
       "properties":{
         "contribution_type": {
           "type": "string",
-          "enum": ["prepaid", "sponsorship"],
+          "enum": [
+            "prepaid",
+            "sponsorship"
+          ],
           "description": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
         },
         "name":{
           "type":"string"
         },
         "telephone":{
-          "type":"integer"
+          "type":"integer",
+          "description": "Sólo números en tú teléfono : )"
         },
         "email":{
           "type":"string",
@@ -50,7 +54,7 @@
         },
         {
           "type": "Group",
-          "label": "Datos personales",
+          "label": "Tus datos de contacto",
           "elements": [
             {
               "type":"VerticalLayout",
