@@ -39,7 +39,7 @@ type ReturnType = {
   onChange: OnChangeFn,
   data: any
 }
-const useForm = ({ place, isOpen }: Props): ReturnType | null=> {
+export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   const [data, setData] = useState({})
   const [errors, setErrors] = useState([])
   const [validationMode, setValidationMode] = useState<ValidationMode>(noValidationMode)

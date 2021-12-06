@@ -47,7 +47,7 @@
               "scope": "#/properties/contribution_type",
               "label": "Tipo de contribución",
               "options": {
-                "format": "radio"
+                "format": "coopdevs_radio"
               }
             }
           ]

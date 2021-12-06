@@ -2,14 +2,15 @@ import { lazy, useEffect, useState, SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { JsonFormsStyleContext, vanillaCells, vanillaRenderers } from '@jsonforms/vanilla-renderers'
+import { JsonFormsStyleContext, vanillaCells } from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 
+import renderers from '@maps/components/CustomJsonForms/renderers'
 import Button, { Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import Dialog from '@maps/components/Dialog'
 import type { Place as PlaceType } from '@maps/types/index'
 import { formStyles } from '@maps/lib/jsonForms/styles'
-import useForm from '@maps/hooks/jsonForm/useForm'
+import { useForm } from '@maps/hooks/jsonForm/useForm'
 
 type Props = {
   isOpen: boolean
@@ -23,6 +24,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
 
   if (!form) return null
 
+  console.log('DATA', form.data)
   return (
     <Dialog
       onSubmit={form.onSubmit}
@@ -61,7 +63,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
           uischema={form.uiSchema}
           data={form.data}
           config={{ showUnfocusedDescription: true }}
-          renderers={vanillaRenderers}
+          renderers={renderers}
           cells={vanillaCells}
           onChange={form.onChange}
           validationMode={form.validationMode}
