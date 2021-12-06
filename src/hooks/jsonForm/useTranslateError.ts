@@ -24,6 +24,12 @@ export const useTranslateError = (): TranslateErrorFn => {
           { fieldName }
         )
         break;
+      case 'enum':
+        return intl.formatMessage({
+          id: 'at9R+C',
+          defaultMessage: 'Debes seleccionar un valor de la lista'
+        })
+        break;
       case 'format':
         const format = params.format
         if (format === 'email') {
@@ -36,8 +42,6 @@ export const useTranslateError = (): TranslateErrorFn => {
         break;
       case 'type':
         const type = params.type
-        console.log('KEYWORD', error.keyword)
-        console.log('TYPE', type)
         if (type === 'integer') {
           return intl.formatMessage({
             id: '1uGo7W',

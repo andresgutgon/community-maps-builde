@@ -1,5 +1,3 @@
-import { vanillaStyles } from '@jsonforms/vanilla-renderers'
-
 /**
  * This API is exposed by JSONForms
  * https://github.com/eclipsesource/jsonforms/blob/master/packages/vanilla/Styles.md
@@ -10,10 +8,9 @@ import { vanillaStyles } from '@jsonforms/vanilla-renderers'
  */
 export const formStyles = {
   styles: [
-    ...vanillaStyles,
     {
       name: 'vertical.layout',
-      classNames: ['space-y-6']
+      classNames: ['space-y-2']
     },
     {
       name: 'horizontal.layout',
@@ -36,6 +33,10 @@ export const formStyles = {
       classNames: ['block w-full shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
     },
     {
+      name: 'control.select',
+      classNames: ['block w-full shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+    },
+    {
       name: 'control.validation',
       classNames: ['p-1 border border-transparent text-xs']
     },
@@ -49,7 +50,7 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['w-full space-y-4 rounded border border-gray-200 pt-2 pb-4 px-4']
+      classNames: ['w-full mt-2 space-y-2 rounded border border-gray-200 pt-2 pb-4 px-4']
     },
     {
       name: 'group.label',

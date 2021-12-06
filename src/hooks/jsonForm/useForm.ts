@@ -69,7 +69,12 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   // NOTE:
   // because we never destroy de Dialog to get animation
   // working we need to clean the data when the modal is closed
-  useEffect(() => { if (!isOpen) { setData({}) } }, [isOpen])
+  useEffect(() => {
+    if (!isOpen) {
+      setValidationMode(noValidationMode)
+      setData({})
+    }
+  }, [isOpen])
 
   if (!form) return null
 
@@ -78,6 +83,7 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
     setErrors(errors)
   }
   const onSubmit = async (closeFn: Function) => {
+    // TODO: Implement this
     console.log('Submit')
   }
   return {

@@ -2,6 +2,7 @@ import { lazy, useEffect, useState, SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { useIntl, FormattedMessage } from 'react-intl'
+import { JsonSchema } from '@jsonforms/core'
 import { JsonFormsStyleContext, vanillaCells } from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 
@@ -12,6 +13,7 @@ import type { Place as PlaceType } from '@maps/types/index'
 import { formStyles } from '@maps/lib/jsonForms/styles'
 import { useForm } from '@maps/hooks/jsonForm/useForm'
 
+type translatableJsonSchema = JsonSchema & { translations?: Record<string, string> }
 type Props = {
   isOpen: boolean
   place: PlaceType | null
@@ -24,7 +26,6 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
 
   if (!form) return null
 
-  console.log('DATA', form.data)
   return (
     <Dialog
       onSubmit={form.onSubmit}
@@ -67,7 +68,25 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
           cells={vanillaCells}
           onChange={form.onChange}
           validationMode={form.validationMode}
-          i18n={{ translateError: form.translateError }}
+          i18n={{
+            translateError: form.translateError,
+            translate: (id: string, defaultMessage: string): string => {
+              const parts = id?.split('.')
+              if (!parts) return defaultMessage
+
+              const propertyKey = parts[0]
+
+              if (!propertyKey) return defaultMessage
+
+              const key = Object.keys(form.jsonSchema.properties).find(
+                (propKey: string) => propKey === propertyKey
+              )
+              if (!key) return defaultMessage
+              const translations = (form.jsonSchema.properties[key] as translatableJsonSchema)?.translations || {}
+
+              return translations[parts[1]] || defaultMessage
+            }
+          }}
         />
       </JsonFormsStyleContext.Provider>
     </Dialog>

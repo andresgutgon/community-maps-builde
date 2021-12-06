@@ -5,10 +5,12 @@
       "properties":{
         "contribution_type": {
           "type": "string",
-          "enum": [
-            "prepaid",
-            "sponsorship"
-          ],
+          "enum": ["prepaid", "sponsorship"],
+          "i18n": "contribution_type",
+          "translations": {
+            "prepaid": "Prepago",
+            "sponsorship": "Apadrinamiento"
+          },
           "description": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
         },
         "name":{
@@ -45,9 +47,13 @@
             {
               "type": "Control",
               "scope": "#/properties/contribution_type",
-              "label": "Tipo de contribución",
+              "label": "Tipo de aportación",
               "options": {
-                "format": "coopdevs_radio"
+                "format": "select",
+                "enum_i18n": [
+                  {"label": "Prepagament", "value": "prepaid", "description": "Compra hores per avançat" },
+                  {"label": "Apadrinamiento", "value": "sponsorship" }
+                ]
               }
             }
           ]

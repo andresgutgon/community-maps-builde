@@ -6,6 +6,9 @@
 @import 'leaflet.markercluster/dist/MarkerCluster.css';
 @import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
+html {
+  @apply antialiased;
+}
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
   @apply border-none shadow;
