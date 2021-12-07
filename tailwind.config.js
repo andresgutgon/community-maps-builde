@@ -9,6 +9,9 @@ module.exports = {
     extend: {
       borderRadius: {
         inherit: 'inherit'
+      },
+      outline: {
+        white: '2px solid rgba(255, 255, 255, 0.5)',
       }
     },
   },

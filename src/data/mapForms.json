@@ -67,7 +67,7 @@
             {
               "type":"Control",
               "scope":"#/properties/sponsorship_contribution_amount",
-              "label": "Tu aportación",
+              "label": "Import de l'apadrinament",
               "rule": {
                 "effect": "SHOW",
                 "condition": {
@@ -80,7 +80,7 @@
             {
               "type":"Control",
               "scope":"#/properties/prepaid_contribution_amount",
-              "label": "Tu aportación",
+              "label": "Import del prepagament",
               "rule": {
                 "effect": "SHOW",
                 "condition": {

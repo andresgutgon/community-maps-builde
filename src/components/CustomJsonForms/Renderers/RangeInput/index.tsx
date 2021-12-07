@@ -95,7 +95,7 @@ const RangeInput = ({
           <SliderHandle
             className={
               cn(
-                'cursor-cursor shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2',
+                'cursor-cursor shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2 outline-white',
                 backgroundColor
               )
             }
