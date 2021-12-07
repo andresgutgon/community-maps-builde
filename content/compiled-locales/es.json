@@ -1,4 +1,10 @@
 {
+  "1oQaxx": [
+    {
+      "type": 0,
+      "value": "Hazte socia/o y define lo que quieres aportar"
+    }
+  ],
   "1uGo7W": [
     {
       "type": 0,
@@ -17,12 +23,6 @@
     {
       "type": 0,
       "value": " es obligatorio"
-    }
-  ],
-  "CVLHyq": [
-    {
-      "type": 0,
-      "value": "Selecciona las opciones más adecuadas para tí"
     }
   ],
   "IOnTHc": [
@@ -47,6 +47,12 @@
     {
       "type": 0,
       "value": "Lo sentimos, no hay resultados para esta dirección"
+    }
+  ],
+  "at9R+C": [
+    {
+      "type": 0,
+      "value": "Debes seleccionar un valor de la lista"
     }
   ],
   "ctskGr": [

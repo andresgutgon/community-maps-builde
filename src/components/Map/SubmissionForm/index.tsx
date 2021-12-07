@@ -32,8 +32,8 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
       isOpen={isOpen}
       title={place?.name}
       description={intl.formatMessage({
-        defaultMessage: 'Selecciona las opciones más adecuadas para tí',
-        id: 'CVLHyq'
+        id: 'QLwxXi',
+        defaultMessage: 'Hazte socia/o y define lo que quieres aportar',
       })}
       onClose={closeFn}
       closeFn={closeFn}
