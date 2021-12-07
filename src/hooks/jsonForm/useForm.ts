@@ -40,17 +40,22 @@ type ReturnType = {
   data: any
 }
 export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
-  const [data, setData] = useState({})
+  const { config } = useMapData()
+  const form = useMemo(() => findForm(config, place), [place, config])
+  const [data, setData] = useState(form?.initialData || {})
   const [errors, setErrors] = useState([])
   const [validationMode, setValidationMode] = useState<ValidationMode>(noValidationMode)
   const [isValid, setValid] = useState(false)
-  const { config } = useMapData()
   const translateError = useTranslateError()
-  const form = useMemo(() => findForm(config, place), [place, config])
   const jsonSchema = form?.jsonSchema
   const requiredFields = useMemo(() => jsonSchema?.required || [], [jsonSchema])
   const uiSchema = form?.uiSchema
 
+  // Set initialData when form is present for the first time
+  useEffect(() => {
+    if (!form) return
+    setData(form.initialData || {})
+  }, [setData, form])
 
   // Check all fields that are required are filled by the user
   useEffect(() => {
@@ -84,7 +89,7 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   }
   const onSubmit = async (closeFn: Function) => {
     // TODO: Implement this
-    console.log('Submit')
+    console.log('Submit', data)
   }
   return {
     translateError,

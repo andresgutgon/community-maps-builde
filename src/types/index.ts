@@ -58,7 +58,8 @@ export type Category = {
 
 export type Form = {
   jsonSchema: JsonSchema,
-  uiSchema: UIJsonFormSchema
+  uiSchema: UIJsonFormSchema,
+  initialData?: null | Record<string, any>
 }
 
 export type Place = {

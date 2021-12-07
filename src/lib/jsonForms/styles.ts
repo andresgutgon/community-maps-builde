@@ -26,7 +26,7 @@ export const formStyles = {
     },
     {
       name: 'control.label',
-      classNames: ['flex flex-row justify-between text-sm font-medium text-gray-700 mb-2']
+      classNames: ['flex flex-col sm:flex-row sm:justify-between text-sm font-medium text-gray-700 mb-2']
     },
     {
       name: 'control.input',
@@ -50,11 +50,11 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['w-full mt-2 space-y-2 rounded border border-gray-200 pt-2 pb-4 px-4']
+      classNames: ['group w-full mt-2 space-y-2 rounded border border-gray-200 hover:border-gray-700 pt-2 pb-4 px-4']
     },
     {
       name: 'group.label',
-      classNames: ['py-0.5 px-1 text-xs bg-gray-700 rounded font-medium text-gray-100 uppercase tracking-wide']
+      classNames: ['py-0.5 px-1 text-xs group-hover:bg-gray-700 text-gray-400 group-hover:text-gray-100 rounded group-hover:font-medium uppercase tracking-wide']
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { memo, useMemo, useState, useEffect } from 'react'
 import cn from 'classnames'
 import {
   Slider,
@@ -36,6 +36,53 @@ function useFormatValue ({ value, format, currency = 'EUR' }: FormatProps): stri
     return value.toString()
   }, [value, format, currency])
 }
+
+type RangeInputSliderProps = {
+  minimum: number,
+  maximum: number,
+  step: number,
+  onValueChange: (value: number) => void,
+  defaultValue?: number,
+}
+const RangeSliderInput = memo(function RangeSliderInput ({
+  minimum, maximum, step, onValueChange, defaultValue
+}: RangeInputSliderProps) {
+  const backgroundColor = 'bg-gray-600'
+  return (
+    <SliderInput
+      className='max-w-full disabled:pointer-events-none disabled:opacity-50'
+      max={maximum}
+      min={minimum}
+      step={step}
+      defaultValue={defaultValue || minimum}
+      onChange={(newValue: number) => {
+        onValueChange(newValue)
+      }}
+    >
+      <SliderTrack
+        className='w-full h-2 top-[calc(-0.5rem-1px)] relative rounded-full bg-gray-100 before:content-[""] before:absolute'
+      >
+        <SliderRange
+          className={
+            cn(
+              'h-full rounded-inherit left-0 bottom-0 bg-opacity-70',
+              backgroundColor
+            )
+          }
+        />
+        <SliderHandle
+          className={
+            cn(
+              'cursor-cursor shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2 outline-white',
+              backgroundColor
+            )
+          }
+        />
+      </SliderTrack>
+    </SliderInput>
+  )
+})
+
 type Props = ControlProps & VanillaRendererProps
 const RangeInput = ({
   classNames,
@@ -57,11 +104,18 @@ const RangeInput = ({
   const step = uischema?.options?.step || 10
   const format = uischema?.options?.formatValue || 'number'
   const currency = uischema?.options?.currency || 'EUR'
-  const formattedValue = useFormatValue({ value, format, currency })
+  const formattedValue = useFormatValue({
+    value: data || schema.default,
+    format,
+    currency
+  })
+  useEffect(() => {
+    handleChange(path, schema.default)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   useEffect(() => {
     handleChange(path, value)
   }, [handleChange, path, value])
-  const backgroundColor = 'bg-gray-600'
   return (
     <div className={classNames.wrapper} hidden={!visible}>
       <div className='mb-2'>
@@ -74,34 +128,13 @@ const RangeInput = ({
           rightValue={formattedValue}
         />
       </div>
-      <SliderInput
-        className='max-w-full disabled:pointer-events-none disabled:opacity-50'
-        max={schema.maximum}
-        min={schema.minimum}
+      <RangeSliderInput
+        minimum={schema.minimum}
+        maximum={schema.maximum}
+        defaultValue={schema.default}
         step={step}
-        onChange={(newValue: number) => setValue(newValue) }
-      >
-        <SliderTrack
-          className='w-full h-2 top-[calc(-0.5rem-1px)] relative rounded-full bg-gray-100 before:content-[""] before:absolute'
-        >
-          <SliderRange
-            className={
-              cn(
-                'h-full rounded-inherit left-0 bottom-0 bg-opacity-70',
-                backgroundColor
-              )
-            }
-          />
-          <SliderHandle
-            className={
-              cn(
-                'cursor-cursor shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2 outline-white',
-                backgroundColor
-              )
-            }
-          />
-        </SliderTrack>
-      </SliderInput>
+        onValueChange={(newValue: number) => setValue(newValue) }
+      />
       <Description
         errors={errors}
         uischema={uischema}
