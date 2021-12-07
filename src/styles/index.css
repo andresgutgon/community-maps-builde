@@ -19,3 +19,7 @@ html {
 .leaflet-control-search {
   @apply relative z-20;
 }
+
+.hidden-attribute[hidden] {
+  @apply hidden;
+}

@@ -22,11 +22,11 @@ export const formStyles = {
     },
     {
       name: 'control',
-      classNames: ['flex flex-col w-full space-y-2']
+      classNames: ['hidden-attribute flex flex-col w-full space-y-2']
     },
     {
       name: 'control.label',
-      classNames: ['block text-sm font-medium text-gray-700 mb-1']
+      classNames: ['flex flex-row justify-between text-sm font-medium text-gray-700 mb-2']
     },
     {
       name: 'control.input',
@@ -54,7 +54,7 @@ export const formStyles = {
     },
     {
       name: 'group.label',
-      classNames: ['px-2 text-xs text-gray-400 uppercase tracking-wide']
+      classNames: ['py-0.5 px-1 text-xs bg-gray-700 rounded font-medium text-gray-100 uppercase tracking-wide']
     }
   ]
 }

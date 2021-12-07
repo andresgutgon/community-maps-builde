@@ -6,7 +6,11 @@ module.exports = {
   ],
   mode: 'jit',
   theme: {
-    extend: {},
+    extend: {
+      borderRadius: {
+        inherit: 'inherit'
+      }
+    },
   },
   variants: {},
   plugins: [

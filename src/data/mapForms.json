@@ -13,6 +13,20 @@
           },
           "description": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
         },
+        "prepaid_contribution_amount": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 10000,
+          "default": 250,
+          "description": "Compra hores per avançat para usar un cotxe (mínim 50 €, màxim 10.000 €)"
+        },
+        "sponsorship_contribution_amount": {
+          "type": "integer",
+          "minimum": 250,
+          "maximum": 10000,
+          "default": 400,
+          "description": "Apadrina un cotxe (mínim 250 €, màxim 10.000 €). Recuperes els diners al cap de 3 anys i gaudeixes d'una millor tarifa."
+        },
         "name":{
           "type":"string"
         },
@@ -48,13 +62,33 @@
               "type": "Control",
               "scope": "#/properties/contribution_type",
               "label": "Tipo de aportación",
-              "options": {
-                "format": "select",
-                "enum_i18n": [
-                  {"label": "Prepagament", "value": "prepaid", "description": "Compra hores per avançat" },
-                  {"label": "Apadrinamiento", "value": "sponsorship" }
-                ]
-              }
+              "options": { "format": "select" }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/sponsorship_contribution_amount",
+              "label": "Tu aportación",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                "scope": "#/properties/contribution_type",
+                  "schema": { "enum": ["sponsorship"] }
+                }
+              },
+              "options": { "slider": true, "formatValue": "currency" }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/prepaid_contribution_amount",
+              "label": "Tu aportación",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                "scope": "#/properties/contribution_type",
+                  "schema": { "enum": ["prepaid"] }
+                }
+              },
+              "options": { "slider": true, "formatValue": "currency" }
             }
           ]
         },

@@ -1,7 +1,7 @@
 import { vanillaRenderers } from '@jsonforms/vanilla-renderers'
 
 // Our custom renderers
-import RadioGroup, { radioGroupTester } from './Renderers/RadioGroup'
+import RangeInput, { rangeTester } from './Renderers/RangeInput'
 
 export const CUSTOM_RENDERERS_PREFIX = 'coopdevs'
 
@@ -16,7 +16,7 @@ export const CUSTOM_RENDERERS_PREFIX = 'coopdevs'
  */
 const renderers = [
   ...vanillaRenderers,
-  { tester: radioGroupTester, renderer: RadioGroup }
+  { tester: rangeTester, renderer: RangeInput }
 ]
 
 export default renderers
