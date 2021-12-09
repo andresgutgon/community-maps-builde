@@ -12,7 +12,10 @@ module.exports = {
       },
       outline: {
         white: '2px solid rgba(255, 255, 255, 0.5)',
-      }
+      },
+      transitionProperty: {
+        'width': 'width'
+      },
     },
   },
   variants: {},

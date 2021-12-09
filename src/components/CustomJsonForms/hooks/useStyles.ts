@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 
-import { formStyles } from '@maps/lib/jsonForms/styles'
+import { formStyles } from '@maps/components/CustomJsonForms/styles'
 
 type ReturnType = {
+  input: string,
   description: string,
   descriptionError: string
 }
@@ -16,8 +17,11 @@ const useStyles = (): ReturnType => {
   const descriptionError = useRef(
     formStyles.styles.find(style => style.name === 'control.validation.error').classNames.join(' ')
   ).current
+  const input = useRef(
+    formStyles.styles.find(style => style.name === 'control.input').classNames.join(' ')
+  ).current
 
-  return { description, descriptionError}
+  return { input, description, descriptionError}
 }
 
 export default useStyles

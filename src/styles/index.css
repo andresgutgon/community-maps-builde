@@ -23,3 +23,14 @@ html {
 .hidden-attribute[hidden] {
   @apply hidden;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input.simulateNoNumber::-webkit-outer-spin-button,
+input.simulateNoNumber::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Firefox */
+input.simulateNoNumber[type=number] {
+  -moz-appearance: textfield;
+}

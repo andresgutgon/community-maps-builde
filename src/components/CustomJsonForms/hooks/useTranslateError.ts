@@ -16,12 +16,25 @@ export const useTranslateError = (): TranslateErrorFn => {
     uischema: UISchemaElement
   ): string => {
     const params = error.params
+    const inCents = !!error.instancePath.match(/_in_cents$/)
     switch(error.keyword) {
       case 'required':
         const fieldName = ((uischema as any)?.label || params.missingProperty || '').toLowerCase()
         return intl.formatMessage(
           { id: '3Fs00I', defaultMessage: 'El campo {fieldName} es obligatorio' },
           { fieldName }
+        )
+        break;
+      case 'minimum':
+        return intl.formatMessage(
+          { id: '1izKCT', defaultMessage: 'Este campo debe ser igual o más de {min}' },
+          { min: inCents ? params.limit / 100 : params.limt }
+        )
+        break;
+      case 'maximum':
+        return intl.formatMessage(
+          { id: '4iGwAO', defaultMessage: 'Este campo debe ser igual o menos de {max}' },
+          { max: inCents ? params.limit / 100 : params.limt }
         )
         break;
       case 'enum':

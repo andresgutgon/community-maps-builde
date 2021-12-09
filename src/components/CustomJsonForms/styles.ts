@@ -26,15 +26,15 @@ export const formStyles = {
     },
     {
       name: 'control.label',
-      classNames: ['flex flex-col sm:flex-row sm:justify-between text-sm font-medium text-gray-700 mb-2']
+      classNames: ['flex flex-col sm:items-center sm:flex-row sm:justify-between text-sm font-medium text-gray-700']
     },
     {
       name: 'control.input',
-      classNames: ['block w-full shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: ['simulateNoNumber p-2 block w-full shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
     },
     {
       name: 'control.select',
-      classNames: ['block w-full shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: ['block w-full p-2 shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
     },
     {
       name: 'control.validation',

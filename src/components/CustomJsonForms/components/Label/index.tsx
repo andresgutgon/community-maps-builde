@@ -3,8 +3,6 @@ import cn from 'classnames'
 import { ErrorObject } from 'ajv'
 import { computeLabel, ControlElement } from '@jsonforms/core'
 
-import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
-
 const FORCE_FOCUS_TO_SHOW_DESCRIPTION = true
 type Props = {
   id: string,
@@ -24,7 +22,7 @@ const Label = ({ id, label, required, classNames, uischema, rightValue }: Props)
         hideRequiredAsterisk
       )}
       {rightValue ? (
-        <div className='text-base font-medium'>{rightValue}</div>
+        <div className='text-2xl font-medium'>{rightValue}</div>
       ) : null}
     </label>
   )

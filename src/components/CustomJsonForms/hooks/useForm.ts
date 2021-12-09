@@ -55,7 +55,9 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   useEffect(() => {
     if (!form) return
     setData(form.initialData || {})
-  }, [setData, form])
+    // NOTE: Using place here we make this useEffect run
+    // always the place is changed.
+  }, [setData, form, place])
 
   // Check all fields that are required are filled by the user
   useEffect(() => {
