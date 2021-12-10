@@ -2,8 +2,8 @@
 This document try to explain what's the relation between Odoo servers that stores the information and maps builder which is the frontend for that information.
 
 Maps builder has 3 tasks:
-1. Show markers (places) in a map
-2. Capture visitors interest in a place (marker) in the map
+1. Show places in a map
+2. Capture visitors interest in a place in the map
 3. Allow visitors to suggest new places.
 
 This document has two main areas.
@@ -13,10 +13,10 @@ This document has two main areas.
 ## Endpoints
 These are the endpoints an Odoo server has to have to use this builder. We try to follow REST as much as possible.
 - `GET - /:map_id/config` - Community config like `theme: { color: '#someColor', forms: 'i***FORMS INFO'}`
--  `GET - /:community_id/:map_id/markers/` - List of markers in a map.
--  `GET - /:community_id/:map_id/markers/:id` - Marker show view of a map
--  `POST - /:map_id/markers/:id/submissions` - Endpoint to create a marker submission.
--  `POST - /:map_id/suggestions` - Endpoint to create a suggestion on that map. The user choose the category and with that we determine the type of marker and form
+-  `GET - /:community_id/:map_id/places/` - List of places in a map.
+-  `GET - /:community_id/:map_id/places/:id` - Place show view of a map
+-  `POST - /:map_id/places/:id/submissions` - Endpoint to create a place submission.
+-  `POST - /:map_id/suggestions` - Endpoint to create a suggestion on that map. The user choose the category and with that we determine the type of place and form
 
 ### About FORMS INFO
 In the `/:map_id/config` we send these information:
@@ -54,11 +54,11 @@ In the `/:map_id/config` we send these information:
 TLTR;
 - A community can have many `maps`.
 - A map can have many `forms`.
-- A form can have many `markers`
-- A marker can have many `marker_submisions`.
+- A form can have many `places`
+- A place can have many `place_submisions`.
 
-* `marker_submisions` are not represended in the map but the marker update its `founding_progress` field each time
-a user fills a marker submission.
+* `place_submisions` are not represended in the map but the place update its `founding_progress` field each time
+a user fills a place submission.
 
 Now let's see visually these relations:
 **NOTE** We use [mermaid](https://mermaid-js.github.io). Use their [online editor](https://mermaid-js.github.io/mermaid-live-editor) for editing this diagram.
@@ -66,10 +66,11 @@ Now let's see visually these relations:
 %%{init: {"theme": "default", "er": { "layoutDirection": "LR", "useMaxWidth": true } }}%%
 erDiagram
     COMMUNITY ||--|{ MAP : contains
-    MAP ||--|{ FORM: has_many
-    FORM ||--|{ CATEGORY: has_many
-    CATEGORY ||--|{ MARKER: has_many
-    MARKER ||--|{ MARKER_SUBMISSION: has_many
+    MAP ||--|{ CATEGORY: has_many
+    MAP ||--|{ FORM: one
+    CATEGORY ||--|| FORM: one
+    CATEGORY ||--|{ PLACE: has_many
+    PLACE ||--|{ PLACE_SUBMISSION: has_many
 
     MAP {
         string name
@@ -77,18 +78,23 @@ erDiagram
     }
 
     FORM {
-        integer mapId
-        json submission_schema
+        string entity_type
+        integer entity_id
+        json jsonSchema
+        json uiSchema
     }
 
     CATEGORY {
-        integer form_id
-        string icon
-        string color
+        string slug
+        string map_slug
+        string name
+        string description
+        string iconKey
+        string iconColor
     }
 
-    MARKER {
-        integer category_id
+    PLACE {
+        integer category_slug
         string lat
         string lng
         string name

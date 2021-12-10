@@ -5,6 +5,12 @@
       "value": "Cercar una adreça"
     }
   ],
+  "MwlsML": [
+    {
+      "type": 0,
+      "value": "Tancar modal"
+    }
+  ],
   "Pga9q2": [
     {
       "type": 0,
@@ -21,6 +27,12 @@
     {
       "type": 0,
       "value": "Cerca"
+    }
+  ],
+  "ifARjC": [
+    {
+      "type": 0,
+      "value": "Participa"
     }
   ]
 }

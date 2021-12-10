@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
-import markers from '@maps/data/markers.json'
+import places from '@maps/data/places.json'
 import handler from './index'
 
 import fetchMock from "jest-fetch-mock"
@@ -12,7 +12,7 @@ const DEMO_HOST = process.env.DEMO_HOST
 const DEMO_PATH = 'demo'
 const MAP_SLUG = 'first-map'
 
-describe('api/[community]/maps/[id]/markers', () => {
+describe('api/[community]/maps/[id]/places', () => {
   beforeEach(() => {
     fetchMock.resetMocks()
   })
@@ -20,18 +20,18 @@ describe('api/[community]/maps/[id]/markers', () => {
   it('is token protected and map exists', async () => {
     await testApiHandler({
       handler,
-      url: `/api/${DEMO_PATH}/maps/${MAP_SLUG}/markers`,
+      url: `/api/${DEMO_PATH}/maps/${MAP_SLUG}/places`,
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
         fetchMock.mockResponse(
-          JSON.stringify(markers),
+          JSON.stringify(places),
           { status: 200 }
         )
         const response = await fetch();
 
         expect(response.status).toBe(200);
 
-        expect(await response.json()).toStrictEqual(markers)
+        expect(await response.json()).toStrictEqual(places)
       }
     });
   })
@@ -39,7 +39,7 @@ describe('api/[community]/maps/[id]/markers', () => {
   it('it handles a not found map', async () => {
     await testApiHandler({
       handler,
-      url: `/api/${DEMO_PATH}/maps/__LOL_NOT_FOUND_MAP_SLUG_/markers`,
+      url: `/api/${DEMO_PATH}/maps/__LOL_NOT_FOUND_MAP_SLUG_/places`,
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
         fetchMock.mockResponse(
@@ -71,7 +71,7 @@ describe('api/[community]/maps/[id]/markers', () => {
   it('fails without community defined in maps server as environment variable', async () => {
     await testApiHandler({
       handler,
-      url: `/api/${DEMO_PATH}/maps/NOT_SLUG/markers`,
+      url: `/api/${DEMO_PATH}/maps/NOT_SLUG/places`,
       params: { community: 'NOT_DEFINED_COMMUNITY' },
       test: async ({ fetch }) => {
         const response = await fetch();

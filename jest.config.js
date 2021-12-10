@@ -9,7 +9,8 @@ module.exports = {
     '^@maps/lib/(.*)$': '<rootDir>/src/lib/$1',
     '^@maps/data/(.*)$': '<rootDir>/src/data/$1',
     '^@maps/types/(.*)$': '<rootDir>/src/types/$1',
-    '^@maps/components/(.*)$': '<rootDir>/src/components/$1'
+    '^@maps/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@maps/hooks/(.*)$': '<rootDir>/src/hooks/$1'
   },
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
   testEnvironment: 'jsdom',

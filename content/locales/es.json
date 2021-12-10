@@ -1,14 +1,68 @@
 {
+  "1izKCT": {
+    "defaultMessage": "Este campo debe ser igual o más de {min}"
+  },
+  "1uGo7W": {
+    "defaultMessage": "Este campo es numérico"
+  },
+  "2WfLC4": {
+    "defaultMessage": "Cambia la cantidad"
+  },
+  "3Fs00I": {
+    "defaultMessage": "El campo {fieldName} es obligatorio"
+  },
+  "4iGwAO": {
+    "defaultMessage": "Este campo debe ser igual o menos de {max}"
+  },
+  "7DlC7w": {
+    "defaultMessage": "{value} / día"
+  },
+  "ArcHyA": {
+    "defaultMessage": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
+  },
+  "DCKDvH": {
+    "defaultMessage": "De {min} a {max}"
+  },
+  "DtZeeF": {
+    "defaultMessage": "Tarifa según tu aportación"
+  },
+  "IOnTHc": {
+    "defaultMessage": "Participar"
+  },
   "IVA/Y9": {
     "defaultMessage": "Buscar una dirección"
   },
+  "KBQ1Ru": {
+    "defaultMessage": "Más de {value}"
+  },
+  "LrEb2L": {
+    "defaultMessage": "{value} / hora"
+  },
+  "MwlsML": {
+    "defaultMessage": "Cerrar modal"
+  },
   "Pga9q2": {
     "defaultMessage": "Lo sentimos, no hay resultados para esta dirección"
+  },
+  "TKx/Q8": {
+    "defaultMessage": "Mejor"
+  },
+  "at9R+C": {
+    "defaultMessage": "Debes seleccionar un valor de la lista"
   },
   "ctskGr": {
     "defaultMessage": "Buscando"
   },
   "eOuNie": {
     "defaultMessage": "Buscar"
+  },
+  "nZLeaQ": {
+    "defaultMessage": "Cancelar"
+  },
+  "qc8eLe": {
+    "defaultMessage": "A más aportación te podemos ofrecer mejor tarifa"
+  },
+  "zaaFVR": {
+    "defaultMessage": "El formato de email no es válido"
   }
 }

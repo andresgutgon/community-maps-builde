@@ -1,0 +1,196 @@
+{
+  "first-map": {
+    "initialData": {
+      "prepaid_contribution_amount_in_cents": 25000,
+      "sponsorship_contribution_amount_in_cents": 30000
+    },
+    "jsonSchema": {
+      "type":"object",
+      "properties":{
+        "contribution_type": {
+          "type": "string",
+          "enum": ["prepaid", "sponsorship"],
+          "i18n": "contribution_type",
+          "translations": {
+            "prepaid": "Prepago",
+            "sponsorship": "Apadrinamiento"
+          }
+        },
+        "prepaid_contribution_amount_in_cents": {
+          "type": "integer",
+          "minimum": 5000,
+          "maximum": 1000000,
+          "default": 100000,
+          "description": "Compra hores para usar un cotxe (mínim 50 €, màxim 10.000 €)"
+        },
+        "sponsorship_contribution_amount_in_cents": {
+          "type": "integer",
+          "minimum": 25000,
+          "maximum": 1000000,
+          "default": 120000,
+          "description": "Apadrina un cotxe (mínim 250 €, màxim 10.000 €). Recuperes els diners al cap de 3 anys i gaudeixes d'una millor tarifa."
+        },
+        "name":{
+          "type":"string"
+        },
+        "telephone":{
+          "type":"integer",
+          "description": "Sólo números en tú teléfono : )"
+        },
+        "email":{
+          "type":"string",
+          "format": "email",
+          "description": "Tu email para poder contactarte"
+        },
+        "identifier":{
+          "type":"string"
+        }
+      },
+      "required": [
+        "contribution_type",
+        "name",
+        "telephone",
+        "email",
+        "identifier"
+      ]
+    },
+    "uiSchema": {
+      "type":"VerticalLayout",
+      "elements":[
+        {
+          "type": "Group",
+          "label": "Tu aportación",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/contribution_type",
+              "label": "Tipo de aportación",
+              "options": { "format": "select" }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/sponsorship_contribution_amount_in_cents",
+              "label": "Tu aportación",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                "scope": "#/properties/contribution_type",
+                  "schema": { "enum": ["sponsorship"] }
+                }
+              },
+              "options": {
+                "pricing": true,
+                "formatValue": "currency",
+                "pricingRates": [
+                  {
+                    "minimum": 25000,
+                    "maximum": 99900,
+                    "rates": {
+                      "hourly": 500,
+                      "daily": 5000
+                    }
+                  },
+                  {
+                    "minimum": 100000,
+                    "maximum": 499900,
+                    "rates": {
+                      "hourly": 450,
+                      "daily": 4500
+                    }
+                  },
+                  {
+                    "minimum": 500000,
+                    "maximum": 1000000,
+                    "rates": {
+                      "hourly": 400,
+                      "daily": 4000
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/prepaid_contribution_amount_in_cents",
+              "label": "Tu aportación",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                "scope": "#/properties/contribution_type",
+                  "schema": { "enum": ["prepaid"] }
+                }
+              },
+              "options": {
+                "pricing": true,
+                "formatValue": "currency",
+                "pricingRates": [
+                  {
+                    "minimum": 5000,
+                    "maximum": 24900,
+                    "rates": {
+                      "hourly": 500,
+                      "daily": 5000
+                    }
+                  },
+                  {
+                    "minimum": 25000,
+                    "maximum": 99900,
+                    "rates": {
+                      "hourly": 450,
+                      "daily": 4500
+                    }
+                  },
+                  {
+                    "minimum": 100000,
+                    "maximum": 100000,
+                    "rates": {
+                      "hourly": 400,
+                      "daily": 4000
+                    }
+                  }
+                ]
+                }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Tus datos de contacto",
+          "elements": [
+            {
+              "type":"VerticalLayout",
+              "elements":[
+                {
+                  "type":"Control",
+                  "scope":"#/properties/name",
+                  "label": "Nombre"
+                },
+                {
+                  "type":"Control",
+                  "scope":"#/properties/email",
+                  "label":"Email"
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope":"#/properties/telephone",
+                      "label": "Teléfono"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/identifier",
+                      "label":"DNI"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+

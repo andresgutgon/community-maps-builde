@@ -1,0 +1,34 @@
+{
+  "car": {
+    "slug": "car",
+    "map_slug": "first-map",
+    "iconKey": "car",
+    "iconColor": "brand",
+    "name": "Coches",
+    "description": "Coches disponibles en este punto"
+  },
+  "van": {
+    "slug": "van",
+    "map_slug": "first-map",
+    "iconKey": "van",
+    "iconColor": "pink",
+    "name": "Furgonetas",
+    "description": "Furgonetas disponibles en este punto"
+  },
+  "bike_charger": {
+    "slug": "bike_charger",
+    "map_slug": "first-map",
+    "iconKey": "bike_charger",
+    "iconColor": "green",
+    "name": "Bicicletas eléctricas",
+    "description": "Dispones de bicicletas en este tipo de puntos"
+  },
+  "car_charger": {
+    "slug": "car_charger",
+    "map_slug": "first-map",
+    "iconKey": "car_charger",
+    "iconColor": "blue",
+    "name": "Cargadores de coches",
+    "description": "Estos puntos tienen cargadores de coches"
+  }
+}

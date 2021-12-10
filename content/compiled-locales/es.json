@@ -1,14 +1,144 @@
 {
+  "1izKCT": [
+    {
+      "type": 0,
+      "value": "Este campo debe ser igual o más de "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    }
+  ],
+  "1uGo7W": [
+    {
+      "type": 0,
+      "value": "Este campo es numérico"
+    }
+  ],
+  "2WfLC4": [
+    {
+      "type": 0,
+      "value": "Cambia la cantidad"
+    }
+  ],
+  "3Fs00I": [
+    {
+      "type": 0,
+      "value": "El campo "
+    },
+    {
+      "type": 1,
+      "value": "fieldName"
+    },
+    {
+      "type": 0,
+      "value": " es obligatorio"
+    }
+  ],
+  "4iGwAO": [
+    {
+      "type": 0,
+      "value": "Este campo debe ser igual o menos de "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    }
+  ],
+  "7DlC7w": [
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": " / día"
+    }
+  ],
+  "ArcHyA": [
+    {
+      "type": 0,
+      "value": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
+    }
+  ],
+  "DCKDvH": [
+    {
+      "type": 0,
+      "value": "De "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    }
+  ],
+  "DtZeeF": [
+    {
+      "type": 0,
+      "value": "Tarifa según tu aportación"
+    }
+  ],
+  "IOnTHc": [
+    {
+      "type": 0,
+      "value": "Participar"
+    }
+  ],
   "IVA/Y9": [
     {
       "type": 0,
       "value": "Buscar una dirección"
     }
   ],
+  "KBQ1Ru": [
+    {
+      "type": 0,
+      "value": "Más de "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
+  "LrEb2L": [
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": " / hora"
+    }
+  ],
+  "MwlsML": [
+    {
+      "type": 0,
+      "value": "Cerrar modal"
+    }
+  ],
   "Pga9q2": [
     {
       "type": 0,
       "value": "Lo sentimos, no hay resultados para esta dirección"
+    }
+  ],
+  "TKx/Q8": [
+    {
+      "type": 0,
+      "value": "Mejor"
+    }
+  ],
+  "at9R+C": [
+    {
+      "type": 0,
+      "value": "Debes seleccionar un valor de la lista"
     }
   ],
   "ctskGr": [
@@ -21,6 +151,24 @@
     {
       "type": 0,
       "value": "Buscar"
+    }
+  ],
+  "nZLeaQ": [
+    {
+      "type": 0,
+      "value": "Cancelar"
+    }
+  ],
+  "qc8eLe": [
+    {
+      "type": 0,
+      "value": "A más aportación te podemos ofrecer mejor tarifa"
+    }
+  ],
+  "zaaFVR": [
+    {
+      "type": 0,
+      "value": "El formato de email no es válido"
     }
   ]
 }

@@ -1,9 +1,9 @@
 import { ReactNode, createContext, useEffect, useState, useContext } from 'react'
 
-import { Marker, Config } from '@maps/types/index'
+import { Place, Config } from '@maps/types/index'
 
 interface ContextProps {
-  places: Array<Marker>;
+  places: Array<Place>;
   config: Config | null;
   loading: boolean
 }
@@ -27,7 +27,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     async function loadData () {
       const [configResponse, placesResponse] = await Promise.all([
         fetch(`/api/${community}/config`),
-        fetch(`/api/${community}/maps/${mapId}/markers`)
+        fetch(`/api/${community}/maps/${mapId}/places`)
       ])
       // Config and Map types
       const config = await configResponse.json()
