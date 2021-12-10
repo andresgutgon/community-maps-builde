@@ -26,8 +26,6 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
 
   if (!form) return null
 
-  console.log('FORM DATA', form.data)
-
   return (
     <Dialog
       onSubmit={form.onSubmit}

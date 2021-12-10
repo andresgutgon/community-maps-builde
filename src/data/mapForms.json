@@ -1,7 +1,7 @@
 {
   "first-map": {
     "initialData": {
-      "prepaid_contribution_amount_in_cents": 10000,
+      "prepaid_contribution_amount_in_cents": 25000,
       "sponsorship_contribution_amount_in_cents": 30000
     },
     "jsonSchema": {

@@ -1,11 +1,13 @@
 import { useCallback, MouseEvent, memo, useRef, useState, useEffect, useMemo } from 'react'
 import cn from 'classnames'
+import debounce from 'lodash/debounce'
 import { FormattedMessage } from 'react-intl'
-import { SliderInput, SliderTrack, SliderRange, SliderHandle } from '@reach/slider'
 import { rankWith, RankedTester, uiTypeIs, and, or, schemaTypeIs, schemaMatches, optionIs, ControlProps, computeLabel } from '@jsonforms/core'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 import { withVanillaControlProps, VanillaRendererProps } from '@jsonforms/vanilla-renderers'
 
+import { Format, Currency, fromCentsToFloat, toCentsFromFloat, useFormatValue } from '@maps/hooks/useFormatValue'
+import Slider, { Color } from '@maps/components/Slider'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import Label from '@maps/components/CustomJsonForms/components/Label'
 import Description from '@maps/components/CustomJsonForms/components/Description'
@@ -23,87 +25,6 @@ const isPricingControl = and(
 )
 
 export const pricingRatesTester: RankedTester = rankWith(10, isPricingControl)
-
-type Format = 'number' | 'currency'
-type Currency = 'EUR'
-type FormatProps = {
-  value: number
-  format: Format
-  currency?: Currency
-}
-function useFormatValue ({ value, format, currency = 'EUR' }: FormatProps): string {
-  return useMemo(() => {
-    if (format === 'currency') {
-      return new Intl.NumberFormat(
-        'de-DE', // Hardcoded for now. Change if currency is other than EUR
-        {
-          style: 'currency',
-          minimumFractionDigits: 0,
-          currency
-        }
-      ).format(value)
-    }
-    return value.toString()
-  }, [value, format, currency])
-}
-
-type RangeInputSliderProps = {
-  minimum: number,
-  maximum: number,
-  step: number,
-  onValueChange: (value: number) => void,
-  defaultValue?: number,
-  valueProp?: number
-}
-function RangeSliderInput({
-  minimum, maximum, step, onValueChange, defaultValue, valueProp
-}: RangeInputSliderProps) {
-  const backgroundColor = 'bg-gray-600'
-  return (
-    <SliderInput
-      className='max-w-full disabled:pointer-events-none disabled:opacity-50'
-      max={maximum}
-      min={minimum}
-      step={step}
-      value={valueProp}
-      onChange={onValueChange}
-    >
-      <SliderTrack
-        className='w-full h-2 top-[calc(-0.5rem-1px)] relative rounded-full bg-gray-100 before:content-[""] before:absolute'
-      >
-        <SliderRange
-          className={
-            cn(
-              'h-full rounded-inherit left-0 bottom-0 bg-opacity-70',
-              backgroundColor
-            )
-          }
-        />
-        <SliderHandle
-          className={
-            cn(
-              'cursor-cursor shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2 outline-white',
-              backgroundColor
-            )
-          }
-        />
-      </SliderTrack>
-    </SliderInput>
-  )
-}
-
-function fromCentsToFloat(amount: null | number, inCents: boolean): number {
-  if (!inCents) return amount
-  if (!amount) return 0
-
-  return amount / 100
-}
-function toCentsFromFloat(amount: null | number, inCents: boolean): number {
-  if (!inCents) return amount
-  if (!amount) return 0
-
-  return amount * 100
-}
 
 type PricingRate = { hourly: number, daily: number }
 type PricingRateConfig  = {
@@ -218,22 +139,18 @@ const Rate = ({ bestRate, maximumOfAllRates, currentValue, format, currency, rat
 }
 
 type PricingRatesProps = {
+  bestRate: PricingRateConfig,
   rates: PricingRateConfig[],
   format: Format,
   currency: null | Currency,
   currentValue: null | number,
   onRateClick: (minimumRate: number) => void
 }
-const PricingRates = ({ rates, currentValue, format, currency, onRateClick }: PricingRatesProps) => {
+const PricingRates = ({ bestRate, rates, currentValue, format, currency, onRateClick }: PricingRatesProps) => {
   const maximumOfAllRates = useMemo<number>(() => {
     const maxArray = rates.map(rate => rate.maximum)
     return Math.max(...maxArray)
   }, [rates])
-  const [bestRate] = [...rates].sort((a, b) => {
-    if (a.rates.daily < b.rates.daily) return -1
-    if (a.rates.daily > b.rates.daily) return 1
-    return 0
-  })
   return (
     <div className='space-y-2 rounded bg-gray-50 border border-gray-100 p-2'>
       <div>
@@ -270,88 +187,6 @@ const PricingRates = ({ rates, currentValue, format, currency, onRateClick }: Pr
   )
 }
 
-type InputProps = {
-  path: string,
-  hasErrors: boolean,
-  minimum: number,
-  maximum: number,
-  step: number,
-  value: null | number,
-  formattedValue: string,
-  onChange: (value: number) => void
-}
-const Input = ({
-  path,
-  hasErrors,
-  value,
-  formattedValue,
-  minimum,
-  maximum,
-  step,
-  onChange
-}: InputProps) => {
-  const styles = useStyles()
-  const amountRef = useRef<HTMLDivElement>()
-  const [isFocus, setFocus] = useState<boolean>(false)
-  const width = amountRef.current?.offsetWidth || 0
-  return (
-    <div className='relative'>
-      <input
-        name={path}
-        min={minimum}
-        max={maximum}
-        step={step}
-        type='number'
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        className={
-          cn(
-            styles.input,
-            'pr-8',
-            {
-              'border-red-600 focus:ring-red-600 focus:border-red-600': hasErrors,
-              'cursor-pointer': !isFocus
-            }
-          )
-        }
-        value={value || 0}
-        onChange={(event) => {
-          onChange(+event.target.value)
-        }}
-      />
-      <div
-        style={{ width: isFocus ? width : '100%' }}
-        className={
-          cn(
-            'pointer-events-none transition-width',
-            'absolute top-0 bottom-0 right-0',
-            'flex items-center h-full',
-          )
-        }
-      >
-        <div className='flex items-center my-1'>
-          <div
-            ref={amountRef}
-            className={
-              cn(
-                'bg-white ml-1 pl-1 pr-3 text-xl sm:text-2xl text-gray-500 font-semibold',
-                { 'bg-transparent': isFocus, 'text-red-600': hasErrors }
-              )
-            }
-          >
-            {formattedValue}
-          </div>
-          {!isFocus ? (
-            <div role='button' className={cn('text-xs truncate w-full underline text-gray-700', { 'text-red-600': hasErrors } )}>
-              <FormattedMessage id='2WfLC4' defaultMessage="Cambia la cantidad" />
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 type Props = ControlProps & VanillaRendererProps
 const PricingRatesInput = ({
   classNames,
@@ -373,18 +208,33 @@ const PricingRatesInput = ({
   const minimum = useRef<number>(fromCentsToFloat(schema.minimum, inCents)).current
   const maximum = useRef<number>(fromCentsToFloat(schema.maximum, inCents)).current
   const defaultValue = useRef<number>(fromCentsToFloat(schema.default, inCents)).current
+  const [value, setValue] = useState(fromCentsToFloat(data || schema.default, inCents))
   const step = uischema?.options?.step || 10
   const format = uischema?.options?.formatValue || 'number'
   const currency = uischema?.options?.currency || 'EUR'
-  const value = data ? fromCentsToFloat(data || schema.default, inCents) : null
   const formattedValue = useFormatValue({ value, format, currency })
   const pricingRates = useMemo(
     () => parsePricingRates(uischema?.options?.pricingRates, inCents),
     [uischema?.options.pricingRates, inCents]
   )
-  const handleChangeValue = (newValue: number) => {
-    handleChange(path, toCentsFromFloat(newValue, inCents))
+  const [bestRate] = useRef([...pricingRates].sort((a, b) => {
+    if (a.rates.daily < b.rates.daily) return -1
+    if (a.rates.daily > b.rates.daily) return 1
+    return 0
+  })).current
+  /**
+   * Debounce 200 miliseconds the change on the JSONForms
+   * A slider is too much change for the store.
+   */
+  const onChangeDebounced = useMemo<(path: string, value: number) => void>(
+    () => debounce(handleChange, 200),
+    [handleChange]
+  )
+  const onChange = (newValue: number) => {
+    setValue(newValue)
+    onChangeDebounced(path, toCentsFromFloat(newValue, inCents))
   }
+  const niceContribution = value >= bestRate.minimum
   return (
     <div className={classNames.wrapper} hidden={!visible}>
       <Label
@@ -393,16 +243,20 @@ const PricingRatesInput = ({
         required={required}
         uischema={uischema}
         classNames={classNames}
+        rightValue={
+          <div className={cn('transition-colors', { 'text-green-600': niceContribution })}>
+            {formattedValue}
+          </div>
+        }
       />
-      <Input
-        path={path}
-        hasErrors={!!errors}
+      <Slider
+        color={niceContribution ? Color.success : Color.default}
+        defaultValue={defaultValue}
         value={value}
-        formattedValue={formattedValue}
         minimum={minimum}
         maximum={maximum}
         step={step}
-        onChange={(newValue: number) => handleChangeValue(newValue)}
+        onChange={onChange}
       />
       <Description
         errors={errors}
@@ -412,8 +266,9 @@ const PricingRatesInput = ({
       />
       {pricingRates ? (
         <PricingRates
+          bestRate={bestRate}
           rates={pricingRates}
-          onRateClick={handleChangeValue}
+          onRateClick={onChange}
           format={format}
           currency={currency}
           currentValue={value}
