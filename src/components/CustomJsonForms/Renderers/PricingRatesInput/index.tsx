@@ -75,10 +75,11 @@ const Rate = ({ bestRate, maximumOfAllRates, currentValue, format, currency, rat
       <div
         className={
           cn(
-            'relative flex-1 space-y-1 w-full flex flex-col items-center text-xs border rounded p-2 transition-colors',
+            'relative flex-1 space-y-1 w-full flex flex-col items-center bg-white text-xs border rounded p-2 transition-colors',
             {
-              'border-gray-300 hover:border-gray-700 hover:shadow bg-white': !inRange,
-              'border-green-700 bg-green-50 text-green-600 shadow': inRange
+              'border-gray-300 hover:border-gray-700 hover:shadow': !inRange,
+              'border-green-700 bg-green-50 text-green-600 shadow': inRange && isTheBestRate,
+              'border-gray-700 shadow': inRange && !isTheBestRate
             }
           )
         }
@@ -153,20 +154,6 @@ const PricingRates = ({ bestRate, rates, currentValue, format, currency, onRateC
   }, [rates])
   return (
     <div className='space-y-2 rounded bg-gray-50 border border-gray-100 p-2'>
-      <div>
-        <h3 className='text-sm font-semibold text-gray-600'>
-          <FormattedMessage
-            id="DtZeeF"
-            defaultMessage='Tarifa según tu aportación'
-          />
-        </h3>
-        <p className='text-xs text-gray-600'>
-          <FormattedMessage
-            id="qc8eLe"
-            defaultMessage='A más aportación te podemos ofrecer mejor tarifa'
-          />
-        </p>
-      </div>
       {/** NOTE: Hardcoded to pricing rates from 2 to 3 **/}
       <ul className={cn('grid gap-x-4', { 'grid-cols-2': rates.length === 2, 'grid-cols-3': rates.length === 3 })}>
         {rates.map((config: PricingRateConfig, index: number) =>
@@ -183,6 +170,20 @@ const PricingRates = ({ bestRate, rates, currentValue, format, currency, onRateC
           </li>
         )}
       </ul>
+      <div>
+        <h3 className='text-sm font-semibold text-gray-600'>
+          <FormattedMessage
+            id="DtZeeF"
+            defaultMessage='Tarifa según tu aportación'
+          />
+        </h3>
+        <p className='text-xs text-gray-600'>
+          <FormattedMessage
+            id="qc8eLe"
+            defaultMessage='A más aportación te podemos ofrecer mejor tarifa'
+          />
+        </p>
+      </div>
     </div>
   )
 }
@@ -249,31 +250,33 @@ const PricingRatesInput = ({
           </div>
         }
       />
-      <Slider
-        color={niceContribution ? Color.success : Color.default}
-        defaultValue={defaultValue}
-        value={value}
-        minimum={minimum}
-        maximum={maximum}
-        step={step}
-        onChange={onChange}
-      />
+      <div className='space-y-6'>
+        <Slider
+          color={niceContribution ? Color.success : Color.default}
+          defaultValue={defaultValue}
+          value={value}
+          minimum={minimum}
+          maximum={maximum}
+          step={step}
+          onChange={onChange}
+        />
+        {pricingRates ? (
+          <PricingRates
+            bestRate={bestRate}
+            rates={pricingRates}
+            onRateClick={onChange}
+            format={format}
+            currency={currency}
+            currentValue={value}
+          />
+        ) : null}
+      </div>
       <Description
         errors={errors}
         uischema={uischema}
         visible={visible}
         description={description}
       />
-      {pricingRates ? (
-        <PricingRates
-          bestRate={bestRate}
-          rates={pricingRates}
-          onRateClick={onChange}
-          format={format}
-          currency={currency}
-          currentValue={value}
-        />
-      ) : null}
     </div>
   )
 }
