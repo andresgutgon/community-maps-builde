@@ -1,13 +1,14 @@
 import { useCallback, MouseEvent, memo, useRef, useState, useEffect, useMemo } from 'react'
 import cn from 'classnames'
 import debounce from 'lodash/debounce'
-import { FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { rankWith, RankedTester, uiTypeIs, and, or, schemaTypeIs, schemaMatches, optionIs, ControlProps, computeLabel } from '@jsonforms/core'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 import { withVanillaControlProps, VanillaRendererProps } from '@jsonforms/vanilla-renderers'
 
 import { Format, Currency, fromCentsToFloat, toCentsFromFloat, useFormatValue } from '@maps/hooks/useFormatValue'
 import Slider, { Color } from '@maps/components/Slider'
+import Button, { Styles, Size } from '@maps/components/Button'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import Label from '@maps/components/CustomJsonForms/components/Label'
 import Description from '@maps/components/CustomJsonForms/components/Description'
@@ -45,25 +46,25 @@ function parsePricingRates (pricingRates: null | PricingRateConfig[], inCents: b
   }))
 }
 
+enum TimeRate { hourly = 'hourly', daily = 'daily' }
 type RateProps = {
+  currentTimeRate: TimeRate,
   bestRate: PricingRateConfig,
-  maximumOfAllRates: number,
-  currentValue: null | number,
+  isCurrent: boolean,
   rateConfig: PricingRateConfig,
   format: Format,
   currency: null | Currency,
   onRateClick: (minimumRate: number) => void
 }
-const Rate = ({ bestRate, maximumOfAllRates, currentValue, format, currency, rateConfig, onRateClick }: RateProps) => {
-  const sameMinMax = useRef<boolean>(rateConfig.minimum === rateConfig.maximum).current
-  const minimum = useFormatValue({ value: rateConfig.minimum, format, currency })
-  const maximum = useFormatValue({ value: rateConfig.maximum, format, currency })
+const Rate = ({ currentTimeRate, bestRate, isCurrent, format, currency, rateConfig, onRateClick }: RateProps) => {
   const hourly = useFormatValue({ value: rateConfig.rates.hourly, format, currency })
   const daily = useFormatValue({ value: rateConfig.rates.daily, format, currency })
   const isTheBestRate = bestRate.rates.daily === rateConfig.rates.daily
-  const inRange = rateConfig.maximum === maximumOfAllRates
-    ? rateConfig.minimum <= currentValue
-    : rateConfig.minimum <= currentValue && currentValue <= rateConfig.maximum
+  const timeRateValue = useFormatValue({
+    value: currentTimeRate === TimeRate.hourly ? rateConfig.rates.hourly : rateConfig.rates.daily,
+    format,
+    currency
+  })
   return (
     <button
       className='cursor-pointer w-full space-y-2 flex flex-col items-center justify-between'
@@ -75,11 +76,11 @@ const Rate = ({ bestRate, maximumOfAllRates, currentValue, format, currency, rat
       <div
         className={
           cn(
-            'relative flex-1 space-y-1 w-full flex flex-col items-center bg-white text-xs border rounded p-2 transition-colors',
+            'relative flex-1 space-y-1 w-full flex flex-col items-center bg-white border rounded p-2 transition-colors',
             {
-              'border-gray-300 hover:border-gray-700 hover:shadow': !inRange,
-              'border-green-700 bg-green-50 text-green-600 shadow': inRange && isTheBestRate,
-              'border-gray-700 shadow': inRange && !isTheBestRate
+              'border-gray-300 hover:border-gray-700 hover:shadow': !isCurrent,
+              'border-green-700 bg-green-50 text-green-600 shadow': isCurrent && isTheBestRate,
+              'border-gray-700 shadow': isCurrent && !isTheBestRate
             }
           )
         }
@@ -90,8 +91,8 @@ const Rate = ({ bestRate, maximumOfAllRates, currentValue, format, currency, rat
                 cn(
                   'absolute -top-3  rounded px-1 py-0.5 font-semibold text-[9px] uppercase tracking-wider text-white',
                   {
-                    'bg-gray-700': !inRange,
-                    'bg-green-700': inRange
+                    'bg-gray-700': !isCurrent,
+                    'bg-green-700': isCurrent
                   }
                 )
               }
@@ -99,47 +100,21 @@ const Rate = ({ bestRate, maximumOfAllRates, currentValue, format, currency, rat
             <FormattedMessage id='TKx/Q8' defaultMessage="Mejor" />
           </div>
         ) : null}
-        <div className='h-full flex flex-col justify-center items-center'>
-          <div>
-            <FormattedMessage
-              id='LrEb2L'
-              defaultMessage="{value} / hora"
-              values={{
-                value: <span>{hourly}</span>
-              }}
-            />
-          </div>
-          <div>
-            <FormattedMessage
-              id='7DlC7w'
-              defaultMessage="{value} / día"
-              values={{
-                value: <span>{daily}</span>
-              }}
-            />
-          </div>
+        <div className='h-full flex flex-col justify-center items-center text-base'>
+          {timeRateValue}
         </div>
-      </div>
-      <div className='text-xs text-center tracking-wide transition-colors text-gray-700'>
-        {!sameMinMax ? (
-          <FormattedMessage
-            id='DCKDvH'
-            defaultMessage="De {min} a {max}"
-            values={{ min: <b>{minimum}</b>, max: <><br className='hidden sm:block' /><b>{maximum}</b></> }}
-          />
-        ) : (
-          <FormattedMessage
-            id='KBQ1Ru'
-            defaultMessage="Más de {value}"
-            values={{ value: <><br className='hidden sm:block' /><b>{minimum}</b></> }}
-          />
-        )}
       </div>
     </button>
   )
 }
 
+type TimeCopy = { button: string, word: string }
+type RateTimeCopies = {
+  [TimeRate.hourly]: TimeCopy
+  [TimeRate.daily]: TimeCopy
+}
 type PricingRatesProps = {
+  path: string,
   bestRate: PricingRateConfig,
   rates: PricingRateConfig[],
   format: Format,
@@ -147,42 +122,117 @@ type PricingRatesProps = {
   currentValue: null | number,
   onRateClick: (minimumRate: number) => void
 }
-const PricingRates = ({ bestRate, rates, currentValue, format, currency, onRateClick }: PricingRatesProps) => {
+const PricingRates = ({ path, bestRate, rates, currentValue, format, currency, onRateClick }: PricingRatesProps) => {
+  const intl = useIntl()
+  const timeRateCopies = useRef<RateTimeCopies>({
+    [TimeRate.hourly]: {
+      button: intl.formatMessage({ id: 'Ne/FEr', defaultMessage: 'Precio por hora' }),
+      word: intl.formatMessage({ id: 'puO6Zk', defaultMessage: 'hora' })
+    },
+    [TimeRate.daily]: {
+      button: intl.formatMessage({ id: 'tHIDSe', defaultMessage: 'Precio por día' }),
+      word: intl.formatMessage({ id: '3sBbAu', defaultMessage: 'día' })
+    }
+  }).current
   const maximumOfAllRates = useMemo<number>(() => {
     const maxArray = rates.map(rate => rate.maximum)
     return Math.max(...maxArray)
   }, [rates])
+  const current = useMemo(() => rates.find((rateConfig: PricingRateConfig) =>
+    rateConfig.maximum === maximumOfAllRates
+      ? rateConfig.minimum <= currentValue
+      : rateConfig.minimum <= currentValue && currentValue <= rateConfig.maximum
+  ), [rates, currentValue, maximumOfAllRates])
+  const minimum = useFormatValue({ value: current.minimum, format, currency })
+  const maximum = useFormatValue({ value: current.maximum, format, currency })
+  const [currentTimeRate, setTimeRate] = useState(TimeRate.hourly)
+  const timeRateValue = useFormatValue({
+    value: currentTimeRate === TimeRate.hourly ? current.rates.hourly : current.rates.daily,
+    format,
+    currency
+  })
+  const sameMinMax = current.minimum === current.maximum
   return (
-    <div className='space-y-2 rounded bg-gray-50 border border-gray-100 p-2'>
-      {/** NOTE: Hardcoded to pricing rates from 2 to 3 **/}
-      <ul className={cn('grid gap-x-4', { 'grid-cols-2': rates.length === 2, 'grid-cols-3': rates.length === 3 })}>
-        {rates.map((config: PricingRateConfig, index: number) =>
-          <li key={index} className='w-full flex'>
-            <Rate
-              bestRate={bestRate}
-              maximumOfAllRates={maximumOfAllRates}
-              currentValue={currentValue}
-              rateConfig={config}
-              onRateClick={onRateClick}
-              format={format}
-              currency={currency}
+    <div className='space-y-4'>
+      <div className='space-y-2 rounded bg-gray-50 border border-gray-100 p-2'>
+        <div>
+          <h3 className='text-sm font-semibold text-gray-800'>
+            <FormattedMessage
+              id="DtZeeF"
+              defaultMessage='Tarifa según tu aportación'
             />
-          </li>
+          </h3>
+          <p className='text-xs text-gray-600'>
+            <FormattedMessage
+              id="qc8eLe"
+              defaultMessage='A más aportación te podemos ofrecer mejor tarifa'
+            />
+          </p>
+        </div>
+        {/** NOTE: Hardcoded to pricing rates from 2 to 3 **/}
+        <ul className={cn('grid gap-x-4', { 'grid-cols-2': rates.length === 2, 'grid-cols-3': rates.length === 3 })}>
+          {rates.map((config: PricingRateConfig, index: number) =>
+            <li key={index} className='w-full flex'>
+              <Rate
+                currentTimeRate={currentTimeRate}
+                bestRate={bestRate}
+                isCurrent={current.minimum === config.minimum && current.maximum === config.maximum}
+                rateConfig={config}
+                onRateClick={onRateClick}
+                format={format}
+                currency={currency}
+              />
+            </li>
+          )}
+        </ul>
+        <div className='text-xs text-gray-800'>
+          {!sameMinMax ? (
+            <FormattedMessage
+              id='OS3K9O'
+              defaultMessage='Si tu aportación es de {min} a {max} tu tarifa por {timeRate} es {rate}'
+              values={{
+                min: <b>{minimum}</b>,
+                max: <b>{maximum}</b>,
+                timeRate: timeRateCopies[currentTimeRate].word,
+                rate: <b>{timeRateValue}</b>
+              }}
+            />
+          ) : (
+            <FormattedMessage
+              id='k3fpzo'
+              defaultMessage="Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
+              values={{
+                value: <b>{minimum}</b>,
+                timeRate: timeRateCopies[currentTimeRate].word,
+                rate: <b>{timeRateValue}</b>
+              }}
+            />
+          )}
+        </div>
+      </div>
+      <div className='flex flex-col space-y-2'>
+        {[TimeRate.hourly, TimeRate.daily].map((timeRate: TimeRate) =>
+          <label
+            key={`${path}--${timeRate}`}
+            className='text-sm cursor-pointer flex flex-rows items-center space-x-2'
+            htmlFor={`${path}--${timeRate}`}
+            onClick={(event) => {
+              event.stopPropagation()
+              setTimeRate(timeRate)
+            }}
+          >
+            <input
+              type="radio"
+              id={`${path}--${timeRate}`}
+              className='appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent'
+              value={timeRate}
+              name='timeRate'
+              onChange={() => setTimeRate(timeRate)}
+              checked={currentTimeRate === timeRate}
+            />
+            <span>{timeRateCopies[timeRate].button}</span>
+          </label>
         )}
-      </ul>
-      <div>
-        <h3 className='text-sm font-semibold text-gray-600'>
-          <FormattedMessage
-            id="DtZeeF"
-            defaultMessage='Tarifa según tu aportación'
-          />
-        </h3>
-        <p className='text-xs text-gray-600'>
-          <FormattedMessage
-            id="qc8eLe"
-            defaultMessage='A más aportación te podemos ofrecer mejor tarifa'
-          />
-        </p>
       </div>
     </div>
   )
@@ -236,8 +286,11 @@ const PricingRatesInput = ({
     onChangeDebounced(path, toCentsFromFloat(newValue, inCents))
   }
   const niceContribution = value >= bestRate.minimum
+
+  if (!visible) return null
+
   return (
-    <div className={classNames.wrapper} hidden={!visible}>
+    <div className={classNames.wrapper}>
       <Label
         id={id}
         label={label}
@@ -249,6 +302,12 @@ const PricingRatesInput = ({
             {formattedValue}
           </div>
         }
+      />
+      <Description
+        errors={errors}
+        uischema={uischema}
+        visible={visible}
+        description={description}
       />
       <div className='space-y-6'>
         <Slider
@@ -262,6 +321,7 @@ const PricingRatesInput = ({
         />
         {pricingRates ? (
           <PricingRates
+            path={path}
             bestRate={bestRate}
             rates={pricingRates}
             onRateClick={onChange}
@@ -271,12 +331,6 @@ const PricingRatesInput = ({
           />
         ) : null}
       </div>
-      <Description
-        errors={errors}
-        uischema={uischema}
-        visible={visible}
-        description={description}
-      />
     </div>
   )
 }

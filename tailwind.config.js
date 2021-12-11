@@ -14,11 +14,17 @@ module.exports = {
         white: '2px solid rgba(255, 255, 255, 0.5)',
       },
       transitionProperty: {
-        'width': 'width'
+        'width': 'width',
+        'left': 'left'
       },
     },
   },
-  variants: {},
+  variants: {
+    extend: {
+      textColor: ['checked'],
+      borderColor: ['checked'],
+    }
+  },
   plugins: [
     require('@tailwindcss/forms'),
   ],

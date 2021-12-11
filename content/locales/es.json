@@ -5,23 +5,17 @@
   "1uGo7W": {
     "defaultMessage": "Este campo es numérico"
   },
-  "2WfLC4": {
-    "defaultMessage": "Cambia la cantidad"
-  },
   "3Fs00I": {
     "defaultMessage": "El campo {fieldName} es obligatorio"
+  },
+  "3sBbAu": {
+    "defaultMessage": "día"
   },
   "4iGwAO": {
     "defaultMessage": "Este campo debe ser igual o menos de {max}"
   },
-  "7DlC7w": {
-    "defaultMessage": "{value} / día"
-  },
   "ArcHyA": {
     "defaultMessage": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
-  },
-  "DCKDvH": {
-    "defaultMessage": "De {min} a {max}"
   },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
@@ -32,14 +26,14 @@
   "IVA/Y9": {
     "defaultMessage": "Buscar una dirección"
   },
-  "KBQ1Ru": {
-    "defaultMessage": "Más de {value}"
-  },
-  "LrEb2L": {
-    "defaultMessage": "{value} / hora"
-  },
   "MwlsML": {
     "defaultMessage": "Cerrar modal"
+  },
+  "Ne/FEr": {
+    "defaultMessage": "Precio por hora"
+  },
+  "OS3K9O": {
+    "defaultMessage": "Si tu aportación es de {min} a {max} tu tarifa por {timeRate} es {rate}"
   },
   "Pga9q2": {
     "defaultMessage": "Lo sentimos, no hay resultados para esta dirección"
@@ -56,11 +50,20 @@
   "eOuNie": {
     "defaultMessage": "Buscar"
   },
+  "k3fpzo": {
+    "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
+  },
   "nZLeaQ": {
     "defaultMessage": "Cancelar"
   },
+  "puO6Zk": {
+    "defaultMessage": "hora"
+  },
   "qc8eLe": {
     "defaultMessage": "A más aportación te podemos ofrecer mejor tarifa"
+  },
+  "tHIDSe": {
+    "defaultMessage": "Precio por día"
   },
   "zaaFVR": {
     "defaultMessage": "El formato de email no es válido"

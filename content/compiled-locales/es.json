@@ -15,12 +15,6 @@
       "value": "Este campo es numérico"
     }
   ],
-  "2WfLC4": [
-    {
-      "type": 0,
-      "value": "Cambia la cantidad"
-    }
-  ],
   "3Fs00I": [
     {
       "type": 0,
@@ -35,6 +29,12 @@
       "value": " es obligatorio"
     }
   ],
+  "3sBbAu": [
+    {
+      "type": 0,
+      "value": "día"
+    }
+  ],
   "4iGwAO": [
     {
       "type": 0,
@@ -45,38 +45,10 @@
       "value": "max"
     }
   ],
-  "7DlC7w": [
-    {
-      "type": 1,
-      "value": "value"
-    },
-    {
-      "type": 0,
-      "value": " / día"
-    }
-  ],
   "ArcHyA": [
     {
       "type": 0,
       "value": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
-    }
-  ],
-  "DCKDvH": [
-    {
-      "type": 0,
-      "value": "De "
-    },
-    {
-      "type": 1,
-      "value": "min"
-    },
-    {
-      "type": 0,
-      "value": " a "
-    },
-    {
-      "type": 1,
-      "value": "max"
     }
   ],
   "DtZeeF": [
@@ -97,30 +69,50 @@
       "value": "Buscar una dirección"
     }
   ],
-  "KBQ1Ru": [
-    {
-      "type": 0,
-      "value": "Más de "
-    },
-    {
-      "type": 1,
-      "value": "value"
-    }
-  ],
-  "LrEb2L": [
-    {
-      "type": 1,
-      "value": "value"
-    },
-    {
-      "type": 0,
-      "value": " / hora"
-    }
-  ],
   "MwlsML": [
     {
       "type": 0,
       "value": "Cerrar modal"
+    }
+  ],
+  "Ne/FEr": [
+    {
+      "type": 0,
+      "value": "Precio por hora"
+    }
+  ],
+  "OS3K9O": [
+    {
+      "type": 0,
+      "value": "Si tu aportación es de "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " tu tarifa por "
+    },
+    {
+      "type": 1,
+      "value": "timeRate"
+    },
+    {
+      "type": 0,
+      "value": " es "
+    },
+    {
+      "type": 1,
+      "value": "rate"
     }
   ],
   "Pga9q2": [
@@ -153,16 +145,54 @@
       "value": "Buscar"
     }
   ],
+  "k3fpzo": [
+    {
+      "type": 0,
+      "value": "Si tu aportación es más de "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": " tu tarifa por "
+    },
+    {
+      "type": 1,
+      "value": "timeRate"
+    },
+    {
+      "type": 0,
+      "value": " es "
+    },
+    {
+      "type": 1,
+      "value": "rate"
+    }
+  ],
   "nZLeaQ": [
     {
       "type": 0,
       "value": "Cancelar"
     }
   ],
+  "puO6Zk": [
+    {
+      "type": 0,
+      "value": "hora"
+    }
+  ],
   "qc8eLe": [
     {
       "type": 0,
       "value": "A más aportación te podemos ofrecer mejor tarifa"
+    }
+  ],
+  "tHIDSe": [
+    {
+      "type": 0,
+      "value": "Precio por día"
     }
   ],
   "zaaFVR": [

@@ -15,7 +15,7 @@ type SizeClasses = {
   text: string
 }
 const SIZES: Record<Size, SizeClasses> = {
-  sm: { padding: 'px-2 py-1 ', text: 'text-sm font-medium' },
+  sm: { padding: 'px-2 py-1 ', text: 'text-xs font-medium' },
   md: { padding: 'px-4 py-2 ', text: 'text-base font-medium' },
   none: { padding: 'p-1', text: 'text-base font-medium' }
 }
@@ -62,6 +62,8 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
           'bg-[#facb00] text-[#3f3e3e] hover:bg-[#e9bd00] border-transparent': !outline && Styles.branded === style,
           'bg-white border-[#facb00] text-[#3f3e3e] hover:bg-gray-50': outline && Styles.branded === style,
           'bg-white text-gray-700 hover:bg-gray-50': outline && Styles.secondary === style,
+          'bg-white text-gray-800 hover:bg-gray-50': outline && Styles.primary === style,
+          'bg-gray-800 text-white hover:bg-gray-900': !outline && Styles.primary === style,
           'bg-transparent text-gray-700 border-none': Styles.transparent === style,
           'shadow-sm hover:shadow transition-shadow active:shadow-inner': !disabled && Styles.transparent !== style,
           'disabled:bg-gray-200 disabled:bg-opacity-80 disabled:text-gray-600 hover:shadow-none': !outline
