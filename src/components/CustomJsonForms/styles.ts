@@ -50,11 +50,27 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['group w-full mt-2 space-y-2 rounded border border-gray-200 hover:border-gray-700 pt-2 pb-4 px-4']
+      classNames: ['w-full mt-2 space-y-2 rounded border border-gray-200 pt-2 pb-4 px-4']
     },
     {
       name: 'group.label',
-      classNames: ['py-0.5 px-1 text-xs group-hover:bg-gray-700 text-gray-400 group-hover:text-gray-100 rounded group-hover:font-medium uppercase tracking-wide']
+      classNames: ['py-0.5 px-1 text-xs text-gray-400 rounded uppercase tracking-wide']
+    },
+    {
+      name: 'control.radio',
+      classNames: ['flex flex-row items-center space-x-3']
+    },
+    {
+      name: 'control.radio.option',
+      classNames: ['flex flex-row items-center space-x-2 cursor-pointer']
+    },
+    {
+      name: 'control.radio.input',
+      classNames: ['appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent']
+    },
+    {
+      name: 'control.radio.label',
+      classNames: ['text-sm text-gray-800 cursor-pointer']
     }
   ]
 }

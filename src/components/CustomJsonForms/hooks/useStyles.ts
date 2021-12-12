@@ -2,8 +2,15 @@ import { useRef } from 'react'
 
 import { formStyles } from '@maps/components/CustomJsonForms/styles'
 
+type RadioStyles = {
+  wrap: string,
+  option: string,
+  input: string,
+  label: string
+}
 type ReturnType = {
   input: string,
+  radio: RadioStyles,
   description: string,
   descriptionError: string
 }
@@ -20,8 +27,16 @@ const useStyles = (): ReturnType => {
   const input = useRef(
     formStyles.styles.find(style => style.name === 'control.input').classNames.join(' ')
   ).current
+  const radio = useRef(
+    {
+      wrap: formStyles.styles.find(style => style.name === 'control.radio').classNames.join(' '),
+      option: formStyles.styles.find(style => style.name === 'control.radio.option').classNames.join(' '),
+      input: formStyles.styles.find(style => style.name === 'control.radio.input').classNames.join(' '),
+      label: formStyles.styles.find(style => style.name === 'control.radio.label').classNames.join(' ')
+    }
+  ).current
 
-  return { input, description, descriptionError}
+  return { radio, input, description, descriptionError}
 }
 
 export default useStyles

@@ -65,7 +65,7 @@
               "type": "Control",
               "scope": "#/properties/contribution_type",
               "label": "Tipo de aportación",
-              "options": { "format": "select" }
+              "options": { "format": "radio" }
             },
             {
               "type":"Control",
@@ -163,12 +163,18 @@
                 {
                   "type":"Control",
                   "scope":"#/properties/name",
-                  "label": "Nombre"
+                  "label": "Nombre",
+                  "options": {
+                    "placeholder": "Nombre y appellidos"
+                  }
                 },
                 {
                   "type":"Control",
                   "scope":"#/properties/email",
-                  "label":"Email"
+                  "label":"Email",
+                  "options": {
+                    "placeholder": "Tu correo electrónico"
+                  }
                 },
                 {
                   "type": "HorizontalLayout",

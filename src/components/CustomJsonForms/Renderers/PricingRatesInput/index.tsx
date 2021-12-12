@@ -124,6 +124,7 @@ type PricingRatesProps = {
 }
 const PricingRates = ({ path, bestRate, rates, currentValue, format, currency, onRateClick }: PricingRatesProps) => {
   const intl = useIntl()
+  const { radio: radioStyles } = useStyles()
   const timeRateCopies = useRef<RateTimeCopies>({
     [TimeRate.hourly]: {
       button: intl.formatMessage({ id: 'Ne/FEr', defaultMessage: 'Precio por hora' }),
@@ -154,21 +155,45 @@ const PricingRates = ({ path, bestRate, rates, currentValue, format, currency, o
   const sameMinMax = current.minimum === current.maximum
   return (
     <div className='space-y-4'>
+      <div>
+        <h3 className='text-sm font-semibold text-gray-800'>
+          <FormattedMessage
+            id="DtZeeF"
+            defaultMessage='Tarifa según tu aportación'
+          />
+        </h3>
+        <p className='text-xs text-gray-600'>
+          <FormattedMessage
+            id="qc8eLe"
+            defaultMessage='A más aportación te podemos ofrecer mejor tarifa'
+          />
+        </p>
+      </div>
+      <div className='flex flex-col space-y-2'>
+        {[TimeRate.hourly, TimeRate.daily].map((timeRate: TimeRate) =>
+          <label
+            key={`${path}--${timeRate}`}
+            className='text-xs cursor-pointer flex flex-rows items-center space-x-2'
+            htmlFor={`${path}--${timeRate}`}
+            onClick={(event) => {
+              event.stopPropagation()
+              setTimeRate(timeRate)
+            }}
+          >
+            <input
+              type="radio"
+              id={`${path}--${timeRate}`}
+              className={radioStyles.input}
+              value={timeRate}
+              name='timeRate'
+              onChange={() => setTimeRate(timeRate)}
+              checked={currentTimeRate === timeRate}
+            />
+            <span>{timeRateCopies[timeRate].button}</span>
+          </label>
+        )}
+      </div>
       <div className='space-y-2 rounded bg-gray-50 border border-gray-100 p-2'>
-        <div>
-          <h3 className='text-sm font-semibold text-gray-800'>
-            <FormattedMessage
-              id="DtZeeF"
-              defaultMessage='Tarifa según tu aportación'
-            />
-          </h3>
-          <p className='text-xs text-gray-600'>
-            <FormattedMessage
-              id="qc8eLe"
-              defaultMessage='A más aportación te podemos ofrecer mejor tarifa'
-            />
-          </p>
-        </div>
         {/** NOTE: Hardcoded to pricing rates from 2 to 3 **/}
         <ul className={cn('grid gap-x-4', { 'grid-cols-2': rates.length === 2, 'grid-cols-3': rates.length === 3 })}>
           {rates.map((config: PricingRateConfig, index: number) =>
@@ -209,30 +234,6 @@ const PricingRates = ({ path, bestRate, rates, currentValue, format, currency, o
             />
           )}
         </div>
-      </div>
-      <div className='flex flex-col space-y-2'>
-        {[TimeRate.hourly, TimeRate.daily].map((timeRate: TimeRate) =>
-          <label
-            key={`${path}--${timeRate}`}
-            className='text-sm cursor-pointer flex flex-rows items-center space-x-2'
-            htmlFor={`${path}--${timeRate}`}
-            onClick={(event) => {
-              event.stopPropagation()
-              setTimeRate(timeRate)
-            }}
-          >
-            <input
-              type="radio"
-              id={`${path}--${timeRate}`}
-              className='appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent'
-              value={timeRate}
-              name='timeRate'
-              onChange={() => setTimeRate(timeRate)}
-              checked={currentTimeRate === timeRate}
-            />
-            <span>{timeRateCopies[timeRate].button}</span>
-          </label>
-        )}
       </div>
     </div>
   )
@@ -291,6 +292,12 @@ const PricingRatesInput = ({
 
   return (
     <div className={classNames.wrapper}>
+      <Description
+        errors={errors}
+        uischema={uischema}
+        visible={visible}
+        description={description}
+      />
       <Label
         id={id}
         label={label}
@@ -302,12 +309,6 @@ const PricingRatesInput = ({
             {formattedValue}
           </div>
         }
-      />
-      <Description
-        errors={errors}
-        uischema={uischema}
-        visible={visible}
-        description={description}
       />
       <div className='space-y-6'>
         <Slider
