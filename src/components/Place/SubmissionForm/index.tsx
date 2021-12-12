@@ -17,9 +17,10 @@ type translatableJsonSchema = JsonSchema & { translations?: Record<string, strin
 type Props = {
   isOpen: boolean
   place: PlaceType | null
-  closeFn: () => void
+  closeFn: () => void,
+  onLoadingFinish: () => void
 }
-export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
+export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinish }: Props) {
   const intl = useIntl()
   const { locale } = useRouter()
   const form = useForm({ place, isOpen })
@@ -29,6 +30,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place }: Props) {
   return (
     <Dialog
       onSubmit={form.onSubmit}
+      onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
       title={place?.name}
       description={intl.formatMessage({

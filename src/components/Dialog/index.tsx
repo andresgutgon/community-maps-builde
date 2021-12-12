@@ -7,6 +7,7 @@ export type Props = {
   description: string,
   initialFocusRef?: RefObject<any>,
   onClose: () => void,
+  onLoadingFinish?: () => void,
   children?: ReactNode,
   onSubmit?: SubmitFn,
   footer: ReactNode,
@@ -22,7 +23,8 @@ export default function Dialog({
   initialFocusRef,
   title,
   description,
-  onSubmit
+  onSubmit,
+  onLoadingFinish
 }: Props) {
   const [Modal, setModal] = useState(null)
   useEffect(() => {
@@ -33,13 +35,14 @@ export default function Dialog({
       setModal(Component)
     }
     loadComponent()
-  }, [isOpen, Modal])
+  }, [isOpen, Modal, onLoadingFinish])
 
   if (!Modal) return null
 
   return (
     <Modal
       onSubmit={onSubmit}
+      onLoadingFinish={onLoadingFinish}
       title={title}
       description={description}
       initialFocusRef={initialFocusRef}

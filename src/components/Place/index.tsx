@@ -1,4 +1,5 @@
 import { ReactElement, useRef, useEffect, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import dynamic from 'next/dynamic'
 import { Popup as LeafletPopup } from 'leaflet'
 import { Marker, Popup } from 'react-leaflet'
@@ -7,16 +8,16 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place as PlaceType } from '@maps/types/index'
 import buildIcon from './buildIcon'
 
-type Props = { place: PlaceType; openPlaceFn: () => void }
-const FakeContent = (props: Props) => <div>Loding...</div>
-export default function Place (props: Props) {
+const Loading = () =>
+  <div className='p-10 flex items-center justify-center h-28'>
+    <FormattedMessage defaultMessage='Cargando' id='m9eXO9' />{'...'}
+  </div>
+
+type Props = { place: PlaceType }
+export default function Place ({ place }: Props) {
   const popupRef = useRef()
-  const { openPlaceFn, place } = props
   const [loading, setLoading] = useState(false)
-  const [loaded, setLoadComponent] = useState(false)
-  const [Content, setContent] = useState<ReactElement<Props>>(
-    <FakeContent {...props} />
-  )
+  const [Content, setContent] = useState(null)
   const { config } = useMapData()
   const { name, lat, lng } = place
   const category = config.categories[place.category_slug]
@@ -36,23 +37,27 @@ export default function Place (props: Props) {
 
   // Lazyload with "dynamic" import the JS for ./PopupContent.tsx
   useEffect(() => {
-    if (loaded) return
+    if (Content) return
+
     async function loadComponent () {
-      setLoading(true)
-      const Component = await dynamic(() => import('./PopupContent'))
-      setContent(<Component place={place} openPlaceFn={openPlaceFn} />)
-      setLoadComponent(true)
+      const Component = await dynamic(
+        () => import('./PopupContent'),
+        { loading: () => <Loading /> }
+      )
+      setContent(Component)
       setLoading(false)
     }
     loadComponent()
-  }, [openPlaceFn, place, loaded])
+  }, [Content, loading])
   return (
     <Marker position={latLng} icon={icon}>
       <Popup ref={popupRef} onOpen={() => {
-        if (loaded) return
+        if (Content) return
         setLoading(true)
       }}>
-        {Content}
+        {Content ? (
+          <Content place={place} />
+        ) : null}
       </Popup>
     </Marker>
   )
