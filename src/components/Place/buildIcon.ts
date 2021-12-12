@@ -14,14 +14,15 @@ const ICON_COLORS: Record<IconColor, Color> = {
   black: { icon: 'text-white', border: 'border-gray-800', bg: 'bg-gray-600' },
   purple: { icon: 'text-white', border: 'border-purple-800', bg: 'bg-purple-600' },
 }
-type BuildIconProps = { category: Category }
-export default function buildIcon ({ category }: BuildIconProps): DivIcon {
+type BuildIconProps = { animate: boolean, category: Category }
+export default function buildIcon ({ animate, category }: BuildIconProps): DivIcon {
   const icon = ICONS[category.iconKey] || ICONS[ICONS.car]
   const color = ICON_COLORS[category.iconColor]
+  const animateClass = animate ? 'animate-bounce' : ''
   return divIcon({
     className: null,
     html: `
-      <div class='h-10 w-10 relative rounded-full shadow-md border ${color.border} ${color.bg}'>
+      <div class='${animateClass} h-10 w-10 relative rounded-full shadow-md border ${color.border} ${color.bg}'>
         <div
           class='rounded-full absolute inset-0 z-10 flex items-center justify-center ${color.bg} border border-white border-opacity-75'>
           <i class="${cn('fas text-base text-opacity-90', color.icon, icon)}"></i>

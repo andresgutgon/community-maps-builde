@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useEffect, useState, useContext } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import { Place, Config } from '@maps/types/index'
 
@@ -43,7 +44,16 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   }, [community, mapId])
   return (
     <CommunityContext.Provider value={{ loading, places, config }}>
-      {children}
+      {loading ? (
+        <div className='flex items-center justify-center z-40 bg-gray-50 w-screen h-screen'>
+          <div className='text-base text-gray-600'>
+            <FormattedMessage
+              id="Q3y3P6"
+              defaultMessage='Cargando mapa...'
+            />
+          </div>
+        </div>
+      ): children}
     </CommunityContext.Provider>
   )
 }

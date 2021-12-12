@@ -45,14 +45,6 @@ const MapWrapper = () => {
     setPlaceModal(null)
   }, [isOpen])
 
-  // FIXME: Remove this effect
-  useEffect(() => {
-    if (loading) return;
-
-    setModal(true)
-    setPlaceModal(places[0])
-  }, [places, loading, setPlaceModal])
-
   if (loading) return null
 
   return (
