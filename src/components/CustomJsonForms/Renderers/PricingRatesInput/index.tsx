@@ -34,7 +34,7 @@ type PricingRateConfig  = {
   rates: PricingRate
 }
 function parsePricingRates (pricingRates: null | PricingRateConfig[], inCents: boolean): null | PricingRateConfig[] {
-  if (!pricingRates) return null
+  if (!pricingRates) return []
 
   return pricingRates.map((config: PricingRateConfig) => ({
     minimum: fromCentsToFloat(config.minimum, inCents),
@@ -89,7 +89,7 @@ const Rate = ({ currentTimeRate, bestRate, isCurrent, format, currency, rateConf
           <div
             className={
                 cn(
-                  'absolute -top-3  rounded px-1 py-0.5 font-semibold text-[9px] uppercase tracking-wider text-white',
+                  'absolute -top-3 leading-4 rounded px-1 py-0.5 font-semibold text-[9px] uppercase tracking-wider text-white',
                   {
                     'bg-gray-700': !isCurrent,
                     'bg-green-700': isCurrent
@@ -269,11 +269,11 @@ const PricingRatesInput = ({
     () => parsePricingRates(uischema?.options?.pricingRates, inCents),
     [uischema?.options.pricingRates, inCents]
   )
-  const [bestRate] = useRef([...pricingRates].sort((a, b) => {
+  const bestRate: null | PricingRateConfig = useRef([...pricingRates].sort((a, b) => {
     if (a.rates.daily < b.rates.daily) return -1
     if (a.rates.daily > b.rates.daily) return 1
     return 0
-  })).current
+  })).current[0]
   /**
    * Debounce 200 miliseconds the change on the JSONForms
    * A slider is too much change for the store.
@@ -286,18 +286,20 @@ const PricingRatesInput = ({
     setValue(newValue)
     onChangeDebounced(path, toCentsFromFloat(newValue, inCents))
   }
-  const niceContribution = value >= bestRate.minimum
+  const niceContribution = value >= bestRate?.minimum
 
   if (!visible) return null
 
   return (
     <div className={classNames.wrapper}>
-      <Description
-        errors={errors}
-        uischema={uischema}
-        visible={visible}
-        description={description}
-      />
+      <div className='bg-gray-50 border border-gray-200 rounded p-2'>
+        <Description
+          errors={errors}
+          uischema={uischema}
+          visible={visible}
+          description={description}
+        />
+      </div>
       <Label
         id={id}
         label={label}
@@ -320,7 +322,7 @@ const PricingRatesInput = ({
           step={step}
           onChange={onChange}
         />
-        {pricingRates ? (
+        {(pricingRates && bestRate) ? (
           <PricingRates
             path={path}
             bestRate={bestRate}
