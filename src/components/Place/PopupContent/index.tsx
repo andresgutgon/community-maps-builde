@@ -35,6 +35,32 @@ const useSchema = ({ place }: UseSchemaProps) => useMemo(
   [place]
 )
 
+const GOOGLE_DIRECTIONS_URL_BASE = 'https://www.google.com/maps/dir/?api=1&'
+type HeaderProps = {
+  name: string
+  lat: string
+  lng: string
+  address: string | null
+}
+const Header = ({ name, address, lat, lng }: HeaderProps) => {
+  return (
+    <div className='space-y-1 pb-2 mb-2 border-b border-gray-200'>
+      <h2 className='text-base text-gray-700'>{name}</h2>
+      <div className='text-xs text-gray-600'>
+        {address ? `${address} - ` : null}
+        <a
+          className='text-gray-800 font-medium underline'
+          href={`${GOOGLE_DIRECTIONS_URL_BASE}&destination=${lat},${lng}`}
+          rel='noreferrer'
+          target="_blank"
+        >
+          <FormattedMessage defaultMessage='Cómo llegar' id='vD8ftS' />
+        </a>
+      </div>
+    </div>
+  )
+}
+
 type PlaceContentProps = {
   isModalLoading: boolean,
   onClick: () => void,
@@ -43,14 +69,14 @@ type PlaceContentProps = {
 const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => {
   const intl = useIntl()
   const schema = useSchema({ place })
-  const { name, lat, lng } = place
+  const { name, address, lat, lng } = place
   const button = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
   const buttonLoading = `${intl.formatMessage({ id: 'm9eXO9', defaultMessage: 'Cargando' })}...`
   const buttonLabel = isModalLoading ? buttonLoading : button
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col space-y-2 p-3'>
-        <h2 className='text-base text-gray-700'>{name}</h2>
+        <Header lat={lat} lng={lng} name={name} address={address} />
         {schema.present ? (
           <JsonFormsStyleContext.Provider value={displayStyles}>
             <JsonForms
