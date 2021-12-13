@@ -106,7 +106,7 @@ const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => 
 type Props = { place: Place }
 const PopupContent = ({ place }: Props) => {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const [dataLoading, setDataLoading] = useState(true)
   const [data, setData] = useState(null)
   const [isOpen, setModal] = useState<boolean>(false)
   const [isModalLoading, setModalLoading] = useState<boolean>(false)
@@ -124,13 +124,13 @@ const PopupContent = ({ place }: Props) => {
       const response = await fetch(`/api/${community}/maps/${mapSlug}/places/${place.slug}`)
       const data = await response.json()
       setData(data)
-      setLoading(false)
+      setDataLoading(false)
     }
 
     fetchData()
-  }, [data, place, loading, router])
+  }, [data, place, dataLoading, router])
 
-  if (loading) return <Loading />
+  if (dataLoading) return <Loading />
 
   return (
     <>

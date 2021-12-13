@@ -54,7 +54,6 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   // Set initialData when form is present for the first time
   useEffect(() => {
     if (!form) return
-    console.log('INITIAL DATA', form.initialData)
     setData(form.initialData || {})
     // NOTE: Using place here we make this useEffect run
     // always the place is changed.
