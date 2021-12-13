@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
-import placeDetail from '@maps/data/placeDetail.json'
+import placeDetail from '@maps/data/places/default.json'
 import handler from './[id]'
 
 import fetchMock from "jest-fetch-mock"

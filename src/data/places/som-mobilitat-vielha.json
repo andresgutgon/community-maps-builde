@@ -1,0 +1,27 @@
+{
+  "schemaData": {
+    "description": "[markdown] En este enlace puedes comprar horas para un vehículo en este lugar.  \n\n Durant els 3 primers mesos gaudiràs de la tarifa benvinguda (Tarifa -20%)  \n\n [Compra horas](https://www.sommobilitat.coop/tarifa-us-flexible-amb-iva/)",
+    "warning": "[markdown] **Atención**: Es un warning sólo para Vielha. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)"
+  },
+  "jsonSchema": {
+    "type":"object",
+    "properties":{
+      "description": { "type": "string", "format": "markdown" },
+      "warning": { "type": "string", "format": "markdown" }
+    }
+  },
+  "uiSchema": {
+    "type":"VerticalLayout",
+    "elements": [
+      {
+        "type": "Display",
+        "scope": "#/properties/description"
+      },
+      {
+        "type": "Display",
+        "scope": "#/properties/warning",
+        "options": { "warning": true }
+      }
+    ]
+  }
+}

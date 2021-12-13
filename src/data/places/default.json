@@ -1,0 +1,23 @@
+{
+  "schemaData": {
+    "warning": "[markdown] **Atención**: debido al COVID algunas restricciones se podran aplicar. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)"
+  },
+  "jsonSchema": {
+    "type":"object",
+    "properties":{
+      "warning": { "type": "string", "format": "markdown" }
+    }
+  },
+  "uiSchema": {
+    "type":"VerticalLayout",
+    "elements": [
+      {
+        "type": "Display",
+        "scope": "#/properties/warning",
+        "options": {
+          "warning": true
+        }
+      }
+    ]
+  }
+}

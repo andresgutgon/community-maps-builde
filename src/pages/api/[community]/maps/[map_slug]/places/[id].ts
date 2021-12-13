@@ -5,26 +5,24 @@ import sanitizeHtml from 'sanitize-html'
 
 import withHeaderBearerToken from '@maps/lib/middlewares/withHeaderBearerToken'
 import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerToken'
-import places from '@maps/data/places.json'
-import placeDetail from '@maps/data/placeDetail.json'
 
 const renderer = new marked.Renderer();
 // Add target="_blank" to all links
 const linkRenderer = renderer.link
 renderer.link = (href, title, text) => {
-  const localLink = href.startsWith(`${location.protocol}//${location.hostname}`);
   const html = linkRenderer.call(renderer, href, title, text);
-  return localLink ? html : html.replace(/^<a /, `<a target="_blank" rel="noreferrer noopener nofollow" `);
+  return html.replace(/^<a /, `<a target="_blank" rel="noreferrer noopener nofollow" `);
 }
-marked.use({ renderer })
+marked.setOptions({ renderer })
 
+const MARKDOWN_INDICATOR = '[markdown]'
 function parseMarkdownValue (value: string) {
   // Remove placeholder used to mark this field as markdown
-  const markdownText = value.replace('[markdown] ', '')
+  const markdownText = value.replace(MARKDOWN_INDICATOR, '')
   const htmlText = marked.parse(markdownText)
   // Is always a good idea to sanitize input. Even if this come from
   // our trusted backends
-  return sanitizeHtml(htmlText).trim()
+  return `${MARKDOWN_INDICATOR} ${sanitizeHtml(htmlText).trim()}`
 }
 
 const parseMarkdownFields = (jsonSchema: JsonSchema | null, schemaData: any | null): any | null => {

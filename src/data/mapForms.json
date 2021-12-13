@@ -57,7 +57,7 @@
     },
     "uiSchema": {
       "type":"VerticalLayout",
-      "elements":[
+      "elements": [
         {
           "type": "Group",
           "label": "Tu aportación",

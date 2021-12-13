@@ -1,7 +1,7 @@
 import { vanillaRenderers } from '@jsonforms/vanilla-renderers'
 
 // Our custom renderers
-import PricingRatesInput, { pricingRatesTester } from './Renderers/PricingRatesInput'
+import PricingRatesInput, { pricingRatesTester } from './Renderers/controls/PricingRatesInput'
 
 export const CUSTOM_RENDERERS_PREFIX = 'coopdevs'
 
