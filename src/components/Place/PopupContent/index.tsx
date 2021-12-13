@@ -141,14 +141,12 @@ const PopupContent = ({ place }: Props) => {
           isModalLoading={isModalLoading}
         />
       ) : null}
-      {isOpen ? (
-        <SubmissionForm
-          isOpen={isOpen}
-          closeFn={() => setModal(false)}
-          onLoadingFinish={() => setModalLoading(false)}
-          place={place}
-        />
-      ) : null}
+      <SubmissionForm
+        isOpen={isOpen}
+        closeFn={() => setModal(false)}
+        onLoadingFinish={() => setModalLoading(false)}
+        place={place}
+      />
     </>
   )
 }

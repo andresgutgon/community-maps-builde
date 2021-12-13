@@ -54,6 +54,7 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   // Set initialData when form is present for the first time
   useEffect(() => {
     if (!form) return
+    console.log('INITIAL DATA', form.initialData)
     setData(form.initialData || {})
     // NOTE: Using place here we make this useEffect run
     // always the place is changed.
@@ -77,11 +78,12 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   // because we never destroy de Dialog to get animation
   // working we need to clean the data when the modal is closed
   useEffect(() => {
+    if (!form) return
     if (!isOpen) {
       setValidationMode(noValidationMode)
-      setData({})
+      setData(form.initialData || {})
     }
-  }, [isOpen])
+  }, [isOpen, form])
 
   if (!form) return null
 

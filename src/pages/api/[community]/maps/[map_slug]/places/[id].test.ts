@@ -36,7 +36,7 @@ describe('api/[community]/maps/[map_slug]/places/[slug]', () => {
           ...placeDetail,
           schemaData: {
             ...(placeDetail as any).schemaData,
-            "warning": "<p><strong>Atención</strong>: debido al COVID algunas restricciones se podran aplicar. <a target=\"_blank\" href=\"https://www.sommobilitat.coop/mesures-covid19/\">más informacion</a></p>"
+            "warning": "[markdown] <p> <strong>Atención</strong>: debido al COVID algunas restricciones se podran aplicar. <a target=\"_blank\" href=\"https://www.sommobilitat.coop/mesures-covid19/\">más informacion</a></p>"
           }
         })
       }
