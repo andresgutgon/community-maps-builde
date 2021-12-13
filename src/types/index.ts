@@ -73,6 +73,12 @@ export type Place = {
   goalProgress: number
 }
 
+export type PlaceDetail = Place & {
+  schemaData?: any,
+  jsonSchema?: JsonSchema,
+  uiSchema?: UIJsonFormSchema
+}
+
 type Theme = {
   color: string,
   tileStyle: TileStyle

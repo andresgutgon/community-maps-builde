@@ -1,0 +1,65 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+import { JsonSchema } from '@jsonforms/core'
+import { marked } from 'marked'
+import sanitizeHtml from 'sanitize-html'
+
+import withHeaderBearerToken from '@maps/lib/middlewares/withHeaderBearerToken'
+import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerToken'
+import places from '@maps/data/places.json'
+import placeDetail from '@maps/data/placeDetail.json'
+
+const renderer = new marked.Renderer();
+// Add target="_blank" to all links
+const linkRenderer = renderer.link
+renderer.link = (href, title, text) => {
+  const localLink = href.startsWith(`${location.protocol}//${location.hostname}`);
+  const html = linkRenderer.call(renderer, href, title, text);
+  return localLink ? html : html.replace(/^<a /, `<a target="_blank" rel="noreferrer noopener nofollow" `);
+}
+marked.use({ renderer })
+
+function parseMarkdownValue (value: string) {
+  // Remove placeholder used to mark this field as markdown
+  const markdownText = value.replace('[markdown] ', '')
+  const htmlText = marked.parse(markdownText)
+  // Is always a good idea to sanitize input. Even if this come from
+  // our trusted backends
+  return sanitizeHtml(htmlText).trim()
+}
+
+const parseMarkdownFields = (jsonSchema: JsonSchema | null, schemaData: any | null): any | null => {
+  if (!jsonSchema || !schemaData) return null
+
+  const properties = jsonSchema.properties
+  const markdownFields = Object.keys(properties).filter((propKey: string) =>
+    properties[propKey].type === 'string' && properties[propKey].format === 'markdown'
+  )
+  const dataKeys = Object.keys(schemaData)
+  return dataKeys.reduce((memo: any, key: string) => {
+    const value = markdownFields.includes(key)
+      ? parseMarkdownValue(schemaData[key])
+      : schemaData[key]
+    memo[key] = value
+    return memo
+    // Process as markdown
+  }, {})
+}
+
+const place = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
+  const { map_slug: slug, id } = request.query
+  const serverResponse = await fetch(
+    `${communityHost}/maps/${slug}/places/${id}`,
+    {
+      method: 'GET',
+      headers: tokenHeaders
+    }
+  )
+  const data = await serverResponse.json()
+  const schemaData = parseMarkdownFields(data.jsonSchema, data.schemaData)
+  response.status(200).json({
+    ...data,
+    schemaData
+  })
+}
+
+export default withHeaderBearerToken(place)

@@ -1,4 +1,5 @@
 import { ReactElement, useRef, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { FormattedMessage } from 'react-intl'
 import dynamic from 'next/dynamic'
 import { Popup as LeafletPopup } from 'leaflet'
@@ -15,6 +16,8 @@ const Loading = () =>
 
 type Props = { place: PlaceType }
 export default function Place ({ place }: Props) {
+  const router = useRouter()
+  const [data, setData] = useState(null)
   const popupRef = useRef()
   const [loading, setLoading] = useState(false)
   const [Content, setContent] = useState(null)
@@ -45,18 +48,34 @@ export default function Place ({ place }: Props) {
         { loading: () => <Loading /> }
       )
       setContent(Component)
-      setLoading(false)
     }
     loadComponent()
   }, [Content, loading])
+
+  // Fetch place detail data once
+  useEffect(() => {
+    if (!loading || data) return
+
+    async function fetchData () {
+      const { query: { community, map_slug: mapSlug }} = router
+      const response = await fetch(`/api/${community}/maps/${mapSlug}/places/${place.slug}`)
+      const data = await response.json()
+      setData(data)
+      setLoading(false)
+    }
+
+    fetchData()
+  }, [data, place, loading, router])
   return (
     <Marker position={latLng} icon={icon}>
       <Popup ref={popupRef} onOpen={() => {
-        if (Content) return
+        if (Content && data) return
         setLoading(true)
       }}>
-        {Content ? (
-          <Content place={place} />
+        {loading ? (
+          <Loading />
+        ) : Content ? (
+          <Content place={place} data={data} />
         ) : null}
       </Popup>
     </Marker>

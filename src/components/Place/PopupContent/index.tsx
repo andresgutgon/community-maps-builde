@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import type { Place } from '@maps/types/index'
+import type { PlaceDetail } from '@maps/types/index'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 
 import SubmissionForm from '@maps/components/Place/SubmissionForm'
@@ -9,7 +9,7 @@ import SubmissionForm from '@maps/components/Place/SubmissionForm'
 type PlaceContentProps = {
   isModalLoading: boolean,
   onClick: () => void,
-  place: Place
+  place: PlaceDetail
 }
 const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => {
   const intl = useIntl()
@@ -36,7 +36,7 @@ const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => 
   )
 }
 
-type Props = { place: Place }
+type Props = { place: PlaceDetail }
 const PopupContent = ({ place }: Props) => {
   const [isOpen, setModal] = useState<boolean>(false)
   const [isModalLoading, setModalLoading] = useState<boolean>(false)
