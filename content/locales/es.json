@@ -38,6 +38,9 @@
   "Pga9q2": {
     "defaultMessage": "Lo sentimos, no hay resultados para esta dirección"
   },
+  "Q3y3P6": {
+    "defaultMessage": "Cargando mapa..."
+  },
   "TKx/Q8": {
     "defaultMessage": "Mejor"
   },
@@ -53,6 +56,9 @@
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
   },
+  "m9eXO9": {
+    "defaultMessage": "Cargando"
+  },
   "nZLeaQ": {
     "defaultMessage": "Cancelar"
   },
@@ -64,6 +70,9 @@
   },
   "tHIDSe": {
     "defaultMessage": "Precio por día"
+  },
+  "vD8ftS": {
+    "defaultMessage": "Cómo llegar"
   },
   "zaaFVR": {
     "defaultMessage": "El formato de email no es válido"

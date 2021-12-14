@@ -1,4 +1,4 @@
-import { forwardRef, createElement, Fragment, ReactNode, SyntheticEvent } from 'react'
+import { useEffect, forwardRef, createElement, Fragment, ReactNode, SyntheticEvent } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { FormattedMessage } from 'react-intl'
 import { XIcon } from '@heroicons/react/outline'
@@ -33,6 +33,7 @@ const ModalWrapper = forwardRef<
 })
 
 export default function Modal({
+  onLoadingFinish,
   footer,
   closeFn,
   onClose,
@@ -43,6 +44,9 @@ export default function Modal({
   description,
   onSubmit
 }: Props) {
+  useEffect(() => {
+    onLoadingFinish?.()
+  }, [onLoadingFinish])
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog

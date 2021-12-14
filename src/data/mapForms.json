@@ -1,6 +1,7 @@
 {
   "first-map": {
     "initialData": {
+      "contribution_type": "prepaid",
       "prepaid_contribution_amount_in_cents": 25000,
       "sponsorship_contribution_amount_in_cents": 30000
     },
@@ -19,7 +20,7 @@
         "prepaid_contribution_amount_in_cents": {
           "type": "integer",
           "minimum": 5000,
-          "maximum": 1000000,
+          "maximum": 500000,
           "default": 100000,
           "description": "Compra hores por adelantado para usar un cotxe"
         },
@@ -56,7 +57,7 @@
     },
     "uiSchema": {
       "type":"VerticalLayout",
-      "elements":[
+      "elements": [
         {
           "type": "Group",
           "label": "Tu aportación",
@@ -149,7 +150,7 @@
                     }
                   }
                 ]
-                }
+              }
             }
           ]
         },

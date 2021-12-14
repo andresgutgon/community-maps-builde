@@ -121,6 +121,12 @@
       "value": "Lo sentimos, no hay resultados para esta dirección"
     }
   ],
+  "Q3y3P6": [
+    {
+      "type": 0,
+      "value": "Cargando mapa..."
+    }
+  ],
   "TKx/Q8": [
     {
       "type": 0,
@@ -171,6 +177,12 @@
       "value": "rate"
     }
   ],
+  "m9eXO9": [
+    {
+      "type": 0,
+      "value": "Cargando"
+    }
+  ],
   "nZLeaQ": [
     {
       "type": 0,
@@ -193,6 +205,12 @@
     {
       "type": 0,
       "value": "Precio por día"
+    }
+  ],
+  "vD8ftS": [
+    {
+      "type": 0,
+      "value": "Cómo llegar"
     }
   ],
   "zaaFVR": [

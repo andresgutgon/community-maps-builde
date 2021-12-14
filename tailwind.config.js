@@ -1,3 +1,11 @@
+const round = (num) =>
+    num
+    .toFixed(7)
+    .replace(/(\.[0-9]+?)0+$/, '$1')
+    .replace(/\.0$/, '')
+const rem = (px) => `${round(px / 16)}rem`
+const em = (px, base) => `${round(px / base)}em`
+
 module.exports = {
   purge: [
     './src/components/**/*.{ts,tsx}',
@@ -7,6 +15,21 @@ module.exports = {
   mode: 'jit',
   theme: {
     extend: {
+      typography: {
+        sm: {
+          css: {
+            fontSize: rem(12),
+            lineHeight: round(20 / 12),
+            a: {
+              textDecoration: 'underline'
+            },
+            p: {
+              marginTop: em(4, 12),
+              marginBottom: em(4, 12),
+            }
+          },
+        },
+      },
       borderRadius: {
         inherit: 'inherit'
       },
@@ -27,5 +50,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/typography')
   ],
 }

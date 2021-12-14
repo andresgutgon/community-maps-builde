@@ -24,6 +24,36 @@ html {
   @apply hidden;
 }
 
+.leaflet-popup {
+  @apply w-72 sm:w-80;
+}
+.leaflet-container div:not(.prose-yellow) > a {
+  @apply text-gray-900;
+}
+.leaflet-popup-content-wrapper {
+  @apply shadow rounded;
+}
+
+.leaflet-popup-content {
+  @apply m-0;
+}
+
+.leaflet-popup-tip-container {
+  @apply w-5 h-3 -ml-3;
+  /*
+   * Note "h-3" is 12px. To avoid arrow under
+   * popover shadow we set as bottom one less pixel
+   **/
+  bottom: -11px;
+}
+.leaflet-popup-tip {
+  @apply shadow rounded-sm bg-gray-50;
+}
+
+.leaflet-popup--with-action .leaflet-popup-tip {
+  @apply bg-gray-50;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input.simulateNoNumber::-webkit-outer-spin-button,
 input.simulateNoNumber::-webkit-inner-spin-button {

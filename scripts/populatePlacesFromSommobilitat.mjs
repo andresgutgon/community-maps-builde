@@ -24,14 +24,16 @@ async function fetchPlaces () {
     const categorySlug = mobilityCategories[
       Math.floor(Math.random() * mobilityCategories.length)
     ]
-    const address = new RegExp(/Adreça a decidir/).test('Adreça a decidir')
+    const slug = place.name
+    const name = place.title
+    const address = new RegExp(/\sa\sdecidir/).test(place.address)
       ? null
       : place.address
     return {
       lat: lat.trim(),
       lng: lng.trim(),
-      name: place.title,
-      slug: place.name,
+      name,
+      slug,
       address,
       active: STATUS_MAPPING[place.parking_status] === 'active',
       goalProgress: randomProgress(0, 100),
