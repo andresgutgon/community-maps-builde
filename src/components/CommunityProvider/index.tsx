@@ -2,6 +2,7 @@ import { ReactNode, createContext, useEffect, useState, useContext } from 'react
 import { FormattedMessage } from 'react-intl'
 
 import { Place, Config } from '@maps/types/index'
+import LoadingMap from '@maps/components/LoadingMap'
 
 interface ContextProps {
   places: Array<Place>;
@@ -26,17 +27,14 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   const [places, setPlaces] = useState([])
   useEffect(() => {
     async function loadData () {
-      const [configResponse, placesResponse] = await Promise.all([
-        fetch(`/api/${community}/config`),
-        fetch(`/api/${community}/maps/${mapId}/places`)
-      ])
-      // Config and Map types
+      // Places are async
+      fetch(`/api/${community}/maps/${mapId}/places`)
+        .then((response) => response.json())
+        .then(data => { setPlaces(data) })
+
+      const configResponse = await fetch(`/api/${community}/config`)
       const config = await configResponse.json()
       setConfig(config)
-
-      // Places
-      const places = await placesResponse.json()
-      setPlaces(places)
 
       setLoading(false)
     }
@@ -44,16 +42,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   }, [community, mapId])
   return (
     <CommunityContext.Provider value={{ loading, places, config }}>
-      {loading ? (
-        <div className='flex items-center justify-center z-40 bg-gray-50 w-screen h-screen'>
-          <div className='text-base text-gray-600'>
-            <FormattedMessage
-              id="Q3y3P6"
-              defaultMessage='Cargando mapa...'
-            />
-          </div>
-        </div>
-      ): children}
+      {loading ? <LoadingMap /> : children}
     </CommunityContext.Provider>
   )
 }

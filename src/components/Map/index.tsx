@@ -31,10 +31,10 @@ const MapWrapper = () => {
   const [map, setMap] = useState<LeafletMap>(null)
   const clusterRef = useRef<MarkerClusterGroup>(null)
   useEffect(() => {
-    if (!map) return;
+    if (!map || !places.length) return;
 
     map.fitBounds(clusterRef.current.getBounds());
-  }, [map])
+  }, [map, places])
   return (
     <MapContainer
       zoomControl={false}
