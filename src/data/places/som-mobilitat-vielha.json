@@ -4,16 +4,20 @@
     "warning": "[markdown] **Atención**: Es un warning sólo para Vielha. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)",
     "leaflet": "https://leafletjs.com/",
     "leaflet-react": "https://react-leaflet.js.org/",
-    "jsonforms": "https://jsonforms.io/"
+    "jsonforms": "https://jsonforms.io/",
+    "buy-hours-link": "https://www.sommobilitat.coop/tarifa-us-flexible-amb-iva/",
+    "progress": 32
   },
   "jsonSchema": {
     "type":"object",
     "properties":{
       "description": { "type": "string", "format": "markdown" },
       "warning": { "type": "string", "format": "markdown" },
+      "buy-hours-link": { "type": "string", "format": "uri" },
       "leaflet": { "type": "string", "format": "uri" },
       "leaflet-react": { "type": "string", "format": "uri" },
-      "jsonforms": { "type": "string", "format": "uri" }
+      "jsonforms": { "type": "string", "format": "uri" },
+      "progress": { "type": "number" }
     }
   },
   "uiSchema": {
@@ -21,7 +25,8 @@
     "elements": [
       {
         "type": "Display",
-        "scope": "#/properties/description"
+        "scope": "#/properties/warning",
+        "options": { "warning": true }
       },
       {
         "type": "Links",
@@ -29,24 +34,43 @@
           {
             "type": "Display",
             "label": "Leaflet",
-            "scope": "#/properties/leaflet"
+            "scope": "#/properties/leaflet",
+            "options": {
+              "hideExternalIcon": true
+            }
           },
           {
             "type": "Display",
             "label": "Leaflet React",
-            "scope": "#/properties/leaflet-react"
+            "scope": "#/properties/leaflet-react",
+            "options": {
+              "hideExternalIcon": true
+            }
           },
           {
             "type": "Display",
             "label": "JSONForms.io",
-            "scope": "#/properties/jsonforms"
+            "scope": "#/properties/jsonforms",
+            "options": {
+              "hideExternalIcon": true
+            }
           }
         ]
       },
       {
         "type": "Display",
-        "scope": "#/properties/warning",
-        "options": { "warning": true }
+        "scope": "#/properties/description"
+      },
+      {
+        "type": "Display",
+        "label": "Compra horas",
+        "scope": "#/properties/jsonforms"
+      },
+      {
+        "type": "Display",
+        "label": "Percentatge finançat",
+        "scope": "#/properties/progress",
+        "options": { "progress": true }
       }
     ]
   }

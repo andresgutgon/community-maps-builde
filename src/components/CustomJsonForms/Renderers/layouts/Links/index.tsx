@@ -19,7 +19,7 @@ export const LinksRenderer = ({
   const links = (uischema as LinksLayout).elements
   return (
     <ul
-      className='flex space-x-2'
+      className='links-layout flex space-x-2'
       hidden={visible === undefined || visible === null ? false : !visible}
     >
       {links.map((element: UISchemaElement, index: number) =>
