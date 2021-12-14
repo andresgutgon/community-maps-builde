@@ -1,13 +1,23 @@
 {
   "schemaData": {
-    "description": "[markdown] En este enlace puedes comprar horas para un vehículo en este lugar. Durant els 3 primers mesos gaudiràs de la tarifa de benvinguda (Tarifa -20%)  \n\n [Compra horas](https://www.sommobilitat.coop/tarifa-us-flexible-amb-iva/) | [Más información](https://www.sommobilitat.coop/aparcament-santa-perpetua/)",
-    "warning": "[markdown] **Atención**: Es un warning sólo para Vielha. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)"
+    "description": "[markdown] En este enlace puedes comprar horas para un vehículo en este lugar. Durant els 3 primers mesos gaudiràs de la tarifa de benvinguda (Tarifa -20%)",
+    "warning": "[markdown] **Atención**: Es un warning sólo para Vielha. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)",
+    "leaflet": "https://leafletjs.com/",
+    "leaflet-react": "https://react-leaflet.js.org/",
+    "jsonforms": "https://jsonforms.io/",
+    "buy-hours-link": "https://www.sommobilitat.coop/tarifa-us-flexible-amb-iva/",
+    "progress": 32
   },
   "jsonSchema": {
     "type":"object",
     "properties":{
       "description": { "type": "string", "format": "markdown" },
-      "warning": { "type": "string", "format": "markdown" }
+      "warning": { "type": "string", "format": "markdown" },
+      "buy-hours-link": { "type": "string", "format": "uri" },
+      "leaflet": { "type": "string", "format": "uri" },
+      "leaflet-react": { "type": "string", "format": "uri" },
+      "jsonforms": { "type": "string", "format": "uri" },
+      "progress": { "type": "number" }
     }
   },
   "uiSchema": {
@@ -15,12 +25,52 @@
     "elements": [
       {
         "type": "Display",
+        "scope": "#/properties/warning",
+        "options": { "warning": true }
+      },
+      {
+        "type": "Links",
+        "elements": [
+          {
+            "type": "Display",
+            "label": "Leaflet",
+            "scope": "#/properties/leaflet",
+            "options": {
+              "hideExternalIcon": true
+            }
+          },
+          {
+            "type": "Display",
+            "label": "Leaflet React",
+            "scope": "#/properties/leaflet-react",
+            "options": {
+              "hideExternalIcon": true
+            }
+          },
+          {
+            "type": "Display",
+            "label": "JSONForms.io",
+            "scope": "#/properties/jsonforms",
+            "options": {
+              "hideExternalIcon": true
+            }
+          }
+        ]
+      },
+      {
+        "type": "Display",
         "scope": "#/properties/description"
       },
       {
         "type": "Display",
-        "scope": "#/properties/warning",
-        "options": { "warning": true }
+        "label": "Compra horas",
+        "scope": "#/properties/jsonforms"
+      },
+      {
+        "type": "Display",
+        "label": "Percentatge finançat",
+        "scope": "#/properties/progress",
+        "options": { "progress": true }
       }
     ]
   }

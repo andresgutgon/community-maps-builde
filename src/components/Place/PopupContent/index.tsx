@@ -44,8 +44,8 @@ type HeaderProps = {
 }
 const Header = ({ name, address, lat, lng }: HeaderProps) => {
   return (
-    <div className='space-y-1 pb-2 mb-2 border-b border-gray-200'>
-      <h2 className='text-base text-gray-700'>{name}</h2>
+    <div className='space-y-1 pb-2 border-b border-gray-200'>
+      <h2 className='text-xl font-medium text-gray-700'>{name}</h2>
       <div className='text-xs text-gray-600'>
         {address ? `${address} - ` : null}
         <a

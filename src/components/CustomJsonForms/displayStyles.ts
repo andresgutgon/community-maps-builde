@@ -10,7 +10,7 @@ export const displayStyles = {
   styles: [
     {
       name: 'vertical.layout',
-      classNames: ['space-y-4']
+      classNames: ['space-y-3']
     },
     {
       name: 'vertical.layout.item',
