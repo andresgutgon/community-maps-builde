@@ -27,6 +27,11 @@ html {
 .leaflet-popup {
   @apply w-72 sm:w-80;
 }
+
+.leaflet-container .leaflet-popup-pane a {
+  @apply underline text-gray-800;
+}
+
 .leaflet-container div:not(.prose-yellow) > a {
   @apply text-gray-900;
 }

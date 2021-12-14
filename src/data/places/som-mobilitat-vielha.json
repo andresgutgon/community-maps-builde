@@ -1,13 +1,19 @@
 {
   "schemaData": {
-    "description": "[markdown] En este enlace puedes comprar horas para un vehículo en este lugar. Durant els 3 primers mesos gaudiràs de la tarifa de benvinguda (Tarifa -20%)  \n\n [Compra horas](https://www.sommobilitat.coop/tarifa-us-flexible-amb-iva/) | [Más información](https://www.sommobilitat.coop/aparcament-santa-perpetua/)",
-    "warning": "[markdown] **Atención**: Es un warning sólo para Vielha. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)"
+    "description": "[markdown] En este enlace puedes comprar horas para un vehículo en este lugar. Durant els 3 primers mesos gaudiràs de la tarifa de benvinguda (Tarifa -20%)",
+    "warning": "[markdown] **Atención**: Es un warning sólo para Vielha. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)",
+    "leaflet": "https://leafletjs.com/",
+    "leaflet-react": "https://react-leaflet.js.org/",
+    "jsonforms": "https://jsonforms.io/"
   },
   "jsonSchema": {
     "type":"object",
     "properties":{
       "description": { "type": "string", "format": "markdown" },
-      "warning": { "type": "string", "format": "markdown" }
+      "warning": { "type": "string", "format": "markdown" },
+      "leaflet": { "type": "string", "format": "uri" },
+      "leaflet-react": { "type": "string", "format": "uri" },
+      "jsonforms": { "type": "string", "format": "uri" }
     }
   },
   "uiSchema": {
@@ -16,6 +22,26 @@
       {
         "type": "Display",
         "scope": "#/properties/description"
+      },
+      {
+        "type": "Links",
+        "elements": [
+          {
+            "type": "Display",
+            "label": "Leaflet",
+            "scope": "#/properties/leaflet"
+          },
+          {
+            "type": "Display",
+            "label": "Leaflet React",
+            "scope": "#/properties/leaflet-react"
+          },
+          {
+            "type": "Display",
+            "label": "JSONForms.io",
+            "scope": "#/properties/jsonforms"
+          }
+        ]
       },
       {
         "type": "Display",

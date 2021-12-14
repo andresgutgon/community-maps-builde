@@ -38,9 +38,6 @@
   "Pga9q2": {
     "defaultMessage": "Lo sentimos, no hay resultados para esta dirección"
   },
-  "Q3y3P6": {
-    "defaultMessage": "Cargando mapa..."
-  },
   "TKx/Q8": {
     "defaultMessage": "Mejor"
   },
@@ -49,6 +46,9 @@
   },
   "ctskGr": {
     "defaultMessage": "Buscando"
+  },
+  "dogq0j": {
+    "defaultMessage": "Ferran"
   },
   "eOuNie": {
     "defaultMessage": "Buscar"

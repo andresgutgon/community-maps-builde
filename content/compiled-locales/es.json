@@ -121,12 +121,6 @@
       "value": "Lo sentimos, no hay resultados para esta dirección"
     }
   ],
-  "Q3y3P6": [
-    {
-      "type": 0,
-      "value": "Cargando mapa..."
-    }
-  ],
   "TKx/Q8": [
     {
       "type": 0,
@@ -143,6 +137,12 @@
     {
       "type": 0,
       "value": "Buscando"
+    }
+  ],
+  "dogq0j": [
+    {
+      "type": 0,
+      "value": "Ferran"
     }
   ],
   "eOuNie": [
