@@ -141,11 +141,11 @@ const SearchControl = ({ locale }: Props) => {
   })
   return (
     <div className='relative'>
-      <form onSubmit={onSubmit} autoComplete="off" className='space-x-1'>
+      <form onSubmit={onSubmit} autoComplete="off" className='flex justify-between  space-x-1'>
         <input
           {...keyboardProps}
           autoComplete='off'
-          className='bg-transparent w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-2 pl-1 pr-2 placeholder-gray-500 placeholder-opacity-50'
+          className='flex-1 bg-transparent w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-2 pl-1 pr-2 placeholder-gray-500 placeholder-opacity-50'
           placeholder={`${searching ? placeholderLoading : placeholder}...`}
           type='text'
           onChange={onChange}
@@ -158,7 +158,7 @@ const SearchControl = ({ locale }: Props) => {
       {visible && (
         <ul
           className={cn(
-            'rounded shadow py-1 absolute top-14 -left-3 -right-3 bg-white',
+            'rounded shadow py-1 absolute top-16 -left-3 -right-3 bg-white',
             { 'bg-white': results.length > 0, 'bg-gray-200': !results.length }
           )}
         >
