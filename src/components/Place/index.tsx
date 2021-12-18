@@ -1,7 +1,7 @@
 import { ReactElement, useRef, useEffect, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import dynamic from 'next/dynamic'
-import { Popup as LeafletPopup } from 'leaflet'
+import { Map, Popup as LeafletPopup } from 'leaflet'
 import { Marker, Popup } from 'react-leaflet'
 
 import { useMapData } from '@maps/components/CommunityProvider'
@@ -13,30 +13,25 @@ export const Loading = () =>
     <FormattedMessage defaultMessage='Cargando' id='m9eXO9' />{'...'}
   </div>
 
-type Props = { place: PlaceType }
-export default function Place ({ place }: Props) {
-  const popupRef = useRef()
+type Props = {
+  isCurrent: boolean,
+  map: null | Map,
+  place: PlaceType
+}
+export default function Place ({ map, isCurrent, place }: Props) {
+  const { config, resetPlaces } = useMapData()
+  const popupRef = useRef<LeafletPopup | null>(null)
   const [loading, setLoading] = useState(false)
   const [Content, setContent] = useState(null)
-  const { config } = useMapData()
   const { name, lat, lng } = place
   const category = config.categories[place.category_slug]
-
-  // Setup icon based on category
   const icon = buildIcon({ category, animate: loading })
-  const latLng = { lat: parseFloat(lat), lng: parseFloat(lng) }
+  const latLng = useRef({ lat: parseFloat(lat), lng: parseFloat(lng) }).current
 
-  // Configure LeafletPopup used under the hood
   useEffect(() => {
-    const popup = popupRef.current
-    if (!popup) return
-    const options = (popup as LeafletPopup).options
-    options.maxWidth = 500;
-    options.closeButton = false
-    // FIXME: Replace by map_slug
-    options.className = place.category_slug ? 'leaflet-popup--with-action' : ''
-  }, [place])
-
+    if (!isCurrent) return
+    setLoading(true)
+  }, [setLoading, isCurrent])
   // Lazyload with "dynamic" import the JS for ./PopupContent.tsx
   useEffect(() => {
     if (Content) return
@@ -47,16 +42,30 @@ export default function Place ({ place }: Props) {
         { loading: () => <Loading /> }
       )
       setContent(Component)
+      setLoading(false)
+      const popup = popupRef.current
+      if (map && popup && isCurrent) {
+        popup.setLatLng(latLng)
+        popup.openOn(map)
+      }
     }
     loadComponent()
-  }, [Content, loading])
+  }, [isCurrent, latLng, map, popupRef, Content, loading])
   return (
     <Marker position={latLng} icon={icon}>
-      <Popup ref={popupRef} onOpen={() => {
-        if (Content) return
-        setLoading(true)
-      }}>
-        {Content ? (<Content place={place} />) : null}
+      <Popup
+        ref={popupRef}
+        position={latLng}
+        className={place.category_slug ? 'leaflet-popup--with-action' : ''}
+        closeButton={false}
+        maxWidth={500}
+        onOpen={() => {
+          if (Content) return
+          setLoading(true)
+        }}
+        onClose={resetPlaces}
+      >
+        {Content ? <Content place={place} /> : null}
       </Popup>
     </Marker>
   )

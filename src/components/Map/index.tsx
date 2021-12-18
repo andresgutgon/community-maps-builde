@@ -26,7 +26,7 @@ Icon.Default.mergeOptions({
 
 const MapWrapper = () => {
   const { locale } = useRouter();
-  const { config, places } = useMapData()
+  const { currentPlace, config, places } = useMapData()
   const tile = useTile(config)
   const [map, setMap] = useState<LeafletMap>(null)
   const clusterRef = useRef<MarkerClusterGroup>(null)
@@ -63,7 +63,12 @@ const MapWrapper = () => {
         removeOutsideVisibleBounds={true}
       >
         {places.map((place: PlaceType, index: number) =>
-          <Place key={index} place={place} />
+          <Place
+            key={index}
+            map={map}
+            place={place}
+            isCurrent={currentPlace?.slug === place.slug}
+          />
         )}
       </MarkerClusterGroup>
 
