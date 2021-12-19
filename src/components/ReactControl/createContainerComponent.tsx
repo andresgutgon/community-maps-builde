@@ -35,7 +35,6 @@ export function createContainerComponent<
 
     //if (!children || !filtersContainer) return null
     if (!children || !contentNode) return null
-    contentNode.classList.add('leaflet-control-search')
 
     // The provider allow access to Leaflet.MapContainer context
     // inside our React components

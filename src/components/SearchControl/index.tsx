@@ -1,194 +1,79 @@
-import { SyntheticEvent, ChangeEvent, useState } from 'react'
-import cn from 'classnames'
-import { FocusScope, useFocusManager } from '@react-aria/focus'
-import { useKeyboard } from '@react-aria/interactions'
-import { FormattedMessage, useIntl } from 'react-intl'
-import { useMap, useMapEvents } from 'react-leaflet'
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+import { useIntl } from 'react-intl'
 
+import ReactControl from '@maps/components/ReactControl/index'
 import Button, { Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
-import type { NominatimResult, IGeocoder, GeocodingResult } from '@maps/components/SearchControl/geocoders'
-import { GeocoderService } from '@maps/types/index'
-import useGeocoder from './useGeocoder'
 
-const cleanEmptyParts = (parts: Array<string | null>): null | string => {
-  const partsWithContent = parts.filter(p => p)
-  if (!partsWithContent) return null
-
-  return partsWithContent.join(' ')
-}
-
-type AddressResult = {
-  street: string | null,
-  detail: string | null,
-  context: string | null
-}
-const useResult = (result: GeocodingResult) => {
-  const address = result.properties['address'] || {}
-  const street = cleanEmptyParts([ address.building, address.road, address.building ])
-  const detail= cleanEmptyParts([ address.city, address.town, address.village, address.hamlet ])
-  const context = cleanEmptyParts([address.state, address.country])
-  if (!street && !detail && !context) {
-    return { street: result.name, detail: null, context: null }
+export type CommonProps = {
+  placeholder: string,
+  buttonLabel: string,
+  formClasses: string,
+  inputClasses: string,
+  buttonProps: {
+    type: ButtonTypes,
+    style: ButtonStyles
   }
-
-  return { street, detail, context }
 }
-
-type ResultItemProps = {
-  result: GeocodingResult
-  onClick: (result: GeocodingResult) => void
-  onEsc: () => void
+type FakeSearchProps = CommonProps & {
+  onClick?: () => void,
+  disabled?: boolean
 }
-const ResultItem = ({ onEsc, result, onClick }: ResultItemProps) => {
-  const focusManager = useFocusManager()
-  const resultParts = useResult(result)
-  const onKeyDown = (event) => {
-    switch (event.key) {
-      case 'ArrowDown':
-        focusManager.focusNext({wrap: true});
-        break;
-      case 'ArrowUp':
-        focusManager.focusPrevious({wrap: true});
-        break;
-      case 'Escape':
-        onEsc()
-        break;
-      case 'Enter':
-        onClick(result)
-        break;
-    }
-  }
-  const { street, detail, context } = resultParts
-  return (
-    <button
-      onClick={() => onClick(result)}
-      className='px-3 py-1 focus:bg-gray-100 cursor-pointer w-full focus:outline-none focus:ring-0'
-      onKeyDown={onKeyDown}
+const FakeSearch = ({
+  placeholder,
+  buttonLabel,
+  formClasses,
+  inputClasses,
+  buttonProps,
+  onClick,
+  disabled = false
+}: FakeSearchProps) =>
+  <div {...(onClick ? { onClick, className: formClasses } : { className: formClasses })}>
+    <input
+      disabled={disabled}
+      className={inputClasses}
+      placeholder={placeholder}
+      type='text'
+    />
+    <Button
+      disabled
+      style={ButtonStyles.branded}
+      type={ButtonTypes.submit}
     >
-      <span className='flex flex-col text-left'>
-        <span className='text-sm text-gray-800'>{street}</span>
-        {detail && (
-          <span
-            className={cn({
-              'text-xs text-gray-400': street,
-              'text-sm text-gray-800': !street
-            })}
-          >
-            {detail}
-          </span>
-        )}
-        {context && (
-          <span className='text-xs  text-gray-400'>{context}</span>
-        )}
-      </span>
-    </button>
-  )
-}
-
+      {buttonLabel}
+    </Button>
+  </div>
 type Props = { locale: string }
 const SearchControl = ({ locale }: Props) => {
-  const map = useMap()
   const intl = useIntl()
-  const [visible, setVisible] = useState(false)
-  const [searching, setSearching] = useState(false)
-  const geocoder = useGeocoder({ service: GeocoderService.nominatim, locale })
-  const [search, setSearch] = useState('')
-  const [results, setResults] = useState<GeocodingResult[]>([])
-  const onEscape = () => {
-    setVisible(false)
-  }
-  useMapEvents({ click: onEscape, mousedown: onEscape })
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value)
-  }
-  const onSubmit = async (event: SyntheticEvent) => {
-    event.preventDefault()
-
-    if (!search) return
-
-    setSearching(true)
-    geocoder.geocode(search, (results: GeocodingResult[]) => {
-      setResults(results)
-      setVisible(true)
-      setSearching(false)
-    })
-  }
-  const onClickResult = (result: GeocodingResult) => {
-    setVisible(false)
-    setResults([])
-    setSearch('')
-    map.fitBounds(result.bbox)
-  }
-  const { keyboardProps } = useKeyboard({
-    onKeyDown: (event) => {
-      switch (event.key) {
-        case 'Escape':
-          setVisible(false)
-          break
-        case 'ArrowDown':
-        case 'Tab':
-          setVisible(true)
-          break
-      }
+  const [Search, setSearch] = useState(null)
+  const commonProps = {
+    placeholder: `${intl.formatMessage({
+      defaultMessage: 'Buscar una dirección', id: 'IVA/Y9',
+    })}...`,
+    buttonLabel: intl.formatMessage({ defaultMessage: 'Buscar', id: 'eOuNie' }),
+    formClasses: 'flex items-center justify-between  space-x-1',
+    inputClasses: 'flex-1 bg-transparent w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-1 sm:py-2 pl-1 placeholder-gray-500 placeholder-opacity-50',
+    buttonProps: {
+      style: ButtonStyles.branded,
+      type: ButtonTypes.submit
     }
-  })
-  const disabled = !search || searching
-  const placeholder = intl.formatMessage({
-    defaultMessage: 'Buscar una dirección', id: 'IVA/Y9',
-  })
-  const placeholderLoading = intl.formatMessage({
-    defaultMessage: 'Buscando', id: 'ctskGr'
-  })
+  }
+  const onClick = async () => {
+    const Component = await dynamic(
+      () => import('./Search'),
+      { loading: () => <FakeSearch disabled {...commonProps} /> }
+    )
+    setSearch(Component)
+  }
   return (
-    <div className='relative'>
-      <form onSubmit={onSubmit} autoComplete="off" className='flex items-center justify-between  space-x-1'>
-        <input
-          {...keyboardProps}
-          autoComplete='off'
-          className='flex-1 bg-transparent w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-1 sm:py-2 pl-1 placeholder-gray-500 placeholder-opacity-50'
-          placeholder={`${searching ? placeholderLoading : placeholder}...`}
-          type='text'
-          onChange={onChange}
-          value={search}
-        />
-        <Button
-          disabled={disabled}
-          style={ButtonStyles.branded}
-          type={ButtonTypes.submit}
-        >
-          <FormattedMessage defaultMessage='Buscar' id="eOuNie" />
-        </Button>
-      </form>
-      {visible && (
-        <ul
-          className={cn(
-            'rounded shadow py-1 absolute top-16 -left-3 -right-3 bg-white',
-            { 'bg-white': results.length > 0, 'bg-gray-200': !results.length }
-          )}
-        >
-          {!results.length && (
-            <li className='p-3 w-full'>
-              <span className='flex flex-col text-center text-sm text-gray-800'>
-                <FormattedMessage defaultMessage='Lo sentimos, no hay resultados para esta dirección' id="Pga9q2" />
-              </span>
-            </li>
-          )}
-          {results.length > 0 && (
-            <FocusScope restoreFocus autoFocus>
-              {results.map((result: GeocodingResult, index: number) => (
-                <li key={index}>
-                  <ResultItem
-                    result={result}
-                    onClick={onClickResult}
-                    onEsc={onEscape}
-                  />
-                </li>
-              ))}
-            </FocusScope>
-          )}
-        </ul>
+    <ReactControl className='leaflet-control-search' position='topleft'>
+      {Search ? (
+        <Search {...commonProps} locale={locale} />
+      ): (
+        <FakeSearch onClick={onClick} {...commonProps} />
       )}
-    </div>
+    </ReactControl>
   )
 }
 

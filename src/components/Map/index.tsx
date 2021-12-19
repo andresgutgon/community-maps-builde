@@ -8,7 +8,6 @@ import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
 import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
-import ReactControl from '@maps/components/ReactControl/index'
 import Search from '@maps/components/SearchControl'
 import Place from '@maps/components/Place'
 
@@ -48,18 +47,7 @@ const MapWrapper = () => {
       whenCreated={setMap}
       className='z-40 bg-gray-50 w-screen h-screen'
     >
-      <ReactControl position='topleft'>
-        <div className='shadow rounded bg-white p-1 sm:p-2'>
-
-          {/*
-            FIXME: Load this with dynamic import like
-            the SubmissionForm.
-            FIXME: Make this component responsive
-            Put icons on mobile and on touch expand
-          */}
-          <Search locale={locale} />
-        </div>
-      </ReactControl>
+      <Search locale={locale} />
       <ZoomControl position='topleft' />
 
       {/* The places. These are the places of this map */}
