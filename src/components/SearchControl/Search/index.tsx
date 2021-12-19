@@ -146,6 +146,7 @@ const SearchControl = ({
         <input
           {...keyboardProps}
           type='text'
+          autoFocus
           autoComplete='off'
           className={inputClasses}
           placeholder={placeholder}
@@ -163,7 +164,7 @@ const SearchControl = ({
       {visible && (
         <ul
           className={cn(
-            'rounded shadow py-1 absolute top-16 -left-3 -right-3 bg-white',
+            'rounded shadow py-1 absolute top-14 left-0 right-0 sm:-left-2 sm:-right-2 bg-white',
             { 'bg-white': results.length > 0, 'bg-gray-200': !results.length }
           )}
         >
