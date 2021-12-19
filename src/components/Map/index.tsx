@@ -33,8 +33,15 @@ const MapWrapper = () => {
   useEffect(() => {
     if (!map || !places.length) return;
 
-    map.fitBounds(clusterRef.current.getBounds());
-  }, [map, places])
+    if (currentPlace) {
+      map.setView(
+        { lat: +currentPlace.lat, lng: +currentPlace.lng },
+        16 // initial zoom
+      )
+    } else {
+      map.fitBounds(clusterRef.current.getBounds());
+    }
+  }, [map, places, currentPlace])
   return (
     <MapContainer
       zoomControl={false}
@@ -42,7 +49,7 @@ const MapWrapper = () => {
       className='z-40 bg-gray-50 w-screen h-screen'
     >
       <ReactControl position='topleft'>
-        <div className='shadow rounded bg-white p-3'>
+        <div className='shadow rounded bg-white p-1 sm:p-2'>
 
           {/*
             FIXME: Load this with dynamic import like

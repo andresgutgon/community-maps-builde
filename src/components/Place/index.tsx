@@ -19,7 +19,7 @@ type Props = {
   place: PlaceType
 }
 export default function Place ({ map, isCurrent, place }: Props) {
-  const { config, resetPlaces } = useMapData()
+  const { config } = useMapData()
   const popupRef = useRef<LeafletPopup | null>(null)
   const [loading, setLoading] = useState(false)
   const [Content, setContent] = useState(null)
@@ -57,13 +57,13 @@ export default function Place ({ map, isCurrent, place }: Props) {
         ref={popupRef}
         position={latLng}
         className={place.category_slug ? 'leaflet-popup--with-action' : ''}
+        autoPanPaddingTopLeft={[10, 220]}
         closeButton={false}
         maxWidth={500}
         onOpen={() => {
           if (Content) return
           setLoading(true)
         }}
-        onClose={resetPlaces}
       >
         {Content ? <Content place={place} /> : null}
       </Popup>

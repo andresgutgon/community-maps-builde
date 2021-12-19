@@ -10,15 +10,13 @@ interface ContextProps {
   places: Place[];
   currentPlace: Place | null,
   config: Config | null;
-  loading: boolean,
-  resetPlaces: () => void
+  loading: boolean
 }
 const CommunityContext = createContext<ContextProps | null>({
   places: [],
   currentPlace: null,
   config: null,
-  loading: true,
-  resetPlaces: () => {}
+  loading: true
 })
 
 type ProviderProps = {
@@ -33,7 +31,6 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   const [places, setPlaces] = useState<Place[]>([])
   const [loading, setLoading] = useState(true)
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null)
-  const [allPlaces, setAllPlaces] = useState<Place[]>([])
   useEffect(() => {
     // Wait for parent host page to return URL info
     if (loadingUrlParams) return
@@ -44,16 +41,15 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
       fetch(`/api/${community}/maps/${mapId}/places`)
         .then((response) => response.json())
         .then(data => {
-          const all = data
-          setAllPlaces(data)
+          const allPlaces = data
           if (urlParams.placeSlug) {
-            current = all.find((place: Place) =>
+            current = allPlaces.find((place: Place) =>
               place.slug === urlParams.placeSlug
             )
             setCurrentPlace(current)
           }
 
-          setPlaces(current ? [current] : all)
+          setPlaces(allPlaces)
         })
 
       const configResponse = await fetch(`/api/${community}/config`)
@@ -67,17 +63,11 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
 
   // when only one place is displayed reset places collection
   // when user close the popup of that place
-  const resetPlaces = () => {
-    if (!currentPlace) return
-    setCurrentPlace(null)
-    setPlaces(allPlaces)
-  }
   return (
     <CommunityContext.Provider
       value={{
         currentPlace,
         loading,
-        resetPlaces,
         places,
         config
       }}

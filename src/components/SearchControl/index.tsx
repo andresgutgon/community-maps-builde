@@ -141,17 +141,21 @@ const SearchControl = ({ locale }: Props) => {
   })
   return (
     <div className='relative'>
-      <form onSubmit={onSubmit} autoComplete="off" className='flex justify-between  space-x-1'>
+      <form onSubmit={onSubmit} autoComplete="off" className='flex items-center justify-between  space-x-1'>
         <input
           {...keyboardProps}
           autoComplete='off'
-          className='flex-1 bg-transparent w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-2 pl-1 pr-2 placeholder-gray-500 placeholder-opacity-50'
+          className='flex-1 bg-transparent w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-1 sm:py-2 pl-1 placeholder-gray-500 placeholder-opacity-50'
           placeholder={`${searching ? placeholderLoading : placeholder}...`}
           type='text'
           onChange={onChange}
           value={search}
         />
-        <Button disabled={disabled} style={ButtonStyles.branded} type={ButtonTypes.submit}>
+        <Button
+          disabled={disabled}
+          style={ButtonStyles.branded}
+          type={ButtonTypes.submit}
+        >
           <FormattedMessage defaultMessage='Buscar' id="eOuNie" />
         </Button>
       </form>
