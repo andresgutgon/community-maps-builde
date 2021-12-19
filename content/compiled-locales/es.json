@@ -45,6 +45,12 @@
       "value": "max"
     }
   ],
+  "4kF+sS": [
+    {
+      "type": 0,
+      "value": "Filtrar lugares"
+    }
+  ],
   "ArcHyA": [
     {
       "type": 0,
@@ -131,12 +137,6 @@
     {
       "type": 0,
       "value": "Debes seleccionar un valor de la lista"
-    }
-  ],
-  "ctskGr": [
-    {
-      "type": 0,
-      "value": "Buscando"
     }
   ],
   "eOuNie": [

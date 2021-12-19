@@ -67,7 +67,7 @@ const SearchControl = ({ locale }: Props) => {
     setSearch(Component)
   }
   return (
-    <ReactControl className='leaflet-control-search' position='topleft'>
+    <ReactControl className='leaflet-expanded-control' position='topleft'>
       {Search ? (
         <Search {...commonProps} locale={locale} />
       ): (

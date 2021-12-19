@@ -9,6 +9,7 @@ import { CommunityProvider, useMapData } from '@maps/components/CommunityProvide
 import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
 import Search from '@maps/components/SearchControl'
+import Filter from '@maps/components/FilterControl'
 import Place from '@maps/components/Place'
 
 /**
@@ -48,6 +49,7 @@ const MapWrapper = () => {
       className='z-40 bg-gray-50 w-screen h-screen'
     >
       <Search locale={locale} />
+      <Filter />
       <ZoomControl position='topleft' />
 
       {/* The places. These are the places of this map */}

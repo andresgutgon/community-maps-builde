@@ -14,6 +14,9 @@
   "4iGwAO": {
     "defaultMessage": "Este campo debe ser igual o menos de {max}"
   },
+  "4kF+sS": {
+    "defaultMessage": "Filtrar lugares"
+  },
   "ArcHyA": {
     "defaultMessage": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
   },
@@ -43,9 +46,6 @@
   },
   "at9R+C": {
     "defaultMessage": "Debes seleccionar un valor de la lista"
-  },
-  "ctskGr": {
-    "defaultMessage": "Buscando"
   },
   "eOuNie": {
     "defaultMessage": "Buscar"

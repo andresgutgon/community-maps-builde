@@ -1,8 +1,8 @@
-import { useState, useEffect, forwardRef, useImperativeHandle, Ref } from 'react'
+import { useRef, useState, useEffect, forwardRef, useImperativeHandle, Ref } from 'react'
 import { createPortal } from 'react-dom'
 import { ElementHook, LeafletProvider } from '@react-leaflet/core'
 
-import { ControlOptionsWithChildren } from './DummyControl'
+import DummyControl, { ControlOptionsWithChildren } from './DummyControl'
 
 /*
  * Origin: https://github.com/LiveBy/react-leaflet-control/blob/master/lib/control.jsx
@@ -23,17 +23,24 @@ export function createContainerComponent<
     const forceUpdate = useForceUpdate()
     const [filtersContainer, setFilters] = useState<HTMLDivElement>(null)
     const { instance, context } = useElement(props, null).current
-    const children = props.children
+    const { children, className } = props
+     const classRef = useRef(className)
     const contentNode = (instance as any).getContainer()
 
     useImperativeHandle(ref, () => instance)
     useEffect(() => {
       forceUpdate()
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [contentNode, filtersContainer])
+    }, [contentNode])
 
+    useEffect(() => {
+      if (className != null && className !== classRef.current) {
+        // FIXME: Typescript could be better typed here
+        (instance as any).setClass(className)
+        classRef.current = className
+      }
+    }, [instance, className])
 
-    //if (!children || !filtersContainer) return null
     if (!children || !contentNode) return null
 
     // The provider allow access to Leaflet.MapContainer context

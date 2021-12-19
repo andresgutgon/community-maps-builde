@@ -20,9 +20,9 @@ html {
 .leaflet-touch .leaflet-bar.leaflet-control-zoom {
   @apply relative z-10;
 }
-.leaflet-control-search {
+.leaflet-expanded-control {
   @apply relative z-20 max-w-2xl;
-  @apply w-[calc(100%-20px)];
+  @apply w-[calc(100vw-20px)];
   margin-right: 10px;
 }
 

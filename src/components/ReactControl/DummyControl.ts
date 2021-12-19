@@ -20,6 +20,10 @@ class DummyControl extends Control {
     Util.setOptions(this, options)
   }
 
+  setClass (className: string) {
+    addClassName(this.getContainer(), className)
+  }
+
   /**
    * The key part is the use of:
    * DomEvent.stopPropagation
