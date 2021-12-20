@@ -5,7 +5,7 @@ import type { Category, IconColor } from '@maps/types/index'
 import { ICONS } from '@maps/lib/icons'
 
 type Color = { icon: string, border: string, bg: string }
-const ICON_COLORS: Record<IconColor, Color> = {
+export const ICON_COLORS: Record<IconColor, Color> = {
   brand: { icon: 'text-[#3f3e3e]', border: 'border-[#e9bd00]', bg: 'bg-[#facb00]' },
   pink: { icon: 'text-white', border: 'border-pink-800', bg: 'bg-pink-600' },
   green: { icon: 'text-white', border: 'border-green-800', bg: 'bg-green-600' },

@@ -24,7 +24,7 @@ export function createContainerComponent<
     const [filtersContainer, setFilters] = useState<HTMLDivElement>(null)
     const { instance, context } = useElement(props, null).current
     const { children, className } = props
-     const classRef = useRef(className)
+    const classRef = useRef<string | null>(className)
     const contentNode = (instance as any).getContainer()
 
     useImperativeHandle(ref, () => instance)
@@ -36,7 +36,7 @@ export function createContainerComponent<
     useEffect(() => {
       if (className != null && className !== classRef.current) {
         // FIXME: Typescript could be better typed here
-        (instance as any).setClass(className)
+        (instance as any).setClass(className, classRef.current)
         classRef.current = className
       }
     }, [instance, className])

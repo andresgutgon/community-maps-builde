@@ -17,6 +17,7 @@ type Props = {
   color?: Color,
   defaultValue?: number,
   value?: number
+  disabled?: boolean
 }
 export default function Slider({
   color = Color.default,
@@ -25,25 +26,32 @@ export default function Slider({
   step,
   onChange,
   defaultValue,
-  value
+  value,
+  disabled = false
 }: Props) {
   return (
     <SliderInput
-      className='relative -bottom-2 pt-2 max-w-full disabled:pointer-events-none disabled:opacity-50'
+      className={
+        cn(
+          'relative -bottom-2 pt-2 max-w-full disabled:pointer-events-none',
+          { 'opacity-50': disabled }
+        )
+      }
       max={maximum}
       min={minimum}
       step={step}
       defaultValue={defaultValue}
       value={value}
       onChange={onChange}
+      disabled={disabled}
     >
       <SliderTrack
         className={
           cn(
             'w-full transition-colors h-2 top-[calc(-0.5rem-1px)] relative rounded-full before:content-[""] before:absolute',
             {
-              'bg-gray-100': color === Color.default,
-              [`${COLORS[color]} bg-opacity-20`]: color === Color.success
+              'bg-gray-100': disabled || color === Color.default,
+              [`${COLORS[color]} bg-opacity-20`]: !disabled && color === Color.success
             }
           )
         }
@@ -52,7 +60,7 @@ export default function Slider({
           className={
             cn(
               'h-full transition-colors rounded-inherit left-0 bottom-0 bg-opacity-70',
-              COLORS[color]
+              COLORS[disabled ? Color.default : color]
             )
           }
         />
@@ -60,7 +68,7 @@ export default function Slider({
           className={
             cn(
               'cursor-cursor transition-colors shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2 outline-white',
-              COLORS[color]
+              COLORS[disabled ? Color.default : color]
             )
           }
         />

@@ -17,11 +17,26 @@
   "4kF+sS": {
     "defaultMessage": "Filtrar lugares"
   },
+  "7AAm0o": {
+    "defaultMessage": "Por categoría"
+  },
+  "9k8eaA": {
+    "defaultMessage": "Cualquier porcentaje"
+  },
   "ArcHyA": {
     "defaultMessage": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
   },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
+  },
+  "GI//kj": {
+    "defaultMessage": "Por estado"
+  },
+  "GbLpqH": {
+    "defaultMessage": "Activos"
+  },
+  "Hi7RCv": {
+    "defaultMessage": "Por porcentaje de contribución {value}"
   },
   "IOnTHc": {
     "defaultMessage": "Participar"
@@ -38,17 +53,32 @@
   "OS3K9O": {
     "defaultMessage": "Si tu aportación es de {min} a {max} tu tarifa por {timeRate} es {rate}"
   },
+  "P8VfZA": {
+    "defaultMessage": "Todos"
+  },
   "Pga9q2": {
     "defaultMessage": "Lo sentimos, no hay resultados para esta dirección"
   },
   "TKx/Q8": {
     "defaultMessage": "Mejor"
   },
+  "VTfGzG": {
+    "defaultMessage": "Filtrar"
+  },
+  "ZNZWBc": {
+    "defaultMessage": "Inactivos"
+  },
   "at9R+C": {
     "defaultMessage": "Debes seleccionar un valor de la lista"
   },
+  "ccbOeF": {
+    "defaultMessage": "Definir un porcentaje"
+  },
   "eOuNie": {
     "defaultMessage": "Buscar"
+  },
+  "h1MxPq": {
+    "defaultMessage": "Aparecen lugares con cualquier porcentaje de contribución. Puedes {link}"
   },
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"

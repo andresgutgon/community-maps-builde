@@ -20,8 +20,12 @@ class DummyControl extends Control {
     Util.setOptions(this, options)
   }
 
-  setClass (className: string) {
-    addClassName(this.getContainer(), className)
+  setClass (className: string = '', prevClassName: string = '') {
+    const oldClasses = prevClassName.split(' ')
+    const newClasses = className.split(' ')
+    const container = this.getContainer()
+    container.classList.remove(...oldClasses)
+    container.classList.add(...newClasses)
   }
 
   /**
