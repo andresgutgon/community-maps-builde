@@ -6,7 +6,7 @@
     "leaflet-react": "https://react-leaflet.js.org/",
     "jsonforms": "https://jsonforms.io/",
     "buy-hours-link": "https://www.sommobilitat.coop/tarifa-us-flexible-amb-iva/",
-    "progress": 32
+    "progress": 0
   },
   "jsonSchema": {
     "type":"object",

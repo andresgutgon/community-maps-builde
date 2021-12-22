@@ -63,6 +63,12 @@
       "value": "Cualquier porcentaje"
     }
   ],
+  "An+6PB": [
+    {
+      "type": 0,
+      "value": "Lugares inactivos"
+    }
+  ],
   "ArcHyA": [
     {
       "type": 0,
@@ -79,6 +85,12 @@
     {
       "type": 0,
       "value": "Por estado"
+    }
+  ],
+  "GSkc36": [
+    {
+      "type": 0,
+      "value": "Lugares activos"
     }
   ],
   "GbLpqH": [
@@ -107,6 +119,12 @@
     {
       "type": 0,
       "value": "Buscar una dirección"
+    }
+  ],
+  "Kdq+g3": [
+    {
+      "type": 0,
+      "value": "Cerrar filtros"
     }
   ],
   "MwlsML": [
@@ -173,6 +191,16 @@
       "value": "Mejor"
     }
   ],
+  "VHf1xn": [
+    {
+      "type": 1,
+      "value": "percentage"
+    },
+    {
+      "type": 0,
+      "value": "% o más"
+    }
+  ],
   "VTfGzG": [
     {
       "type": 0,
@@ -211,6 +239,20 @@
     {
       "type": 1,
       "value": "link"
+    }
+  ],
+  "iB0EB1": [
+    {
+      "type": 1,
+      "value": "filter"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "total"
     }
   ],
   "k3fpzo": [

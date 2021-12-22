@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import cn from 'classnames'
 import { useIntl, FormattedMessage } from 'react-intl'
 
+import { XIcon } from '@heroicons/react/outline'
 import ReactControl from '@maps/components/ReactControl/index'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import { useMapData } from '@maps/components/CommunityProvider'
@@ -10,37 +11,68 @@ import { ICONS } from '@maps/lib/icons'
 import { ICON_COLORS } from '@maps/components/Place/buildIcon'
 import Slider, { Color } from '@maps/components/Slider'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import ProgressIndicator from '@maps/components/ProgressIndicator'
+import useFilters, { ActiveState } from './useFilters'
 
-enum ActiveState { all = 'all', active = 'active', inactive = 'inactive' }
 type CategoryProps = {
+  size: 'normal' | 'small'
   category: CategoryType,
   isSelected: boolean,
-  onClick: () => void
+  onClick?: () => void
 }
-const Category = ({ onClick, category, isSelected }: CategoryProps) => {
+const Category = ({ onClick, category, size, isSelected }: CategoryProps) => {
   const icon = ICONS[category.iconKey] || ICONS[ICONS.car]
   const color = ICON_COLORS[category.iconColor]
+  const className = cn(
+    'relative rounded-full',
+    {
+      'h-10 w-10': size === 'normal',
+      'h-6 w-6': size === 'small',
+      [color.bg]: isSelected,
+      [color.border]: isSelected,
+      'opacity-100 shadow-md border-2': isSelected,
+      'opacity-60 hover:opacity-100 bg-gray-300 border-gray-900': !isSelected
+    }
+  )
+  const renderIcon = () =>
+    <div
+      className={
+        cn(
+          'rounded-full absolute inset-0 z-10 flex items-center justify-center',
+          {
+            [color.bg]: isSelected,
+            'border border-white border-opacity-75': size === 'normal' && isSelected
+          }
+        )
+      }
+    >
+      <i className={
+        cn(
+          'fas text-opacity-90', icon,
+          {
+            'text-base': size === 'normal',
+            'text-xs p-2': size === 'small',
+            [color.icon]: isSelected,
+            'text-gray-800': !isSelected
+
+          }
+        )}
+      />
+    </div>
+
+  if (!onClick) return <div className={className}>{renderIcon()}</div>
+
   return (
-    <button
-       onClick={onClick}
-        className={
-          cn(
-            'h-10 w-10 relative rounded-full shadow-md border',
-            color.bg,
-            color.border
-          )
-        }
-      >
-      <div className='rounded-full absolute inset-0 z-10 flex items-center justify-center ${color.bg} border border-white border-opacity-75'>
-        <i className={cn('fas text-base text-opacity-90', color.icon, icon)} />
-      </div>
+    <button onClick={onClick} className={className}>
+      {renderIcon()}
     </button>
   )
 }
 
 const FilterControl = () => {
   const intl = useIntl()
-  const { config } = useMapData()
+  const { filter } = useFilters()
+  const { allPlaces, places, setPlaces, config } = useMapData()
   const categories = useRef<CategoryType[]>(Object.keys(config.categories).map((key: string) =>
     config.categories[key]
   )).current
@@ -50,11 +82,14 @@ const FilterControl = () => {
 
   // Initial Filter states
   // TODO: Pick from URL
-  const [selectedCategories, setSelected] = useState<string[]>([])
-  const [checkedState, setCheckedState] = useState<ActiveState>(ActiveState.all)
+  const [selectedCategoriesSlugs, setSelected] = useState<string[]>([])
+  const [activeState, setCheckedState] = useState<ActiveState>(ActiveState.all)
   const [usingPercentage, setUsingPercentage] = useState<boolean>(false)
   const [contributionPercentage, setPercentage] = useState<number>(defaultContributionPercentage)
 
+  const selectedCategories = useMemo(() =>
+    categories.filter((c: CategoryType) => selectedCategoriesSlugs.includes(c.slug))
+  , [categories, selectedCategoriesSlugs])
   const onClickIcon = () => { setOpen(!open) }
   const states = useRef<ActiveState[]>([ActiveState.all, ActiveState.active, ActiveState.inactive]).current
   const stateLabels = useRef<Record<ActiveState, string>>({
@@ -62,6 +97,32 @@ const FilterControl = () => {
     [ActiveState.active]: intl.formatMessage({ defaultMessage: 'Activos', id: 'GbLpqH' }),
     [ActiveState.inactive]: intl.formatMessage({ defaultMessage: 'Inactivos', id: 'ZNZWBc' })
   }).current
+  const onCategoryToggle = (slug: string) => {
+    setSelected(
+      selectedCategoriesSlugs.includes(slug)
+        ?  selectedCategoriesSlugs.filter(i => i !== slug)
+        : [ ...selectedCategoriesSlugs, slug]
+    )
+  }
+  const onFilter = () => {
+    const filteredPlaces = filter(
+      allPlaces,
+      {
+        activeState,
+        categories: selectedCategoriesSlugs,
+        percentage: usingPercentage ? contributionPercentage : null
+
+      }
+    )
+    setPlaces(filteredPlaces)
+    setOpen(false)
+  }
+  const percentageLabel = intl.formatMessage(
+    { id: 'VHf1xn', defaultMessage: '{percentage}% o más' },
+    { percentage: contributionPercentage }
+  )
+  const activePlacesLabel = intl.formatMessage({ id: 'GSkc36', defaultMessage: 'Lugares activos' })
+  const inactivePlacesLabel = intl.formatMessage({ id: 'An+6PB', defaultMessage: 'Lugares inactivos' })
   return (
     <ReactControl
       position='topleft'
@@ -75,11 +136,73 @@ const FilterControl = () => {
         )
       }
     >
-      <button onClick={onClickIcon} className='flex flex-row items-center space-x-1'>
-        <div className='fas fa-filter' />
-        <span className={cn('font-medium', { 'text-lg': open })}>
-          <FormattedMessage defaultMessage='Filtrar lugares' id='4kF+sS' />
-        </span>
+      <button onClick={onClickIcon} className='w-full'>
+        <div className='flex flex-row justify-between items-center space-x-4'>
+          <div className='flex-0 flex flex-row items-center space-x-1'>
+            <div className='fas fa-filter' />
+            <span className={cn('font-medium', { 'text-lg': open })}>
+              <FormattedMessage defaultMessage='Filtrar lugares' id='4kF+sS' />
+            </span>
+          </div>
+          {!open ? (
+            allPlaces.length > 0 ? (
+              <div className='flex-1 justify-end text-center flex py-1 px-2 rounded-full bg-gray-200 font-medium text-gray-600'>
+                {places.length === allPlaces.length
+                  ? places.length
+                  : intl.formatMessage(
+                      { id: 'iB0EB1', defaultMessage: '{filter} de {total}' },
+                      { filter: places.length, total: allPlaces.length }
+                    )
+                }
+              </div>
+            ) : null
+          ) : (
+            <>
+              <span className='sr-only'>
+                <FormattedMessage defaultMessage='Cerrar filtros' id='Kdq+g3' />
+              </span>
+              <XIcon className="h-6 w-6 text-gray-600" aria-hidden="true" />
+            </>
+          )}
+        </div>
+
+        {(!open && allPlaces.length !== places.length) ? (
+          <div className='flex-1 flex flex-col space-y-3 border-t border-gray-100 mt-2 pt-2'>
+            {activeState !== ActiveState.all ? (
+              <div className='flex flex-row items-center space-x-2'>
+                <div className={
+                  cn(
+                    'rounded-full h-2 w-2 ring-4',
+                    {
+                      'bg-green-600 ring-green-100': activeState === ActiveState.active,
+                      'bg-yellow-600 ring-yellow-200': activeState === ActiveState.inactive
+                    }
+                  )}
+                />
+                <span className='text-xs font-medium text-gray-900'>
+                  {activeState === ActiveState.active ? activePlacesLabel : inactivePlacesLabel}
+                </span>
+              </div>
+            ) : null}
+            {usingPercentage ? (
+              <div className='flex flex-row space-x-1'>
+                <div className='w-1/2'>
+                  <ProgressIndicator value={contributionPercentage} size='small' />
+                </div>
+                <span className='flex-1 text-xs font-medium text-gray-900'>{percentageLabel}</span>
+              </div>
+            ) : null}
+            {categories.length > 1 ? (
+              <ul className='flex flex-row space-x-1'>
+                {selectedCategories.map((category: CategoryType) =>
+                  <li key={category.slug}>
+                    <Category size='small' isSelected category={category} />
+                  </li>
+                )}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
       </button>
       {open ? (
         <div className={styles.verticalLayout}>
@@ -95,7 +218,7 @@ const FilterControl = () => {
                       id={state}
                       type='radio'
                       className={styles.radio.input}
-                      checked={checkedState === state}
+                      checked={activeState === state}
                       onChange={() => setCheckedState(state)}
                       value={state}
                     />
@@ -114,8 +237,8 @@ const FilterControl = () => {
                   value: usingPercentage ? (
                     <span className='space-x-2 flex-inline flex-row'>
                       &#8212;&nbsp;
-                      <strong className='text-gray-900 font-medium'>
-                        ({contributionPercentage}%)
+                      <strong className='text-gray-900 lowercase font-medium'>
+                        {percentageLabel}
                       </strong>
                       <button
                         className='underline text-gray-900'
@@ -164,9 +287,10 @@ const FilterControl = () => {
                 {categories.map((category: CategoryType) =>
                   <li key={category.slug}>
                     <Category
+                      size='normal'
                       category={category}
-                      isSelected={selectedCategories.includes(category.slug)}
-                      onClick={() => {}}
+                      isSelected={selectedCategoriesSlugs.includes(category.slug)}
+                      onClick={() => onCategoryToggle(category.slug)}
                     />
                   </li>
                 )}
@@ -175,7 +299,7 @@ const FilterControl = () => {
           ) : null}
           <div className='flex justify-end'>
             <Button
-              onClick={() => {}}
+              onClick={onFilter}
               size={ButtonSize.sm}
               type={ButtonType.button}
               style={ButtonStyles.branded}

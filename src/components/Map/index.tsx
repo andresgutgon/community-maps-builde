@@ -28,20 +28,27 @@ const MapWrapper = () => {
   const { locale } = useRouter();
   const { currentPlace, config, places } = useMapData()
   const tile = useTile(config)
+  const [mapLoaded, setMapLoaded] = useState<boolean>(false)
   const [map, setMap] = useState<LeafletMap>(null)
   const clusterRef = useRef<MarkerClusterGroup>(null)
   useEffect(() => {
-    if (!map || !places.length) return;
+    if (!map || mapLoaded) return;
 
     if (currentPlace) {
       map.setView(
         { lat: +currentPlace.lat, lng: +currentPlace.lng },
         16 // initial zoom
       )
-    } else {
+      setMapLoaded(true)
+    } else if (places.length > 0) {
       map.fitBounds(clusterRef.current.getBounds());
+      setMapLoaded(true)
+    } else {
+      // While loading places set center in Barcelona
+      // This could be a config so community could set their default center
+      map.setView({ lat: 413874, lng: 21686 }, 16)
     }
-  }, [map, places, currentPlace])
+  }, [mapLoaded, map, places, currentPlace])
   return (
     <MapContainer
       zoomControl={false}

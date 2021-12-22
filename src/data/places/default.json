@@ -1,11 +1,13 @@
 {
   "schemaData": {
-    "warning": "[markdown] **Atención**: debido al COVID algunas restricciones se podran aplicar. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)"
+    "warning": "[markdown] **Atención**: debido al COVID algunas restricciones se podran aplicar. [más informacion](https://www.sommobilitat.coop/mesures-covid19/)",
+    "progress": 0
   },
   "jsonSchema": {
     "type":"object",
     "properties":{
-      "warning": { "type": "string", "format": "markdown" }
+      "warning": { "type": "string", "format": "markdown" },
+      "progress": { "type": "number" }
     }
   },
   "uiSchema": {
@@ -17,6 +19,12 @@
         "options": {
           "warning": true
         }
+      },
+      {
+        "type": "Display",
+        "label": "Percentatge finançat",
+        "scope": "#/properties/progress",
+        "options": { "progress": true }
       }
     ]
   }

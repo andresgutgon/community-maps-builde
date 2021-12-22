@@ -23,6 +23,9 @@
   "9k8eaA": {
     "defaultMessage": "Cualquier porcentaje"
   },
+  "An+6PB": {
+    "defaultMessage": "Lugares inactivos"
+  },
   "ArcHyA": {
     "defaultMessage": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
   },
@@ -31,6 +34,9 @@
   },
   "GI//kj": {
     "defaultMessage": "Por estado"
+  },
+  "GSkc36": {
+    "defaultMessage": "Lugares activos"
   },
   "GbLpqH": {
     "defaultMessage": "Activos"
@@ -43,6 +49,9 @@
   },
   "IVA/Y9": {
     "defaultMessage": "Buscar una dirección"
+  },
+  "Kdq+g3": {
+    "defaultMessage": "Cerrar filtros"
   },
   "MwlsML": {
     "defaultMessage": "Cerrar modal"
@@ -62,6 +71,9 @@
   "TKx/Q8": {
     "defaultMessage": "Mejor"
   },
+  "VHf1xn": {
+    "defaultMessage": "{percentage}% o más"
+  },
   "VTfGzG": {
     "defaultMessage": "Filtrar"
   },
@@ -79,6 +91,9 @@
   },
   "h1MxPq": {
     "defaultMessage": "Aparecen lugares con cualquier porcentaje de contribución. Puedes {link}"
+  },
+  "iB0EB1": {
+    "defaultMessage": "{filter} de {total}"
   },
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
