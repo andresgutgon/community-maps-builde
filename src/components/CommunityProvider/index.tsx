@@ -2,12 +2,13 @@ import { Dispatch, SetStateAction, useRef, ReactNode, createContext, useEffect, 
 import { useRouter } from 'next/router'
 import { FormattedMessage } from 'react-intl'
 
-import { Place, Config } from '@maps/types/index'
+import { Category, Place, Config } from '@maps/types/index'
 import LoadingMap from '@maps/components/LoadingMap'
 import useQueryString from '@maps/components/CommunityProvider/useQueryString'
 
 interface ContextProps {
   places: Place[]
+  categories: Category[]
   setPlaces: Dispatch<SetStateAction<Place[]>>
   allPlaces: Place[]
   currentPlace: Place | null
@@ -16,6 +17,7 @@ interface ContextProps {
 }
 const CommunityContext = createContext<ContextProps | null>({
   places: [],
+  categories: [],
   allPlaces: [],
   currentPlace: null,
   setPlaces: null,
@@ -34,6 +36,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   const [config, setConfig] = useState(null)
   const [places, setPlaces] = useState<Place[]>([])
   const allPlaces = useRef<Place[]>([])
+  const categories = useRef<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null)
   useEffect(() => {
@@ -59,6 +62,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
 
       const configResponse = await fetch(`/api/${community}/config`)
       const config = await configResponse.json()
+      categories.current = Object.keys(config.categories).map((key: string) => config.categories[key])
       setConfig(config)
 
       setLoading(false)
@@ -76,7 +80,8 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
         allPlaces: allPlaces.current,
         setPlaces,
         places,
-        config
+        config,
+        categories: categories.current
       }}
     >
       {loading ? <LoadingMap /> : children}

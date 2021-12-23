@@ -20,9 +20,6 @@
   "7AAm0o": {
     "defaultMessage": "Por categoría"
   },
-  "9k8eaA": {
-    "defaultMessage": "Cualquier porcentaje"
-  },
   "An+6PB": {
     "defaultMessage": "Lugares inactivos"
   },
@@ -83,14 +80,8 @@
   "at9R+C": {
     "defaultMessage": "Debes seleccionar un valor de la lista"
   },
-  "ccbOeF": {
-    "defaultMessage": "Definir un porcentaje"
-  },
   "eOuNie": {
     "defaultMessage": "Buscar"
-  },
-  "h1MxPq": {
-    "defaultMessage": "Aparecen lugares con cualquier porcentaje de contribución. Puedes {link}"
   },
   "iB0EB1": {
     "defaultMessage": "{filter} de {total}"

@@ -57,12 +57,6 @@
       "value": "Por categoría"
     }
   ],
-  "9k8eaA": [
-    {
-      "type": 0,
-      "value": "Cualquier porcentaje"
-    }
-  ],
   "An+6PB": [
     {
       "type": 0,
@@ -219,26 +213,10 @@
       "value": "Debes seleccionar un valor de la lista"
     }
   ],
-  "ccbOeF": [
-    {
-      "type": 0,
-      "value": "Definir un porcentaje"
-    }
-  ],
   "eOuNie": [
     {
       "type": 0,
       "value": "Buscar"
-    }
-  ],
-  "h1MxPq": [
-    {
-      "type": 0,
-      "value": "Aparecen lugares con cualquier porcentaje de contribución. Puedes "
-    },
-    {
-      "type": 1,
-      "value": "link"
     }
   ],
   "iB0EB1": [
