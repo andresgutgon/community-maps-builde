@@ -79,6 +79,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     community,
     mapId,
     loading,
+    filter,
     urlParams,
     onLoadCategories
   ])
