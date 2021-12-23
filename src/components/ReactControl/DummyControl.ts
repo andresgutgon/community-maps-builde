@@ -1,10 +1,12 @@
 import { ReactNode } from 'react'
 import { Map, Evented, Control, Util, DomUtil, DomEvent } from 'leaflet'
 import type { TileEventHandlerFn, ControlOptions } from 'leaflet'
+import { addClassName } from '@react-leaflet/core'
 
 
 export interface ControlOptionsWithChildren extends ControlOptions {
-  children: ReactNode
+  children: ReactNode,
+  className?: string
 }
 
 /**
@@ -13,9 +15,17 @@ export interface ControlOptionsWithChildren extends ControlOptions {
  * Like Leaflet.Zoom or Leaflet.Attribution.
  */
 class DummyControl extends Control {
-  constructor(options?: Partial<ControlOptions>) {
+  constructor(options?: Partial<ControlOptionsWithChildren>) {
     super(options)
     Util.setOptions(this, options)
+  }
+
+  setClass (className: string = '', prevClassName: string = '') {
+    const oldClasses = prevClassName.split(' ')
+    const newClasses = className.split(' ')
+    const container = this.getContainer()
+    container.classList.remove(...oldClasses)
+    container.classList.add(...newClasses)
   }
 
   /**
@@ -29,6 +39,11 @@ class DummyControl extends Control {
    */
   onAdd(_map: Map) {
     const controlDiv = DomUtil.create("div")
+    const options = this.options as ControlOptionsWithChildren
+    addClassName(
+      controlDiv,
+      `shadow rounded bg-white p-1 sm:p-2 ${options.className}`
+    )
 
     DomEvent.on(controlDiv, 'click', (event) => {
       DomEvent.stopPropagation(event)

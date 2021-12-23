@@ -8,8 +8,8 @@ import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
 import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
-import ReactControl from '@maps/components/ReactControl/index'
 import Search from '@maps/components/SearchControl'
+import Filter from '@maps/components/FilterControl'
 import Place from '@maps/components/Place'
 
 /**
@@ -26,33 +26,37 @@ Icon.Default.mergeOptions({
 
 const MapWrapper = () => {
   const { locale } = useRouter();
-  const { config, places } = useMapData()
+  const { currentPlace, config, places } = useMapData()
   const tile = useTile(config)
+  const [mapLoaded, setMapLoaded] = useState<boolean>(false)
   const [map, setMap] = useState<LeafletMap>(null)
   const clusterRef = useRef<MarkerClusterGroup>(null)
   useEffect(() => {
-    if (!map || !places.length) return;
+    if (!map || mapLoaded) return;
 
-    map.fitBounds(clusterRef.current.getBounds());
-  }, [map, places])
+    if (currentPlace) {
+      map.setView(
+        { lat: +currentPlace.lat, lng: +currentPlace.lng },
+        16 // initial zoom
+      )
+      setMapLoaded(true)
+    } else if (places.length > 0) {
+      map.fitBounds(clusterRef.current.getBounds());
+      setMapLoaded(true)
+    } else {
+      // While loading places set center in Barcelona
+      // This could be a config so community could set their default center
+      map.setView({ lat: 413874, lng: 21686 }, 16)
+    }
+  }, [mapLoaded, map, places, currentPlace])
   return (
     <MapContainer
       zoomControl={false}
       whenCreated={setMap}
       className='z-40 bg-gray-50 w-screen h-screen'
     >
-      <ReactControl position='topleft'>
-        <div className='shadow rounded bg-white p-3'>
-
-          {/*
-            FIXME: Load this with dynamic import like
-            the SubmissionForm.
-            FIXME: Make this component responsive
-            Put icons on mobile and on touch expand
-          */}
-          <Search locale={locale} />
-        </div>
-      </ReactControl>
+      <Search locale={locale} />
+      <Filter />
       <ZoomControl position='topleft' />
 
       {/* The places. These are the places of this map */}
@@ -63,7 +67,12 @@ const MapWrapper = () => {
         removeOutsideVisibleBounds={true}
       >
         {places.map((place: PlaceType, index: number) =>
-          <Place key={index} place={place} />
+          <Place
+            key={index}
+            map={map}
+            place={place}
+            isCurrent={currentPlace?.slug === place.slug}
+          />
         )}
       </MarkerClusterGroup>
 

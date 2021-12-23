@@ -45,6 +45,24 @@
       "value": "max"
     }
   ],
+  "4kF+sS": [
+    {
+      "type": 0,
+      "value": "Filtrar lugares"
+    }
+  ],
+  "7AAm0o": [
+    {
+      "type": 0,
+      "value": "Por categoría"
+    }
+  ],
+  "An+6PB": [
+    {
+      "type": 0,
+      "value": "Lugares inactivos"
+    }
+  ],
   "ArcHyA": [
     {
       "type": 0,
@@ -57,6 +75,34 @@
       "value": "Tarifa según tu aportación"
     }
   ],
+  "GI//kj": [
+    {
+      "type": 0,
+      "value": "Por estado"
+    }
+  ],
+  "GSkc36": [
+    {
+      "type": 0,
+      "value": "Lugares activos"
+    }
+  ],
+  "GbLpqH": [
+    {
+      "type": 0,
+      "value": "Activos"
+    }
+  ],
+  "Hi7RCv": [
+    {
+      "type": 0,
+      "value": "Por porcentaje de contribución "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
   "IOnTHc": [
     {
       "type": 0,
@@ -67,6 +113,12 @@
     {
       "type": 0,
       "value": "Buscar una dirección"
+    }
+  ],
+  "Kdq+g3": [
+    {
+      "type": 0,
+      "value": "Cerrar filtros"
     }
   ],
   "MwlsML": [
@@ -115,6 +167,12 @@
       "value": "rate"
     }
   ],
+  "P8VfZA": [
+    {
+      "type": 0,
+      "value": "Todos"
+    }
+  ],
   "Pga9q2": [
     {
       "type": 0,
@@ -127,22 +185,52 @@
       "value": "Mejor"
     }
   ],
+  "VHf1xn": [
+    {
+      "type": 1,
+      "value": "percentage"
+    },
+    {
+      "type": 0,
+      "value": "% o más"
+    }
+  ],
+  "VTfGzG": [
+    {
+      "type": 0,
+      "value": "Filtrar"
+    }
+  ],
+  "ZNZWBc": [
+    {
+      "type": 0,
+      "value": "Inactivos"
+    }
+  ],
   "at9R+C": [
     {
       "type": 0,
       "value": "Debes seleccionar un valor de la lista"
     }
   ],
-  "ctskGr": [
-    {
-      "type": 0,
-      "value": "Buscando"
-    }
-  ],
   "eOuNie": [
     {
       "type": 0,
       "value": "Buscar"
+    }
+  ],
+  "iB0EB1": [
+    {
+      "type": 1,
+      "value": "filter"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "total"
     }
   ],
   "k3fpzo": [

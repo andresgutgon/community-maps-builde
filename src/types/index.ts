@@ -1,5 +1,5 @@
 import { JsonSchema, HorizontalLayout, VerticalLayout, GroupLayout } from '@jsonforms/core'
-import type { IGeocoder } from '@maps/components/SearchControl/geocoders'
+import type { IGeocoder } from '@maps/components/SearchControl/Search/geocoders'
 import { TILES } from '@maps/lib/tiles'
 
 export type { JsonSchema, } from '@jsonforms/core'

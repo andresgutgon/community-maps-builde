@@ -15,7 +15,6 @@ type TextDisplayProps = ControlProps & {
   type: TextDisplayType
 }
 const LinkDisplay = ({ uischema, label, data }: TextDisplayProps) => {
-  console.log('Props', uischema)
   const hideIcon = uischema?.options?.hideExternalIcon || false
   return (
     <a className={cn('space-x-1.5 text-xs', { 'flex items-center': !hideIcon })} href={data} target="_blank" rel='noreferrer' title={label}>

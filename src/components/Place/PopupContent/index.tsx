@@ -130,6 +130,7 @@ const PopupContent = ({ place }: Props) => {
     fetchData()
   }, [data, place, dataLoading, router])
 
+
   if (dataLoading) return <Loading />
 
   return (

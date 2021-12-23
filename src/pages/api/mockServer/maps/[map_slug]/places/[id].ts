@@ -18,9 +18,16 @@ const communityServerMap = ({ request, map, response }: ResponseWithMap) => {
   let placeDetail = id === 'som-mobilitat-vielha'
     ? vielhaPlace
     : defaultPlace
+  const detail = {
+    ...placeDetail,
+    schemaData: {
+      ...placeDetail.schemaData,
+      progress: place.goalProgress
+    }
+  }
   response.status(200).json({
     ...place,
-    ...placeDetail
+    ...detail
   })
 }
 
