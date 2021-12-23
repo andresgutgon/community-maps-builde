@@ -4,7 +4,8 @@ import { FormattedMessage } from 'react-intl'
 
 import { Category, Place, Config } from '@maps/types/index'
 import LoadingMap from '@maps/components/LoadingMap'
-import useQueryString from '@maps/components/CommunityProvider/useQueryString'
+import useQueryString, { UrlParam } from '@maps/components/CommunityProvider/useQueryString'
+import useFilters from '@maps/components/FilterControl/useFilters'
 
 interface ContextProps {
   places: Place[]
@@ -13,7 +14,8 @@ interface ContextProps {
   allPlaces: Place[]
   currentPlace: Place | null
   config: Config | null
-  loading: boolean
+  loading: boolean,
+  urlParams: UrlParam
 }
 const CommunityContext = createContext<ContextProps | null>({
   places: [],
@@ -22,7 +24,8 @@ const CommunityContext = createContext<ContextProps | null>({
   currentPlace: null,
   setPlaces: null,
   config: null,
-  loading: true
+  loading: true,
+  urlParams: null
 })
 
 type ProviderProps = {
@@ -32,7 +35,8 @@ type ProviderProps = {
 }
 
 export const CommunityProvider = ({ community, mapId, children }: ProviderProps) => {
-  const { loadingUrlParams, urlParams } = useQueryString()
+  const { filter } = useFilters()
+  const { loadingUrlParams, urlParams, onLoadCategories } = useQueryString()
   const [config, setConfig] = useState(null)
   const [places, setPlaces] = useState<Place[]>([])
   const allPlaces = useRef<Place[]>([])
@@ -41,7 +45,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null)
   useEffect(() => {
     // Wait for parent host page to return URL info
-    if (loadingUrlParams) return
+    if (!loading || loadingUrlParams) return
 
     async function loadData () {
       let current = null
@@ -57,24 +61,34 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
             setCurrentPlace(current)
           }
 
-          setPlaces(allPlaces.current)
+          setPlaces(filter(allPlaces.current, urlParams.filters))
         })
 
       const configResponse = await fetch(`/api/${community}/config`)
       const config = await configResponse.json()
-      categories.current = Object.keys(config.categories).map((key: string) => config.categories[key])
+      const categorySlugs = Object.keys(config.categories)
+      onLoadCategories(categorySlugs)
+      categories.current = categorySlugs.map((key: string) => config.categories[key])
       setConfig(config)
 
       setLoading(false)
     }
     loadData()
-  }, [urlParams.placeSlug, community, mapId, loadingUrlParams])
+  }, [
+    loadingUrlParams,
+    community,
+    mapId,
+    loading,
+    urlParams,
+    onLoadCategories
+  ])
 
   // when only one place is displayed reset places collection
   // when user close the popup of that place
   return (
     <CommunityContext.Provider
       value={{
+        urlParams,
         currentPlace,
         loading,
         allPlaces: allPlaces.current,

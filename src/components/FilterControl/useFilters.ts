@@ -3,9 +3,9 @@ import { Place } from '@maps/types/index'
 export enum ActiveState { all = 'all', active = 'active', inactive = 'inactive' }
 
 export type Filters = {
-  categories: string[] | null
+  categories: string[]
   activeState: ActiveState
-  percentage: number | null
+  percentage: number
 }
 type FilterFn = (allPlaces: Place[], filters: Filters) => Place[]
 type ReturnType = { filter: FilterFn }

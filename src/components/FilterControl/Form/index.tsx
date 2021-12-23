@@ -8,6 +8,7 @@ import type { Category as CategoryType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import Slider, { Color } from '@maps/components/Slider'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import useQueryString  from '@maps/components/CommunityProvider/useQueryString'
 
 import useFilters, { ActiveState } from '../useFilters'
 import Category from '../Category'
@@ -33,6 +34,7 @@ const FilterForm = ({
   onToggleFilters
 }: Props) => {
   const intl = useIntl()
+  const { changeFiltersInUrl } = useQueryString()
   const styles = useStyles()
   const { allPlaces, places, setPlaces, categories, config } = useMapData()
   const { filter } = useFilters()
@@ -43,11 +45,9 @@ const FilterForm = ({
     [ActiveState.inactive]: intl.formatMessage({ defaultMessage: 'Inactivos', id: 'ZNZWBc' })
   }).current
   const onFilterSubmit = () => {
-    const filteredPlaces = filter(
-      allPlaces,
-      { activeState, categories: categorySlugs, percentage }
-    )
-    setPlaces(filteredPlaces)
+    const filters = { activeState, categories: categorySlugs, percentage }
+    setPlaces(filter(allPlaces, filters))
+    changeFiltersInUrl(filters)
     onToggleFilters()
   }
   const onCategoryToggle = (slug: string) => {
