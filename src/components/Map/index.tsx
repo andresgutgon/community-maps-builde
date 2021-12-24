@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Control, ControlOptions, DomUtil, DomEvent,  Map as LeafletMap, Icon } from 'leaflet'
 import 'leaflet.markercluster'
-import { useMap, MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
+import { useMapEvents, useMap, MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
@@ -59,7 +59,7 @@ const MapWrapper = () => {
     >
       <Search locale={locale} />
       <Filter />
-      <ZoomControl position='topleft' />
+      <ZoomControl position='bottomleft' />
 
       {/* The places. These are the places of this map */}
       <MarkerClusterGroup

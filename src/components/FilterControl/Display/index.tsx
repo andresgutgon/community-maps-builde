@@ -67,7 +67,7 @@ const FilterDisplay = ({
       {(!open && allPlaces.length !== places.length) ? (
         <div className='flex-1 flex flex-col space-y-3 border-t border-gray-100 mt-2 pt-2'>
           {activeState !== ActiveState.all ? (
-            <div className='flex flex-row items-center space-x-2'>
+            <div className='flex flex-row items-center space-x-2 ml-1'>
               <div className={
                 cn(
                   'rounded-full h-2 w-2 ring-4',

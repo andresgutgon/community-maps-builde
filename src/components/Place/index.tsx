@@ -37,17 +37,21 @@ export default function Place ({ map, isCurrent, place }: Props) {
     if (Content) return
 
     async function loadComponent () {
+      const popup = popupRef.current
       const Component = await dynamic(
         () => import('./PopupContent'),
         { loading: () => <Loading /> }
       )
+
       setContent(Component)
-      setLoading(false)
-      const popup = popupRef.current
+
       if (map && popup && isCurrent) {
+        console.log('FOOOOOO')
         popup.setLatLng(latLng)
         popup.openOn(map)
       }
+
+      setLoading(false)
     }
     loadComponent()
   }, [isCurrent, latLng, map, popupRef, Content, loading])
@@ -57,7 +61,6 @@ export default function Place ({ map, isCurrent, place }: Props) {
         ref={popupRef}
         position={latLng}
         className={place.form_slug ? 'leaflet-popup--with-action' : ''}
-        autoPanPaddingTopLeft={[10, 220]}
         closeButton={false}
         maxWidth={500}
         onOpen={() => {

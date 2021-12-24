@@ -15,6 +15,9 @@ module.exports = {
   mode: 'jit',
   theme: {
     extend: {
+      zIndex: {
+        leafletControlSearchControl: 801
+      },
       typography: {
         sm: {
           css: {

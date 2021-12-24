@@ -27,8 +27,12 @@ html {
   margin-right: 10px;
 }
 
+.leaflet-top {
+  @apply transition-opacity duration-500 ease-in-out;
+}
+
 .leaflet-search {
-  @apply z-50;
+  @apply z-leafletControlSearchControl;
 }
 
 .hidden-attribute[hidden] {

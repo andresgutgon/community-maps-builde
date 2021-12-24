@@ -1,9 +1,41 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useIntl } from 'react-intl'
+import { useMapEvents } from 'react-leaflet'
 
 import ReactControl from '@maps/components/ReactControl/index'
 import Button, { Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
+
+const MOBILE_WIDTH = 768
+
+/**
+ * This handle hide the controls when a popup is shown in mobile
+ * On mobile the controls overlaps with the popup and is annoying
+ */
+const useMobileControlsVisibility = () => {
+  const windowWidth = useRef(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth).current
+  const isMobile = useRef<boolean>(windowWidth <= MOBILE_WIDTH).current
+  const leafletTopLeftControls = useRef<NodeListOf<HTMLDivElement>>(document.querySelectorAll('div.leaflet-top')).current
+
+  useMapEvents({
+    popupopen: () => {
+      if (!isMobile) return
+
+      console.log('OPEN')
+      leafletTopLeftControls.forEach(function (element) {
+        element.style.opacity = '0'
+      })
+    },
+    popupclose: () => {
+      if (!isMobile) return
+
+      console.log('CLOSE')
+      leafletTopLeftControls.forEach(function (element) {
+        element.style.opacity = '1'
+      })
+    }
+  })
+}
 
 export type CommonProps = {
   placeholder: string,
@@ -45,6 +77,7 @@ const FakeSearch = ({
   </div>
 type Props = { locale: string }
 const SearchControl = ({ locale }: Props) => {
+  useMobileControlsVisibility()
   const intl = useIntl()
   const [Search, setSearch] = useState(null)
   const commonProps = {
