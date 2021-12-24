@@ -49,7 +49,6 @@ export type Map = {
 
 export type Category = {
   slug: string
-  map_slug: string
   iconKey: CategoryIcon
   iconColor: IconColor
   name: string
@@ -65,6 +64,7 @@ export type Form = {
 export type Place = {
   slug: string
   category_slug: string
+  form_slug: string | null
   lat: string
   lng: string
   name: string
@@ -86,8 +86,6 @@ type Theme = {
 
 export type Config = {
   theme: Theme
-  maps: Record<string, Map>
-  mapForms: Record<string, Form>
-  categoryForms: Record<string, Form>
+  forms: Record<string, Form>
   categories: Record<string, Category>
 }

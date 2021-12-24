@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { ValidationMode, JsonSchema, VerticalLayout } from '@jsonforms/core'
 import { JsonFormsStyleContext } from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 
+import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place, PlaceDetail } from '@maps/types/index'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 
@@ -89,23 +89,25 @@ const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => 
           </JsonFormsStyleContext.Provider>
         ) : null}
       </div>
-      <div className='flex justify-end py-2 px-3 border-t border-gray-100 bg-gray-50'>
-        <Button
-          disabled={isModalLoading}
-          size={ButtonSize.sm}
-          style={ButtonStyles.branded}
-          onClick={onClick}
-        >
-          {buttonLabel}
-        </Button>
-      </div>
+      {place.form_slug ? (
+        <div className='flex justify-end py-2 px-3 border-t border-gray-100 bg-gray-50'>
+          <Button
+            disabled={isModalLoading}
+            size={ButtonSize.sm}
+            style={ButtonStyles.branded}
+            onClick={onClick}
+          >
+            {buttonLabel}
+          </Button>
+        </div>
+      ) : null}
     </div>
   )
 }
 
 type Props = { place: Place }
 const PopupContent = ({ place }: Props) => {
-  const router = useRouter()
+  const { apiBase } = useMapData()
   const [dataLoading, setDataLoading] = useState(true)
   const [data, setData] = useState(null)
   const [isOpen, setModal] = useState<boolean>(false)
@@ -120,15 +122,14 @@ const PopupContent = ({ place }: Props) => {
     if (data) return
 
     async function fetchData () {
-      const { query: { community, id: mapSlug }} = router
-      const response = await fetch(`/api/${community}/maps/${mapSlug}/places/${place.slug}`)
+      const response = await fetch(`${apiBase}/places/${place.slug}`)
       const data = await response.json()
       setData(data)
       setDataLoading(false)
     }
 
     fetchData()
-  }, [data, place, dataLoading, router])
+  }, [data, place, dataLoading, apiBase])
 
 
   if (dataLoading) return <Loading />

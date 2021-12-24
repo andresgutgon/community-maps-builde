@@ -9,6 +9,7 @@ const STATUS_MAPPING = {
 const mobilityCategories = [
   'car', 'van', 'bike_charger', 'car_charger'
 ]
+const forms = ['first-form', 'bike_charger', null]
 const randomProgress = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 /**
@@ -24,6 +25,9 @@ async function fetchPlaces () {
     const categorySlug = mobilityCategories[
       Math.floor(Math.random() * mobilityCategories.length)
     ]
+    const formSlug = forms[
+      Math.floor(Math.random() * forms.length)
+    ]
     const slug = place.name
     const name = place.title
     const address = new RegExp(/\sa\sdecidir/).test(place.address)
@@ -37,7 +41,8 @@ async function fetchPlaces () {
       address,
       active: STATUS_MAPPING[place.parking_status] === 'active',
       goalProgress: randomProgress(0, 100),
-      category_slug:  categorySlug
+      category_slug:  categorySlug,
+      form_slug: formSlug
     }
   })
 

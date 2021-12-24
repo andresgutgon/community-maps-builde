@@ -27,7 +27,6 @@ export type UrlParam = { placeSlug: string | null; filters: Filters }
 function readParams (queryString: string) {
   const states = [ActiveState.all, ActiveState.active, ActiveState.inactive]
   const decodeQueryString = decodeURI(queryString)
-  console.log('DECODE QUERY STRING', decodeQueryString)
   const queryParams = new URLSearchParams(decodeQueryString)
   const filtersQuery = queryParams.get('mapFilters')?.split(';') || []
   const filters = filtersQuery.reduce((memo: Filters, item: string) => {

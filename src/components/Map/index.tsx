@@ -46,7 +46,9 @@ const MapWrapper = () => {
     } else {
       // While loading places set center in Barcelona
       // This could be a config so community could set their default center
-      map.setView({ lat: 413874, lng: 21686 }, 16)
+      map.setView({
+        lat: 41.385947, lng: 2.170495
+      }, 10)
     }
   }, [mapLoaded, map, places, currentPlace])
   return (

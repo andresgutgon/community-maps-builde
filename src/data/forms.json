@@ -1,5 +1,5 @@
 {
-  "first-map": {
+  "first-form": {
     "initialData": {
       "contribution_type": "prepaid",
       "prepaid_contribution_amount_in_cents": 25000,
@@ -195,6 +195,36 @@
               ]
             }
           ]
+        }
+      ]
+    }
+  },
+  "bike_charger": {
+    "jsonSchema": {
+      "type":"object",
+      "properties":{
+        "name":{
+          "type":"string"
+        },
+        "email":{
+          "type":"string",
+          "format": "email"
+        }
+      },
+      "required": ["name", "email"]
+    },
+    "uiSchema": {
+      "type":"VerticalLayout",
+      "elements":[
+        {
+          "type":"Control",
+          "scope":"#/properties/name",
+          "label": "Nombre"
+        },
+        {
+          "type":"Control",
+          "scope":"#/properties/email",
+          "label":"Email"
         }
       ]
     }

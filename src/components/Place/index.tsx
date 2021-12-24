@@ -56,7 +56,7 @@ export default function Place ({ map, isCurrent, place }: Props) {
       <Popup
         ref={popupRef}
         position={latLng}
-        className={place.category_slug ? 'leaflet-popup--with-action' : ''}
+        className={place.form_slug ? 'leaflet-popup--with-action' : ''}
         autoPanPaddingTopLeft={[10, 220]}
         closeButton={false}
         maxWidth={500}

@@ -15,7 +15,8 @@ interface ContextProps {
   currentPlace: Place | null
   config: Config | null
   loading: boolean,
-  urlParams: UrlParam
+  urlParams: UrlParam,
+  apiBase: string
 }
 const CommunityContext = createContext<ContextProps | null>({
   places: [],
@@ -25,7 +26,8 @@ const CommunityContext = createContext<ContextProps | null>({
   setPlaces: null,
   config: null,
   loading: true,
-  urlParams: null
+  urlParams: null,
+  apiBase: null
 })
 
 type ProviderProps = {
@@ -35,6 +37,7 @@ type ProviderProps = {
 }
 
 export const CommunityProvider = ({ community, mapId, children }: ProviderProps) => {
+  const apiBase = useRef(`/api/${community}/maps/${mapId}`).current
   const { filter } = useFilters()
   const { loadingUrlParams, urlParams, onLoadCategories } = useQueryString()
   const [config, setConfig] = useState(null)
@@ -50,7 +53,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     async function loadData () {
       let current = null
       // Places are async
-      fetch(`/api/${community}/maps/${mapId}/places`)
+      fetch(`${apiBase}/places`)
         .then((response) => response.json())
         .then(data => {
           allPlaces.current = data
@@ -64,7 +67,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
           setPlaces(filter(allPlaces.current, urlParams.filters))
         })
 
-      const configResponse = await fetch(`/api/${community}/config`)
+      const configResponse = await fetch(`${apiBase}/config`)
       const config = await configResponse.json()
       const categorySlugs = Object.keys(config.categories)
       onLoadCategories(categorySlugs)
@@ -75,6 +78,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     }
     loadData()
   }, [
+    apiBase,
     loadingUrlParams,
     community,
     mapId,
@@ -96,7 +100,8 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
         setPlaces,
         places,
         config,
-        categories: categories.current
+        categories: categories.current,
+        apiBase
       }}
     >
       {loading ? <LoadingMap /> : children}

@@ -1,7 +1,6 @@
 {
   "car": {
     "slug": "car",
-    "map_slug": "first-map",
     "iconKey": "car",
     "iconColor": "brand",
     "name": "Coches",
@@ -9,7 +8,6 @@
   },
   "van": {
     "slug": "van",
-    "map_slug": "first-map",
     "iconKey": "van",
     "iconColor": "pink",
     "name": "Furgonetas",
@@ -17,7 +15,6 @@
   },
   "bike_charger": {
     "slug": "bike_charger",
-    "map_slug": "first-map",
     "iconKey": "bike_charger",
     "iconColor": "green",
     "name": "Bicicletas eléctricas",
@@ -25,7 +22,6 @@
   },
   "car_charger": {
     "slug": "car_charger",
-    "map_slug": "first-map",
     "iconKey": "car_charger",
     "iconColor": "blue",
     "name": "Cargadores de coches",

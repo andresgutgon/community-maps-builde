@@ -5,7 +5,7 @@ import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerTok
 
 const config = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
   const serverResponse = await fetch(
-    `${communityHost}/config`,
+    `${communityHost}/maps`,
     {
       method: 'GET',
       headers: tokenHeaders

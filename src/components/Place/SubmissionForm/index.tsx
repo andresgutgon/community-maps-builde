@@ -25,6 +25,12 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
   const { locale } = useRouter()
   const form = useForm({ place, isOpen })
 
+  useEffect(() => {
+    if (form) return
+    onLoadingFinish()
+    closeFn()
+  }, [closeFn, onLoadingFinish, form])
+
   if (!form) return null
 
   return (

@@ -94,7 +94,8 @@ erDiagram
     }
 
     PLACE {
-        integer category_slug
+        string category_slug
+        string form_slug
         string lat
         string lng
         string name

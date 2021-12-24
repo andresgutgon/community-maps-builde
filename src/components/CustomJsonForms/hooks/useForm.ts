@@ -6,22 +6,6 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import { useTranslateError } from './useTranslateError'
 import type { TranslateErrorFn } from './useTranslateError'
 
-/**
- * We try to look in config.categoryForms to see if
- * the backend has a form for this category. If not we fallback
- * to default config.mapForms which always should have a form
- * for a map.
- */
-function findForm (config: Config, place: Place | null): Form | null {
-  if (!place) return null
-  const category = config.categories[place.category_slug]
-  const categoryForm = config.categoryForms[category.slug]
-
-  if (categoryForm) return categoryForm
-
-  return config.mapForms[category.map_slug]
-}
-
 const showValidationMode = 'ValidateAndShow' as ValidationMode
 const noValidationMode = 'NoValidation' as ValidationMode
 type Props = {
@@ -41,7 +25,7 @@ type ReturnType = {
 }
 export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   const { config } = useMapData()
-  const form = useMemo(() => findForm(config, place), [place, config])
+  const form = useMemo(() => config.forms[place?.form_slug], [place, config])
   const [data, setData] = useState(form?.initialData || {})
   const [errors, setErrors] = useState([])
   const [validationMode, setValidationMode] = useState<ValidationMode>(noValidationMode)
@@ -73,9 +57,6 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
     setValid(validationMode === showValidationMode && !errors.length)
   }, [validationMode, errors])
 
-  // NOTE:
-  // because we never destroy de Dialog to get animation
-  // working we need to clean the data when the modal is closed
   useEffect(() => {
     if (!form) return
     if (!isOpen) {

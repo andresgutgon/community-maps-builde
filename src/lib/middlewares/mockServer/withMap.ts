@@ -1,6 +1,6 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
-import config from '@maps/data/config'
+import maps from '@maps/data/maps.json'
 import type { Map } from '@maps/types/index'
 
 export type ResponseWithMap = {
@@ -14,9 +14,8 @@ type NextApiHandlerWithMap<T = any> = (responseWithAuth: ResponseWithMap) => voi
  * This middleware put dummy config in the request
  */
 const withMap = (handler: NextApiHandlerWithMap) => (request: NextApiRequest, response: NextApiResponse) => {
-  const { maps } = config
   const slug = (request.query.map_slug || '').toString()
-  const map = maps[slug]
+  const map = maps.find(m => m.slug ===slug)
 
   if (!map) {
     return response.status(404).send({

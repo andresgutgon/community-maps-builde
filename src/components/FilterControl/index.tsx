@@ -11,7 +11,7 @@ import FilterDisplay from './Display'
 
 const FilterControl = () => {
   const intl = useIntl()
-  const { urlParams: { filters } } = useMapData()
+  const { allPlaces, urlParams: { filters } } = useMapData()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [Form, setForm] = useState(null)
@@ -42,6 +42,9 @@ const FilterControl = () => {
   const percentageLabel = intl.formatMessage(
     { id: 'VHf1xn', defaultMessage: '{percentage}% o más' }, { percentage }
   )
+
+  if (!allPlaces.length) return null
+
   return (
     <ReactControl
       position='topleft'
