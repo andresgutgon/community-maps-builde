@@ -33,6 +33,10 @@ const FilterDisplay = ({
   , [categories, categorySlugs])
   const activePlacesLabel = intl.formatMessage({ id: 'GSkc36', defaultMessage: 'Lugares activos' })
   const inactivePlacesLabel = intl.formatMessage({ id: 'An+6PB', defaultMessage: 'Lugares inactivos' })
+  const showStateFilter = activeState !== ActiveState.all
+  const showPercentageFilter = percentage > 0
+  const showCategoriesFilter = categories.length > 1 && selectedCategories.length !== categories.length
+  const showFilters = showStateFilter || showPercentageFilter || showCategoriesFilter
   return (
     <button onClick={onToggleFilters} className='w-full'>
       <div className='flex flex-row justify-between items-center space-x-4'>
@@ -64,9 +68,9 @@ const FilterDisplay = ({
         )}
       </div>
 
-      {(!open && allPlaces.length !== places.length) ? (
+      {(!open && showFilters) ? (
         <div className='flex-1 flex flex-col space-y-3 border-t border-gray-100 mt-2 pt-2'>
-          {activeState !== ActiveState.all ? (
+          {showStateFilter ? (
             <div className='flex flex-row items-center space-x-2 ml-1'>
               <div className={
                 cn(
@@ -82,7 +86,7 @@ const FilterDisplay = ({
               </span>
             </div>
           ) : null}
-          {percentage > 0 ? (
+          {showPercentageFilter ? (
             <div className='flex flex-row space-x-1'>
               <div className='w-1/2'>
                 <ProgressIndicator value={percentage} size='small' />
@@ -90,7 +94,7 @@ const FilterDisplay = ({
               <span className='flex-1 text-xs font-medium text-gray-900'>{percentageLabel}</span>
             </div>
           ) : null}
-          {categories.length > 1 ? (
+          {showCategoriesFilter ? (
             <ul className='flex flex-row space-x-1'>
               {selectedCategories.map((category: CategoryType) =>
                 <li key={category.slug}>

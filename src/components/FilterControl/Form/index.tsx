@@ -117,7 +117,11 @@ const FilterForm = ({
             {categories.map((category: CategoryType) => {
               const isSelected = categorySlugs.includes(category.slug)
               return (
-                <li className='relative' key={category.slug}>
+                <li
+                  key={category.slug}
+                  onClick={() => onCategoryToggle(category.slug)}
+                  className='cursor-pointer relative'
+                >
                   <div
                     className={
                       cn(
@@ -139,7 +143,6 @@ const FilterForm = ({
                     size='normal'
                     category={category}
                     isSelected={isSelected}
-                    onClick={() => onCategoryToggle(category.slug)}
                   />
                 </li>
               )

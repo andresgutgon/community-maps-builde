@@ -59,7 +59,7 @@ const MapWrapper = () => {
     >
       <Search locale={locale} />
       <Filter />
-      <ZoomControl position='bottomleft' />
+      <ZoomControl position='topleft' />
 
       {/* The places. These are the places of this map */}
       <MarkerClusterGroup

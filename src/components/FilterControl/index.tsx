@@ -46,8 +46,6 @@ const FilterControl = () => {
     { id: 'VHf1xn', defaultMessage: '{percentage}% o más' }, { percentage }
   )
 
-  if (!allPlaces.length) return null
-
   return (
     <ReactControl
       position='topleft'
@@ -55,6 +53,7 @@ const FilterControl = () => {
         cn(
           'transition-width',
           {
+            'hidden': !allPlaces.length,
             'flex items-center justify-center': !open,
             'flex-col leaflet-expanded-control': open
           }

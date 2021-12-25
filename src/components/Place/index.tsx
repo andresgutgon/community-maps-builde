@@ -46,7 +46,6 @@ export default function Place ({ map, isCurrent, place }: Props) {
       setContent(Component)
 
       if (map && popup && isCurrent) {
-        console.log('FOOOOOO')
         popup.setLatLng(latLng)
         popup.openOn(map)
       }
