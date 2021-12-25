@@ -18,7 +18,9 @@ export default function Place ({ isOpenPlace, onClosePopup, place, onClick }: Pr
   const category = config.categories[place.category_slug]
   const icon = buildIcon({ category, animate: false })
   const latLng = useRef({ lat: parseFloat(lat), lng: parseFloat(lng) }).current
-  let eventHandlers: LeafletEventHandlerFnMap = { click: () => onClick(place) }
+  let eventHandlers: LeafletEventHandlerFnMap = { click: () => {
+    onClick(place)
+  }}
   if (isOpenPlace) {
     eventHandlers = {...eventHandlers, remove: onClosePopup }
   }

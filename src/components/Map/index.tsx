@@ -57,7 +57,9 @@ const MapWrapper = () => {
       }, 10)
     }
   }, [mapLoaded, map, places, currentPlace])
-  const onClickPlace = (place: PlaceType) => { setOpenPlace(openPlace ? null : place) }
+  const onClickPlace = (place: PlaceType) => {
+    setOpenPlace(openPlace?.slug === place.name ? null : place)
+  }
   const onClosePopup = () => setOpenPlace(null)
   return (
     <MapContainer
@@ -79,7 +81,7 @@ const MapWrapper = () => {
       >
         {places.map((place: PlaceType, index: number) =>
           <Place
-            key={index}
+            key={place.slug}
             place={place}
             isOpenPlace={place.slug === openPlace?.slug}
             onClick={onClickPlace}

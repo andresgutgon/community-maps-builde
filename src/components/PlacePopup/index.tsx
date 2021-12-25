@@ -73,10 +73,7 @@ export default function PlacePopup ({ onClose, place }: Props) {
       setContent(Component)
     }
     loadComponent()
-  }, [place, Content])
-
-  if (!place) return null
-
+  }, [Content])
   return (
     <Popup
       className={cn({ 'leaflet-popup--with-action': !!place?.form_slug })}
