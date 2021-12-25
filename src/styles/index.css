@@ -54,11 +54,11 @@ html {
   @apply text-gray-900;
 }
 .leaflet-popup-content-wrapper {
-  @apply shadow rounded;
+  @apply shadow rounded p-0;
 }
 
 .leaflet-popup-content {
-  @apply m-0;
+  @apply m-0 bg-white rounded overflow-hidden;
 }
 
 .leaflet-popup-tip-container {
