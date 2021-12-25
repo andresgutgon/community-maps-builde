@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import cn from 'classnames'
 import { useIntl } from 'react-intl'
+import { useMapEvents } from 'react-leaflet'
 
 import { useMapData } from '@maps/components/CommunityProvider'
 import ReactControl from '@maps/components/ReactControl/index'
@@ -22,6 +23,8 @@ const FilterControl = () => {
   const [categorySlugs, setSelectedCategories] = useState<string[]>(filters.categories)
   const [activeState, setState] = useState<ActiveState>(filters.activeState)
   const [percentage, setPercentage] = useState<number>(filters.percentage)
+  const closeFilter = () => setOpen(false)
+  useMapEvents({ click: closeFilter, mousedown: closeFilter })
   useEffect(() => {
     async function loadComponent () {
       if (!open || Form) return
@@ -43,8 +46,6 @@ const FilterControl = () => {
     { id: 'VHf1xn', defaultMessage: '{percentage}% o más' }, { percentage }
   )
 
-  if (!allPlaces.length) return null
-
   return (
     <ReactControl
       position='topleft'
@@ -52,6 +53,7 @@ const FilterControl = () => {
         cn(
           'transition-width',
           {
+            'hidden': !allPlaces.length,
             'flex items-center justify-center': !open,
             'flex-col leaflet-expanded-control': open
           }

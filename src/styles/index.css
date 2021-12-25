@@ -27,16 +27,23 @@ html {
   margin-right: 10px;
 }
 
+.leaflet-top {
+  @apply transition-opacity duration-500 ease-in-out;
+}
+
 .leaflet-search {
-  @apply z-50;
+  @apply z-leafletControlSearchControl;
 }
 
 .hidden-attribute[hidden] {
   @apply hidden;
 }
 
+
 .leaflet-popup {
   @apply w-72 sm:w-80;
+  margin-bottom: 65px;
+  margin-left: 2px;
 }
 
 .leaflet-container .links-layout a {
@@ -47,11 +54,11 @@ html {
   @apply text-gray-900;
 }
 .leaflet-popup-content-wrapper {
-  @apply shadow rounded;
+  @apply shadow rounded p-0;
 }
 
 .leaflet-popup-content {
-  @apply m-0;
+  @apply m-0 bg-white rounded overflow-hidden;
 }
 
 .leaflet-popup-tip-container {
