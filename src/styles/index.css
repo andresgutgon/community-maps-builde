@@ -39,8 +39,11 @@ html {
   @apply hidden;
 }
 
+
 .leaflet-popup {
   @apply w-72 sm:w-80;
+  margin-bottom: 65px;
+  margin-left: 2px;
 }
 
 .leaflet-container .links-layout a {

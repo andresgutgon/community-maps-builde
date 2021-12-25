@@ -8,9 +8,9 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place, PlaceDetail } from '@maps/types/index'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 
-import SubmissionForm from '@maps/components/Place/SubmissionForm'
+import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
-import { Loading } from '@maps/components/Place'
+import { Loading } from '@maps/components/PlacePopup'
 import { displayStyles } from '@maps/components/CustomJsonForms/displayStyles'
 
 const noValidationMode = 'NoValidation' as ValidationMode
@@ -116,7 +116,6 @@ const PopupContent = ({ place }: Props) => {
     setModalLoading(true)
     setModal(true)
   }
-
   // Fetch place detail data once
   useEffect(() => {
     if (data) return
@@ -130,7 +129,6 @@ const PopupContent = ({ place }: Props) => {
 
     fetchData()
   }, [data, place, dataLoading, apiBase])
-
 
   if (dataLoading) return <Loading />
 

@@ -11,6 +11,7 @@ import useTile from '@maps/components/CommunityProvider/useTile'
 import Search from '@maps/components/SearchControl'
 import Filter from '@maps/components/FilterControl'
 import Place from '@maps/components/Place'
+import PlacePopup from '@maps/components/PlacePopup'
 
 /**
  * Set default Leaflet icon place
@@ -31,6 +32,11 @@ const MapWrapper = () => {
   const [mapLoaded, setMapLoaded] = useState<boolean>(false)
   const [map, setMap] = useState<LeafletMap>(null)
   const clusterRef = useRef<MarkerClusterGroup>(null)
+  const [openPlace, setOpenPlace] = useState<PlaceType | null>(currentPlace)
+  useEffect(() => {
+    if (!currentPlace) return
+    setOpenPlace(currentPlace)
+  }, [currentPlace])
   useEffect(() => {
     if (!map || mapLoaded) return;
 
@@ -51,8 +57,11 @@ const MapWrapper = () => {
       }, 10)
     }
   }, [mapLoaded, map, places, currentPlace])
+  const onClickPlace = (place: PlaceType) => { setOpenPlace(openPlace ? null : place) }
+  const onClosePopup = () => setOpenPlace(null)
   return (
     <MapContainer
+      tap={false}
       zoomControl={false}
       whenCreated={setMap}
       className='z-40 bg-gray-50 w-screen h-screen'
@@ -71,12 +80,16 @@ const MapWrapper = () => {
         {places.map((place: PlaceType, index: number) =>
           <Place
             key={index}
-            map={map}
             place={place}
-            isCurrent={currentPlace?.slug === place.slug}
+            isOpenPlace={place.slug === openPlace?.slug}
+            onClick={onClickPlace}
+            onClosePopup={onClosePopup}
           />
         )}
       </MarkerClusterGroup>
+      {openPlace ? (
+        <PlacePopup place={openPlace} onClose={onClosePopup} />
+      ) : null}
 
       {/* The tiles and the attribution in the map*/}
       <TileLayer {...tile} />
