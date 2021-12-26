@@ -90,13 +90,15 @@ export default function Modal({
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
                       {title}
                     </Dialog.Title>
-                    <Dialog.Description className='text-sm text-gray-500'>
-                      {description}
-                    </Dialog.Description>
+                    {description ? (
+                      <Dialog.Description className='text-sm text-gray-500'>
+                        {description}
+                      </Dialog.Description>
+                    ) : null}
                   </div>
                 </div>
                 {children ? (
-                  <div className='mt-6 mb-4'>{children}</div>
+                  <div className='mt-3 mb-4'>{children}</div>
                 ): null}
                 <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
                   <Button

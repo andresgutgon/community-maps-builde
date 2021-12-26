@@ -16,12 +16,14 @@ interface ContextProps {
   config: Config | null
   loading: boolean,
   urlParams: UrlParam,
-  apiBase: string
+  apiBase: string,
+  community: string
 }
 const CommunityContext = createContext<ContextProps | null>({
   places: [],
   categories: [],
   allPlaces: [],
+  community: null,
   currentPlace: null,
   setPlaces: null,
   config: null,
@@ -93,6 +95,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   return (
     <CommunityContext.Provider
       value={{
+        community,
         urlParams,
         currentPlace,
         loading,

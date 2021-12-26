@@ -4,7 +4,7 @@ import { useEffect, RefObject, ReactNode, ComponentClass, useState } from 'react
 export type SubmitFn = (closeFn: Function) => Promise<any> | void
 export type Props = {
   title: string,
-  description: string,
+  description?: string | null,
   initialFocusRef?: RefObject<any>,
   onClose: () => void,
   onLoadingFinish?: () => void,

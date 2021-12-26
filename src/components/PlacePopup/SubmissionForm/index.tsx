@@ -33,31 +33,32 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
 
   if (!form) return null
 
+  const defaultButtonLabel = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
+  const buttonLabel = form.formButtonLabel || defaultButtonLabel
+  const submit = form.submitting
+    ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
+    : buttonLabel
   return (
     <Dialog
       onSubmit={form.onSubmit}
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
       title={place?.name}
-      description={intl.formatMessage({
-        id: 'ArcHyA',
-        defaultMessage: "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic",
-      })}
+      description={form.description}
       onClose={closeFn}
       closeFn={closeFn}
       footer={
         <>
           <Button
-            disabled={!form.isValid}
+            disabled={!form.isValid || form.submitting}
             type={ButtonType.submit}
             fullWidth
             style={ButtonStyles.branded}
           >
-            {!form.formButtonLabel ? (
-              <FormattedMessage defaultMessage='Participar' id="IOnTHc" />
-            ) : form.formButtonLabel}
+            {submit}
           </Button>
           <Button
+            disabled={form.submitting}
             fullWidth
             outline
             style={ButtonStyles.secondary}

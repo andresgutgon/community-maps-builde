@@ -18,9 +18,11 @@ type Props = {
   place: Place | null,
   isOpen: boolean
 }
+type SubmitResponse = { ok: boolean; message: string }
 type OnChangeFn = (jsonForm: JsonFormsCore) => void
 type ReturnType = {
   formButtonLabel: string | null,
+  description: string | null,
   translateError: TranslateErrorFn,
   jsonSchema: JsonSchema,
   isValid: boolean,
@@ -28,10 +30,15 @@ type ReturnType = {
   uiSchema: UIJsonFormSchema,
   onSubmit: (closeFn: Function) => void,
   onChange: OnChangeFn,
-  data: any
+  data: any,
+  submitting: boolean,
+  submitResponse: null | SubmitResponse
 }
 export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
+  const { community } = useMapData()
   const form = useGetForm({ place })
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const [submitResponse, setResponse] = useState<SubmitResponse | null>(null)
   const [data, setData] = useState(form?.initialData || {})
   const [errors, setErrors] = useState([])
   const [validationMode, setValidationMode] = useState<ValidationMode>(noValidationMode)
@@ -78,10 +85,22 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
     setErrors(errors)
   }
   const onSubmit = async (closeFn: Function) => {
-    // TODO: Implement this
-    console.log('Submit', data)
+    setSubmitting(true)
+    const response = await fetch(
+      `/api/${community}/maps/forms/${place.form_slug}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data)
+      }
+    )
+    const responseData = await response.json()
+    setResponse(responseData)
+    setSubmitting(false)
   }
   return {
+    submitting,
+    submitResponse,
+    description: form.description,
     formButtonLabel: form.formButtonLabel,
     translateError,
     jsonSchema,
