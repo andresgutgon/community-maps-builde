@@ -53,7 +53,9 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
             fullWidth
             style={ButtonStyles.branded}
           >
-            <FormattedMessage defaultMessage='Participar' id="IOnTHc" />
+            {!form.formButtonLabel ? (
+              <FormattedMessage defaultMessage='Participar' id="IOnTHc" />
+            ) : form.formButtonLabel}
           </Button>
           <Button
             fullWidth

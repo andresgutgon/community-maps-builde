@@ -6,6 +6,12 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import { useTranslateError } from './useTranslateError'
 import type { TranslateErrorFn } from './useTranslateError'
 
+type UseGetFormProps = { place: Place | null }
+export const useGetForm = ({ place }: UseGetFormProps): Form | null => {
+  const { config } = useMapData()
+  return useMemo(() => config.forms[place?.form_slug], [place, config])
+}
+
 const showValidationMode = 'ValidateAndShow' as ValidationMode
 const noValidationMode = 'NoValidation' as ValidationMode
 type Props = {
@@ -14,6 +20,7 @@ type Props = {
 }
 type OnChangeFn = (jsonForm: JsonFormsCore) => void
 type ReturnType = {
+  formButtonLabel: string | null,
   translateError: TranslateErrorFn,
   jsonSchema: JsonSchema,
   isValid: boolean,
@@ -24,8 +31,7 @@ type ReturnType = {
   data: any
 }
 export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
-  const { config } = useMapData()
-  const form = useMemo(() => config.forms[place?.form_slug], [place, config])
+  const form = useGetForm({ place })
   const [data, setData] = useState(form?.initialData || {})
   const [errors, setErrors] = useState([])
   const [validationMode, setValidationMode] = useState<ValidationMode>(noValidationMode)
@@ -76,6 +82,7 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
     console.log('Submit', data)
   }
   return {
+    formButtonLabel: form.formButtonLabel,
     translateError,
     jsonSchema,
     uiSchema,

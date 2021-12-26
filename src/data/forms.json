@@ -1,5 +1,7 @@
 {
   "first-form": {
+    "ctaLabel": "Haz click aquí",
+    "formButtonLabel": "Guardar esto",
     "initialData": {
       "contribution_type": "prepaid",
       "prepaid_contribution_amount_in_cents": 25000,

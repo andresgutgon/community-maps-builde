@@ -7,6 +7,7 @@ import { JsonForms } from '@jsonforms/react'
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place, PlaceDetail } from '@maps/types/index'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import { useGetForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 
 import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
@@ -67,12 +68,13 @@ type PlaceContentProps = {
   place: PlaceDetail
 }
 const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => {
+  const form = useGetForm({ place })
   const intl = useIntl()
   const schema = useSchema({ place })
   const { name, address, lat, lng } = place
   const button = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
   const buttonLoading = `${intl.formatMessage({ id: 'm9eXO9', defaultMessage: 'Cargando' })}...`
-  const buttonLabel = isModalLoading ? buttonLoading : button
+  const buttonLabel = isModalLoading ? buttonLoading : form?.ctaLabel || button
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col space-y-2 p-3'>
