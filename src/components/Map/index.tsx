@@ -60,19 +60,31 @@ const MapWrapper = () => {
   const onClickPlace = (place: PlaceType) => {
     setOpenPlace(openPlace?.slug === place.name ? null : place)
   }
-  const onClosePopup = () => setOpenPlace(null)
+  const onClosePopup = () => { setOpenPlace(null) }
+  {/*
+    Document what these options are:
+
+    @fadeAnimation: disabled to avoid showing empty popup wrapper when place
+    info is closed.
+    @tap: Set to false to avoid double click on mobile browsers.
+    @zoomControl: We set the control manually with the <ZoomControl /> component
+    @whenCreated: we set map instance as a local state here to get access to it and to center map.
+
+  */}
   return (
     <MapContainer
+      fadeAnimation={false}
       tap={false}
       zoomControl={false}
       whenCreated={setMap}
       className='z-40 bg-gray-50 w-screen h-screen'
     >
+      {/* Map's controls */}
       <Search locale={locale} />
       <Filter />
       <ZoomControl position='topleft' />
 
-      {/* The places. These are the places of this map */}
+      {/* The places. These are the places in the map */}
       <MarkerClusterGroup
         ref={clusterRef}
         showCoverageOnHover={false}
@@ -89,11 +101,13 @@ const MapWrapper = () => {
           />
         )}
       </MarkerClusterGroup>
+
+      {/* Place detail popup */}
       {openPlace ? (
         <PlacePopup place={openPlace} onClose={onClosePopup} />
       ) : null}
 
-      {/* The tiles and the attribution in the map*/}
+      {/* The tiles and the attribution in the map */}
       <TileLayer {...tile} />
     </MapContainer>
   )
