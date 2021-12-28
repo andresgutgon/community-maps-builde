@@ -10,8 +10,8 @@ type Props = {
 const ControlHandler = ({ expanded = false, icon, label, children }: Props) => {
   return (
     <div className='flex flex-row justify-between items-center space-x-4'>
-      <div className='flex-0 flex flex-row items-center space-x-1'>
-        <div className={cn('fas', icon)} />
+      <div className='flex-0 flex flex-row items-center space-x-3'>
+        <div className={cn('ml-1 fas', icon)} />
         <span className={cn('font-medium', { 'text-lg': expanded })}>
           {label}
         </span>
