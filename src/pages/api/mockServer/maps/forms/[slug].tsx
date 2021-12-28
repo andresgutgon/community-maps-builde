@@ -5,7 +5,7 @@ import forms from '@maps/data/forms.json'
 
 const sleep = (seconds: number) =>
   new Promise(resolve => setTimeout(resolve, seconds * 1000))
-type FakeResponse = { status: number; submitResponse: { ok: boolean, message: string }}
+type FakeResponse = { status: number; submitResponse: { ok: boolean, message?: null | string }}
 const formSubmit = async (request: NextApiRequest, response: NextApiResponse) => {
   const { slug } = request.query
   const form = forms[slug.toString()]

@@ -1,10 +1,13 @@
 import { useEffect, forwardRef, createElement, Fragment, ReactNode, SyntheticEvent } from 'react'
+import cn from 'classnames'
 import { Dialog, Transition } from '@headlessui/react'
 import { FormattedMessage } from 'react-intl'
 import { XIcon } from '@heroicons/react/outline'
 import type { Props, SubmitFn } from '../index'
 
 import Button, { Styles as ButtonStyles, Size as ButtonSize } from '@maps/components/Button'
+
+import Footer from './Footer'
 
 const onSubmitFnBuilder = (closeFn: Function, onSubmit: SubmitFn) =>
   (event: SyntheticEvent) => {
@@ -42,7 +45,8 @@ export default function Modal({
   initialFocusRef,
   title,
   description,
-  onSubmit
+  onSubmit,
+  stackFooterButtons
 }: Props) {
   useEffect(() => {
     onLoadingFinish?.()
@@ -86,10 +90,15 @@ export default function Modal({
             <ModalWrapper closeFn={closeFn} onSubmit={onSubmit}>
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 space-y-2 sm:text-left">
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      {title}
-                    </Dialog.Title>
+                  <div className={cn(
+                    'text-center sm:mt-0 space-y-2 sm:text-left',
+                    { 'mt-3': title || description }
+                  )}>
+                    {title ? (
+                      <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                        {title}
+                      </Dialog.Title>
+                    ) : null}
                     {description ? (
                       <Dialog.Description className='text-sm text-gray-500'>
                         {description}
@@ -98,7 +107,7 @@ export default function Modal({
                   </div>
                 </div>
                 {children ? (
-                  <div className='mt-3 mb-4'>{children}</div>
+                  <div className='space-y-4 mt-3 mb-4'>{children}</div>
                 ): null}
                 <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
                   <Button
@@ -113,11 +122,7 @@ export default function Modal({
                   </Button>
                 </div>
               </div>
-              {footer ? (
-                <div className="space-y-2 sm:space-y-0 space-x-3 space-x-reverse bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                  {footer}
-                </div>
-              ): null}
+              <Footer stackFooterButtons={stackFooterButtons} content={footer} />
             </ModalWrapper>
           </Transition.Child>
         </div>

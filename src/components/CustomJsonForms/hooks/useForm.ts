@@ -84,7 +84,7 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
     setData(data)
     setErrors(errors)
   }
-  const onSubmit = async (closeFn: Function) => {
+  const onSubmit = async (_closeFn: Function) => {
     setSubmitting(true)
     const response = await fetch(
       `/api/${community}/maps/forms/${place.form_slug}`,
