@@ -63,12 +63,6 @@
       "value": "Lugares inactivos"
     }
   ],
-  "ArcHyA": [
-    {
-      "type": 0,
-      "value": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
-    }
-  ],
   "DtZeeF": [
     {
       "type": 0,
@@ -281,6 +275,12 @@
     {
       "type": 0,
       "value": "A más aportación te podemos ofrecer mejor tarifa"
+    }
+  ],
+  "tClzXv": [
+    {
+      "type": 0,
+      "value": "Enviando"
     }
   ],
   "tHIDSe": [

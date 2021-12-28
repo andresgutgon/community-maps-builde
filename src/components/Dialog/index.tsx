@@ -3,14 +3,15 @@ import { useEffect, RefObject, ReactNode, ComponentClass, useState } from 'react
 
 export type SubmitFn = (closeFn: Function) => Promise<any> | void
 export type Props = {
-  title: string,
-  description: string,
+  title?: string | null,
+  description?: string | null,
   initialFocusRef?: RefObject<any>,
   onClose: () => void,
   onLoadingFinish?: () => void,
   children?: ReactNode,
   onSubmit?: SubmitFn,
-  footer: ReactNode,
+  stackFooterButtons?: boolean,
+  footer?: ReactNode,
   isOpen: boolean,
   closeFn: Function
 }
@@ -19,6 +20,7 @@ export default function Dialog({
   closeFn,
   children,
   footer,
+  stackFooterButtons = false,
   onClose,
   initialFocusRef,
   title,
@@ -50,6 +52,7 @@ export default function Dialog({
       closeFn={closeFn}
       onClose={onClose}
       footer={footer}
+      stackFooterButtons={stackFooterButtons}
     >
       {children}
     </Modal>

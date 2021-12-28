@@ -23,9 +23,6 @@
   "An+6PB": {
     "defaultMessage": "Lugares inactivos"
   },
-  "ArcHyA": {
-    "defaultMessage": "Els compromisos d'aportacions només es demanarà que es facin efectius si s'assoleixen el 100% dels compromisos per finançar el vehicle. Som Mobilitat informarà les persones sòcies quan s'hagi assolit l'objectiu econòmic"
-  },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
   },
@@ -100,6 +97,9 @@
   },
   "qc8eLe": {
     "defaultMessage": "A más aportación te podemos ofrecer mejor tarifa"
+  },
+  "tClzXv": {
+    "defaultMessage": "Enviando"
   },
   "tHIDSe": {
     "defaultMessage": "Precio por día"

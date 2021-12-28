@@ -58,6 +58,7 @@ export type Category = {
 export type Form = {
   ctaLabel?: string
   formButtonLabel?: string
+  description?: string
   initialData?: null | Record<string, any>
   jsonSchema: JsonSchema
   uiSchema: UIJsonFormSchema

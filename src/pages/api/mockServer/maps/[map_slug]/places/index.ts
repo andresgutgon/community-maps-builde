@@ -1,5 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-
 import withBearerToken from '@maps/lib/middlewares/mockServer/withBearerToken'
 import withMap from '@maps/lib/middlewares/mockServer/withMap'
 import type { ResponseWithMap } from '@maps/lib/middlewares/mockServer/withMap'
