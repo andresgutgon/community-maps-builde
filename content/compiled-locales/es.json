@@ -1,4 +1,10 @@
 {
+  "/kG/Lg": [
+    {
+      "type": 0,
+      "value": "Minimizar mapa"
+    }
+  ],
   "1izKCT": [
     {
       "type": 0,
@@ -251,6 +257,12 @@
     {
       "type": 1,
       "value": "rate"
+    }
+  ],
+  "lkLfmX": [
+    {
+      "type": 0,
+      "value": "Expandir mapa"
     }
   ],
   "m9eXO9": [

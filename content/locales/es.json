@@ -1,4 +1,7 @@
 {
+  "/kG/Lg": {
+    "defaultMessage": "Minimizar mapa"
+  },
   "1izKCT": {
     "defaultMessage": "Este campo debe ser igual o más de {min}"
   },
@@ -85,6 +88,9 @@
   },
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
+  },
+  "lkLfmX": {
+    "defaultMessage": "Expandir mapa"
   },
   "m9eXO9": {
     "defaultMessage": "Cargando"
