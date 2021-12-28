@@ -6,6 +6,7 @@ import { XIcon } from '@heroicons/react/outline'
 import type { Category as CategoryType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import ProgressIndicator from '@maps/components/ProgressIndicator'
+import ControlHandler from '@maps/components/ControlHandler'
 
 import Category from '../Category'
 import { ActiveState } from '../useFilters'
@@ -37,15 +38,14 @@ const FilterDisplay = ({
   const showPercentageFilter = percentage > 0
   const showCategoriesFilter = categories.length > 1 && selectedCategories.length !== categories.length
   const showFilters = showStateFilter || showPercentageFilter || showCategoriesFilter
+  const label = intl.formatMessage({ id: '4kF+sS', defaultMessage: 'Filtrar lugares' })
   return (
     <button onClick={onToggleFilters} className='w-full'>
-      <div className='flex flex-row justify-between items-center space-x-4'>
-        <div className='flex-0 flex flex-row items-center space-x-1'>
-          <div className='fas fa-filter' />
-          <span className={cn('font-medium', { 'text-lg': open })}>
-            <FormattedMessage defaultMessage='Filtrar lugares' id='4kF+sS' />
-          </span>
-        </div>
+      <ControlHandler
+        icon='fa-filter'
+        label={label}
+        expanded={open}
+      >
         {!open ? (
           allPlaces.length > 0 ? (
             <div className='flex-1 justify-end text-center flex py-1 px-2 rounded-full bg-gray-200 font-medium text-gray-600'>
@@ -66,8 +66,7 @@ const FilterDisplay = ({
             <XIcon className="h-6 w-6 text-gray-600" aria-hidden="true" />
           </>
         )}
-      </div>
-
+      </ControlHandler>
       {(!open && showFilters) ? (
         <div className='flex-1 flex flex-col space-y-3 border-t border-gray-100 mt-2 pt-2'>
           {showStateFilter ? (
