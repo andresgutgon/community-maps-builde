@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import dynamic from 'next/dynamic'
-
-import { useMap } from 'react-leaflet'
 import screenfull from 'screenfull'
 
 import ControlHandler from '@maps/components/ControlHandler'
@@ -13,15 +11,14 @@ const FullscreenControl = () => {
   const intl = useIntl()
   const expandLabel = intl.formatMessage({ id: 'lkLfmX', defaultMessage: 'Expandir mapa' })
   const contractLabel = intl.formatMessage({ id: '/kG/Lg', defaultMessage: 'Minimizar mapa' })
-  const map = useMap()
   const onToggleFullscreen = useCallback(() => {
     if (expanded) {
       screenfull.exit()
     } else {
-      screenfull.request(map.getContainer())
+      screenfull.request(document.body)
     }
     setExpanded(!expanded)
-  }, [map, expanded])
+  }, [expanded])
   useEffect(() => {
     screenfull.on('change', (foo) => {
       setExpanded(!!document.fullscreenElement)
