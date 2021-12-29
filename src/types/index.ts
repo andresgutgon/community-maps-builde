@@ -83,8 +83,19 @@ export type PlaceDetail = Place & {
   uiSchema?: UIJsonFormSchema
 }
 
-type Theme = {
-  color: string,
+export type ThemeColor = {
+  textColorBase: string
+  fillColor: string
+  borderColor: string
+  buttonColor: string
+  buttonColorHover: string
+  buttonTextColor: string
+  buttonTextColorHover: string
+  buttonTextInvertedColor: string
+  buttonTextInvertedColorHover: string
+}
+export type Theme = {
+  color?: ThemeColor,
   tileStyle: TileStyle
 }
 

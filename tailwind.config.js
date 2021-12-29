@@ -6,6 +6,12 @@ const round = (num) =>
 const rem = (px) => `${round(px / 16)}rem`
 const em = (px, base) => `${round(px / base)}em`
 
+function withOpacity (cssVariable) {
+  return ({ opacityValue }) => {
+    return `rgba(var(${cssVariable}), ${opacityValue || 1})`
+  }
+}
+
 module.exports = {
   purge: [
     './src/components/**/*.{ts,tsx}',
@@ -17,6 +23,27 @@ module.exports = {
     extend: {
       colors: {
         twitter: '#00acee'
+      },
+      textColor: {
+        brand: {
+          base: withOpacity('--color-text-base'),
+          button: withOpacity('--color-text-button'),
+          'button-hover': withOpacity('--color-text-button-hover'),
+          'button-inverted': withOpacity('--color-text-inverted-button'),
+          'button-inverted-hover': withOpacity('--color-text-inverted-button-hover')
+        }
+      },
+      borderColor: {
+        brand: {
+          base: withOpacity('--color-border')
+        }
+      },
+      backgroundColor: {
+        brand: {
+          fill: withOpacity('--color-fill'),
+          button: withOpacity('--color-button'),
+          'button-hover': withOpacity('--color-button-hover')
+        }
       },
       zIndex: {
         leafletControlSearchControl: 801

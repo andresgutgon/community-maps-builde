@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, ReactNode, createContext, useEffect, useState, useContext } from 'react'
+import { useMemo, Dispatch, SetStateAction, useRef, ReactNode, createContext, useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { FormattedMessage } from 'react-intl'
 
@@ -41,6 +41,12 @@ type ProviderProps = {
 }
 
 export const CommunityProvider = ({ community, mapId, children }: ProviderProps) => {
+  const themeCssTag = useMemo<HTMLStyleElement>(() => {
+    const cssStyleTag = document.createElement('style')
+    cssStyleTag.setAttribute('id', 'theme-brand-colors')
+    document.head.appendChild(cssStyleTag)
+    return cssStyleTag
+  }, [])
   const apiBase = useRef(`/api/${community}/maps/${mapId}`).current
   const { filter } = useFilters()
   const { loadingUrlParams, urlParams, onLoadCategories, mapUrl } = useQueryString()
@@ -77,11 +83,28 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
       onLoadCategories(categorySlugs)
       categories.current = categorySlugs.map((key: string) => config.categories[key])
       setConfig(config)
+      const themeColor = config.theme.color
+      if (themeColor) {
+        themeCssTag.innerHTML = `
+          :root {
+            --color-text-base: ${themeColor.textColorBase};
+            --color-fill: ${themeColor.fillColor};
+            --color-border: ${themeColor.borderColor};
+            --color-button: ${themeColor.buttonColor};
+            --color-button-hover: ${themeColor.buttonColorHover};
+            --color-text-button: ${themeColor.buttonTextColor};
+            --color-text-button-hover: ${themeColor.buttonTextColorHover};
+            --color-text-inverted-button: ${themeColor.buttonTextInvertedColor};
+            --color-text-inverted-button-hover: ${themeColor.buttonTextInvertedColorHover};
+          }
+        `
+      }
 
       setLoading(false)
     }
     loadData()
   }, [
+    themeCssTag,
     apiBase,
     loadingUrlParams,
     community,

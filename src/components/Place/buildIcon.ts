@@ -6,7 +6,7 @@ import { ICONS } from '@maps/lib/icons'
 
 type Color = { icon: string, border: string, bg: string }
 export const ICON_COLORS: Record<IconColor, Color> = {
-  brand: { icon: 'text-[#3f3e3e]', border: 'border-[#e9bd00]', bg: 'bg-[#facb00]' },
+  brand: { icon: 'text-brand-button', border: 'border-brand-base/30', bg: 'bg-brand-button' },
   pink: { icon: 'text-white', border: 'border-pink-800', bg: 'bg-pink-600' },
   green: { icon: 'text-white', border: 'border-green-800', bg: 'bg-green-600' },
   blue: { icon: 'text-white', border: 'border-blue-800', bg: 'bg-blue-600' },
