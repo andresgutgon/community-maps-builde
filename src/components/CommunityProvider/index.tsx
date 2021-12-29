@@ -55,36 +55,45 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   const allPlaces = useRef<Place[]>([])
   const categories = useRef<Category[]>([])
   const [loading, setLoading] = useState(true)
-  const [loadingStarted, setLoadingStarted] = useState(false)
+  const [fetchingConfig, setFetchingConfig] = useState(false)
+  const [fetchingPlaces, setFetchingPlaces] = useState(false)
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null)
   useEffect(() => {
     // Wait for parent host page to return URL info
-    if (loadingStarted || !loading || loadingUrlParams) return
+    if (!loading || loadingUrlParams) return
 
     async function loadData () {
-      setLoadingStarted(true)
-
       let current = null
-      // Places are async
-      fetch(`${apiBase}/places`)
-        .then((response) => response.json())
-        .then(data => {
-          allPlaces.current = data
-          if (urlParams.placeSlug) {
-            current = allPlaces.current.find((place: Place) =>
-              place.slug === urlParams.placeSlug
-            )
-            setCurrentPlace(current)
-          }
+      // Start fetching places when categories are loaded
+      if (categories.current.length > 0 && !fetchingPlaces) {
+        // Places are async
+        fetch(`${apiBase}/places`)
+          .then((response) => response.json())
+          .then(data => {
+            allPlaces.current = data
+            if (urlParams.placeSlug) {
+              current = allPlaces.current.find((place: Place) =>
+                place.slug === urlParams.placeSlug
+              )
+              setCurrentPlace(current)
+            }
 
-          setPlaces(filter(allPlaces.current, urlParams.filters))
-        })
+            setPlaces(filter(allPlaces.current, urlParams.filters))
+          })
+      }
 
+      if (fetchingConfig) return
+
+      setFetchingConfig(true)
       const configResponse = await fetch(`${apiBase}/config`)
       const config = await configResponse.json()
       const categorySlugs = Object.keys(config.categories)
       onLoadCategories(categorySlugs)
+
       categories.current = categorySlugs.map((key: string) => config.categories[key])
+      // Only fetch once places
+      setFetchingPlaces(true)
+
       setConfig(config)
       const themeColor = config.theme.color
       if (themeColor) {
@@ -107,8 +116,10 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     }
     loadData()
   }, [
-    loadingStarted,
-    setLoadingStarted,
+    fetchingPlaces,
+    setFetchingPlaces,
+    fetchingConfig,
+    setFetchingConfig,
     themeCssTag,
     apiBase,
     loadingUrlParams,
@@ -119,7 +130,6 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     urlParams,
     onLoadCategories
   ])
-
   // when only one place is displayed reset places collection
   // when user close the popup of that place
   return (
