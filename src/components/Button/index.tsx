@@ -59,8 +59,8 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
         padding, text,
         {
           'w-full sm:w-auto': fullWidth,
-          'bg-[#facb00] text-[#3f3e3e] hover:bg-[#e9bd00] border-transparent': !outline && Styles.branded === style,
-          'bg-white border-[#facb00] text-[#3f3e3e] hover:bg-gray-50': outline && Styles.branded === style,
+          'bg-brand-button text-brand-button hover:text-brand-button-hover hover:bg-brand-button-hover border-transparent': !outline && Styles.branded === style,
+          'bg-transparent border-brand-base/50 hover:border-brand-base text-brand-button-inverted hover:bg-brand-fill hover:text-brand-button-inverted-hover': outline && Styles.branded === style,
           'bg-white text-gray-700 hover:bg-gray-50': outline && Styles.secondary === style,
           'bg-white text-gray-800 hover:bg-gray-50': outline && Styles.primary === style,
           'bg-gray-800 text-white hover:bg-gray-900': !outline && Styles.primary === style,

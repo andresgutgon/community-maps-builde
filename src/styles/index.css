@@ -87,3 +87,18 @@ input.simulateNoNumber::-webkit-inner-spin-button {
 input.simulateNoNumber[type=number] {
   -moz-appearance: textfield;
 }
+
+/* Brand theme default values */
+@layer base {
+  :root {
+    --color-text-base: 17, 24, 39;
+    --color-fill: 17, 24, 39;
+    --color-border: 17, 24, 39;
+    --color-button: 17, 24, 39;
+    --color-button-hover: 31, 41, 55;
+    --color-text-button: 255, 255, 255;
+    --color-text-button-hover: 255, 255, 255;
+    --color-text-inverted-button: 31, 41, 55;
+    --color-text-inverted-button-hover: 31, 41, 55;
+  }
+}
