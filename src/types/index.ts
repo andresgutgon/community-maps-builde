@@ -52,7 +52,8 @@ export type Category = {
   iconKey: CategoryIcon
   iconColor: IconColor
   name: string
-  description: string | null
+  description: string | null,
+  shareInTwitterText?: string
 }
 
 export type Form = {

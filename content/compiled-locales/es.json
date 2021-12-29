@@ -57,10 +57,26 @@
       "value": "Filtrar lugares"
     }
   ],
+  "54j70O": [
+    {
+      "type": 0,
+      "value": "Comparte en Twitter "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
   "7AAm0o": [
     {
       "type": 0,
       "value": "Por categoría"
+    }
+  ],
+  "85GhLR": [
+    {
+      "type": 0,
+      "value": "Copiar enlace"
     }
   ],
   "An+6PB": [
@@ -73,6 +89,12 @@
     {
       "type": 0,
       "value": "Tarifa según tu aportación"
+    }
+  ],
+  "FagJhM": [
+    {
+      "type": 0,
+      "value": "¡Copiado!"
     }
   ],
   "GI//kj": [
@@ -231,6 +253,16 @@
     {
       "type": 1,
       "value": "total"
+    }
+  ],
+  "iqHmPx": [
+    {
+      "type": 0,
+      "value": "Copia el enlace a este lugar "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
     }
   ],
   "k3fpzo": [

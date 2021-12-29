@@ -58,6 +58,7 @@ function writeParams ({ categories, activeState, percentage }: Filters): string 
 
 type ReturnType = {
   loadingUrlParams: boolean
+  mapUrl: string
   urlParams: UrlParam
   onLoadCategories: (categorySlugs: string[]) => void,
   changeFiltersInUrl: (filters: Filters) => void
@@ -67,12 +68,14 @@ const useQueryString = (): ReturnType => {
   const [queryString, setQueryString] = useState(window.location.search)
   const [loadingUrlParams, setLoading] = useState(true)
   const [urlParams, setUrlParams] = useState<null | UrlParam>(DEFAULT_URL_PARAMS)
+  const [mapUrl, setMapUrl] = useState<string>()
 
   useEffect(() => {
     function handleMessage ({ data }: MessageEvent) {
       if (data.type === 'GET_PARAMS_FROM_PARENT') {
         setUrlParams(readParams(data.queryString))
         setQueryString(data.queryString)
+        setMapUrl(data.url)
         setLoading(false)
       }
     }
@@ -83,13 +86,15 @@ const useQueryString = (): ReturnType => {
       host.postMessage({ type: 'GET_URL' }, '*')
     } else {
       const params = new URLSearchParams(queryString)
+      const { pathname, origin: baseUrl } = window.location
       setUrlParams(readParams(host.location.search))
+      setMapUrl(`${baseUrl}${pathname}`)
       setLoading(false)
     }
     return () => {
       window.removeEventListener('message', handleMessage)
     }
-  }, [host, queryString, isIframe])
+  }, [setMapUrl, host, queryString, isIframe])
 
   const onLoadCategories = (categorySlugs: string[]) => {
     const filters = urlParams.filters
@@ -117,7 +122,13 @@ const useQueryString = (): ReturnType => {
       window.history.replaceState(null, '', url)
     }
   }
-  return { changeFiltersInUrl, onLoadCategories, loadingUrlParams, urlParams }
+  return {
+    mapUrl,
+    changeFiltersInUrl,
+    onLoadCategories,
+    loadingUrlParams,
+    urlParams
+  }
 }
 
 export default useQueryString

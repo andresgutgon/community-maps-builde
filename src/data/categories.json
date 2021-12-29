@@ -4,7 +4,8 @@
     "iconKey": "car",
     "iconColor": "brand",
     "name": "Coches",
-    "description": "Coches disponibles en este punto"
+    "description": "Coches disponibles en este punto",
+    "shareInTwitterText": "Vols fer una aportació per tenir un vehicle elèctric compartit de @SomMobilitat al teu barri?"
   },
   "van": {
     "slug": "van",

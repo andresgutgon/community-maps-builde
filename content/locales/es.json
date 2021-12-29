@@ -20,14 +20,23 @@
   "4kF+sS": {
     "defaultMessage": "Filtrar lugares"
   },
+  "54j70O": {
+    "defaultMessage": "Comparte en Twitter {placeName}"
+  },
   "7AAm0o": {
     "defaultMessage": "Por categoría"
+  },
+  "85GhLR": {
+    "defaultMessage": "Copiar enlace"
   },
   "An+6PB": {
     "defaultMessage": "Lugares inactivos"
   },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
+  },
+  "FagJhM": {
+    "defaultMessage": "¡Copiado!"
   },
   "GI//kj": {
     "defaultMessage": "Por estado"
@@ -85,6 +94,9 @@
   },
   "iB0EB1": {
     "defaultMessage": "{filter} de {total}"
+  },
+  "iqHmPx": {
+    "defaultMessage": "Copia el enlace a este lugar {placeName}"
   },
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
