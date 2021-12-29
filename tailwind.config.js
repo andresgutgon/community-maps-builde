@@ -15,6 +15,9 @@ module.exports = {
   mode: 'jit',
   theme: {
     extend: {
+      colors: {
+        twitter: '#00acee'
+      },
       zIndex: {
         leafletControlSearchControl: 801
       },

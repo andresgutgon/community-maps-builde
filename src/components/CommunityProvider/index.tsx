@@ -17,6 +17,7 @@ interface ContextProps {
   loading: boolean,
   urlParams: UrlParam,
   apiBase: string,
+  mapUrl: string,
   community: string
 }
 const CommunityContext = createContext<ContextProps | null>({
@@ -29,7 +30,8 @@ const CommunityContext = createContext<ContextProps | null>({
   config: null,
   loading: true,
   urlParams: null,
-  apiBase: null
+  apiBase: null,
+  mapUrl: null
 })
 
 type ProviderProps = {
@@ -41,7 +43,7 @@ type ProviderProps = {
 export const CommunityProvider = ({ community, mapId, children }: ProviderProps) => {
   const apiBase = useRef(`/api/${community}/maps/${mapId}`).current
   const { filter } = useFilters()
-  const { loadingUrlParams, urlParams, onLoadCategories } = useQueryString()
+  const { loadingUrlParams, urlParams, onLoadCategories, mapUrl } = useQueryString()
   const [config, setConfig] = useState(null)
   const [places, setPlaces] = useState<Place[]>([])
   const allPlaces = useRef<Place[]>([])
@@ -96,6 +98,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     <CommunityContext.Provider
       value={{
         community,
+        mapUrl,
         urlParams,
         currentPlace,
         loading,
