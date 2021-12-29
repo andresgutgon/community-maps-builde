@@ -55,12 +55,15 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
   const allPlaces = useRef<Place[]>([])
   const categories = useRef<Category[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadingStarted, setLoadingStarted] = useState(false)
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null)
   useEffect(() => {
     // Wait for parent host page to return URL info
-    if (!loading || loadingUrlParams) return
+    if (loadingStarted || !loading || loadingUrlParams) return
 
     async function loadData () {
+      setLoadingStarted(true)
+
       let current = null
       // Places are async
       fetch(`${apiBase}/places`)
@@ -104,6 +107,8 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     }
     loadData()
   }, [
+    loadingStarted,
+    setLoadingStarted,
     themeCssTag,
     apiBase,
     loadingUrlParams,
