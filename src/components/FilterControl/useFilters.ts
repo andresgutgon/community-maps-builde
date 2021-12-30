@@ -17,6 +17,17 @@ export const FINANCING_RANGES: Partial<Record<FinancingState, FinancingRange>> =
   [FinancingState.completed]: { min: 100, max: 100 }
 }
 
+export const useFindFinantialStateByRange = (percentage: number): FinancingState => {
+  if (percentage < FINANCING_RANGES.starting.max) {
+    return FinancingState.starting
+  } else if (percentage < FINANCING_RANGES.middle.max){
+    return FinancingState.middle
+  } else if (percentage < FINANCING_RANGES.finishing.max){
+    return FinancingState.finishing
+  }
+  return FinancingState.completed
+}
+
 export type Filters = {
   activeState: ActiveState
   financingState: FinancingState
@@ -33,7 +44,10 @@ const useFilters = () => {
     return allPlaces.filter((place: Place) => {
       const placeState = place.active ? ActiveState.active : ActiveState.inactive
       const percentage = place.goalProgress
-      return (anyActiveState ? true : activeState === placeState)
+      const categoryIncluded = categories.includes(place.category_slug)
+      return (
+        anyActiveState ? true : activeState === placeState
+      )
         && (
           anyFinancingState
             ? true
@@ -41,7 +55,7 @@ const useFilters = () => {
               ? percentage >= range.min
               : percentage >= range.min && percentage < range.max
         )
-        && categories.includes(place.category_slug)
+        && categoryIncluded
     })
   }
 

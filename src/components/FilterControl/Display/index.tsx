@@ -5,10 +5,9 @@ import { XIcon } from '@heroicons/react/outline'
 
 import type { Category as CategoryType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
-import ProgressIndicator from '@maps/components/ProgressIndicator'
 import ControlHandler from '@maps/components/ControlHandler'
 
-import Category from '../Category'
+import Marker, { MarkerGenericType, MarkerType, MarkerSize }from '@maps/components/Marker'
 import FinancingLabel from '../FinancingLabel'
 import { FINANCING_RANGES, FinancingState, ActiveState } from '../useFilters'
 
@@ -76,8 +75,8 @@ const FilterDisplay = ({
                   cn(
                     'rounded-full h-3 w-3',
                     {
-                      'bg-brand-fill': activeState === ActiveState.active,
-                      'bg-gray-300': activeState === ActiveState.inactive
+                      'bg-green-600': activeState === ActiveState.active,
+                      'bg-blue-300': activeState === ActiveState.inactive
                     }
                   )}
                 />
@@ -92,9 +91,15 @@ const FilterDisplay = ({
           ) : null}
           {showCategoriesFilter ? (
             <ul className='flex flex-row space-x-1'>
-              {selectedCategories.map((category: CategoryType) =>
+              {categories.map((category: CategoryType) =>
                 <li key={category.slug}>
-                  <Category size='small' isSelected category={category} />
+                  <Marker
+                    withArrow={false}
+                    type={MarkerGenericType.black as MarkerType}
+                    size={MarkerSize.small}
+                    isSelected={categorySlugs.includes(category.slug)}
+                    iconKey={category.iconKey}
+                  />
                 </li>
               )}
             </ul>

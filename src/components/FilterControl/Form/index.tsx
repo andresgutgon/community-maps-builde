@@ -9,9 +9,8 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import Slider, { Color } from '@maps/components/Slider'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import useQueryString  from '@maps/components/CommunityProvider/useQueryString'
-import ProgressIndicator from '@maps/components/ProgressIndicator'
 
-import Category from '../Category'
+import Marker, { MarkerGenericType, MarkerType, MarkerSize }from '@maps/components/Marker'
 import useFilters, { FINANCING_RANGES, FinancingState, ActiveState } from '../useFilters'
 import { FinancingLabels } from '../useFinancingLabels'
 import FinancingLabel from '../FinancingLabel'
@@ -154,10 +153,12 @@ const FilterForm = ({
                         <PlusSmIcon className="h-3 w-3 text-white" aria-hidden="true" />
                       )}
                     </div>
-                    <Category
-                      size='normal'
-                      category={category}
+                    <Marker
+                      withArrow={false}
+                      type={MarkerGenericType.black as MarkerType}
+                      size={MarkerSize.normal}
                       isSelected={isSelected}
+                      iconKey={category.iconKey}
                     />
                   </li>
                 )

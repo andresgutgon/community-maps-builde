@@ -30,16 +30,6 @@ export enum CategoryIcon {
   car_charger = 'car_charger'
 }
 
-export enum IconColor {
-  brand = 'brand',
-  pink = 'pink',
-  blue = 'blue',
-  green = 'green',
-  yellow = 'yellow',
-  black = 'black',
-  purple = 'purple'
-}
-
 export type Map = {
   slug: string
   name: string
@@ -50,7 +40,6 @@ export type Map = {
 export type Category = {
   slug: string
   iconKey: CategoryIcon
-  iconColor: IconColor
   name: string
   description: string | null,
   shareInTwitterText?: string
