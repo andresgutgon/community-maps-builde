@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { ActiveState, Filters } from '@maps/components/FilterControl/useFilters'
+import { FinancingState, ActiveState, Filters } from '@maps/components/FilterControl/useFilters'
 
 type ReturnTypeHostWindow = { host: Window, isIframe: boolean }
 function useHostWindow ():  ReturnTypeHostWindow {
@@ -18,14 +18,19 @@ function useHostWindow ():  ReturnTypeHostWindow {
   }, [])
 }
 
-const MATCHER = new RegExp(/(?<filterKey>st|cat|per)\[(?<filterValue>.*)\]/)
+const MATCHER = new RegExp(/(?<filterKey>st|cat|cont)\[(?<filterValue>.*)\]/)
 const DEFAULT_URL_PARAMS = {
   placeSlug: null,
-  filters: { categories: [], activeState: ActiveState.all, percentage: 0 }
+  filters: { categories: [], activeState: ActiveState.all, financingState: FinancingState.anyFinancingState }
 }
 export type UrlParam = { placeSlug: string | null; filters: Filters }
 function readParams (queryString: string) {
-  const states = [ActiveState.all, ActiveState.active, ActiveState.inactive]
+  const activeStates = [ActiveState.all, ActiveState.active, ActiveState.inactive]
+  const financingStates = [
+    FinancingState.anyFinancingState, FinancingState.starting,
+    FinancingState.middle, FinancingState.finishing,
+    FinancingState.completed
+  ]
   const decodeQueryString = decodeURI(queryString)
   const queryParams = new URLSearchParams(decodeQueryString)
   const filtersQuery = queryParams.get('mapFilters')?.split(';') || []
@@ -35,15 +40,12 @@ function readParams (queryString: string) {
 
     const { filterKey, filterValue } = filterGroups
 
-    if (filterKey === 'st' && states.includes(filterValue as ActiveState)) {
+    if (filterKey === 'st' && activeStates.includes(filterValue as ActiveState)) {
       memo.activeState = filterValue as ActiveState
     } else if (filterKey === 'cat') {
       memo.categories = filterValue.split(',') || []
-    } else if (filterKey === 'per') {
-      const percentage = +filterValue
-      memo.percentage = Number.isInteger(percentage) && percentage >= 0 && percentage <= 100
-        ? percentage
-        : 0
+    } else if (filterKey === 'cont' && financingStates.includes(filterValue as FinancingState)) {
+      memo.financingState = filterValue as FinancingState
     }
     return memo
   }, DEFAULT_URL_PARAMS.filters)
@@ -52,8 +54,8 @@ function readParams (queryString: string) {
     filters
   }
 }
-function writeParams ({ categories, activeState, percentage }: Filters): string {
-  return `cat[${categories.join(',')}];st[${activeState}];per[${percentage}]`
+function writeParams ({ categories, activeState, financingState }: Filters): string {
+  return `cat[${categories.join(',')}];st[${activeState}];cont[${financingState}]`
 }
 
 type ReturnType = {

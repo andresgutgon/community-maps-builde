@@ -21,6 +21,7 @@ module.exports = {
   mode: 'jit',
   theme: {
     extend: {
+      screens: { 'xs': '375px' },
       colors: {
         twitter: '#00acee'
       },

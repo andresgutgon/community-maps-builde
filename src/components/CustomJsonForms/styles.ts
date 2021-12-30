@@ -50,11 +50,11 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['w-full mt-2 space-y-2 rounded border border-gray-200 pt-2 pb-4 px-4']
+      classNames: ['w-full mt-2 space-y-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
     },
     {
       name: 'group.label',
-      classNames: ['py-0.5 px-1 text-xs text-gray-400 rounded uppercase tracking-wide']
+      classNames: ['py-0.5 px-1 text-xs text-gray-600 rounded uppercase tracking-wide']
     },
     {
       name: 'control.radio',

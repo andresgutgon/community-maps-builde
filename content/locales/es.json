@@ -1,4 +1,7 @@
 {
+  "+xDksj": {
+    "defaultMessage": "Casi financiados"
+  },
   "/kG/Lg": {
     "defaultMessage": "Minimizar mapa"
   },
@@ -29,8 +32,14 @@
   "85GhLR": {
     "defaultMessage": "Copiar enlace"
   },
+  "9FzJdt": {
+    "defaultMessage": "Cualquier porcentaje de aportación"
+  },
   "An+6PB": {
     "defaultMessage": "Lugares inactivos"
+  },
+  "B2GImX": {
+    "defaultMessage": "Totalmente financiados"
   },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
@@ -46,9 +55,6 @@
   },
   "GbLpqH": {
     "defaultMessage": "Activos"
-  },
-  "Hi7RCv": {
-    "defaultMessage": "Por porcentaje de contribución {value}"
   },
   "IOnTHc": {
     "defaultMessage": "Participar"
@@ -68,20 +74,29 @@
   "OS3K9O": {
     "defaultMessage": "Si tu aportación es de {min} a {max} tu tarifa por {timeRate} es {rate}"
   },
+  "OwIhLK": {
+    "defaultMessage": "De {min} a {max}% de aportación"
+  },
   "P8VfZA": {
     "defaultMessage": "Todos"
   },
   "Pga9q2": {
     "defaultMessage": "Lo sentimos, no hay resultados para esta dirección"
   },
+  "QK2a+D": {
+    "defaultMessage": "Poco financiados"
+  },
+  "TGWZPT": {
+    "defaultMessage": "Por porcentaje de aportación"
+  },
   "TKx/Q8": {
     "defaultMessage": "Mejor"
   },
-  "VHf1xn": {
-    "defaultMessage": "{percentage}% o más"
-  },
   "VTfGzG": {
     "defaultMessage": "Filtrar"
+  },
+  "VVn4Nd": {
+    "defaultMessage": "Aportación al 100% completada"
   },
   "ZNZWBc": {
     "defaultMessage": "Inactivos"
@@ -91,6 +106,9 @@
   },
   "eOuNie": {
     "defaultMessage": "Buscar"
+  },
+  "gRQW59": {
+    "defaultMessage": "Bastante financiados"
   },
   "iB0EB1": {
     "defaultMessage": "{filter} de {total}"
