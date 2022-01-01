@@ -26,7 +26,14 @@ const FinancingLabel = ({ showDescription = false, financingState }) => {
   }
   return (
     <div className='flex md:items-center'>
-      <div className='overflow-hidden relative flex-none mt-1 sm:mt-0 h-8 w-8 border border-gray-700 rounded-full p-2'>
+      <div
+        className={
+          cn(
+            'overflow-hidden relative flex-none mt-1 sm:mt-0 border border-gray-700 rounded-full p-2',
+            'h-6 w-6 xs:h-8 xs:w-8'
+          )
+        }
+      >
         <div className= 'z-0 rounded-full absolute inset-0 bg-opacity-10 bg-gray-700' />
         <div
           style={{ height: `${percentage}%` }}
@@ -44,7 +51,18 @@ const FinancingLabel = ({ showDescription = false, financingState }) => {
           )
         }
       >
-        <div className={cn(styles.radio.label, 'font-medium')}>
+        <div
+        className={
+            cn(
+              styles.radio.label,
+              {
+                'font-medium': showDescription,
+                'sm:font-medium': !showDescription,
+                'text-xs sm:text-sm': !showDescription
+              }
+            )
+          }
+        >
           {financingLabels[financingState].title}
         </div>
         <span

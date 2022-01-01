@@ -1,5 +1,5 @@
-import cn from 'classnames'
 import { Dispatch, SetStateAction, useRef } from 'react'
+import cn from 'classnames'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline'
 
@@ -74,114 +74,112 @@ const FilterForm = ({
     setActiveState(activeState)
   }
   return (
-    <div className='overflow-y-auto max-h-[440px] xs:max-h-[500px] sm:max-h-[1000px]'>
-      <div className={styles.verticalLayout}>
+    <div className={cn('overflow-y-auto max-h-[440px] xs:max-h-[500px] sm:max-h-[1000px]', styles.verticalLayout)}>
+      <fieldset className={styles.group.layout}>
+        <legend className={styles.group.label}>
+          <FormattedMessage defaultMessage='Por estado' id='GI//kj' />
+        </legend>
+        <ul className={styles.radio.wrap}>
+          {activationStates.map((state: ActiveState) =>
+            <li key={state}>
+              <label htmlFor={state} className={styles.radio.option}>
+                <input
+                  id={state}
+                  type='radio'
+                  className={styles.radio.input}
+                  checked={activeState === state}
+                  onChange={() => onActiveStateChange(state)}
+                  value={state}
+                />
+                <span className={styles.radio.label}>{activeStateLabels[state]}</span>
+              </label>
+            </li>
+          )}
+        </ul>
+      </fieldset>
+      {activeState === ActiveState.inactive ? (
         <fieldset className={styles.group.layout}>
           <legend className={styles.group.label}>
-            <FormattedMessage defaultMessage='Por estado' id='GI//kj' />
+            <FormattedMessage defaultMessage='Por porcentaje de aportación' id="TGWZPT" />
           </legend>
-          <ul className={styles.radio.wrap}>
-            {activationStates.map((state: ActiveState) =>
-              <li key={state}>
-                <label htmlFor={state} className={styles.radio.option}>
+          <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
+            {financingStates.map((state: FinancingState) => (
+              <li className='h-full w-full flex' key={state}>
+                <label
+                  htmlFor={state}
+                  className={
+                    cn(
+                      'w-full p-2 cursor-pointer  rounded border border-transparent',
+                      'hover:shadow-sm hover:border-gray-300',
+                      { 'shadow-sm bg-white border-gray-300': financingState === state }
+                    )
+                  }
+                >
                   <input
                     id={state}
                     type='radio'
-                    className={styles.radio.input}
-                    checked={activeState === state}
-                    onChange={() => onActiveStateChange(state)}
+                    className='hidden'
+                    checked={financingState === state}
+                    onChange={() => setFinancingState(state)}
                     value={state}
                   />
-                  <span className={styles.radio.label}>{activeStateLabels[state]}</span>
+                  <FinancingLabel financingState={state} />
                 </label>
               </li>
-            )}
+            ))}
           </ul>
         </fieldset>
-        {activeState === ActiveState.inactive ? (
-          <fieldset className={styles.group.layout}>
-            <legend className={styles.group.label}>
-              <FormattedMessage defaultMessage='Por porcentaje de aportación' id="TGWZPT" />
-            </legend>
-            <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
-              {financingStates.map((state: FinancingState) => (
-                <li className='h-full w-full flex' key={state}>
-                  <label
-                    htmlFor={state}
+      ): null}
+      {categories.length > 1 ? (
+        <fieldset className={styles.group.layout}>
+          <legend className={styles.group.label}>
+            <FormattedMessage defaultMessage='Por categoría' id='7AAm0o' />
+          </legend>
+          <ul className='flex space-x-2'>
+            {categories.map((category: CategoryType) => {
+              const isSelected = categorySlugs.includes(category.slug)
+              return (
+                <li
+                  key={category.slug}
+                  onClick={() => onCategoryToggle(category.slug)}
+                  className='cursor-pointer relative'
+                >
+                  <div
                     className={
                       cn(
-                        'w-full p-2 cursor-pointer  rounded border border-transparent',
-                        'hover:shadow-sm hover:border-gray-300',
-                        { 'shadow-sm bg-white border-gray-300': financingState === state }
+                        'bg-gray-600 z-20 font-medium border-2 border-white/80 flex items-center justify-center absolute -top-2 -right-2 w-6 h-6 shadow rounded-full'
                       )
                     }
                   >
-                    <input
-                      id={state}
-                      type='radio'
-                      className='hidden'
-                      checked={financingState === state}
-                      onChange={() => setFinancingState(state)}
-                      value={state}
-                    />
-                    <FinancingLabel financingState={state} />
-                  </label>
+                    {isSelected ? (
+                      <MinusSmIcon className="h-3 w-3 text-white" aria-hidden="true" />
+                    ) : (
+                      <PlusSmIcon className="h-3 w-3 text-white" aria-hidden="true" />
+                    )}
+                  </div>
+                  <Marker
+                    withArrow={false}
+                    percentage={Percentage.full}
+                    color={MarkerColor.black}
+                    size={MarkerSize.normal}
+                    isSelected={isSelected}
+                    iconKey={category.iconKey}
+                  />
                 </li>
-              ))}
-            </ul>
-          </fieldset>
-        ): null}
-        {categories.length > 1 ? (
-          <fieldset className={styles.group.layout}>
-            <legend className={styles.group.label}>
-              <FormattedMessage defaultMessage='Por categoría' id='7AAm0o' />
-            </legend>
-            <ul className='flex space-x-2'>
-              {categories.map((category: CategoryType) => {
-                const isSelected = categorySlugs.includes(category.slug)
-                return (
-                  <li
-                    key={category.slug}
-                    onClick={() => onCategoryToggle(category.slug)}
-                    className='cursor-pointer relative'
-                  >
-                    <div
-                      className={
-                        cn(
-                          'bg-gray-600 z-20 font-medium border-2 border-white/80 flex items-center justify-center absolute -top-2 -right-2 w-6 h-6 shadow rounded-full'
-                        )
-                      }
-                    >
-                      {isSelected ? (
-                        <MinusSmIcon className="h-3 w-3 text-white" aria-hidden="true" />
-                      ) : (
-                        <PlusSmIcon className="h-3 w-3 text-white" aria-hidden="true" />
-                      )}
-                    </div>
-                    <Marker
-                      withArrow={false}
-                      percentage={Percentage.full}
-                      color={MarkerColor.black}
-                      size={MarkerSize.normal}
-                      isSelected={isSelected}
-                      iconKey={category.iconKey}
-                    />
-                  </li>
-                )
-              })}
-            </ul>
-          </fieldset>
-        ) : null}
-        <div className='flex justify-end'>
-          <Button
-            onClick={onFilterSubmit}
-            size={ButtonSize.sm}
-            type={ButtonType.button}
-            style={ButtonStyles.branded}
-          >
-            <FormattedMessage defaultMessage='Filtrar' id="VTfGzG" />
-          </Button>
-        </div>
+              )
+            })}
+          </ul>
+        </fieldset>
+      ) : null}
+      <div className='sticky bottom-0 flex justify-end'>
+        <Button
+          onClick={onFilterSubmit}
+          size={ButtonSize.sm}
+          type={ButtonType.button}
+          style={ButtonStyles.branded}
+        >
+          <FormattedMessage defaultMessage='Filtrar' id="VTfGzG" />
+        </Button>
       </div>
     </div>
   )
