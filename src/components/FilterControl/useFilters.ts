@@ -1,6 +1,7 @@
 import { Place } from '@maps/types/index'
 
 export enum ActiveState { all = 'all', active = 'active', inactive = 'inactive' }
+import { Percentage } from '@maps/components/Marker'
 
 export enum FinancingState {
   anyFinancingState = 'anyFinancingState',
@@ -15,17 +16,6 @@ export const FINANCING_RANGES: Partial<Record<FinancingState, FinancingRange>> =
   [FinancingState.middle]: { min: 5, max: 75 },
   [FinancingState.finishing]: { min: 75, max: 100 },
   [FinancingState.completed]: { min: 100, max: 100 }
-}
-
-export const useFindFinantialStateByRange = (percentage: number): FinancingState => {
-  if (percentage < FINANCING_RANGES.starting.max) {
-    return FinancingState.starting
-  } else if (percentage < FINANCING_RANGES.middle.max){
-    return FinancingState.middle
-  } else if (percentage < FINANCING_RANGES.finishing.max){
-    return FinancingState.finishing
-  }
-  return FinancingState.completed
 }
 
 export type Filters = {

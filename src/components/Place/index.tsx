@@ -3,10 +3,10 @@ import { Marker } from 'react-leaflet'
 import { divIcon } from 'leaflet'
 import type { LeafletEventHandlerFnMap } from 'leaflet'
 
-import { useFindFinantialStateByRange } from '@maps/components/FilterControl/useFilters'
-import { MarkerGenericType } from '@maps/components/Marker'
+import { MarkerColor } from '@maps/components/Marker'
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place as PlaceType } from '@maps/types/index'
+import { useMarkerPercentage } from '@maps/components/Marker'
 import { buildMarkerStringType } from '@maps/components/Marker/useMarkersAsString'
 
 type Props = {
@@ -17,14 +17,13 @@ type Props = {
 }
 export default function Place ({ isOpenPlace, onClosePopup, place, onClick }: Props) {
   const { iconMarkers, config } = useMapData()
-  const { name, active, lat, lng, goalProgress } = place
-  const financialState = useFindFinantialStateByRange(goalProgress)
-  const type = active ? MarkerGenericType.active : financialState
-  const { iconKey } = config.categories[place.category_slug]
+  const { name, lat, lng, goalProgress } = place
+  const percentage = useMarkerPercentage(goalProgress)
+  const { iconKey, iconColor } = config.categories[place.category_slug]
   const icon = useRef(
     divIcon({
       className: null,
-      html: iconMarkers[buildMarkerStringType(iconKey, type)],
+      html: iconMarkers[buildMarkerStringType(iconKey, iconColor, percentage)],
       iconSize:    [40, 40],
       iconAnchor:  [19, 46],
       popupAnchor: [2, -50],

@@ -1,16 +1,15 @@
 import cn from 'classnames'
 
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
-import { Color } from '@maps/components/Marker'
 import { FinancingState } from '../useFilters'
 import useFinancingLabels from '../useFinancingLabels'
+import { Percentage } from '@maps/components/Marker'
 
-export const FINANCING_STATE_COLORS: Partial<Record<FinancingState, Color>> = {
-  [FinancingState.anyFinancingState]: { textColor: 'text-gray-300', bg: 'bg-white', border: 'border-gray-800/20' },
-  [FinancingState.starting]: { textColor: 'text-blue-900/50', bg: 'bg-blue-100', border: 'border-blue-900/60' },
-  [FinancingState.middle]: { textColor: 'text-blue-900/50', bg: 'bg-blue-300', border: 'border-blue-900/60' },
-  [FinancingState.finishing]: { textColor: 'text-blue-200', bg: 'bg-blue-500', border: 'border-blue-900/60' },
-  [FinancingState.completed]: { textColor: 'text-blue-200/80', bg: 'bg-blue-800', border: 'border-white/50' }
+const PERCENTAGES: Partial<Record<FinancingState, Percentage>> = {
+  [FinancingState.starting]: Percentage.thirty,
+  [FinancingState.middle]: Percentage.fifty,
+  [FinancingState.finishing]: Percentage.seventy,
+  [FinancingState.completed]: Percentage.full
 }
 
 type Props = {
@@ -18,12 +17,22 @@ type Props = {
   financingLabelsfinancingState: FinancingState
 }
 const FinancingLabel = ({ showDescription = false, financingState }) => {
+  const percentage = PERCENTAGES[financingState] || 0
   const styles = useStyles()
   const financingLabels = useFinancingLabels()
-  const { bg, border } = FINANCING_STATE_COLORS[financingState]
+  const { bg, border } = {
+    bg: 'bg-gray-100',
+    border: 'border-gray-800'
+  }
   return (
     <div className='flex md:items-center'>
-      <div className={cn('flex-none mt-1 sm:mt-0 h-6 w-6 border-2 rounded-md p-2', bg, border)} />
+      <div className='overflow-hidden relative flex-none mt-1 sm:mt-0 h-8 w-8 border border-gray-700 rounded-full p-2'>
+        <div className= 'z-0 rounded-full absolute inset-0 bg-opacity-10 bg-gray-700' />
+        <div
+          style={{ height: `${percentage}%` }}
+          className='z-10 absolute left-0 right-0 bottom-0 bg-gray-600'
+        />
+      </div>
       <div
         className={
           cn(

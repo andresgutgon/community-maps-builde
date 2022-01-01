@@ -3,41 +3,37 @@ import { renderToString } from 'react-dom/server'
 
 import { Category, CategoryIcon } from '@maps/types/index'
 import { FinancingState } from '@maps/components/FilterControl/useFilters'
-import Marker, { MarkerGenericType, Props as MarkerProps, MarkerType, MarkerSize } from '@maps/components/Marker'
+import Marker, { Props as MarkerProps, MarkerColor, MarkerSize, Percentage } from '@maps/components/Marker'
 
-export const buildMarkerStringType = (iconKey: CategoryIcon, type: MarkerType): string => `${iconKey}_${type}`
+export const buildMarkerStringType = (iconKey: CategoryIcon, iconColor: MarkerColor, percentage: Percentage): string => `${iconKey}_${iconColor}_${percentage}`
 export type MarkersAsString = Record<string, string>
-type Props  = Pick<MarkerProps, 'iconKey' | 'type'>[]
+type Props  = Pick<MarkerProps, 'iconKey' | 'color' | 'percentage'>[]
 type ReturnType = {
   buildIconMarkers: (categories: Category[]) => void,
   iconMarkers: MarkersAsString
 }
 const useMarkersAsString = (): ReturnType => {
-  const markerTypes = useRef<MarkerType[]>(
-    [
-      ...Object.values(FinancingState).filter(state => state !== FinancingState.anyFinancingState),
-      MarkerGenericType.active
-    ]
-  ).current
+  const percentages = useRef<Percentage[]>( Object.values(Percentage)).current
   const [iconMarkers, setIconMarkers] = useState<MarkersAsString | null>(null)
   const buildIconMarkers = (categories: Category[]) => {
-    const markers = categories.reduce((memo: MarkerType[], { iconKey }: Category) => {
+    const icons = categories.reduce((memo: Props[], { iconKey, iconColor }: Category) => {
+      const color = iconColor || MarkerColor.brand
       return [
         ...memo,
-        ...markerTypes.map((type: MarkerType) => ({ type, iconKey }))
+        ...percentages.map((percentage: Percentage) => ({ iconKey, color, percentage }))
       ]
-    }, [])
-    const icons = markers.reduce((memo: MarkersAsString, { iconKey, size, type, isSelected, withArrow }: MarkerProps) => {
+    }, []).reduce((memo: MarkersAsString, { percentage, iconKey, size, color, isSelected, withArrow }: MarkerProps) => {
       const html = renderToString(
         <Marker
           isSelected
           withArrow
-          size={MarkerSize.normal}
           iconKey={iconKey}
-          type={type}
+          color={color}
+          percentage={percentage}
+          size={MarkerSize.normal}
         />
       )
-      memo[buildMarkerStringType(iconKey, type)] = html
+      memo[buildMarkerStringType(iconKey, color, percentage)] = html
       return memo
     }, {})
     setIconMarkers(icons)

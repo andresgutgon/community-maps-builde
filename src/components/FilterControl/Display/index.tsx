@@ -7,7 +7,7 @@ import type { Category as CategoryType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import ControlHandler from '@maps/components/ControlHandler'
 
-import Marker, { MarkerGenericType, MarkerType, MarkerSize }from '@maps/components/Marker'
+import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
 import FinancingLabel from '../FinancingLabel'
 import { FINANCING_RANGES, FinancingState, ActiveState } from '../useFilters'
 
@@ -95,7 +95,8 @@ const FilterDisplay = ({
                 <li key={category.slug}>
                   <Marker
                     withArrow={false}
-                    type={MarkerGenericType.black as MarkerType}
+                    percentage={Percentage.full}
+                    color={MarkerColor.black}
                     size={MarkerSize.small}
                     isSelected={categorySlugs.includes(category.slug)}
                     iconKey={category.iconKey}

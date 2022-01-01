@@ -90,6 +90,9 @@ input.simulateNoNumber[type=number] {
 
 /* Brand theme default values */
 @layer base {
+  .text-shadow-white {
+    text-shadow: 0 1px rgba(255, 255, 255, 0.6);
+  }
   :root {
     --color-text-base: 17, 24, 39;
     --color-fill: 17, 24, 39;

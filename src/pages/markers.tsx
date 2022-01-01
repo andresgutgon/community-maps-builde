@@ -2,10 +2,9 @@ import { useEffect, ChangeEvent, useRef, useState } from 'react'
 import cn from 'classnames'
 
 import config from '@maps/data/config'
-import { FinancingState } from '@maps/components/FilterControl/useFilters'
 import { CategoryIcon } from '@maps/types/index'
 import { ICONS } from '@maps/lib/icons'
-import Marker, { MarkerGenericType, MarkerType, MarkerSize } from '@maps/components/Marker'
+import Marker, { Percentage, MarkerColor, MarkerSize } from '@maps/components/Marker'
 
 type HeaderProps = { title: string }
 const Header = ({ title }: HeaderProps) =>
@@ -29,15 +28,10 @@ const Markers = () => {
         --color-text-inverted-button-hover: ${config.theme.color.buttonTextInvertedColorHover};
     `
   }, [])
-  const markerTypes = useRef<MarkerType[]>(
-    [
-      ...Object.values(FinancingState),
-      ...Object.values(MarkerGenericType)
-    ]
-  ).current
+  const colors = useRef<MarkerColor[]>(Object.values(MarkerColor)).current
   const [withArrow, setArrow] = useState<boolean>(true)
   const [size, setSize] = useState<MarkerSize>(MarkerSize.normal)
-  const [type, setType] = useState<MarkerType>(MarkerGenericType.brand)
+  const [percentage, setPercentage] = useState<Percentage>(Percentage.full)
   return (
     <div className="container p-4">
       <main className='space-y-4'>
@@ -47,7 +41,7 @@ const Markers = () => {
           </h1>
           <p>All the markers with styles you can use in the map</p>
         </div>
-        <div>
+        <div className='flex flex-row space-x-3'>
           <select
             name="type"
             value={size}
@@ -61,22 +55,36 @@ const Markers = () => {
               </option>
             )}
           </select>
+          <select
+            name="percentage"
+            value={percentage}
+            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+              setPercentage(event.target.value as Percentage)
+            }
+          >
+            {Object.values(Percentage).map((percentage: Percentage) =>
+              <option key={percentage} value={percentage}>
+                {percentage}
+              </option>
+            )}
+          </select>
         </div>
         <section>
           <Header title='Colors' />
           <ul className='grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3'>
-            {markerTypes.map((type: MarkerType) => {
+            {colors.map((color: MarkerColor) => {
               return (
-                <li key={type} className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'>
+                <li key={color} className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'>
                   <Marker
                     isSelected
                     withArrow
-                    type={type}
+                    percentage={percentage}
+                    color={color}
                     size={size}
                     iconKey={CategoryIcon.car}
                   />
                   <div className='text-center text-gray-400 text-sm'>
-                    {type}
+                    {color}
                   </div>
                 </li>
               )
@@ -92,7 +100,8 @@ const Markers = () => {
                 <li key={key} className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'>
                   <Marker
                     withArrow={withArrow}
-                    type={type}
+                    percentage={Percentage.full}
+                    color={MarkerColor.brand}
                     size={size}
                     iconKey={key}
                     isSelected={isSelected}

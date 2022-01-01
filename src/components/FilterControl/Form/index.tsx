@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import { Dispatch, SetStateAction, useRef } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { XIcon, PlusSmIcon } from '@heroicons/react/outline'
+import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline'
 
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { Category as CategoryType } from '@maps/types/index'
@@ -10,7 +10,7 @@ import Slider, { Color } from '@maps/components/Slider'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import useQueryString  from '@maps/components/CommunityProvider/useQueryString'
 
-import Marker, { MarkerGenericType, MarkerType, MarkerSize }from '@maps/components/Marker'
+import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
 import useFilters, { FINANCING_RANGES, FinancingState, ActiveState } from '../useFilters'
 import { FinancingLabels } from '../useFinancingLabels'
 import FinancingLabel from '../FinancingLabel'
@@ -139,23 +139,20 @@ const FilterForm = ({
                     <div
                       className={
                         cn(
-                          'z-20 font-medium border-2 border-white/80 flex items-center justify-center absolute -top-2 -right-2 w-6 h-6 shadow rounded-full',
-                          {
-                            'bg-red-600': isSelected,
-                            'bg-green-600': !isSelected
-                          }
+                          'bg-gray-600 z-20 font-medium border-2 border-white/80 flex items-center justify-center absolute -top-2 -right-2 w-6 h-6 shadow rounded-full'
                         )
                       }
                     >
                       {isSelected ? (
-                        <XIcon className="h-3 w-3 text-white" aria-hidden="true" />
+                        <MinusSmIcon className="h-3 w-3 text-white" aria-hidden="true" />
                       ) : (
                         <PlusSmIcon className="h-3 w-3 text-white" aria-hidden="true" />
                       )}
                     </div>
                     <Marker
                       withArrow={false}
-                      type={MarkerGenericType.black as MarkerType}
+                      percentage={Percentage.full}
+                      color={MarkerColor.black}
                       size={MarkerSize.normal}
                       isSelected={isSelected}
                       iconKey={category.iconKey}

@@ -1,6 +1,7 @@
 import { JsonSchema, HorizontalLayout, VerticalLayout, GroupLayout } from '@jsonforms/core'
 import type { IGeocoder } from '@maps/components/SearchControl/Search/geocoders'
 import { TILES } from '@maps/lib/tiles'
+import { MarkerColor } from '@maps/components/Marker'
 
 export type { JsonSchema, } from '@jsonforms/core'
 export type UIJsonFormSchema = HorizontalLayout | VerticalLayout | GroupLayout
@@ -40,6 +41,7 @@ export type Map = {
 export type Category = {
   slug: string
   iconKey: CategoryIcon
+  iconColor: MarkerColor
   name: string
   description: string | null,
   shareInTwitterText?: string
