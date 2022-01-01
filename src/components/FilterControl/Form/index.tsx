@@ -64,6 +64,15 @@ const FilterForm = ({
         : [ ...categorySlugs, slug]
     )
   }
+  const onActiveStateChange = (activeState: ActiveState) => {
+    // We only allow to set FinancingState when viewing inactive places.
+    // Doesn't make sense to hide active places based on financing state.
+    // An active place is already running.
+    if (activeState !== ActiveState.inactive) {
+      setFinancingState(FinancingState.anyFinancingState)
+    }
+    setActiveState(activeState)
+  }
   return (
     <div className='overflow-y-auto max-h-[440px] xs:max-h-[500px] sm:max-h-[1000px]'>
       <div className={styles.verticalLayout}>
@@ -80,7 +89,7 @@ const FilterForm = ({
                     type='radio'
                     className={styles.radio.input}
                     checked={activeState === state}
-                    onChange={() => setActiveState(state)}
+                    onChange={() => onActiveStateChange(state)}
                     value={state}
                   />
                   <span className={styles.radio.label}>{activeStateLabels[state]}</span>
@@ -89,7 +98,7 @@ const FilterForm = ({
             )}
           </ul>
         </fieldset>
-        {activeState !== ActiveState.active ? (
+        {activeState === ActiveState.inactive ? (
           <fieldset className={styles.group.layout}>
             <legend className={styles.group.label}>
               <FormattedMessage defaultMessage='Por porcentaje de aportación' id="TGWZPT" />
