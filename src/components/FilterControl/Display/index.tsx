@@ -38,6 +38,7 @@ const FilterDisplay = ({
   const showCategoriesFilter = categories.length > 1 && selectedCategories.length !== categories.length
   const showFilters = showStateFilter || showFinancingFilter || showCategoriesFilter
   const label = intl.formatMessage({ id: '4kF+sS', defaultMessage: 'Filtrar lugares' })
+  const allVisible = places.length === allPlaces.length
   return (
     <button onClick={onToggleFilters} className='w-full'>
       <ControlHandler
@@ -47,8 +48,18 @@ const FilterDisplay = ({
       >
         {!open ? (
           allPlaces.length > 0 ? (
-            <div className='justify-end text-center flex py-1 px-2 rounded-full bg-gray-200 font-medium text-gray-600'>
-              {places.length === allPlaces.length
+            <div
+              className={
+                cn(
+                  'justify-end text-center flex py-1 px-2 rounded-full font-medium',
+                  {
+                    'bg-brand-button text-brand-button': allVisible,
+                    'bg-gray-200 text-gray-600': !allVisible,
+                  }
+                )
+              }
+            >
+              {allVisible
                 ? places.length
                 : intl.formatMessage(
                     { id: 'iB0EB1', defaultMessage: '{filter} de {total}' },
