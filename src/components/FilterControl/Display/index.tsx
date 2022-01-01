@@ -76,7 +76,7 @@ const FilterDisplay = ({
                     'rounded-full h-3 w-3',
                     {
                       'bg-green-600': activeState === ActiveState.active,
-                      'bg-blue-300': activeState === ActiveState.inactive
+                      'bg-gray-400': activeState === ActiveState.inactive
                     }
                   )}
                 />

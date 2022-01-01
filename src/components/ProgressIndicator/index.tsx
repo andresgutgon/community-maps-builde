@@ -5,13 +5,13 @@ const ProgressIndicator = ({ value, size }: Props) => {
   return (
     <div className='w-full relative -bottom-2 pt-2 max-w-full'>
       <div className={cn(
-        'bg-blue-600/20 w-full  top-[calc(-0.5rem-1px)] transition-colors relative rounded-full before:content-[""] before:absolute',
+        'bg-gray-600/20 w-full  top-[calc(-0.5rem-1px)] transition-colors relative rounded-full before:content-[""] before:absolute',
         {
           'h-3': size === 'normal', 'h-1': size === 'small'
         }
       )}>
         <div
-          className='bg-blue-800 h-full transition-colors rounded-inherit left-0 bottom-0 bg-opacity-70'
+          className='bg-gray-800 h-full transition-colors rounded-inherit left-0 bottom-0 bg-opacity-70'
           style={{ width: `${value}%` }}
         />
       </div>

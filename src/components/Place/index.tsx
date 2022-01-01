@@ -6,7 +6,7 @@ import type { LeafletEventHandlerFnMap } from 'leaflet'
 import { MarkerColor } from '@maps/components/Marker'
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place as PlaceType } from '@maps/types/index'
-import { useMarkerPercentage } from '@maps/components/Marker'
+import { useMarkerPercentage, Percentage } from '@maps/components/Marker'
 import { buildMarkerStringType } from '@maps/components/Marker/useMarkersAsString'
 
 type Props = {
@@ -17,8 +17,9 @@ type Props = {
 }
 export default function Place ({ isOpenPlace, onClosePopup, place, onClick }: Props) {
   const { iconMarkers, config } = useMapData()
-  const { name, lat, lng, goalProgress } = place
-  const percentage = useMarkerPercentage(goalProgress)
+  const { name, lat, lng, active, goalProgress } = place
+  const realPercentage = useMarkerPercentage(goalProgress)
+  const percentage = active ? Percentage.full : realPercentage
   const { iconKey, iconColor } = config.categories[place.category_slug]
   const icon = useRef(
     divIcon({
