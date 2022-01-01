@@ -16,6 +16,9 @@ const useMarkersAsString = (): ReturnType => {
   const percentages = useRef<Percentage[]>( Object.values(Percentage)).current
   const [iconMarkers, setIconMarkers] = useState<MarkersAsString | null>(null)
   const buildIconMarkers = (categories: Category[]) => {
+    // Avoid recomputing if iconMarkers is not null
+    if (iconMarkers) return iconMarkers
+
     const icons = categories.reduce((memo: Props[], { iconKey, iconColor }: Category) => {
       const color = iconColor || MarkerColor.brand
       return [
