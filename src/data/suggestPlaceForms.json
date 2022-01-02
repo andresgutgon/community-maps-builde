@@ -1,0 +1,36 @@
+{
+  "suggest_place_generic": {
+    "slug": "suggest_place_generic",
+    "formButtonLabel": "Sugerir Lugar",
+    "description": "No trobes cap vehicle elèctric al teu barri o municipi? Propon una nueva ubicación",
+    "jsonSchema": {
+      "type":"object",
+      "properties":{
+        "name":{
+          "type":"string"
+        },
+        "email":{
+          "type":"string",
+          "format": "email"
+        }
+      },
+      "required": ["name", "email"]
+    },
+    "uiSchema": {
+      "type":"VerticalLayout",
+      "elements":[
+        {
+          "type":"Control",
+          "scope":"#/properties/name",
+          "label": "Nombre"
+        },
+        {
+          "type":"Control",
+          "scope":"#/properties/email",
+          "label":"Email"
+        }
+      ]
+    }
+  }
+}
+

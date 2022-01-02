@@ -47,6 +47,9 @@
   "FagJhM": {
     "defaultMessage": "¡Copiado!"
   },
+  "FmR1T5": {
+    "defaultMessage": "Elige el tipo de lugar"
+  },
   "GI//kj": {
     "defaultMessage": "Por estado"
   },
@@ -104,6 +107,9 @@
   "at9R+C": {
     "defaultMessage": "Debes seleccionar un valor de la lista"
   },
+  "bPxeVs": {
+    "defaultMessage": "Sugierenos un lugar"
+  },
   "eOuNie": {
     "defaultMessage": "Buscar"
   },
@@ -119,20 +125,32 @@
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
   },
+  "l4IlHe": {
+    "defaultMessage": "Política de privacidad"
+  },
   "lkLfmX": {
     "defaultMessage": "Expandir mapa"
   },
   "m9eXO9": {
     "defaultMessage": "Cargando"
   },
+  "mFDtrP": {
+    "defaultMessage": "Acepto la {privacyLink} y la {cookiesLink}"
+  },
   "nZLeaQ": {
     "defaultMessage": "Cancelar"
+  },
+  "oxv0hl": {
+    "defaultMessage": "Política de cookies"
   },
   "puO6Zk": {
     "defaultMessage": "hora"
   },
   "qc8eLe": {
     "defaultMessage": "A más aportación te podemos ofrecer mejor tarifa"
+  },
+  "spATk4": {
+    "defaultMessage": "Acepto la {link}"
   },
   "tClzXv": {
     "defaultMessage": "Enviando"
@@ -142,6 +160,9 @@
   },
   "vD8ftS": {
     "defaultMessage": "Cómo llegar"
+  },
+  "yq+tl0": {
+    "defaultMessage": "Sugerir lugar"
   },
   "zaaFVR": {
     "defaultMessage": "El formato de email no es válido"

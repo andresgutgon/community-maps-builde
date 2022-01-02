@@ -20,7 +20,7 @@ const ModalWrapper = forwardRef<
   HTMLDivElement | HTMLFormElement, ModalWrapperProps
 >(function ModalWrapper({ closeFn, onSubmit, children }, ref) {
   let props: ElementProps = {
-    className: 'inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-lg sm:w-full'
+    className: 'inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-2xl w-full'
   }
   props = onSubmit ? {
     ...props,

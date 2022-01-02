@@ -1,5 +1,6 @@
 {
   "first-form": {
+    "slug": "first-form",
     "ctaLabel": "Haz click aquí",
     "formButtonLabel": "Guardar esto",
     "description": "Descripción para este formulario",
@@ -203,6 +204,7 @@
     }
   },
   "bike_charger": {
+    "slug": "bike_charger",
     "jsonSchema": {
       "type":"object",
       "properties":{

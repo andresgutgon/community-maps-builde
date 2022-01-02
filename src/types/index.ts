@@ -48,6 +48,7 @@ export type Category = {
 }
 
 export type Form = {
+  slug: string,
   ctaLabel?: string
   formButtonLabel?: string
   description?: string
@@ -90,8 +91,14 @@ export type Theme = {
   tileStyle: TileStyle
 }
 
+type Legal = {
+  privacyLink?: string,
+  cookiesLink?: string
+}
 export type Config = {
   theme: Theme
-  forms: Record<string, Form>
+  legal?: Legal,
+  forms?: Record<string, Form>
+  suggestPlaceForms?: Record<string, Form>
   categories: Record<string, Category>
 }

@@ -8,7 +8,7 @@ import { JsonForms } from '@jsonforms/react'
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place, PlaceDetail } from '@maps/types/index'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
-import { useGetForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { EntityForm, useGetForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 
 import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
@@ -140,7 +140,7 @@ type PlaceContentProps = {
   place: PlaceDetail
 }
 const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => {
-  const form = useGetForm({ place })
+  const form = useGetForm({ entity: place, entityType: EntityForm.place })
   const intl = useIntl()
   const schema = useSchema({ place })
   const { name, address, lat, lng } = place

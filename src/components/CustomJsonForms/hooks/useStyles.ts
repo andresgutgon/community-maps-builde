@@ -12,9 +12,15 @@ type RadioStyles = {
   input: string,
   label: string
 }
+type CheckboxStyles = {
+  group: string,
+  input: string,
+  label: string
+}
 type ReturnType = {
   input: string,
   radio: RadioStyles,
+  checkbox: CheckboxStyles,
   description: string,
   descriptionError: string,
   group: GroupStyles,
@@ -44,6 +50,13 @@ const useStyles = (): ReturnType => {
       label: formStyles.styles.find(style => style.name === 'control.radio.label').classNames.join(' '),
     }
   ).current
+  const checkbox = useRef(
+    {
+      group: formStyles.styles.find(style => style.name === 'control.checkbox.group').classNames.join(' '),
+      input: formStyles.styles.find(style => style.name === 'control.checkbox.input').classNames.join(' '),
+      label: formStyles.styles.find(style => style.name === 'control.checkbox.label').classNames.join(' '),
+    }
+  ).current
   const group = useRef(
     {
       layout: formStyles.styles.find(style => style.name === 'group.layout').classNames.join(' '),
@@ -52,6 +65,7 @@ const useStyles = (): ReturnType => {
   ).current
   return {
     radio,
+    checkbox,
     input,
     description,
     descriptionError,

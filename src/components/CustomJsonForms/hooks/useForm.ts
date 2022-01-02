@@ -1,26 +1,38 @@
-import { useMemo, useEffect, useState } from 'react'
+import { useRef,useMemo, useEffect, useState } from 'react'
 import { ValidationMode, JsonFormsCore } from '@jsonforms/core'
 
-import type { Form, JsonSchema, UIJsonFormSchema, Config, Place } from '@maps/types/index'
+import type { Form, JsonSchema, UIJsonFormSchema, Config, Category, Place } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import { useTranslateError } from './useTranslateError'
 import type { TranslateErrorFn } from './useTranslateError'
 
-type UseGetFormProps = { place: Place | null }
-export const useGetForm = ({ place }: UseGetFormProps): Form | null => {
+export enum EntityForm { place = 'place', suggestPlace = 'suggestPlace' }
+type UseGetFormProps = { entityType: EntityForm, entity: Category | Place | null }
+export const useGetForm = ({ entityType, entity }: UseGetFormProps): Form | null => {
   const { config } = useMapData()
-  return useMemo(() => config.forms[place?.form_slug], [place, config])
+  return useRef(
+    entityType === EntityForm.place
+      ? config.forms[(entity as Place)?.form_slug]
+      : entityType === EntityForm.suggestPlace
+        ? Object.keys(config.suggestPlaceForms).length > 0
+          ? (
+            config.suggestPlaceForms[entity?.slug]
+            || config.suggestPlaceForms['suggest_place_generic']
+          ) : null
+        : null
+  ).current
 }
 
 const showValidationMode = 'ValidateAndShow' as ValidationMode
 const noValidationMode = 'NoValidation' as ValidationMode
 type Props = {
-  place: Place | null,
+  entityType: EntityForm
+  entity: Category | Place | null
   isOpen: boolean
 }
 type SubmitResponse = { ok: boolean; message: string }
 type OnChangeFn = (jsonForm: JsonFormsCore) => void
-type ReturnType = {
+export type FormReturnType = {
   formButtonLabel: string | null,
   description: string | null,
   translateError: TranslateErrorFn,
@@ -34,9 +46,9 @@ type ReturnType = {
   submitting: boolean,
   submitResponse: null | SubmitResponse
 }
-export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
+export const useForm = ({ entity, entityType, isOpen }: Props): FormReturnType | null => {
   const { community } = useMapData()
-  const form = useGetForm({ place })
+  const form = useGetForm({ entityType, entity })
   const [submitting, setSubmitting] = useState<boolean>(false)
   const [submitResponse, setResponse] = useState<SubmitResponse | null>(null)
   const [data, setData] = useState(form?.initialData || {})
@@ -52,9 +64,10 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   useEffect(() => {
     if (!form) return
     setData(form.initialData || {})
-    // NOTE: Using place here we make this useEffect run
-    // always the place is changed.
-  }, [setData, form, place])
+    // NOTE: Using entity here we make this useEffect run
+    // always the entity is changed. This happens when the place
+    // data is being fetched when open a place popup
+  }, [setData, form, entity])
 
   // Check all fields that are required are filled by the user
   useEffect(() => {
@@ -87,7 +100,7 @@ export const useForm = ({ place, isOpen }: Props): ReturnType | null => {
   const onSubmit = async (_closeFn: Function) => {
     setSubmitting(true)
     const response = await fetch(
-      `/api/${community}/maps/forms/${place.form_slug}`,
+      `/api/${community}/maps/forms/${form.slug}`,
       {
         method: 'POST',
         body: JSON.stringify(data)

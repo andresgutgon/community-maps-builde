@@ -6,6 +6,7 @@
  * This is awesome because with Tailwind is all we need to customize
  * the look and feel of the forms
  */
+const radioCheckboxLabel = ['text-sm text-gray-800 cursor-pointer']
 export const formStyles = {
   styles: [
     {
@@ -68,9 +69,15 @@ export const formStyles = {
       name: 'control.radio.input',
       classNames: ['appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent']
     },
+    { name: 'control.radio.label', classNames: radioCheckboxLabel },
     {
-      name: 'control.radio.label',
-      classNames: ['text-sm text-gray-800 cursor-pointer']
-    }
+      name: 'control.checkbox.group',
+      classNames: ['flex flex-row items-center space-x-2 cursor-pointer']
+    },
+    {
+      name: 'control.checkbox.input',
+      classNames: ['rounded appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent']
+    },
+    { name: 'control.checkbox.label', classNames: radioCheckboxLabel }
   ]
 }

@@ -115,6 +115,12 @@
       "value": "¡Copiado!"
     }
   ],
+  "FmR1T5": [
+    {
+      "type": 0,
+      "value": "Elige el tipo de lugar"
+    }
+  ],
   "GI//kj": [
     {
       "type": 0,
@@ -273,6 +279,12 @@
       "value": "Debes seleccionar un valor de la lista"
     }
   ],
+  "bPxeVs": [
+    {
+      "type": 0,
+      "value": "Sugierenos un lugar"
+    }
+  ],
   "eOuNie": [
     {
       "type": 0,
@@ -335,6 +347,12 @@
       "value": "rate"
     }
   ],
+  "l4IlHe": [
+    {
+      "type": 0,
+      "value": "Política de privacidad"
+    }
+  ],
   "lkLfmX": [
     {
       "type": 0,
@@ -347,10 +365,34 @@
       "value": "Cargando"
     }
   ],
+  "mFDtrP": [
+    {
+      "type": 0,
+      "value": "Acepto la "
+    },
+    {
+      "type": 1,
+      "value": "privacyLink"
+    },
+    {
+      "type": 0,
+      "value": " y la "
+    },
+    {
+      "type": 1,
+      "value": "cookiesLink"
+    }
+  ],
   "nZLeaQ": [
     {
       "type": 0,
       "value": "Cancelar"
+    }
+  ],
+  "oxv0hl": [
+    {
+      "type": 0,
+      "value": "Política de cookies"
     }
   ],
   "puO6Zk": [
@@ -363,6 +405,16 @@
     {
       "type": 0,
       "value": "A más aportación te podemos ofrecer mejor tarifa"
+    }
+  ],
+  "spATk4": [
+    {
+      "type": 0,
+      "value": "Acepto la "
+    },
+    {
+      "type": 1,
+      "value": "link"
     }
   ],
   "tClzXv": [
@@ -381,6 +433,12 @@
     {
       "type": 0,
       "value": "Cómo llegar"
+    }
+  ],
+  "yq+tl0": [
+    {
+      "type": 0,
+      "value": "Sugerir lugar"
     }
   ],
   "zaaFVR": [

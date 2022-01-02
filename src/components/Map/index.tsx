@@ -11,6 +11,7 @@ import useTile from '@maps/components/CommunityProvider/useTile'
 import Search from '@maps/components/SearchControl'
 import Fullscreen from '@maps/components/FullscreenControl'
 import Filter from '@maps/components/FilterControl'
+import SuggestPlace from '@maps/components/SuggestPlaceControl'
 import Place from '@maps/components/Place'
 import PlacePopup from '@maps/components/PlacePopup'
 
@@ -83,6 +84,7 @@ const MapWrapper = () => {
       {/* Map's controls */}
       <Search locale={locale} />
       <Filter />
+      <SuggestPlace />
       <Fullscreen />
       <ZoomControl position='topleft' />
 
@@ -92,6 +94,7 @@ const MapWrapper = () => {
         showCoverageOnHover={false}
         disableClusteringAtZoom={12}
         removeOutsideVisibleBounds={true}
+        spiderfyOnMaxZoom={false}
       >
         {places.map((place: PlaceType, index: number) =>
           <Place
