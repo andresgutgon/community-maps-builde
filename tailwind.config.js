@@ -20,7 +20,12 @@ module.exports = {
   ],
   mode: 'jit',
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+    },
     extend: {
+      screens: { 'xs': '375px' },
       colors: {
         twitter: '#00acee'
       },

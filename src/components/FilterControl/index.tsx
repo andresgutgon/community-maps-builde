@@ -7,7 +7,7 @@ import { useMapEvents } from 'react-leaflet'
 import { useMapData } from '@maps/components/CommunityProvider'
 import ReactControl from '@maps/components/ReactControl/index'
 
-import { ActiveState } from './useFilters'
+import { FINANCING_RANGES, FinancingState, ActiveState } from './useFilters'
 import FilterDisplay from './Display'
 
 const FilterControl = () => {
@@ -21,8 +21,8 @@ const FilterControl = () => {
     setOpen(!open)
   }
   const [categorySlugs, setSelectedCategories] = useState<string[]>(filters.categories)
-  const [activeState, setState] = useState<ActiveState>(filters.activeState)
-  const [percentage, setPercentage] = useState<number>(filters.percentage)
+  const [activeState, setActiveState] = useState<ActiveState>(filters.activeState)
+  const [financingState, setFinancingState] = useState<FinancingState>(filters.financingState)
   const closeFilter = () => setOpen(false)
   useMapEvents({ click: closeFilter, mousedown: closeFilter })
   useEffect(() => {
@@ -41,11 +41,6 @@ const FilterControl = () => {
     }
     loadComponent()
   }, [open, intl, loading, Form])
-
-  const percentageLabel = intl.formatMessage(
-    { id: 'VHf1xn', defaultMessage: '{percentage}% o más' }, { percentage }
-  )
-
   return (
     <ReactControl
       position='topleft'
@@ -55,7 +50,7 @@ const FilterControl = () => {
           {
             'hidden': !allPlaces.length,
             'flex items-center justify-center': !open,
-            'flex-col leaflet-expanded-control': open
+            'flex-col leaflet-expanded-control bg-gray-50': open
           }
         )
       }
@@ -63,20 +58,18 @@ const FilterControl = () => {
       <FilterDisplay
         open={open}
         activeState={activeState}
+        financingState={financingState}
         onToggleFilters={onToggleFilters}
         categorySlugs={categorySlugs}
-        percentageLabel={percentageLabel}
-        percentage={percentage}
       />
       {(Form && open) ? (
         <Form
-          percentageLabel={percentageLabel}
-          percentage={percentage}
           activeState={activeState}
+          financingState={financingState}
           categorySlugs={categorySlugs}
           setSelectedCategories={setSelectedCategories}
-          setPercentage={setPercentage}
-          setState={setState}
+          setFinancingState={setFinancingState}
+          setActiveState={setActiveState}
           onToggleFilters={onToggleFilters}
         />
       ): null}

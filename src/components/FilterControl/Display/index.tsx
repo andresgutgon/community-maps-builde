@@ -5,27 +5,25 @@ import { XIcon } from '@heroicons/react/outline'
 
 import type { Category as CategoryType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
-import ProgressIndicator from '@maps/components/ProgressIndicator'
 import ControlHandler from '@maps/components/ControlHandler'
 
-import Category from '../Category'
-import { ActiveState } from '../useFilters'
+import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
+import FinancingLabel from '../FinancingLabel'
+import { FINANCING_RANGES, FinancingState, ActiveState } from '../useFilters'
 
 type Props = {
   open: boolean,
-  percentageLabel: string,
-  percentage: number,
   activeState: ActiveState,
+  financingState: FinancingState,
   categorySlugs: string[]
   onToggleFilters: () => void
 }
 const FilterDisplay = ({
   open,
   activeState,
+  financingState,
   onToggleFilters,
-  categorySlugs,
-  percentageLabel,
-  percentage
+  categorySlugs
 }) => {
   const intl = useIntl()
   const { allPlaces, places, categories } = useMapData()
@@ -35,10 +33,12 @@ const FilterDisplay = ({
   const activePlacesLabel = intl.formatMessage({ id: 'GSkc36', defaultMessage: 'Lugares activos' })
   const inactivePlacesLabel = intl.formatMessage({ id: 'An+6PB', defaultMessage: 'Lugares inactivos' })
   const showStateFilter = activeState !== ActiveState.all
-  const showPercentageFilter = percentage > 0
+  const financingRange = FINANCING_RANGES[financingState]
+  const showFinancingFilter = activeState !== ActiveState.active && !!financingRange
   const showCategoriesFilter = categories.length > 1 && selectedCategories.length !== categories.length
-  const showFilters = showStateFilter || showPercentageFilter || showCategoriesFilter
+  const showFilters = showStateFilter || showFinancingFilter || showCategoriesFilter
   const label = intl.formatMessage({ id: '4kF+sS', defaultMessage: 'Filtrar lugares' })
+  const allVisible = places.length === allPlaces.length
   return (
     <button onClick={onToggleFilters} className='w-full'>
       <ControlHandler
@@ -48,8 +48,18 @@ const FilterDisplay = ({
       >
         {!open ? (
           allPlaces.length > 0 ? (
-            <div className='flex-1 justify-end text-center flex py-1 px-2 rounded-full bg-gray-200 font-medium text-gray-600'>
-              {places.length === allPlaces.length
+            <div
+              className={
+                cn(
+                  'justify-end text-center flex py-1 px-2 rounded-full font-medium',
+                  {
+                    'bg-brand-button text-brand-button': allVisible,
+                    'bg-gray-200 text-gray-600': !allVisible,
+                  }
+                )
+              }
+            >
+              {allVisible
                 ? places.length
                 : intl.formatMessage(
                     { id: 'iB0EB1', defaultMessage: '{filter} de {total}' },
@@ -68,36 +78,40 @@ const FilterDisplay = ({
         )}
       </ControlHandler>
       {(!open && showFilters) ? (
-        <div className='flex-1 flex flex-col space-y-3 border-t border-gray-100 mt-2 pt-2'>
+        <div className='flex-1 flex flex-col space-y-1 sm:space-y-2 border-t border-gray-100 mt-2 pt-2'>
           {showStateFilter ? (
-            <div className='flex flex-row items-center space-x-2 ml-1'>
-              <div className={
-                cn(
-                  'rounded-full h-2 w-2 ring-4',
-                  {
-                    'bg-green-600 ring-green-100': activeState === ActiveState.active,
-                    'bg-yellow-600 ring-yellow-200': activeState === ActiveState.inactive
-                  }
-                )}
-              />
-              <span className='text-xs font-medium text-gray-900'>
+            <div className='flex flex-row items-center space-x-2'>
+              <div className='w-6 h-6 flex items-center justify-center'>
+                <div className={
+                  cn(
+                    'rounded-full h-3 w-3',
+                    {
+                      'bg-green-600': activeState === ActiveState.active,
+                      'bg-gray-400': activeState === ActiveState.inactive
+                    }
+                  )}
+                />
+              </div>
+              <span className='ml-2 text-xs text-gray-900'>
                 {activeState === ActiveState.active ? activePlacesLabel : inactivePlacesLabel}
               </span>
             </div>
           ) : null}
-          {showPercentageFilter ? (
-            <div className='flex flex-row space-x-1'>
-              <div className='w-1/2'>
-                <ProgressIndicator value={percentage} size='small' />
-              </div>
-              <span className='flex-1 text-xs font-medium text-gray-900'>{percentageLabel}</span>
-            </div>
+          {showFinancingFilter ? (
+            <FinancingLabel showDescription financingState={financingState} />
           ) : null}
           {showCategoriesFilter ? (
             <ul className='flex flex-row space-x-1'>
-              {selectedCategories.map((category: CategoryType) =>
+              {categories.map((category: CategoryType) =>
                 <li key={category.slug}>
-                  <Category size='small' isSelected category={category} />
+                  <Marker
+                    withArrow={false}
+                    percentage={Percentage.full}
+                    color={MarkerColor.black}
+                    size={MarkerSize.small}
+                    isSelected={categorySlugs.includes(category.slug)}
+                    iconKey={category.iconKey}
+                  />
                 </li>
               )}
             </ul>

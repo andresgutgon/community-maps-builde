@@ -6,8 +6,10 @@ import { Category, Place, Config } from '@maps/types/index'
 import LoadingMap from '@maps/components/LoadingMap'
 import useQueryString, { UrlParam } from '@maps/components/CommunityProvider/useQueryString'
 import useFilters from '@maps/components/FilterControl/useFilters'
+import useMarkersAsString, { MarkersAsString } from '@maps/components/Marker/useMarkersAsString'
 
 interface ContextProps {
+  controlCssTag: HTMLStyleElement,
   places: Place[]
   categories: Category[]
   setPlaces: Dispatch<SetStateAction<Place[]>>
@@ -18,9 +20,11 @@ interface ContextProps {
   urlParams: UrlParam,
   apiBase: string,
   mapUrl: string,
-  community: string
+  community: string,
+  iconMarkers: MarkersAsString
 }
 const CommunityContext = createContext<ContextProps | null>({
+  controlCssTag: null,
   places: [],
   categories: [],
   allPlaces: [],
@@ -31,7 +35,8 @@ const CommunityContext = createContext<ContextProps | null>({
   loading: true,
   urlParams: null,
   apiBase: null,
-  mapUrl: null
+  mapUrl: null,
+  iconMarkers: null
 })
 
 type ProviderProps = {
@@ -41,6 +46,13 @@ type ProviderProps = {
 }
 
 export const CommunityProvider = ({ community, mapId, children }: ProviderProps) => {
+  const { iconMarkers, buildIconMarkers } = useMarkersAsString()
+  const controlCssTag = useMemo<HTMLStyleElement>(() => {
+    const cssStyleTag = document.createElement('style')
+    cssStyleTag.setAttribute('id', 'controls-visibility')
+    document.head.appendChild(cssStyleTag)
+    return cssStyleTag
+  }, [])
   const themeCssTag = useMemo<HTMLStyleElement>(() => {
     const cssStyleTag = document.createElement('style')
     cssStyleTag.setAttribute('id', 'theme-brand-colors')
@@ -94,6 +106,9 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
       // Only fetch once places
       setFetchingPlaces(true)
 
+      // Build icon markers based on categories on this map
+      buildIconMarkers(categories.current)
+
       setConfig(config)
       const themeColor = config.theme.color
       if (themeColor) {
@@ -128,13 +143,13 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     loading,
     filter,
     urlParams,
-    onLoadCategories
+    onLoadCategories,
+    buildIconMarkers
   ])
-  // when only one place is displayed reset places collection
-  // when user close the popup of that place
   return (
     <CommunityContext.Provider
       value={{
+        controlCssTag,
         community,
         mapUrl,
         urlParams,
@@ -145,7 +160,8 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
         places,
         config,
         categories: categories.current,
-        apiBase
+        apiBase,
+        iconMarkers
       }}
     >
       {loading ? <LoadingMap /> : children}

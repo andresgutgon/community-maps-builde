@@ -1,4 +1,10 @@
 {
+  "+xDksj": [
+    {
+      "type": 0,
+      "value": "Casi financiados"
+    }
+  ],
   "/kG/Lg": [
     {
       "type": 0,
@@ -79,10 +85,22 @@
       "value": "Copiar enlace"
     }
   ],
+  "9FzJdt": [
+    {
+      "type": 0,
+      "value": "Cualquier porcentaje de aportación"
+    }
+  ],
   "An+6PB": [
     {
       "type": 0,
       "value": "Lugares inactivos"
+    }
+  ],
+  "B2GImX": [
+    {
+      "type": 0,
+      "value": "Totalmente financiados"
     }
   ],
   "DtZeeF": [
@@ -113,16 +131,6 @@
     {
       "type": 0,
       "value": "Activos"
-    }
-  ],
-  "Hi7RCv": [
-    {
-      "type": 0,
-      "value": "Por porcentaje de contribución "
-    },
-    {
-      "type": 1,
-      "value": "value"
     }
   ],
   "IOnTHc": [
@@ -189,6 +197,28 @@
       "value": "rate"
     }
   ],
+  "OwIhLK": [
+    {
+      "type": 0,
+      "value": "De "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": "% de aportación"
+    }
+  ],
   "P8VfZA": [
     {
       "type": 0,
@@ -201,26 +231,34 @@
       "value": "Lo sentimos, no hay resultados para esta dirección"
     }
   ],
+  "QK2a+D": [
+    {
+      "type": 0,
+      "value": "Poco financiados"
+    }
+  ],
+  "TGWZPT": [
+    {
+      "type": 0,
+      "value": "Por porcentaje de aportación"
+    }
+  ],
   "TKx/Q8": [
     {
       "type": 0,
       "value": "Mejor"
     }
   ],
-  "VHf1xn": [
-    {
-      "type": 1,
-      "value": "percentage"
-    },
-    {
-      "type": 0,
-      "value": "% o más"
-    }
-  ],
   "VTfGzG": [
     {
       "type": 0,
       "value": "Filtrar"
+    }
+  ],
+  "VVn4Nd": [
+    {
+      "type": 0,
+      "value": "Aportación al 100% completada"
     }
   ],
   "ZNZWBc": [
@@ -239,6 +277,12 @@
     {
       "type": 0,
       "value": "Buscar"
+    }
+  ],
+  "gRQW59": [
+    {
+      "type": 0,
+      "value": "Bastante financiados"
     }
   ],
   "iB0EB1": [

@@ -21,28 +21,23 @@ const MOBILE_WIDTH = 768
  */
 type UseMobileControlsVisibilityReturnType = { onOpenPopup: () => void; onClosePopup : () => void }
 const useMobileControlsVisibility = (): UseMobileControlsVisibilityReturnType => {
-  const style = useMemo<HTMLStyleElement>(() => {
-    const cssStyleTag = document.createElement('style')
-    cssStyleTag.setAttribute('id', 'controls-visibility')
-    document.head.appendChild(cssStyleTag)
-    return cssStyleTag
-  }, [])
+  const { controlCssTag } = useMapData()
   const windowWidth = useRef(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth).current
   const isMobile = useRef<boolean>(windowWidth <= MOBILE_WIDTH).current
   return {
     onOpenPopup: () => {
       if (!isMobile) return
 
-      style.innerHTML = `
-        div.leaflet-top { opacity: 0; pointer-events: none; }
+      controlCssTag.innerHTML = `
+        div.leaflet-top { opacity: 0; }
         div.leaflet-top * { pointer-events: none; }
       `
     },
     onClosePopup: () => {
       if (!isMobile) return
 
-      style.innerHTML = `
-        div.leaflet-top { opacity: 1; pointer-events: auto; }
+      controlCssTag.innerHTML = `
+        div.leaflet-top { opacity: 1; }
         div.leaflet-top * { pointer-events: auto; }
       `
     }
