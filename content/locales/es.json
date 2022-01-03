@@ -53,6 +53,9 @@
   "GI//kj": {
     "defaultMessage": "Por estado"
   },
+  "GKFYo5": {
+    "defaultMessage": "Elige una categoría"
+  },
   "GSkc36": {
     "defaultMessage": "Lugares activos"
   },
@@ -101,6 +104,9 @@
   "VVn4Nd": {
     "defaultMessage": "Aportación al 100% completada"
   },
+  "Wceeld": {
+    "defaultMessage": "Cambiar categoría"
+  },
   "ZNZWBc": {
     "defaultMessage": "Inactivos"
   },
@@ -124,6 +130,9 @@
   },
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
+  },
+  "kUKcmK": {
+    "defaultMessage": "Sugiérenos un lugar"
   },
   "l4IlHe": {
     "defaultMessage": "Política de privacidad"

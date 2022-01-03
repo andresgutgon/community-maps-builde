@@ -64,6 +64,48 @@
       "elements": [
         {
           "type": "Group",
+          "label": "Tus datos de contacto",
+          "elements": [
+            {
+              "type":"VerticalLayout",
+              "elements":[
+                {
+                  "type":"Control",
+                  "scope":"#/properties/name",
+                  "label": "Nombre",
+                  "options": {
+                    "placeholder": "Nombre y appellidos"
+                  }
+                },
+                {
+                  "type":"Control",
+                  "scope":"#/properties/email",
+                  "label":"Email",
+                  "options": {
+                    "placeholder": "Tu correo electrónico"
+                  }
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope":"#/properties/telephone",
+                      "label": "Teléfono"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/identifier",
+                      "label":"DNI"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Group",
           "label": "Tu aportación",
           "elements": [
             {
@@ -155,48 +197,6 @@
                   }
                 ]
               }
-            }
-          ]
-        },
-        {
-          "type": "Group",
-          "label": "Tus datos de contacto",
-          "elements": [
-            {
-              "type":"VerticalLayout",
-              "elements":[
-                {
-                  "type":"Control",
-                  "scope":"#/properties/name",
-                  "label": "Nombre",
-                  "options": {
-                    "placeholder": "Nombre y appellidos"
-                  }
-                },
-                {
-                  "type":"Control",
-                  "scope":"#/properties/email",
-                  "label":"Email",
-                  "options": {
-                    "placeholder": "Tu correo electrónico"
-                  }
-                },
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    {
-                      "type": "Control",
-                      "scope":"#/properties/telephone",
-                      "label": "Teléfono"
-                    },
-                    {
-                      "type": "Control",
-                      "scope": "#/properties/identifier",
-                      "label":"DNI"
-                    }
-                  ]
-                }
-              ]
             }
           ]
         }

@@ -12,7 +12,7 @@ import { EntityForm, useGetForm } from '@maps/components/CustomJsonForms/hooks/u
 
 import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
-import { Loading } from '@maps/components/PlacePopup'
+import LoadingCode from '@maps/components/LoadingCode'
 import { displayStyles } from '@maps/components/CustomJsonForms/displayStyles'
 
 const noValidationMode = 'NoValidation' as ValidationMode
@@ -208,7 +208,7 @@ const PopupContent = ({ place }: Props) => {
     fetchData()
   }, [data, place, dataLoading, apiBase])
 
-  if (dataLoading) return <Loading />
+  if (dataLoading) return <LoadingCode />
 
   return (
     <>

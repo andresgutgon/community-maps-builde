@@ -3,10 +3,12 @@ import dynamic from 'next/dynamic'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import type { Category } from '@maps/types/index'
+import LoadingCode from '@maps/components/LoadingCode'
 import { useMapData } from '@maps/components/CommunityProvider'
 import Button, { Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 import Dialog from '@maps/components/Dialog'
+import CategoryChooser from '../CategoryChooser'
 
 type Props = {
   isOpen: boolean
@@ -17,7 +19,7 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
   const { config: { suggestPlaceForms }, categories } = useMapData()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const [category, setCategory] = useState<Category | null>(
-    categories.length === 1 ? categories[0] : categories[0]
+    categories.length === 1 ? categories[0] : null
   )
   const form = useForm({ entity: category, entityType: EntityForm.suggestPlace, isOpen })
   const [Form, setFormComponent] = useState(null)
@@ -27,7 +29,7 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
       if (!category) return
       const Component = await dynamic(
         () => import('../Form'),
-        { loading: () => <div>Loading...</div> }
+        { loading: () => <LoadingCode /> }
       )
       setFormComponent(Component)
     }
@@ -35,6 +37,7 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
   }, [category, Form])
   const intl = useIntl()
   const title = intl.formatMessage({ defaultMessage: 'Sugierenos un lugar', id: 'bPxeVs' })
+  const chooseCategoryDescription = intl.formatMessage({ defaultMessage: 'Elige una categoría', id: 'GKFYo5' })
   const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
 
   useEffect(() => {
@@ -52,12 +55,16 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : buttonLabel
   const disabled = !legalTermsAccepted || !form?.isValid || form?.submitting
+  const hasToChooseCategory = categories.length > 1 && !category
   return (
     <Dialog
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
       title={title}
-      description={form?.description || defaultDescription}
+      description={hasToChooseCategory
+        ? chooseCategoryDescription
+        : form?.description || defaultDescription
+      }
       onClose={closeFn}
       closeFn={closeFn}
       footer={
@@ -85,6 +92,9 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
         </>
       }
     >
+      <div className='my-6'>
+        <CategoryChooser setCategory={setCategory} selectedCategory={category} />
+      </div>
       {(Form !== null && category) ? (
         <Form
           form={form}

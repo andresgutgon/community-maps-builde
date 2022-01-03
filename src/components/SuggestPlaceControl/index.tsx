@@ -36,7 +36,7 @@ const SuggestPlaceControl = () => {
             {isModalLoading ? (
               <><FormattedMessage defaultMessage='Cargando' id="m9eXO9" />{'...'}</>
             ) : (
-              <FormattedMessage defaultMessage='Sugerir lugar' id='yq+tl0' />
+              <FormattedMessage defaultMessage='Sugiérenos un lugar' id="kUKcmK" />
             )}
           </Button>
         }

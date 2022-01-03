@@ -127,6 +127,12 @@
       "value": "Por estado"
     }
   ],
+  "GKFYo5": [
+    {
+      "type": 0,
+      "value": "Elige una categoría"
+    }
+  ],
   "GSkc36": [
     {
       "type": 0,
@@ -267,6 +273,12 @@
       "value": "Aportación al 100% completada"
     }
   ],
+  "Wceeld": [
+    {
+      "type": 0,
+      "value": "Cambiar categoría"
+    }
+  ],
   "ZNZWBc": [
     {
       "type": 0,
@@ -345,6 +357,12 @@
     {
       "type": 1,
       "value": "rate"
+    }
+  ],
+  "kUKcmK": [
+    {
+      "type": 0,
+      "value": "Sugiérenos un lugar"
     }
   ],
   "l4IlHe": [
