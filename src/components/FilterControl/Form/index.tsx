@@ -9,7 +9,7 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import Slider, { Color } from '@maps/components/Slider'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import useQueryString  from '@maps/components/CommunityProvider/useQueryString'
-
+import Fieldset from '@maps/components/Fieldset'
 import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
 import useFilters, { FINANCING_RANGES, FinancingState, ActiveState } from '../useFilters'
 import { FinancingLabels } from '../useFinancingLabels'
@@ -75,10 +75,7 @@ const FilterForm = ({
   }
   return (
     <div className={cn('overflow-y-auto max-h-[440px] xs:max-h-[500px] sm:max-h-[1000px]', styles.verticalLayout)}>
-      <fieldset className={styles.group.layout}>
-        <legend className={styles.group.label}>
-          <FormattedMessage defaultMessage='Por estado' id='GI//kj' />
-        </legend>
+      <Fieldset legend={<FormattedMessage defaultMessage='Por estado' id='GI//kj' />}>
         <ul className={styles.radio.wrap}>
           {activationStates.map((state: ActiveState) =>
             <li key={state}>
@@ -96,12 +93,9 @@ const FilterForm = ({
             </li>
           )}
         </ul>
-      </fieldset>
+      </Fieldset>
       {activeState === ActiveState.inactive ? (
-        <fieldset className={styles.group.layout}>
-          <legend className={styles.group.label}>
-            <FormattedMessage defaultMessage='Por porcentaje de aportación' id="TGWZPT" />
-          </legend>
+        <Fieldset legend={<FormattedMessage defaultMessage='Por porcentaje de aportación' id="TGWZPT" />}>
           <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
             {financingStates.map((state: FinancingState) => (
               <li className='h-full w-full flex' key={state}>
@@ -128,13 +122,10 @@ const FilterForm = ({
               </li>
             ))}
           </ul>
-        </fieldset>
+        </Fieldset>
       ): null}
       {categories.length > 1 ? (
-        <fieldset className={styles.group.layout}>
-          <legend className={styles.group.label}>
-            <FormattedMessage defaultMessage='Por categoría' id='7AAm0o' />
-          </legend>
+        <Fieldset legend={<FormattedMessage defaultMessage='Por categoría' id='7AAm0o' />}>
           <ul className='flex space-x-2'>
             {categories.map((category: CategoryType) => {
               const isSelected = categorySlugs.includes(category.slug)
@@ -169,7 +160,7 @@ const FilterForm = ({
               )
             })}
           </ul>
-        </fieldset>
+        </Fieldset>
       ) : null}
       <div className='sticky bottom-0 flex justify-end'>
         <Button

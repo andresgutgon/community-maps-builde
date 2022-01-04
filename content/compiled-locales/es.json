@@ -133,12 +133,6 @@
       "value": "Por estado"
     }
   ],
-  "GKFYo5": [
-    {
-      "type": 0,
-      "value": "Elige una categoría"
-    }
-  ],
   "GSkc36": [
     {
       "type": 0,
@@ -161,6 +155,12 @@
     {
       "type": 0,
       "value": "Buscar una dirección"
+    }
+  ],
+  "K6pXDZ": [
+    {
+      "type": 0,
+      "value": "Categoría"
     }
   ],
   "Kdq+g3": [

@@ -57,7 +57,6 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
   }, [closeFn, onLoadingFinish, suggestPlaceForms])
 
   const title = intl.formatMessage({ defaultMessage: 'Sugierenos un lugar', id: 'bPxeVs' })
-  const chooseCategoryDescription = intl.formatMessage({ defaultMessage: 'Elige una categoría', id: 'GKFYo5' })
   const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
   const defaultButtonLabel = intl.formatMessage({ id: 'yq+tl0', defaultMessage: 'Sugerir lugar' })
   const buttonLabel = form?.formButtonLabel || defaultButtonLabel
@@ -65,7 +64,6 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : buttonLabel
   const disabled = !form?.isValid || form?.submitting
-  const hasToChooseCategory = categories.length > 1 && !category
   const onClose = () => {
     setCategory(null)
     closeFn()
@@ -77,15 +75,12 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
       title={title}
-      description={hasToChooseCategory
-        ? chooseCategoryDescription
-        : form?.description || defaultDescription
-      }
+      description={form?.description || defaultDescription}
       onClose={onClose}
       closeFn={onClose}
       footer={
         <>
-          {showForm ? (
+          {(category && showForm) ? (
             <Button
               disabled={disabled}
               type={ButtonType.submit}
@@ -116,9 +111,7 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
       />
       {showForm ? (
         <>
-          <div className='mb-6'>
-            <CategoryChooser setCategory={setCategory} selectedCategory={category} />
-          </div>
+          <CategoryChooser setCategory={setCategory} selectedCategory={category} />
           {(Form !== null && category) ? (
             <>
               <Form form={form} />

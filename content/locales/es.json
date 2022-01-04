@@ -56,9 +56,6 @@
   "GI//kj": {
     "defaultMessage": "Por estado"
   },
-  "GKFYo5": {
-    "defaultMessage": "Elige una categoría"
-  },
   "GSkc36": {
     "defaultMessage": "Lugares activos"
   },
@@ -70,6 +67,9 @@
   },
   "IVA/Y9": {
     "defaultMessage": "Buscar una dirección"
+  },
+  "K6pXDZ": {
+    "defaultMessage": "Categoría"
   },
   "Kdq+g3": {
     "defaultMessage": "Cerrar filtros"
