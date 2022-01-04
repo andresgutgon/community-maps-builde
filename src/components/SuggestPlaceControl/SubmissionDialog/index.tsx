@@ -74,8 +74,8 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
       onSubmit={form.onSubmit}
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
-      title={title}
-      description={form?.description || defaultDescription}
+      title={showForm ? title : null}
+      description={showForm ? form?.description || defaultDescription : null}
       onClose={onClose}
       closeFn={onClose}
       footer={
