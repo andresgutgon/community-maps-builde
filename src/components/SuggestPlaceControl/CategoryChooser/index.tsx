@@ -13,11 +13,10 @@ import type { Category } from '@maps/types/index'
 
 type CategoryItemProps = {
   isSelected?: boolean,
-  isLast?: boolean,
   category: Category,
   right?: ReactNode
 }
-const CategoryItem = ({ isLast = false, isSelected = false, category, right }: CategoryItemProps) => {
+const CategoryItem = ({ isSelected = false, category, right }: CategoryItemProps) => {
   const styles = useStyles()
   return (
     <label
@@ -31,7 +30,7 @@ const CategoryItem = ({ isLast = false, isSelected = false, category, right }: C
         )
       }
     >
-      <div className='flex items-center'>
+      <div className='flex items-center sm:h-full'>
         <div className='flex-none'>
           <Marker
             isSelected
@@ -57,9 +56,6 @@ const CategoryItem = ({ isLast = false, isSelected = false, category, right }: C
         </div>
       </div>
       {right}
-      {(!isLast && !isSelected) ? (
-        <div className='h-px mt-4 w-full sm:hidden bg-gray-200' />
-      ) : null}
     </label>
   )
 }
@@ -97,7 +93,10 @@ const CategoryChooser = ({ selectedCategory, setCategory }) => {
         <ul className='grid sm:grid-cols-2 gap-2'>
           {categories.map((category: Category, index: number) =>
             <li key={category.slug} className='cursor-pointer' onClick={() => setCategory(category)}>
-              <CategoryItem category={category} isLast={index === categories.length - 1} />
+              <CategoryItem category={category} />
+              {index !== categories.length - 1 ? (
+                <div className='h-px mb-1 w-full sm:hidden bg-gray-100' />
+              ) : null}
             </li>
           )}
         </ul>

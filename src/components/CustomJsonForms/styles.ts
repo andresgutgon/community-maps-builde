@@ -23,7 +23,7 @@ export const formStyles = {
     },
     {
       name: 'control',
-      classNames: ['hidden-attribute flex flex-col w-full space-y-2']
+      classNames: ['hidden-attribute flex flex-col w-full space-y-1']
     },
     {
       name: 'control.label',
@@ -51,7 +51,7 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['w-full mt-2 space-y-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
+      classNames: ['w-full mt-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
     },
     {
       name: 'group.label',
