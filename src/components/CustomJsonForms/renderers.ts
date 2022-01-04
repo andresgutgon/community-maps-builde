@@ -2,8 +2,7 @@ import { vanillaRenderers } from '@jsonforms/vanilla-renderers'
 
 // Our custom renderers
 import PricingRatesInput, { pricingRatesTester } from './Renderers/controls/PricingRatesInput'
-
-export const CUSTOM_RENDERERS_PREFIX = 'coopdevs'
+import AddressInput, { addressTester } from './Renderers/controls/AddressInput'
 
 /**
  * We try to use as much as possible the renderers JSONforsm offer:
@@ -16,6 +15,7 @@ export const CUSTOM_RENDERERS_PREFIX = 'coopdevs'
  */
 const renderers = [
   ...vanillaRenderers,
+  { tester: addressTester, renderer: AddressInput },
   { tester: pricingRatesTester, renderer: PricingRatesInput }
 ]
 

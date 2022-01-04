@@ -17,7 +17,6 @@ const Form = ({ form }: Props) => {
         schema={form.jsonSchema}
         uischema={form.uiSchema}
         data={form.data}
-        config={{ showUnfocusedDescription: true }}
         renderers={renderers}
         cells={vanillaCells}
         onChange={form.onChange}

@@ -2,7 +2,7 @@
   "suggest_place_generic": {
     "slug": "suggest_place_generic",
     "formButtonLabel": "Sugerir Lugar",
-    "description": "No trobes cap vehicle elèctric al teu barri o municipi? Propon una nueva ubicación",
+    "description": "Sugierenos un lugar",
     "jsonSchema": {
       "type":"object",
       "properties":{
@@ -34,21 +34,36 @@
   },
   "van": {
     "slug": "van",
-    "formButtonLabel": "Sugerir Lugar",
-    "description": "No trobes cap vehicle elèctric al teu barri o municipi? Propon una nueva ubicación",
+    "formButtonLabel": "Sugerir un lugar",
+    "description": "Sugierenos un lugar para Furgonetas",
     "jsonSchema": {
       "type":"object",
       "properties":{
+        "suggestedAddress": {
+          "type": "object",
+          "geoAddress": true,
+          "properties": {
+            "address": { "type": "string" },
+            "latitude": { "type": "string" },
+            "longitude": { "type": "string" }
+          },
+          "required": ["latitude", "longitude"]
+        },
         "email":{
           "type":"string",
           "format": "email"
         }
       },
-      "required": ["email"]
+      "required": ["email", "suggestedAddress"]
     },
     "uiSchema": {
       "type":"VerticalLayout",
       "elements":[
+        {
+          "type":"Control",
+          "scope":"#/properties/suggestedAddress",
+          "label":"Dirección del lugar"
+        },
         {
           "type":"Control",
           "scope":"#/properties/email",
