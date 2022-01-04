@@ -4,10 +4,11 @@ import { XCircleIcon } from '@heroicons/react/outline'
 type Props = { message: string; show: boolean }
 const ErrorMessage = ({ show, message }: Props) => {
   const ref = useRef<HTMLDivElement>()
+  const forceScrollOnRender = +new Date()
   useEffect(() => {
     if (!ref?.current) return
     ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, [])
+  }, [forceScrollOnRender])
 
   if (!show) return null
 

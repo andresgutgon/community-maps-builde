@@ -11,7 +11,6 @@ const formSubmit = async (request: NextApiRequest, response: NextApiResponse) =>
   const { slug } = request.query
   const slugString = slug.toString()
   const form = forms[slugString] || suggestPlaceForms[slugString]
-  console.log('FORM', form)
   const schrodingerSuccess = [!!form, false][Math.floor(Math.random() * 2)]
   const serverResponse: FakeResponse = request.method === 'POST'
     ? (

@@ -6,8 +6,9 @@ import type { Category } from '@maps/types/index'
 import LoadingCode from '@maps/components/LoadingCode'
 import { useMapData } from '@maps/components/CommunityProvider'
 import Button, { Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
-import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { EntityForm, useErrorMessage, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 import Dialog from '@maps/components/Dialog'
+import LegalCheck from '@maps/components/LegalCheck'
 import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
 import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
 
@@ -25,7 +26,13 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
   const [category, setCategory] = useState<Category | null>(
     categories.length === 1 ? categories[0] : null
   )
-  const form = useForm({ entity: category, entityType: EntityForm.suggestPlace, isOpen })
+  const form = useForm({
+    entity: category,
+    entityType: EntityForm.suggestPlace,
+    isOpen,
+    extraData: { legalTermsAccepted }
+  })
+  const error = useErrorMessage({ form })
   const [Form, setFormComponent] = useState(null)
   useEffect(() => {
     if (Form || !category) return
@@ -49,7 +56,6 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
     closeFn()
   }, [closeFn, onLoadingFinish, suggestPlaceForms])
 
-  const defaultError = intl.formatMessage({ defaultMessage: 'Hubo un error al enviar la información', id: 'gNB19l' })
   const title = intl.formatMessage({ defaultMessage: 'Sugierenos un lugar', id: 'bPxeVs' })
   const chooseCategoryDescription = intl.formatMessage({ defaultMessage: 'Elige una categoría', id: 'GKFYo5' })
   const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
@@ -58,7 +64,7 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
   const submit = form.submitting
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : buttonLabel
-  const disabled = !legalTermsAccepted || !form?.isValid || form?.submitting
+  const disabled = !form?.isValid || form?.submitting
   const hasToChooseCategory = categories.length > 1 && !category
   const onClose = () => {
     setCategory(null)
@@ -103,11 +109,7 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
         </>
       }
     >
-      <ErrorMessage
-        key={form.submitting.toString()}
-        show={form?.submitResponse?.ok === false}
-        message={form?.submitResponse?.message || defaultError}
-      />
+      <ErrorMessage show={error.showError} message={error.message} />
       <SuccessMessage
         show={!!form?.submitResponse?.ok}
         message={form?.submitResponse?.message}
@@ -118,12 +120,14 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
             <CategoryChooser setCategory={setCategory} selectedCategory={category} />
           </div>
           {(Form !== null && category) ? (
-            <Form
-              form={form}
-              key={category.slug}
-              legalTermsAccepted={legalTermsAccepted}
-              setLegalTermsAccepted={setLegalTermsAccepted}
-            />
+            <>
+              <Form form={form} />
+              <LegalCheck
+                error={error.message}
+                checked={legalTermsAccepted}
+                onCheck={(accepted: boolean) => setLegalTermsAccepted(accepted)}
+              />
+            </>
           ) : null}
         </>
       ) : null}

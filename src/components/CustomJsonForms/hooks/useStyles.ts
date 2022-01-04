@@ -34,7 +34,10 @@ const useStyles = (): ReturnType => {
     ].join(' ')
   ).current
   const descriptionError = useRef(
-    formStyles.styles.find(style => style.name === 'control.validation.error').classNames.join(' ')
+    [
+      ...formStyles.styles.find(style => style.name === 'control.validation').classNames,
+      ...formStyles.styles.find(style => style.name === 'control.validation.error').classNames
+    ].join(' ')
   ).current
   const input = useRef(
     formStyles.styles.find(style => style.name === 'control.input').classNames.join(' ')

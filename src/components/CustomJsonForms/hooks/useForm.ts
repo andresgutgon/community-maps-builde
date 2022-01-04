@@ -1,10 +1,12 @@
 import { useRef,useMemo, useEffect, useState } from 'react'
+import { useIntl } from 'react-intl'
 import { ValidationMode, JsonFormsCore } from '@jsonforms/core'
 
 import type { Form, JsonSchema, UIJsonFormSchema, Config, Category, Place } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import { useTranslateError, TranslateErrorFn } from './useTranslateError'
 import { useTranslate, TranslateFn } from './useTranslate'
+import { MUST_ACCEPT_TERMS } from '@maps/components/LegalCheck'
 
 export enum EntityForm { place = 'place', suggestPlace = 'suggestPlace' }
 type EntityType = Category | Place
@@ -25,12 +27,29 @@ export const useGetForm = ({ entityType, entity }: UseGetFormProps): Form | null
   )
 }
 
+type UseErrorMessage = { form: FormReturnType | null }
+type UserErrorMessageReturnType = { message: null | string, showError: boolean }
+export const useErrorMessage = ({ form }: UseErrorMessage): UserErrorMessageReturnType => {
+  const intl = useIntl()
+  const error = form?.submitResponse?.message
+
+  if (error === MUST_ACCEPT_TERMS) return { showError: false, message: error }
+
+  const defaultError = intl.formatMessage({ defaultMessage: 'Hubo un error al enviar la información', id: 'gNB19l' })
+  const message = error || defaultError
+  return {
+    showError: form?.submitResponse?.ok === false,
+    message
+  }
+}
+
 const showValidationMode = 'ValidateAndShow' as ValidationMode
 const noValidationMode = 'NoValidation' as ValidationMode
 type Props = {
   entityType: EntityForm
   entity: Category | Place | null
-  isOpen: boolean
+  isOpen: boolean,
+  extraData: { legalTermsAccepted: boolean }
 }
 type SubmitResponse = { ok: boolean; message: string }
 type OnChangeFn = (jsonForm: JsonFormsCore) => void
@@ -52,7 +71,10 @@ export type FormReturnType = {
     translate: TranslateFn
   }
 }
-export const useForm = ({ entity, entityType, isOpen }: Props): FormReturnType | null => {
+export const useForm = ({
+  entity, entityType, isOpen,
+  extraData: { legalTermsAccepted },
+}: Props): FormReturnType | null => {
   const { community } = useMapData()
   const form = useGetForm({ entityType, entity })
   const [submitting, setSubmitting] = useState<boolean>(false)
@@ -110,7 +132,7 @@ export const useForm = ({ entity, entityType, isOpen }: Props): FormReturnType |
       `/api/${community}/maps/forms/${form.slug}`,
       {
         method: 'POST',
-        body: JSON.stringify(data)
+        body: JSON.stringify({...data, legalTermsAccepted })
       }
     )
     const responseData = await response.json()

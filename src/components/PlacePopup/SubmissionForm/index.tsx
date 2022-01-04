@@ -12,7 +12,7 @@ import type { Place as PlaceType } from '@maps/types/index'
 import { formStyles } from '@maps/components/CustomJsonForms/styles'
 import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
 import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
-import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { EntityForm, useErrorMessage, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 
 type Props = {
   isOpen: boolean
@@ -23,8 +23,13 @@ type Props = {
 export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinish }: Props) {
   const intl = useIntl()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
-  const form = useForm({ entity: place, entityType: EntityForm.place, isOpen })
-
+  const form = useForm({
+    entity: place,
+    entityType: EntityForm.place,
+    isOpen,
+    extraData: { legalTermsAccepted }
+  })
+  const error = useErrorMessage({ form })
   useEffect(() => {
     if (form) return
     onLoadingFinish()
@@ -33,14 +38,13 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
 
   if (!form) return null
 
-  const defaultError = intl.formatMessage({ defaultMessage: 'Hubo un error al enviar la información', id: 'gNB19l' })
   const defaultButtonLabel = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
   const buttonLabel = form.formButtonLabel || defaultButtonLabel
   const submit = form.submitting
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : buttonLabel
   const showForm = !form?.submitResponse?.ok
-  const disabled = !legalTermsAccepted || !form.isValid || form.submitting
+  const disabled = !form.isValid || form.submitting
   return (
     <Dialog
       onSubmit={form.onSubmit}
@@ -76,11 +80,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
         </>
       }
     >
-      <ErrorMessage
-        key={form.submitting.toString()}
-        show={form?.submitResponse?.ok === false}
-        message={form?.submitResponse?.message || defaultError}
-      />
+      <ErrorMessage show={error.showError} message={error.message} />
       <SuccessMessage
         show={!!form?.submitResponse?.ok}
         message={form?.submitResponse?.message}
@@ -101,6 +101,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
             />
           </JsonFormsStyleContext.Provider>
           <LegalCheck
+            error={error.message}
             checked={legalTermsAccepted}
             onCheck={(accepted: boolean) => setLegalTermsAccepted(accepted)}
           />
