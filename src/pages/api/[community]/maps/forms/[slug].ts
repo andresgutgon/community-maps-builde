@@ -5,6 +5,7 @@ import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerTok
 
 const formSubmit = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
   const { slug } = request.query
+  console.log('HOLA')
   const serverResponse = await fetch(
     `${communityHost}/maps/forms/${slug}`,
     {

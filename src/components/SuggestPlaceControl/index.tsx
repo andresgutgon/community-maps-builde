@@ -41,11 +41,13 @@ const SuggestPlaceControl = () => {
           </Button>
         }
       />
-      <SubmissionDialog
-        isOpen={isOpen}
-        closeFn={() => setModal(false)}
-        onLoadingFinish={() => setModalLoading(false)}
-      />
+      {isOpen ? (
+        <SubmissionDialog
+          isOpen={isOpen}
+          closeFn={() => setModal(false)}
+          onLoadingFinish={() => setModalLoading(false)}
+        />
+      ) : null}
     </ReactControl>
   )
 }

@@ -31,6 +31,31 @@
         }
       ]
     }
+  },
+  "van": {
+    "slug": "van",
+    "formButtonLabel": "Sugerir Lugar",
+    "description": "No trobes cap vehicle elèctric al teu barri o municipi? Propon una nueva ubicación",
+    "jsonSchema": {
+      "type":"object",
+      "properties":{
+        "email":{
+          "type":"string",
+          "format": "email"
+        }
+      },
+      "required": ["email"]
+    },
+    "uiSchema": {
+      "type":"VerticalLayout",
+      "elements":[
+        {
+          "type":"Control",
+          "scope":"#/properties/email",
+          "label":"Email"
+        }
+      ]
+    }
   }
 }
 

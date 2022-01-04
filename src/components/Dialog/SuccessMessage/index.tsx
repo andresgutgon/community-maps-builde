@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { CheckIcon } from '@heroicons/react/outline'
 import { Transition } from '@headlessui/react'
 
-type Props = { message: string, show: boolean }
+type Props = { message: null | string, show: boolean }
 const SuccessMessage = ({ show, message }: Props) => {
   return (
     <Transition.Root show={show}>
@@ -23,14 +23,16 @@ const SuccessMessage = ({ show, message }: Props) => {
               <CheckIcon className="h-10 w-10 text-green-600" aria-hidden="true" />
             </div>
           </Transition.Child>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 translate-x-10"
-            enterTo="opacity-100 translate-x-0"
-          >
-            <span className='text-lg text-center'>{message}</span>
-          </Transition.Child>
+          {!!message ? (
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-x-10"
+              enterTo="opacity-100 translate-x-0"
+            >
+              <span className='text-lg text-center'>{message}</span>
+            </Transition.Child>
+          ) : null}
         </div>
       </Transition.Child>
     </Transition.Root>

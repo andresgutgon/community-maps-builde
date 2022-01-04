@@ -14,7 +14,6 @@ import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
 import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
 import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 
-type translatableJsonSchema = JsonSchema & { translations?: Record<string, string> }
 type Props = {
   isOpen: boolean
   place: PlaceType | null
@@ -34,6 +33,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
 
   if (!form) return null
 
+  const defaultError = intl.formatMessage({ defaultMessage: 'Hubo un error al enviar la información', id: 'gNB19l' })
   const defaultButtonLabel = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
   const buttonLabel = form.formButtonLabel || defaultButtonLabel
   const submit = form.submitting
@@ -76,11 +76,13 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
         </>
       }
     >
-      {(form?.submitResponse?.ok === false && form?.submitResponse?.message) ? (
-        <ErrorMessage key={form.submitting.toString()} message={'Error in the server'} />
-      ) : null}
+      <ErrorMessage
+        key={form.submitting.toString()}
+        show={form?.submitResponse?.ok === false}
+        message={form?.submitResponse?.message || defaultError}
+      />
       <SuccessMessage
-        show={!!form?.submitResponse?.ok && !!form?.submitResponse?.message}
+        show={!!form?.submitResponse?.ok}
         message={form?.submitResponse?.message}
       />
       {showForm ? (
@@ -95,28 +97,13 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
               cells={vanillaCells}
               onChange={form.onChange}
               validationMode={form.validationMode}
-              i18n={{
-                translateError: form.translateError,
-                translate: (id: string, defaultMessage: string): string => {
-                  const parts = id?.split('.')
-                  if (!parts) return defaultMessage
-
-                  const propertyKey = parts[0]
-
-                  if (!propertyKey) return defaultMessage
-
-                  const key = Object.keys(form.jsonSchema.properties).find(
-                    (propKey: string) => propKey === propertyKey
-                  )
-                  if (!key) return defaultMessage
-                  const translations = (form.jsonSchema.properties[key] as translatableJsonSchema)?.translations || {}
-
-                  return translations[parts[1]] || defaultMessage
-                }
-              }}
+              i18n={form.i18n}
             />
           </JsonFormsStyleContext.Provider>
-          <LegalCheck onCheck={(accepted: boolean) => setLegalTermsAccepted(accepted)} />
+          <LegalCheck
+            checked={legalTermsAccepted}
+            onCheck={(accepted: boolean) => setLegalTermsAccepted(accepted)}
+          />
         </>
       ) : null}
     </Dialog>

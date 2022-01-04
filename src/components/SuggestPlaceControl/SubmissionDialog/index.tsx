@@ -8,6 +8,9 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import Button, { Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 import Dialog from '@maps/components/Dialog'
+import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
+import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
+
 import CategoryChooser from '../CategoryChooser'
 
 type Props = {
@@ -16,6 +19,7 @@ type Props = {
   onLoadingFinish: () => void
 }
 export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: Props) {
+  const intl = useIntl()
   const { config: { suggestPlaceForms }, categories } = useMapData()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const [category, setCategory] = useState<Category | null>(
@@ -35,10 +39,6 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
     }
     loadComponent()
   }, [category, Form])
-  const intl = useIntl()
-  const title = intl.formatMessage({ defaultMessage: 'Sugierenos un lugar', id: 'bPxeVs' })
-  const chooseCategoryDescription = intl.formatMessage({ defaultMessage: 'Elige una categoría', id: 'GKFYo5' })
-  const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
 
   useEffect(() => {
     // If not passed config for any suggest form we close this dialog
@@ -49,15 +49,25 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
     closeFn()
   }, [closeFn, onLoadingFinish, suggestPlaceForms])
 
+  const defaultError = intl.formatMessage({ defaultMessage: 'Hubo un error al enviar la información', id: 'gNB19l' })
+  const title = intl.formatMessage({ defaultMessage: 'Sugierenos un lugar', id: 'bPxeVs' })
+  const chooseCategoryDescription = intl.formatMessage({ defaultMessage: 'Elige una categoría', id: 'GKFYo5' })
+  const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
   const defaultButtonLabel = intl.formatMessage({ id: 'yq+tl0', defaultMessage: 'Sugerir lugar' })
   const buttonLabel = form?.formButtonLabel || defaultButtonLabel
-  const submit = false
+  const submit = form.submitting
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : buttonLabel
   const disabled = !legalTermsAccepted || !form?.isValid || form?.submitting
   const hasToChooseCategory = categories.length > 1 && !category
+  const onClose = () => {
+    setCategory(null)
+    closeFn()
+  }
+  const showForm = !form?.submitResponse?.ok
   return (
     <Dialog
+      onSubmit={form.onSubmit}
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
       title={title}
@@ -65,11 +75,11 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
         ? chooseCategoryDescription
         : form?.description || defaultDescription
       }
-      onClose={closeFn}
-      closeFn={closeFn}
+      onClose={onClose}
+      closeFn={onClose}
       footer={
         <>
-          {form ? (
+          {showForm ? (
             <Button
               disabled={disabled}
               type={ButtonType.submit}
@@ -78,9 +88,10 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
             >
               {submit}
             </Button>
-          ): null}
-          {form ? (
+          ) : null}
+          {showForm ? (
             <Button
+              disabled={form.submitting}
               fullWidth
               outline
               style={ButtonStyles.secondary}
@@ -88,19 +99,33 @@ export default function SubmissionDialog ({ isOpen, closeFn, onLoadingFinish }: 
             >
               <FormattedMessage defaultMessage='Cancelar' id='nZLeaQ' />
             </Button>
-          ): null}
+          ) : null}
         </>
       }
     >
-      <div className='my-6'>
-        <CategoryChooser setCategory={setCategory} selectedCategory={category} />
-      </div>
-      {(Form !== null && category) ? (
-        <Form
-          form={form}
-          key={category.slug}
-          setLegalTermsAccepted={setLegalTermsAccepted}
-        />
+      <ErrorMessage
+        key={form.submitting.toString()}
+        show={form?.submitResponse?.ok === false}
+        message={form?.submitResponse?.message || defaultError}
+      />
+      <SuccessMessage
+        show={!!form?.submitResponse?.ok}
+        message={form?.submitResponse?.message}
+      />
+      {showForm ? (
+        <>
+          <div className='mb-6'>
+            <CategoryChooser setCategory={setCategory} selectedCategory={category} />
+          </div>
+          {(Form !== null && category) ? (
+            <Form
+              form={form}
+              key={category.slug}
+              legalTermsAccepted={legalTermsAccepted}
+              setLegalTermsAccepted={setLegalTermsAccepted}
+            />
+          ) : null}
+        </>
       ) : null}
     </Dialog>
   )

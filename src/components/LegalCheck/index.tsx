@@ -8,22 +8,19 @@ type LegalLinkProps = { href: string; text: string }
 const LegalLink = ({ href, text }) =>
   <a href={href} className='underline' target='_blank' rel='noreferrer'>{text}</a>
 
-type Props = { onCheck: (checked: boolean) => void }
-const LegalCheck = ({ onCheck }) => {
+type Props = { checked: boolean; onCheck: (checked: boolean) => void }
+const LegalCheck = ({ checked, onCheck }) => {
   const styles = useStyles()
   const intl = useIntl()
   const { config: { legal } } = useMapData()
   const hasALink = !!legal?.privacyLink || !!legal?.cookiesLink
-  const [checked, setChecked] = useState<boolean>(false)
   const privacyLinkText = intl.formatMessage({ defaultMessage: 'Política de privacidad', id: 'l4IlHe' })
   const cookiesLinkText = intl.formatMessage({ defaultMessage: 'Política de cookies', id: 'oxv0hl' })
   useEffect(() => {
     if (hasALink) return
-    setChecked(true)
     onCheck(true)
   }, [onCheck, hasALink])
   const onChange = () => {
-    setChecked(!checked)
     onCheck(!checked)
   }
 

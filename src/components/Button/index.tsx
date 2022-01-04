@@ -37,8 +37,6 @@ type Props = {
 const Button = forwardRef<HTMLButtonElement, Props>(function Button (
   { children, style, onClick, outline, disabled, type, size, fullWidth }, ref
 ) {
-  // FIXME: Unhardcode branded color and make a theme that use the config
-  // from Odoo servers
   if (type === Types.button && !onClick) {
     throw new Error('A button has type "button" but it does not have "onClick" prop')
   }
@@ -61,7 +59,7 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
           'w-full sm:w-auto': fullWidth,
           'bg-brand-button text-brand-button hover:text-brand-button-hover hover:bg-brand-button-hover border-transparent': !outline && Styles.branded === style,
           'bg-transparent border-brand-base/50 hover:border-brand-base text-brand-button-inverted hover:bg-brand-fill hover:text-brand-button-inverted-hover': outline && Styles.branded === style,
-          'bg-white text-gray-700 hover:bg-gray-50': outline && Styles.secondary === style,
+          'bg-white text-gray-700 border-gray-300 hover:bg-gray-50': outline && Styles.secondary === style,
           'bg-white text-gray-800 hover:bg-gray-50': outline && Styles.primary === style,
           'bg-gray-800 text-white hover:bg-gray-900': !outline && Styles.primary === style,
           'bg-transparent text-gray-700 border-none': Styles.transparent === style,

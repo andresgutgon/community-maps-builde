@@ -17,7 +17,7 @@ type CategoryItemProps = {
 const CategoryItem = ({ isSelected = false, category, right }: CategoryItemProps) => {
   const styles = useStyles()
   return (
-    <div className={cn('flex items-center justify-between p-2 border border-transparent h-full hover:border-gray-600 hover:shadow-sm rounded', { 'shadow-sm border-gray-600': isSelected })}>
+    <div className={cn('flex items-center space-x-2 justify-between p-2 border border-transparent h-full hover:border-gray-600 hover:shadow-sm rounded', { 'shadow-sm border-gray-600': isSelected })}>
       <div className='flex items-center'>
         <div className='flex-none'>
           <Marker

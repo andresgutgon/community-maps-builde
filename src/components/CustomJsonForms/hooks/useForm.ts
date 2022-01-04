@@ -3,24 +3,26 @@ import { ValidationMode, JsonFormsCore } from '@jsonforms/core'
 
 import type { Form, JsonSchema, UIJsonFormSchema, Config, Category, Place } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
-import { useTranslateError } from './useTranslateError'
-import type { TranslateErrorFn } from './useTranslateError'
+import { useTranslateError, TranslateErrorFn } from './useTranslateError'
+import { useTranslate, TranslateFn } from './useTranslate'
 
 export enum EntityForm { place = 'place', suggestPlace = 'suggestPlace' }
-type UseGetFormProps = { entityType: EntityForm, entity: Category | Place | null }
+type EntityType = Category | Place
+type UseGetFormProps = { entityType: EntityForm, entity: EntityType | null }
 export const useGetForm = ({ entityType, entity }: UseGetFormProps): Form | null => {
-  const { config } = useMapData()
-  return useRef(
-    entityType === EntityForm.place
-      ? config.forms[(entity as Place)?.form_slug]
-      : entityType === EntityForm.suggestPlace
-        ? Object.keys(config.suggestPlaceForms).length > 0
-          ? (
-            config.suggestPlaceForms[entity?.slug]
-            || config.suggestPlaceForms['suggest_place_generic']
-          ) : null
-        : null
-  ).current
+  const { config: { forms, suggestPlaceForms }} = useMapData()
+  const genericSuggestForm = (suggestPlaceForms || {})['suggest_place_generic']
+  return useMemo(
+    () => {
+      if (entityType === EntityForm.place) {
+        return forms[(entity as Place)?.form_slug]
+      } else if (!!genericSuggestForm && entityType === EntityForm.suggestPlace) {
+        return suggestPlaceForms[entity?.slug] || genericSuggestForm
+      }
+      return null
+    },
+    [entity, entityType, suggestPlaceForms, forms, genericSuggestForm]
+  )
 }
 
 const showValidationMode = 'ValidateAndShow' as ValidationMode
@@ -44,7 +46,11 @@ export type FormReturnType = {
   onChange: OnChangeFn,
   data: any,
   submitting: boolean,
-  submitResponse: null | SubmitResponse
+  submitResponse: null | SubmitResponse,
+  i18n: {
+    translateError: TranslateErrorFn,
+    translate: TranslateFn
+  }
 }
 export const useForm = ({ entity, entityType, isOpen }: Props): FormReturnType | null => {
   const { community } = useMapData()
@@ -55,8 +61,9 @@ export const useForm = ({ entity, entityType, isOpen }: Props): FormReturnType |
   const [errors, setErrors] = useState([])
   const [validationMode, setValidationMode] = useState<ValidationMode>(noValidationMode)
   const [isValid, setValid] = useState(false)
-  const translateError = useTranslateError()
   const jsonSchema = form?.jsonSchema
+  const translateError = useTranslateError()
+  const translate = useTranslate({ jsonSchema })
   const requiredFields = useMemo(() => jsonSchema?.required || [], [jsonSchema])
   const uiSchema = form?.uiSchema
 
@@ -122,7 +129,8 @@ export const useForm = ({ entity, entityType, isOpen }: Props): FormReturnType |
     onChange,
     validationMode,
     isValid,
-    data
+    data,
+    i18n: { translateError, translate }
   }
 }
 
