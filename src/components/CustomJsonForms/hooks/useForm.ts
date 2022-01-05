@@ -1,6 +1,6 @@
 import { useRef,useMemo, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
-import { ValidationMode, JsonFormsCore } from '@jsonforms/core'
+import type { ValidationMode, JsonFormsCore } from '@jsonforms/core'
 
 import type { Form, JsonSchema, UIJsonFormSchema, Config, Category, Place } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'

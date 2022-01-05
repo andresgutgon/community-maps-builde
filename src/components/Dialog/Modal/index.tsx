@@ -20,7 +20,7 @@ const ModalWrapper = forwardRef<
   HTMLDivElement | HTMLFormElement, ModalWrapperProps
 >(function ModalWrapper({ closeFn, onSubmit, children }, ref) {
   let props: ElementProps = {
-    className: 'inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-lg w-full'
+    className: 'inline-block align-bottom bg-white rounded-lg text-left shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-lg w-full'
   }
   props = onSubmit ? {
     ...props,
@@ -88,7 +88,7 @@ export default function Modal({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <ModalWrapper closeFn={closeFn} onSubmit={onSubmit}>
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="rounded-xl bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className={cn(
                     'text-center sm:mt-0 space-y-2 sm:text-left',

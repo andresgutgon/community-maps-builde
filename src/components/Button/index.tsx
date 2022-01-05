@@ -15,9 +15,9 @@ type SizeClasses = {
   text: string
 }
 const SIZES: Record<Size, SizeClasses> = {
-  sm: { padding: 'px-2 py-1 ', text: 'text-xs font-medium' },
-  md: { padding: 'px-4 py-2 ', text: 'text-base font-medium' },
-  none: { padding: 'p-1', text: 'text-base font-medium' }
+  sm: { padding: 'px-2 py-1 ', text: 'text-xs' },
+  md: { padding: 'px-4 py-1.5 ', text: 'text-base' },
+  none: { padding: 'p-1', text: 'text-base' }
 }
 const useSize = (size: Size): SizeClasses => {
   return SIZES[size]
@@ -50,11 +50,12 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
       onClick={onClick}
       className={
       cn(
-        'rounded ',
+        'rounded font-medium',
         'focus:outline-none focus:ring-2 focus:ring-offset-2',
         'focus:ring-gray-500', // Review when theming. Put the right ring color on branded style
         'disabled:text-opacity-80 disabled:cursor-default border',
-        padding, text,
+        padding,
+        text,
         {
           'w-full sm:w-auto': fullWidth,
           'bg-brand-button text-brand-button hover:text-brand-button-hover hover:bg-brand-button-hover border-transparent': !outline && Styles.branded === style,

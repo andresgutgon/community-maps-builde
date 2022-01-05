@@ -1,15 +1,19 @@
 import { SyntheticEvent, ChangeEvent, useState } from 'react'
 import cn from 'classnames'
+import { useIntl } from 'react-intl'
 import { FocusScope, useFocusManager } from '@react-aria/focus'
 import { useKeyboard } from '@react-aria/interactions'
 import { FormattedMessage } from 'react-intl'
 import { useMap, useMapEvents } from 'react-leaflet'
 
-import Button, { Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
-import type { NominatimResult, IGeocoder, GeocodingResult } from '@maps/components/SearchControl/Search/geocoders'
-import { CommonProps } from '@maps/components/SearchControl'
+import Button, { Size as ButtonSize, Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
+import type { NominatimResult, IGeocoder, GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import { GeocoderService } from '@maps/types/index'
+import { ResultsTopSpace, ResultsXSpace, useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
 import useGeocoder from './useGeocoder'
+
+const RESULTS_TOP: Record<ResultsTopSpace, string> = { sm: 'top-12', normal: 'top-14'}
+const RESULTS_X_SPACE: Record<ResultsXSpace, string> = { normal: 'sm:-left-2 sm:-right-2 ' }
 
 const cleanEmptyParts = (parts: Array<string | null>): null | string => {
   const partsWithContent = parts.filter(p => p)
@@ -86,15 +90,29 @@ const ResultItem = ({ onEsc, result, onClick }: ResultItemProps) => {
   )
 }
 
-type Props = CommonProps & { locale: string }
-const SearchControl = ({
-  locale,
-  placeholder,
-  buttonLabel,
-  formClasses,
-  inputClasses,
-  buttonProps,
-}: Props) => {
+type Props = {
+  locale: string,
+  buttonOutline?: boolean,
+  inputClasses?: string,
+  resultsTopSpace?: ResultsTopSpace
+  resultsXSpace?: ResultsXSpace | undefined
+  buttonStyle?: ButtonStyles
+}
+const SearchControl = ({ locale, resultsTopSpace, resultsXSpace, inputClasses: inputClassesProp, buttonStyle, buttonOutline }: Props) => {
+  const {
+    placeholder,
+    buttonLabel,
+    formClasses,
+    inputClasses,
+    buttonProps,
+    resultsListProps
+  } = useSearchInputProps({
+    buttonStyle,
+    inputClasses: inputClassesProp,
+    buttonOutline,
+    resultsTopSpace,
+    resultsXSpace
+  })
   const map = useMap()
   const [visible, setVisible] = useState(false)
   const [searching, setSearching] = useState(false)
@@ -108,9 +126,7 @@ const SearchControl = ({
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
   }
-  const onSubmit = async (event: SyntheticEvent) => {
-    event.preventDefault()
-
+  const onClickSearch = async () => {
     if (!search) return
 
     setSearching(true)
@@ -129,6 +145,8 @@ const SearchControl = ({
   const { keyboardProps } = useKeyboard({
     onKeyDown: (event) => {
       switch (event.key) {
+        case 'Enter':
+          onClickSearch()
         case 'Escape':
           setVisible(false)
           break
@@ -142,7 +160,7 @@ const SearchControl = ({
   const disabled = !search || searching
   return (
     <div className='relative'>
-      <form onSubmit={onSubmit} autoComplete="off" className={formClasses}>
+      <div className={formClasses}>
         <input
           {...keyboardProps}
           type='text'
@@ -154,17 +172,22 @@ const SearchControl = ({
           value={search}
         />
         <Button
+          outline={buttonProps.outline}
           disabled={disabled}
+          onClick={() => onClickSearch()}
           style={buttonProps.style}
+          size={buttonProps.size}
           type={buttonProps.type}
         >
           {buttonLabel}
         </Button>
-      </form>
+      </div>
       {visible && (
         <ul
           className={cn(
-            'rounded shadow py-1 absolute top-14 left-0 right-0 sm:-left-2 sm:-right-2 bg-white',
+            'rounded shadow py-1 absolute left-0 right-0 bg-white',
+            RESULTS_TOP[resultsListProps.top],
+            RESULTS_X_SPACE[resultsListProps.xSpace],
             { 'bg-white': results.length > 0, 'bg-gray-200': !results.length }
           )}
         >
