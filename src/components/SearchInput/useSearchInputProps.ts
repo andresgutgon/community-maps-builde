@@ -6,15 +6,13 @@ import { Rounded } from '@maps/components/Button/useBorderRadius'
 const DEFAULT_INPUT_CLASSES = 'flex-1 bg-transparent w-[170px] sm:w-[400px] border-none focus:outline-none focus:ring-0 py-1 sm:py-2 pl-1 placeholder-gray-500 placeholder-opacity-50'
 export enum ResultsTopSpace { sm = 'sm', normal = 'normal' }
 export enum ResultsXSpace { normal = 'normal' }
+export type ResutsListProps = { top: ResultsTopSpace, xSpace: ResultsXSpace | undefined }
 export type SearchInputProps = {
   placeholder: string,
   buttonLabel: string,
   formClasses: string,
   inputClasses: string,
-  resultsListProps: {
-    top: ResultsTopSpace,
-    xSpace: ResultsXSpace | undefined
-  },
+  resultsListProps: ResutsListProps,
   buttonProps: {
     withShadow: boolean,
     showFocus: boolean,
