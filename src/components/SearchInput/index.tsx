@@ -1,6 +1,6 @@
 import { useRef, ChangeEvent, useState } from 'react'
 import { useKeyboard } from '@react-aria/interactions'
-import { useMap, useMapEvents } from 'react-leaflet'
+import { useMapEvents } from 'react-leaflet'
 
 import Button, { Size as ButtonSize, Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
@@ -15,7 +15,12 @@ type AddressResult = {
   context: string | null
 }
 
-export type SearchInputProps = UseSearchProps & { locale: string }
+export type CommonSearchProps = UseSearchProps & {
+  locale: string
+}
+export type SearchInputProps = CommonSearchProps & {
+  onSearch: (result: GeocodingResult) => void
+}
 const SearchInput = ({
   locale,
   resultsTopSpace,
@@ -26,7 +31,8 @@ const SearchInput = ({
   buttonOutline,
   buttonRounded,
   buttonWithShadow,
-  buttonShowFocus
+  buttonShowFocus,
+  onSearch
 }: SearchInputProps) => {
   const {
     placeholder,
@@ -48,7 +54,6 @@ const SearchInput = ({
   })
   const firstResultRef = useRef(null)
   const [focused, setFocus] = useState(false)
-  const map = useMap()
   const [visible, setVisible] = useState(false)
   const [searching, setSearching] = useState(false)
   const geocoder = useGeocoder({ service: GeocoderService.nominatim, locale })
@@ -77,7 +82,7 @@ const SearchInput = ({
     setVisible(false)
     setResults([])
     setSearch('')
-    map.fitBounds(result.bbox)
+    onSearch(result)
   }
   const { keyboardProps } = useKeyboard({
     onKeyDown: (event) => {
@@ -88,10 +93,7 @@ const SearchInput = ({
           setVisible(false)
           break
         case 'ArrowDown':
-        case 'Tab':
-          if (!results.length) {
-            onClickSearch()
-          }
+          onClickSearch()
           setVisible(true)
           if (firstResultRef) {
             firstResultRef?.current?.focus()

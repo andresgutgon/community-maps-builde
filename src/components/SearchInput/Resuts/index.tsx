@@ -10,22 +10,24 @@ const RESULTS_TOP: Record<ResultsTopSpace, string> = { sm: 'top-12', normal: 'to
 const RESULTS_X_SPACE: Record<ResultsXSpace, string> = { normal: 'sm:-left-2 sm:-right-2 ' }
 
 const cleanEmptyParts = (parts: Array<string | null>): null | string => {
-  const partsWithContent = parts.filter(p => p)
+  const partsWithContent = parts.filter(p => p && p !== '(undefined)')
   if (!partsWithContent) return null
 
   return partsWithContent.join(' ')
 }
 
 const useResult = (result: GeocodingResult) => {
+  const name = result.name
   const address = result.properties['address'] || {}
-  const street = cleanEmptyParts([ address.building, address.road, address.building ])
-  const detail= cleanEmptyParts([ address.city, address.town, address.village, address.hamlet ])
-  const context = cleanEmptyParts([address.state, address.country])
-  if (!street && !detail && !context) {
-    return { street: result.name, detail: null, context: null }
+  const amenity = cleanEmptyParts([ address.amenity ])
+  const street = cleanEmptyParts([ address.road, address.house_number, address.building ])
+  const city= cleanEmptyParts([ address.city, address.town, `(${address.postcode})`])
+  const country = cleanEmptyParts([address.state, address.country ])
+  if (!street && !city && !country) {
+    return { street: name, amenity: null, city: null, country: null }
   }
 
-  return { street, detail, context }
+  return { amenity, street, city: city || name, country }
 }
 
 type ResultItemProps = {
@@ -54,7 +56,7 @@ const ResultItem = forwardRef<HTMLButtonElement, ResultItemProps>(function Resul
         break;
     }
   }
-  const { street, detail, context } = resultParts
+  const { amenity, street, city, country } = resultParts
   return (
     <button
       ref={ref}
@@ -63,19 +65,24 @@ const ResultItem = forwardRef<HTMLButtonElement, ResultItemProps>(function Resul
       onKeyDown={onKeyDown}
     >
       <span className='flex flex-col text-left'>
-        <span className='text-sm text-gray-800'>{street}</span>
-        {detail && (
+        <span className='text-sm text-gray-800'>
+          {street}
+          {amenity ? (
+            <>&nbsp;(<strong className='text-xs text-gray-600 font-medium'>{amenity}</strong>)</>
+          ) : null}
+        </span>
+        {city && (
           <span
             className={cn({
               'text-xs text-gray-400': street,
               'text-sm text-gray-800': !street
             })}
           >
-            {detail}
+            {city}
           </span>
         )}
-        {context && (
-          <span className='text-xs  text-gray-400'>{context}</span>
+        {country && (
+          <span className='text-xs  text-gray-400'>{country}</span>
         )}
       </span>
     </button>

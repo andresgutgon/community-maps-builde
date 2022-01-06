@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useMap } from 'react-leaflet'
 
+import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import ReactControl from '@maps/components/ReactControl/index'
 import { ResultsTopSpace, ResultsXSpace,  useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
 import Button, { Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
@@ -32,6 +34,7 @@ const FakeSearch = ({ onClick, disabled = false }: FakeSearchProps) => {
 type Props = { locale: string }
 const SearchControl = ({ locale }: Props) => {
   const [Search, setSearch] = useState(null)
+  const map = useMap()
   const onClick = async () => {
     const Component = await dynamic(
       () => import('@maps/components/SearchInput/InMap'),
@@ -39,10 +42,13 @@ const SearchControl = ({ locale }: Props) => {
     )
     setSearch(Component)
   }
+  const onSearch = (result: GeocodingResult) => {
+    map.fitBounds(result.bbox)
+  }
   return (
     <ReactControl className='leaflet-search leaflet-expanded-control' position='topleft'>
       {Search ? (
-        <Search locale={locale} />
+        <Search locale={locale} onSearch={onSearch} />
       ): (
         <FakeSearch onClick={onClick} />
       )}

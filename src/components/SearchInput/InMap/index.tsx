@@ -1,6 +1,7 @@
 import { ResultsTopSpace, ResultsXSpace } from '@maps/components/SearchInput/useSearchInputProps'
 
 import Input, { SearchInputProps } from '../index'
+
 const SearchInputMap = (props: SearchInputProps) =>
   <Input
     {...props}

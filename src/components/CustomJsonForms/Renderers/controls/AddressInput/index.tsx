@@ -11,7 +11,7 @@ import Slider, { Color } from '@maps/components/Slider'
 import Label from '@maps/components/CustomJsonForms/components/Label'
 import Description from '@maps/components/CustomJsonForms/components/Description'
 import { ResultsTopSpace } from '@maps/components/SearchInput/useSearchInputProps'
-import SearchInput from '@maps/components/SearchInput/InForm'
+import SearchInput, { SearchResult } from '@maps/components/SearchInput/InForm'
 
 const isAddress = and(
   uiTypeIs('Control'),
@@ -42,8 +42,12 @@ const AddressInput = ({
   enabled
 }: Props) => {
   const { locale } = useRouter();
+
   if (!visible) return null
 
+  const onSearch = (result: SearchResult) => {
+    console.log('RESULT', result)
+  }
   return (
     <div className={classNames.wrapper}>
       <Label
@@ -53,7 +57,7 @@ const AddressInput = ({
         uischema={uischema}
         classNames={classNames}
       />
-      <SearchInput locale={locale} />
+      <SearchInput locale={locale} onSearch={onSearch}/>
       <Description
         errors={errors}
         uischema={uischema}
