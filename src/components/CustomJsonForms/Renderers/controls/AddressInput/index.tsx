@@ -7,6 +7,7 @@ import { rankWith, RankedTester, uiTypeIs, schemaMatches, schemaTypeIs, and, for
 import { withJsonFormsControlProps } from '@jsonforms/react'
 import { withVanillaControlProps, VanillaRendererProps } from '@jsonforms/vanilla-renderers'
 
+import { RoundedSize } from '@maps/components/Button/useBorderRadius'
 import { Format, Currency, fromCentsToFloat, toCentsFromFloat, useFormatValue } from '@maps/hooks/useFormatValue'
 import Slider, { Color } from '@maps/components/Slider'
 import Button, { Styles, Size } from '@maps/components/Button'
@@ -58,11 +59,15 @@ const AddressInput = ({
         classNames={classNames}
       />
       <SearchInput
+        inputButtonSeparation={false}
         locale={locale}
-        buttonOutline={true}
+        inputClasses={cn(styles.input, 'rounded-tr-none', 'rounded-br-none', 'border-r-0')}
         resultsTopSpace={ResultsTopSpace.sm}
+        buttonWithShadow
+        buttonShowFocus
+        buttonOutline
         buttonStyle={Styles.secondary}
-        inputClasses={styles.input}
+        buttonRounded={{ topLeft: RoundedSize.none, bottomLeft: RoundedSize.none }}
       />
       <Description
         errors={errors}

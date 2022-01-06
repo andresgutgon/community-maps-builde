@@ -1,6 +1,8 @@
 import { SyntheticEvent, forwardRef, ReactNode } from 'react'
 import cn from 'classnames'
 
+import useBorderRadius, { Rounded } from './useBorderRadius'
+
 export enum Styles {
   branded = 'branded',
   primary = 'primary',
@@ -24,19 +26,34 @@ const useSize = (size: Size): SizeClasses => {
 }
 
 type Props = {
-  style: Styles,
-  children: ReactNode,
-  size?: Size,
-  type?: Types,
-  fullWidth?: boolean,
-  disabled?: boolean,
-  outline?: boolean,
+  style: Styles
+  children: ReactNode
+  size?: Size
+  type?: Types
+  fullWidth?: boolean
+  disabled?: boolean
+  rounded?: Rounded
+  outline?: boolean
+  focused?: boolean
+  withShadow?: boolean
   onClick?: (event: SyntheticEvent) => void
 }
-
 const Button = forwardRef<HTMLButtonElement, Props>(function Button (
-  { children, style, onClick, outline, disabled, type, size, fullWidth }, ref
+  {
+    children,
+    style,
+    onClick,
+    outline,
+    disabled,
+    type,
+    size,
+    fullWidth,
+    rounded,
+    focused = false,
+    withShadow = false
+  }, ref
 ) {
+  const borderRadius = useBorderRadius({ rounded })
   if (type === Types.button && !onClick) {
     throw new Error('A button has type "button" but it does not have "onClick" prop')
   }
@@ -50,12 +67,15 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
       onClick={onClick}
       className={
       cn(
-        'rounded font-medium',
+        'font-medium',
         'focus:outline-none focus:ring-2 focus:ring-offset-2',
-        'focus:ring-gray-500', // Review when theming. Put the right ring color on branded style
+        'focus:ring-gray-500',
         'disabled:text-opacity-80 disabled:cursor-default border',
+        'disabled:bg-gray-200 disabled:bg-opacity-80 disabled:text-gray-600 hover:shadow-none',
+        rounded,
         padding,
         text,
+        borderRadius,
         {
           'w-full sm:w-auto': fullWidth,
           'bg-brand-button text-brand-button hover:text-brand-button-hover hover:bg-brand-button-hover border-transparent': !outline && Styles.branded === style,
@@ -65,7 +85,8 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
           'bg-gray-800 text-white hover:bg-gray-900': !outline && Styles.primary === style,
           'bg-transparent text-gray-700 border-none': Styles.transparent === style,
           'shadow-sm hover:shadow transition-shadow active:shadow-inner': !disabled && Styles.transparent !== style,
-          'disabled:bg-gray-200 disabled:bg-opacity-80 disabled:text-gray-600 hover:shadow-none': !outline
+          'shadow-sm': withShadow,
+          'border-gray-500': focused
         }
       )}
     >

@@ -9,7 +9,7 @@ import { useMap, useMapEvents } from 'react-leaflet'
 import Button, { Size as ButtonSize, Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
 import type { NominatimResult, IGeocoder, GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import { GeocoderService } from '@maps/types/index'
-import { ResultsTopSpace, ResultsXSpace, useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
+import { Props as UseSearchProps, ResultsTopSpace, ResultsXSpace, useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
 import useGeocoder from './useGeocoder'
 
 const RESULTS_TOP: Record<ResultsTopSpace, string> = { sm: 'top-12', normal: 'top-14'}
@@ -90,15 +90,21 @@ const ResultItem = ({ onEsc, result, onClick }: ResultItemProps) => {
   )
 }
 
-type Props = {
-  locale: string,
-  buttonOutline?: boolean,
-  inputClasses?: string,
-  resultsTopSpace?: ResultsTopSpace
-  resultsXSpace?: ResultsXSpace | undefined
-  buttonStyle?: ButtonStyles
+type Props = UseSearchProps & {
+  locale: string
 }
-const SearchControl = ({ locale, resultsTopSpace, resultsXSpace, inputClasses: inputClassesProp, buttonStyle, buttonOutline }: Props) => {
+const SearchControl = ({
+  locale,
+  resultsTopSpace,
+  resultsXSpace,
+  inputClasses: inputClassesProp,
+  buttonStyle,
+  inputButtonSeparation,
+  buttonOutline,
+  buttonRounded,
+  buttonWithShadow,
+  buttonShowFocus
+}: Props) => {
   const {
     placeholder,
     buttonLabel,
@@ -109,10 +115,15 @@ const SearchControl = ({ locale, resultsTopSpace, resultsXSpace, inputClasses: i
   } = useSearchInputProps({
     buttonStyle,
     inputClasses: inputClassesProp,
-    buttonOutline,
     resultsTopSpace,
-    resultsXSpace
+    resultsXSpace,
+    inputButtonSeparation,
+    buttonOutline,
+    buttonRounded,
+    buttonWithShadow,
+    buttonShowFocus
   })
+  const [focused, setFocus] = useState(false)
   const map = useMap()
   const [visible, setVisible] = useState(false)
   const [searching, setSearching] = useState(false)
@@ -158,6 +169,7 @@ const SearchControl = ({ locale, resultsTopSpace, resultsXSpace, inputClasses: i
     }
   })
   const disabled = !search || searching
+  console.log('rounded', buttonProps.rounded)
   return (
     <div className='relative'>
       <div className={formClasses}>
@@ -166,15 +178,20 @@ const SearchControl = ({ locale, resultsTopSpace, resultsXSpace, inputClasses: i
           type='text'
           autoFocus
           autoComplete='off'
+          value={search}
           className={inputClasses}
           placeholder={placeholder}
           onChange={onChange}
-          value={search}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
         />
         <Button
+          withShadow={buttonProps.withShadow}
+          focused={buttonProps.showFocus && focused}
           outline={buttonProps.outline}
           disabled={disabled}
           onClick={() => onClickSearch()}
+          rounded={buttonProps.rounded}
           style={buttonProps.style}
           size={buttonProps.size}
           type={buttonProps.type}
@@ -185,7 +202,7 @@ const SearchControl = ({ locale, resultsTopSpace, resultsXSpace, inputClasses: i
       {visible && (
         <ul
           className={cn(
-            'rounded shadow py-1 absolute left-0 right-0 bg-white',
+            'rounded border border-gray-300 shadow py-1 absolute left-0 right-0 bg-white',
             RESULTS_TOP[resultsListProps.top],
             RESULTS_X_SPACE[resultsListProps.xSpace],
             { 'bg-white': results.length > 0, 'bg-gray-200': !results.length }

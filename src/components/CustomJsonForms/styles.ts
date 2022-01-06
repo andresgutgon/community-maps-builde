@@ -31,11 +31,11 @@ export const formStyles = {
     },
     {
       name: 'control.input',
-      classNames: ['simulateNoNumber p-2 block w-full shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: ['simulateNoNumber p-2 block w-full shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
     },
     {
       name: 'control.select',
-      classNames: ['block w-full p-2 shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: ['block w-full p-2 shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
     },
     {
       name: 'control.validation',
