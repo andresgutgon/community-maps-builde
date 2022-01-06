@@ -48,8 +48,7 @@ const noValidationMode = 'NoValidation' as ValidationMode
 type Props = {
   entityType: EntityForm
   entity: Category | Place | null
-  isOpen: boolean,
-  extraData: { legalTermsAccepted: boolean }
+  isOpen: boolean
 }
 type SubmitResponse = { ok: boolean; message: string }
 type OnChangeFn = (jsonForm: JsonFormsCore) => void
@@ -71,10 +70,7 @@ export type FormReturnType = {
     translate: TranslateFn
   }
 }
-export const useForm = ({
-  entity, entityType, isOpen,
-  extraData: { legalTermsAccepted },
-}: Props): FormReturnType | null => {
+export const useForm = ({ entity, entityType, isOpen }: Props): FormReturnType | null => {
   const { community } = useMapData()
   const form = useGetForm({ entityType, entity })
   const [submitting, setSubmitting] = useState<boolean>(false)
@@ -132,7 +128,13 @@ export const useForm = ({
       `/api/${community}/maps/forms/${form.slug}`,
       {
         method: 'POST',
-        body: JSON.stringify({...data, legalTermsAccepted })
+        body: JSON.stringify({
+          type: entityType,
+          data: {
+            // TODO: Put category, address, legalTermsAccepted
+            ...data
+          }
+        })
       }
     )
     const responseData = await response.json()

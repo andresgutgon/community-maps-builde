@@ -1,4 +1,10 @@
 {
+  "+/MNWw": [
+    {
+      "type": 0,
+      "value": "Confirmar"
+    }
+  ],
   "+xDksj": [
     {
       "type": 0,
@@ -109,6 +115,12 @@
       "value": "Totalmente financiados"
     }
   ],
+  "DTelvK": [
+    {
+      "type": 0,
+      "value": "Cambiar direccón"
+    }
+  ],
   "DtZeeF": [
     {
       "type": 0,
@@ -167,6 +179,12 @@
     {
       "type": 0,
       "value": "Cerrar filtros"
+    }
+  ],
+  "LxAGKW": [
+    {
+      "type": 0,
+      "value": "¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar"
     }
   ],
   "MwlsML": [
@@ -265,6 +283,18 @@
     {
       "type": 0,
       "value": "Mejor"
+    }
+  ],
+  "Tq7tlV": [
+    {
+      "type": 0,
+      "value": "Dirección"
+    }
+  ],
+  "VMmmhi": [
+    {
+      "type": 0,
+      "value": "Elige una categoría para el lugar que vas a sugerir"
     }
   ],
   "VTfGzG": [

@@ -39,31 +39,16 @@
     "jsonSchema": {
       "type":"object",
       "properties":{
-        "suggestedAddress": {
-          "type": "object",
-          "geoAddress": true,
-          "properties": {
-            "address": { "type": "string" },
-            "latitude": { "type": "string" },
-            "longitude": { "type": "string" }
-          },
-          "required": ["latitude", "longitude"]
-        },
         "email":{
           "type":"string",
           "format": "email"
         }
       },
-      "required": ["email", "suggestedAddress"]
+      "required": ["email"]
     },
     "uiSchema": {
       "type":"VerticalLayout",
       "elements":[
-        {
-          "type":"Control",
-          "scope":"#/properties/suggestedAddress",
-          "label":"Dirección del lugar"
-        },
         {
           "type":"Control",
           "scope":"#/properties/email",

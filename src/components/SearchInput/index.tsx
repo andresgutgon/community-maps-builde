@@ -19,7 +19,7 @@ export type CommonSearchProps = UseSearchProps & {
   locale: string
 }
 export type SearchInputProps = CommonSearchProps & {
-  onSearch: (result: GeocodingResult) => void
+  onSearch: (result: GeocodingResult, searchQuery: string) => void
 }
 const SearchInput = ({
   locale,
@@ -66,8 +66,6 @@ const SearchInput = ({
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
   }
-  const onEscapeSearch = (event) => {
-  }
   const onClickSearch = async () => {
     if (!search) return
 
@@ -82,12 +80,13 @@ const SearchInput = ({
     setVisible(false)
     setResults([])
     setSearch('')
-    onSearch(result)
+    onSearch(result, search)
   }
   const { keyboardProps } = useKeyboard({
     onKeyDown: (event) => {
       switch (event.key) {
         case 'Enter':
+          event.preventDefault()
           onClickSearch()
         case 'Escape':
           setVisible(false)
@@ -103,6 +102,13 @@ const SearchInput = ({
     }
   })
   const disabled = !search || searching
+  const onFocus = () => {
+    setVisible(false)
+    setFocus(true)
+  }
+  const onBlur= () => {
+    setFocus(false)
+  }
   return (
     <div className='relative'>
       <div className={formClasses}>
@@ -115,8 +121,8 @@ const SearchInput = ({
           className={inputClasses}
           placeholder={placeholder}
           onChange={onChange}
-          onFocus={() => setFocus(true)}
-          onBlur={() => setFocus(false)}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
         <Button
           withShadow={buttonProps.withShadow}

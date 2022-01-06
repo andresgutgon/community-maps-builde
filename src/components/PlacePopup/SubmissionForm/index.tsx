@@ -26,8 +26,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
   const form = useForm({
     entity: place,
     entityType: EntityForm.place,
-    isOpen,
-    extraData: { legalTermsAccepted }
+    isOpen
   })
   const error = useErrorMessage({ form })
   useEffect(() => {

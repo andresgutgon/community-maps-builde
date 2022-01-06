@@ -1,4 +1,7 @@
 {
+  "+/MNWw": {
+    "defaultMessage": "Confirmar"
+  },
   "+xDksj": {
     "defaultMessage": "Casi financiados"
   },
@@ -44,6 +47,9 @@
   "B2GImX": {
     "defaultMessage": "Totalmente financiados"
   },
+  "DTelvK": {
+    "defaultMessage": "Cambiar direccón"
+  },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
   },
@@ -74,6 +80,9 @@
   "Kdq+g3": {
     "defaultMessage": "Cerrar filtros"
   },
+  "LxAGKW": {
+    "defaultMessage": "¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar"
+  },
   "MwlsML": {
     "defaultMessage": "Cerrar modal"
   },
@@ -100,6 +109,12 @@
   },
   "TKx/Q8": {
     "defaultMessage": "Mejor"
+  },
+  "Tq7tlV": {
+    "defaultMessage": "Dirección"
+  },
+  "VMmmhi": {
+    "defaultMessage": "Elige una categoría para el lugar que vas a sugerir"
   },
   "VTfGzG": {
     "defaultMessage": "Filtrar"

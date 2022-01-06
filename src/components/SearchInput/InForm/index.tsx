@@ -7,27 +7,16 @@ import { Styles } from '@maps/components/Button'
 import { RoundedSize } from '@maps/components/Button/useBorderRadius'
 import { ResultsTopSpace, ResultsXSpace } from '@maps/components/SearchInput/useSearchInputProps'
 
-import Input, { CommonSearchProps } from '../index'
+import SearchInput, { CommonSearchProps } from '../index'
 
-export type SearchResult = {
-  latitude: string
-  longitude: string
-  address: string
-}
-type Props = CommonSearchProps & { onSearch: (result: SearchResult) => void }
+type Props = CommonSearchProps & { onSearch: (result: GeocodingResult) => void }
 const SearchInFom = (props: Props) => {
+  const [autoFocus, setAutofocus] = useState(true)
+  const [forceReset, setReset] = useState(+new Date())
   const styles = useStyles()
-  const onSearch = (result: GeocodingResult) => {
-    props.onSearch({
-      latitude: result.center.lat.toString(),
-      longitude: result.center.lng.toString(),
-      address: result.name
-    })
-  }
   return (
-    <Input
+    <SearchInput
       {...props}
-      onSearch={onSearch}
       inputButtonSeparation={false}
       inputClasses={cn(styles.input, 'rounded-tr-none', 'rounded-br-none', 'border-r-0')}
       resultsTopSpace={ResultsTopSpace.sm}
