@@ -1,5 +1,4 @@
 import { useCallback, MouseEvent, memo, useRef, useState, useEffect, useMemo } from 'react'
-import cn from 'classnames'
 import { useRouter } from 'next/router'
 import debounce from 'lodash/debounce'
 import { useIntl, FormattedMessage } from 'react-intl'
@@ -7,15 +6,12 @@ import { rankWith, RankedTester, uiTypeIs, schemaMatches, schemaTypeIs, and, for
 import { withJsonFormsControlProps } from '@jsonforms/react'
 import { withVanillaControlProps, VanillaRendererProps } from '@jsonforms/vanilla-renderers'
 
-import { RoundedSize } from '@maps/components/Button/useBorderRadius'
 import { Format, Currency, fromCentsToFloat, toCentsFromFloat, useFormatValue } from '@maps/hooks/useFormatValue'
 import Slider, { Color } from '@maps/components/Slider'
-import Button, { Styles, Size } from '@maps/components/Button'
-import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import Label from '@maps/components/CustomJsonForms/components/Label'
 import Description from '@maps/components/CustomJsonForms/components/Description'
 import { ResultsTopSpace } from '@maps/components/SearchInput/useSearchInputProps'
-import SearchInput from '@maps/components/SearchInput'
+import SearchInput from '@maps/components/SearchInput/InForm'
 
 const isAddress = and(
   uiTypeIs('Control'),
@@ -45,7 +41,6 @@ const AddressInput = ({
   handleChange,
   enabled
 }: Props) => {
-  const styles = useStyles()
   const { locale } = useRouter();
   if (!visible) return null
 
@@ -58,17 +53,7 @@ const AddressInput = ({
         uischema={uischema}
         classNames={classNames}
       />
-      <SearchInput
-        inputButtonSeparation={false}
-        locale={locale}
-        inputClasses={cn(styles.input, 'rounded-tr-none', 'rounded-br-none', 'border-r-0')}
-        resultsTopSpace={ResultsTopSpace.sm}
-        buttonWithShadow
-        buttonShowFocus
-        buttonOutline
-        buttonStyle={Styles.secondary}
-        buttonRounded={{ topLeft: RoundedSize.none, bottomLeft: RoundedSize.none }}
-      />
+      <SearchInput locale={locale} />
       <Description
         errors={errors}
         uischema={uischema}

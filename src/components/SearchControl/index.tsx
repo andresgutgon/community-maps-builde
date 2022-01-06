@@ -34,7 +34,7 @@ const SearchControl = ({ locale }: Props) => {
   const [Search, setSearch] = useState(null)
   const onClick = async () => {
     const Component = await dynamic(
-      () => import('@maps/components/SearchInput'),
+      () => import('@maps/components/SearchInput/InMap'),
       { loading: () => <FakeSearch disabled /> }
     )
     setSearch(Component)
@@ -42,11 +42,7 @@ const SearchControl = ({ locale }: Props) => {
   return (
     <ReactControl className='leaflet-search leaflet-expanded-control' position='topleft'>
       {Search ? (
-        <Search
-          locale={locale}
-          resultsTopSpace={ResultsTopSpace.normal}
-          resultsXSpace={ResultsXSpace.normal}
-        />
+        <Search locale={locale} />
       ): (
         <FakeSearch onClick={onClick} />
       )}

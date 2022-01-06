@@ -15,8 +15,8 @@ type AddressResult = {
   context: string | null
 }
 
-type Props = UseSearchProps & { locale: string }
-const SearchControl = ({
+export type SearchInputProps = UseSearchProps & { locale: string }
+const SearchInput = ({
   locale,
   resultsTopSpace,
   resultsXSpace,
@@ -27,7 +27,7 @@ const SearchControl = ({
   buttonRounded,
   buttonWithShadow,
   buttonShowFocus
-}: Props) => {
+}: SearchInputProps) => {
   const {
     placeholder,
     buttonLabel,
@@ -143,5 +143,5 @@ const SearchControl = ({
   )
 }
 
-export default SearchControl
+export default SearchInput
 
