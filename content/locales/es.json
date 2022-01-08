@@ -1,7 +1,4 @@
 {
-  "+/MNWw": {
-    "defaultMessage": "Confirmar"
-  },
   "+xDksj": {
     "defaultMessage": "Casi financiados"
   },
@@ -52,6 +49,9 @@
   },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
+  },
+  "Eek11u": {
+    "defaultMessage": "Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar"
   },
   "FagJhM": {
     "defaultMessage": "¡Copiado!"

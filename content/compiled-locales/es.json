@@ -1,10 +1,4 @@
 {
-  "+/MNWw": [
-    {
-      "type": 0,
-      "value": "Confirmar"
-    }
-  ],
   "+xDksj": [
     {
       "type": 0,
@@ -125,6 +119,12 @@
     {
       "type": 0,
       "value": "Tarifa según tu aportación"
+    }
+  ],
+  "Eek11u": [
+    {
+      "type": 0,
+      "value": "Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar"
     }
   ],
   "FagJhM": [

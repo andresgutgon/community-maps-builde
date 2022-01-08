@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useIntl } from 'react-intl'
+import { LatLngLiteral } from 'leaflet'
 
 import { FormReturnType, EntityForm, useErrorMessage, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 import { useMapData } from '@maps/components/CommunityProvider'
@@ -61,8 +62,9 @@ export type SuggestReturnType = {
   category: Category | null
   onCategoryChange: (category: Category) => void
   address: AddressType | null
+  addressLatLng: LatLngLiteral | null
   setAddress: Dispatch<SetStateAction<AddressType | null>>
-  onAddressChange: (AddressType) => void
+  onAddressChange: (latLng: LatLngLiteral, address: string) => void
   moveToStep: MoveToStepFn
   onSubmit: (closeFn: Function) => void
 }
@@ -73,6 +75,9 @@ const useSuggest = ({ isOpen }: Props): SuggestReturnType => {
   const { categories } = useMapData()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const [address, setAddress] = useState<AddressType | null>(null)
+  // TODO: Text area to add extra info about the address
+  const [addressExtra, setAddressExtra] = useState('')
+  const [addressLatLng, setLatLng] = useState<LatLngLiteral | null>(null)
   const [category, setCategory] = useState<Category | null>(
     categories.length === 1 ? categories[0] : null
   )
@@ -92,15 +97,16 @@ const useSuggest = ({ isOpen }: Props): SuggestReturnType => {
   const onCategoryChange = (selectedCategory: Category) => {
     setCategory(selectedCategory)
   }
-  const onAddressChange = (selectedAddress: AddressType) => {
-    setAddress(selectedAddress)
+  const onAddressChange = (latLng: LatLngLiteral, address: string) => {
+    const { lat, lng } = latLng
+    setLatLng(latLng)
+    setAddress({ latitude: lat.toString(), longitude: lng.toString(), address })
   }
   const moveToStep = (step: Step) => ()  => {
     setStep(step)
   }
   const onSubmit = (closeFn: Function) => {
     if (step === Step.category) {
-      console.log('Address', address)
       return setStep(!address ? Step.address : Step.form)
     }
     if (step === Step.address) {
@@ -121,6 +127,7 @@ const useSuggest = ({ isOpen }: Props): SuggestReturnType => {
     category,
     onCategoryChange,
     address,
+    addressLatLng,
     setAddress,
     onAddressChange,
     onSubmit

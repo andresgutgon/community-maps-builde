@@ -11,6 +11,7 @@ import FormStep from './FormStep'
 type Props = { suggest: SuggestReturnType }
 const Steps = ({ suggest }: Props) => {
   const { categories } = useMapData()
+  const [userKnowsAboutMapDragging, setUserKnowsAboutMapDragging] = useState<boolean>(false)
   const [searchResult, setSearchResult] = useState<GeocodingResult>()
   const showCategory = suggest.step !== Step.address && categories.length > 1
   const showAddress = suggest.step !== Step.category
@@ -25,6 +26,8 @@ const Steps = ({ suggest }: Props) => {
           suggest={suggest}
           searchResult={searchResult}
           setSearchResult={setSearchResult}
+          userKnowsAboutMapDragging={userKnowsAboutMapDragging}
+          setUserKnowsAboutMapDragging={setUserKnowsAboutMapDragging}
         />
       ) : null}
       {showForm ? (
