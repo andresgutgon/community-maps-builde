@@ -26,8 +26,9 @@ type UseCopiesProps = {
   step: Step
 }
 const useCopies = ({ form, step }: UseCopiesProps): ReturnCopy => {
-  let description = null
   const intl = useIntl()
+  let description = null
+  let button = intl.formatMessage({ defaultMessage: 'Siguiente', id: 'w2xatL' })
   const title = intl.formatMessage({ defaultMessage: 'Sugierenos un lugar', id: 'bPxeVs' })
 
   if (step === Step.category) {
@@ -37,10 +38,10 @@ const useCopies = ({ form, step }: UseCopiesProps): ReturnCopy => {
   } else if (step === Step.form && !form?.submitResponse?.ok) {
     const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
     description = form?.description || defaultDescription
+    const defaultButton = intl.formatMessage({ id: 'yq+tl0', defaultMessage: 'Sugerir lugar' })
+    button = form?.formButtonLabel || defaultButton
   }
 
-  const defaultButton = intl.formatMessage({ id: 'yq+tl0', defaultMessage: 'Sugerir lugar' })
-  const button = form?.formButtonLabel || defaultButton
   const submitButton = form.submitting
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : button
@@ -63,6 +64,7 @@ export type SuggestReturnType = {
   setAddress: Dispatch<SetStateAction<AddressType | null>>
   onAddressChange: (AddressType) => void
   moveToStep: MoveToStepFn
+  onSubmit: (closeFn: Function) => void
 }
 type Props = {
   isOpen: boolean
@@ -85,18 +87,26 @@ const useSuggest = ({ isOpen }: Props): SuggestReturnType => {
     setCategory(null)
   }
   const showForm = step === Step.form && !form?.submitResponse?.ok
-  const submitButtonDisabled = !form?.isValid || form?.submitting
+  const submitButtonDisabled = step === Step.form && !form?.isValid || form?.submitting
 
   const onCategoryChange = (selectedCategory: Category) => {
     setCategory(selectedCategory)
-    setStep(!address ? Step.address : Step.form)
   }
   const onAddressChange = (selectedAddress: AddressType) => {
     setAddress(selectedAddress)
-    setStep(Step.form)
   }
   const moveToStep = (step: Step) => ()  => {
     setStep(step)
+  }
+  const onSubmit = (closeFn: Function) => {
+    if (step === Step.category) {
+      console.log('Address', address)
+      return setStep(!address ? Step.address : Step.form)
+    }
+    if (step === Step.address) {
+      return setStep(Step.form)
+    }
+    form.onSubmit(closeFn)
   }
   return {
     form,
@@ -112,7 +122,8 @@ const useSuggest = ({ isOpen }: Props): SuggestReturnType => {
     onCategoryChange,
     address,
     setAddress,
-    onAddressChange
+    onAddressChange,
+    onSubmit
   }
 }
 

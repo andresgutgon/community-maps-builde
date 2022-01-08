@@ -38,7 +38,7 @@ export default function SuggestDialog ({ isOpen, closeFn, onLoadingFinish }: Pro
   }, [isOpen, Steps])
   return (
     <Dialog
-      onSubmit={suggest.form.onSubmit}
+      onSubmit={suggest.onSubmit}
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
       title={suggest.copies.title}
@@ -47,27 +47,23 @@ export default function SuggestDialog ({ isOpen, closeFn, onLoadingFinish }: Pro
       closeFn={onClose}
       footer={
         <>
-          {suggest.showForm ? (
-            <Button
-              disabled={suggest.submitButtonDisabled}
-              type={ButtonType.submit}
-              fullWidth
-              style={ButtonStyles.branded}
-            >
-              {suggest.copies.submitButton}
-            </Button>
-          ) : null}
-          {suggest.showForm ? (
-            <Button
-              disabled={suggest.form.submitting}
-              fullWidth
-              outline
-              style={ButtonStyles.secondary}
-              onClick={closeFn}
-            >
-              <FormattedMessage defaultMessage='Cancelar' id='nZLeaQ' />
-            </Button>
-          ) : null}
+          <Button
+            disabled={suggest.submitButtonDisabled}
+            type={ButtonType.submit}
+            fullWidth
+            style={ButtonStyles.branded}
+          >
+            {suggest.copies.submitButton}
+          </Button>
+          <Button
+            disabled={suggest.form.submitting}
+            fullWidth
+            outline
+            style={ButtonStyles.secondary}
+            onClick={closeFn}
+          >
+            <FormattedMessage defaultMessage='Cancelar' id='nZLeaQ' />
+          </Button>
         </>
       }
     >

@@ -20,12 +20,10 @@ const AddressStep = ({ suggest, searchResult, setSearchResult }: Props) => {
   const legend = intl.formatMessage({ defaultMessage: 'Dirección', id: 'Tq7tlV' })
   const onSearch = (result: GeocodingResult) => {
     setSearchResult(result)
-  }
-  const onConfirmAddress = () => {
     suggest.onAddressChange({
-      latitude: searchResult.center.lat.toString(),
-      longitude: searchResult.center.lng.toString(),
-      address: searchResult.name
+      latitude: result.center.lat.toString(),
+      longitude: result.center.lng.toString(),
+      address: result.name
     })
   }
 
@@ -36,16 +34,6 @@ const AddressStep = ({ suggest, searchResult, setSearchResult }: Props) => {
         {searchResult ? (
           <div className='p-4 border border-gray-400 rounded flex items-center space-x-2 justify-between'>
             <SearchResult result={searchResult} />
-            <div className='flex items-center space-x-2'>
-              <Button
-                outline
-                style={ButtonStyles.secondary}
-                size={ButtonSize.sm}
-                onClick={onConfirmAddress}
-              >
-                <FormattedMessage defaultMessage='Confirmar' id="+/MNWw" />
-              </Button>
-            </div>
           </div>
         ) : null}
       </div>

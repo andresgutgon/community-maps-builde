@@ -12,11 +12,12 @@ import type { Category } from '@maps/types/index'
 import { SuggestReturnType, MoveToStepFn, Step } from '@maps/components/SuggestPlaceControl/useSuggest'
 
 type CategoryItemProps = {
-  isSelected?: boolean,
-  category: Category,
+  category: Category
+  isSelected?: boolean
+  isChecked?: boolean
   right?: ReactNode
 }
-const CategoryItem = ({ isSelected = false, category, right }: CategoryItemProps) => {
+const CategoryItem = ({ isChecked = false, isSelected = false, category, right }: CategoryItemProps) => {
   const styles = useStyles()
   return (
     <label
@@ -25,7 +26,8 @@ const CategoryItem = ({ isSelected = false, category, right }: CategoryItemProps
         cn(
           'flex items-center space-x-2 justify-between h-full',
           {
-            'cursor-pointer flex-col rounded p-2 border border-transparent hover:border-gray-600 hover:shadow-sm ': !isSelected
+            'cursor-pointer flex-col rounded p-2 border border-transparent hover:border-gray-600 hover:shadow-sm': !isSelected,
+            'border-gray-600 hover:shadow-sm': isChecked
           }
         )
       }
@@ -71,7 +73,10 @@ const CategoryStep = ({ suggest }: Props) => {
       <ul className='grid sm:grid-cols-2 gap-2'>
         {categories.map((category: Category, index: number) =>
           <li key={category.slug} onClick={() => suggest.onCategoryChange(category)}>
-            <CategoryItem category={category} />
+            <CategoryItem
+              category={category}
+              isChecked={category.slug === suggest.category?.slug}
+            />
             {index !== categories.length - 1 ? (
               <div className='h-px mb-1 w-full sm:hidden bg-gray-100' />
             ) : null}
