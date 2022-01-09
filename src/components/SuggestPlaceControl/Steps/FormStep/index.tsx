@@ -9,7 +9,7 @@ import type { Category } from '@maps/types/index'
 import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
 import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
 import LegalCheck from '@maps/components/LegalCheck'
-import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useErrorMessage'
 import { FormReturnType } from '@maps/components/CustomJsonForms/hooks/useForm'
 import { SuggestReturnType } from '@maps/components/SuggestPlaceControl/useSuggest'
 
@@ -18,30 +18,37 @@ const FormStep = ({ suggest }: Props) => {
   const intl = useIntl()
   const { form, legalTermsAccepted, setLegalTermsAccepted } = suggest
   const error = useErrorMessage({ form })
+
+  if (!form) return null
+
   return (
     <>
       <ErrorMessage show={error.showError} message={error.message} />
       <SuccessMessage
-        show={!!form?.submitResponse?.ok}
-        message={form?.submitResponse?.message}
+        show={!!form?.response?.ok}
+        message={form?.response?.message}
       />
-      <JsonFormsStyleContext.Provider value={formStyles}>
-        <JsonForms
-          schema={form.jsonSchema}
-          uischema={form.uiSchema}
-          data={form.data}
-          renderers={renderers}
-          cells={vanillaCells}
-          onChange={form.onChange}
-          validationMode={form.validationMode}
-          i18n={form.i18n}
-        />
-      </JsonFormsStyleContext.Provider>
-      <LegalCheck
-        error={error.message}
-        checked={legalTermsAccepted}
-        onCheck={(accepted: boolean) => setLegalTermsAccepted(accepted)}
-      />
+      {!form.response?.ok ? (
+        <>
+          <JsonFormsStyleContext.Provider value={formStyles}>
+            <JsonForms
+              schema={form.instance.jsonSchema}
+              uischema={form.instance.uiSchema}
+              data={form.data}
+              renderers={renderers}
+              cells={vanillaCells}
+              onChange={form.onChange}
+              validationMode={form.validationMode}
+              i18n={form.i18n}
+            />
+          </JsonFormsStyleContext.Provider>
+          <LegalCheck
+            error={error.message}
+            checked={legalTermsAccepted}
+            onCheck={(accepted: boolean) => setLegalTermsAccepted(accepted)}
+          />
+        </>
+      ) : null}
     </>
   )
 }

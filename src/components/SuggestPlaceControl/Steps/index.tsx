@@ -16,12 +16,11 @@ const Steps = ({ suggest }: Props) => {
   const showCategory = suggest.step !== Step.address && categories.length > 1
   const showAddress = suggest.step !== Step.category
   const showForm = suggest.step === Step.form
+  const responseOk = suggest?.form?.response?.ok
   return (
     <>
-      {showCategory ? (
-        <CategoryStep suggest={suggest} />
-      ) : null}
-      {showAddress ? (
+      {(!responseOk && showCategory) ?  <CategoryStep suggest={suggest} /> : null}
+      {(!responseOk && showAddress) ? (
         <AddressStep
           suggest={suggest}
           searchResult={searchResult}
@@ -30,9 +29,7 @@ const Steps = ({ suggest }: Props) => {
           setUserKnowsAboutMapDragging={setUserKnowsAboutMapDragging}
         />
       ) : null}
-      {showForm ? (
-        <FormStep suggest={suggest} />
-      ) : null}
+      {showForm ? <FormStep suggest={suggest} /> : null}
     </>
   )
 }

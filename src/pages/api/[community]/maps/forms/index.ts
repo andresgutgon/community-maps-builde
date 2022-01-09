@@ -6,11 +6,11 @@ import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerTok
 
 
 const formSubmit = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
-  const { slug } = request.query
   let termsAccepted = false
   try {
-   termsAccepted = JSON.parse(request.body).legalTermsAccepted
+   termsAccepted = JSON.parse(request.body).data.legalTermsAccepted
   } catch { termsAccepted = false }
+
   if (!termsAccepted) {
     return response.status(422).json({
       ok: false,
@@ -18,7 +18,7 @@ const formSubmit = async ({ request, response, tokenHeaders, communityHost }: Re
     })
   }
   const serverResponse = await fetch(
-    `${communityHost}/maps/forms/${slug}`,
+    `${communityHost}/maps/forms`,
     {
       method: request.method,
       headers: tokenHeaders,

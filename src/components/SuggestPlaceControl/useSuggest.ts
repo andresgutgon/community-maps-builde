@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { LatLngLiteral } from 'leaflet'
 
-import { FormReturnType, EntityForm, useErrorMessage, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { FormReturnType, EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Category } from '@maps/types/index'
 
@@ -36,14 +36,14 @@ const useCopies = ({ form, step }: UseCopiesProps): ReturnCopy => {
     description = intl.formatMessage({ defaultMessage: 'Elige una categoría para el lugar que vas a sugerir', id: 'VMmmhi' })
   } else if (step === Step.address) {
     description = intl.formatMessage({ defaultMessage: '¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar', id: 'LxAGKW' })
-  } else if (step === Step.form && !form?.submitResponse?.ok) {
+  } else if (step === Step.form && !form?.response?.ok) {
     const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
-    description = form?.description || defaultDescription
+    description = form?.instance?.description || defaultDescription
     const defaultButton = intl.formatMessage({ id: 'yq+tl0', defaultMessage: 'Sugerir lugar' })
-    button = form?.formButtonLabel || defaultButton
+    button = form?.instance?.formButtonLabel || defaultButton
   }
 
-  const submitButton = form.submitting
+  const submitButton = form?.submitting
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : button
   return { title, description, submitButton }
@@ -68,31 +68,41 @@ export type SuggestReturnType = {
   moveToStep: MoveToStepFn
   onSubmit: (closeFn: Function) => void
 }
-type Props = {
-  isOpen: boolean
-}
-const useSuggest = ({ isOpen }: Props): SuggestReturnType => {
+type Props = { onResponseSuccess?: () => void }
+const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
   const { categories } = useMapData()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const [address, setAddress] = useState<AddressType | null>(null)
   // TODO: Text area to add extra info about the address
-  const [addressExtra, setAddressExtra] = useState('')
+  const [addressAditionalInfo, setAddressAditionalInfo] = useState('')
   const [addressLatLng, setLatLng] = useState<LatLngLiteral | null>(null)
   const [category, setCategory] = useState<Category | null>(
     categories.length === 1 ? categories[0] : null
   )
   const [step, setStep] = useState(!category ? Step.category : Step.address)
   const form = useForm({
-    entity: category,
-    entityType: EntityForm.suggestPlace,
-    isOpen
+    entities: categories.map((entity: Category) => ({
+      entity,
+      entityType: EntityForm.suggestPlace
+    })),
+    currentEntity: {
+      entity: category,
+      entityType: EntityForm.suggestPlace
+    },
+    getExtraData: () => ({
+      legalTermsAccepted,
+      categorySlug: category?.slug,
+      address,
+      addressAditionalInfo
+    }),
+    onResponseSuccess
   })
   const copies = useCopies({ form, step })
   const reset = () => {
     setCategory(null)
   }
-  const showForm = step === Step.form && !form?.submitResponse?.ok
-  const submitButtonDisabled = step === Step.form && !form?.isValid || form?.submitting
+  const showForm = step === Step.form && !form?.response?.ok
+  const submitButtonDisabled = step === Step.form && !form?.valid || form?.submitting
 
   const onCategoryChange = (selectedCategory: Category) => {
     setCategory(selectedCategory)

@@ -1,12 +1,10 @@
 import { JsonSchema } from '@jsonforms/core'
 type translatableJsonSchema = JsonSchema & { translations?: Record<string, string> }
 
-type Props = { jsonSchema: null | JsonSchema }
 export type TranslateFn = (id: string, defaultMessage: string) => string
-export const useTranslate = ({ jsonSchema }: Props): TranslateFn => {
-  return (id: string, defaultMessage: string) => {
-    if (!jsonSchema) return defaultMessage
-
+export type TranslateBuilderFn  = (jsonSchema: JsonSchema) => TranslateFn
+export const useTranslate = (): TranslateBuilderFn  => {
+  return (jsonSchema: JsonSchema) => (id: string, defaultMessage: string) => {
     const parts = id?.split('.')
     if (!parts) return defaultMessage
 

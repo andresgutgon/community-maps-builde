@@ -56,7 +56,6 @@ const AddressStep = ({
     )
   }
 
-  console.log('DRAGGING', dragging)
   if (!searchResult || suggest.step == Step.address) {
     return (
       <div className='space-y-2'>

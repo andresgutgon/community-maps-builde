@@ -12,7 +12,8 @@ import type { Place as PlaceType } from '@maps/types/index'
 import { formStyles } from '@maps/components/CustomJsonForms/styles'
 import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
 import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
-import { EntityForm, useErrorMessage, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useErrorMessage'
 
 type Props = {
   isOpen: boolean
@@ -23,10 +24,11 @@ type Props = {
 export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinish }: Props) {
   const intl = useIntl()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
+  const currentEntity = { entity: place, entityType: EntityForm.place }
   const form = useForm({
-    entity: place,
-    entityType: EntityForm.place,
-    isOpen
+    entities: [currentEntity],
+    currentEntity,
+    getExtraData: () => ({ legalTermsAccepted })
   })
   const error = useErrorMessage({ form })
   useEffect(() => {
@@ -34,25 +36,31 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
     onLoadingFinish()
     closeFn()
   }, [closeFn, onLoadingFinish, form])
+  const onClose = () => {
+    form.reset(() => {
+      setLegalTermsAccepted(false)
+    })
+    closeFn()
+  }
 
   if (!form) return null
 
   const defaultButtonLabel = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
-  const buttonLabel = form.formButtonLabel || defaultButtonLabel
+  const buttonLabel = form?.instance?.formButtonLabel || defaultButtonLabel
   const submit = form.submitting
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : buttonLabel
-  const showForm = !form?.submitResponse?.ok
-  const disabled = !form.isValid || form.submitting
+  const showForm = !form?.response?.ok
+  const disabled = !form?.valid || form.submitting
   return (
     <Dialog
       onSubmit={form.onSubmit}
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
       title={showForm ? place?.name : null}
-      description={showForm ? form.description : null}
-      onClose={closeFn}
-      closeFn={closeFn}
+      description={showForm ? form?.instance?.description : null}
+      onClose={onClose}
+      closeFn={onClose}
       footer={
         <>
           {showForm ? (
@@ -71,7 +79,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
               fullWidth
               outline
               style={ButtonStyles.secondary}
-              onClick={closeFn}
+              onClick={onClose}
             >
               <FormattedMessage defaultMessage='Cancelar' id='nZLeaQ' />
             </Button>
@@ -81,15 +89,15 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
     >
       <ErrorMessage show={error.showError} message={error.message} />
       <SuccessMessage
-        show={!!form?.submitResponse?.ok}
-        message={form?.submitResponse?.message}
+        show={!!form?.response?.ok}
+        message={form?.response?.message}
       />
       {showForm ? (
         <>
           <JsonFormsStyleContext.Provider value={formStyles}>
             <JsonForms
-              schema={form.jsonSchema}
-              uischema={form.uiSchema}
+              schema={form.instance.jsonSchema}
+              uischema={form.instance.uiSchema}
               data={form.data}
               config={{ showUnfocusedDescription: true }}
               renderers={renderers}

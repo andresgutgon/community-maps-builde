@@ -18,10 +18,14 @@ type Props = {
   onLoadingFinish: () => void
 }
 export default function SuggestDialog ({ isOpen, closeFn, onLoadingFinish }: Props) {
-  const suggest = useSuggest({ isOpen })
+  const suggest = useSuggest({
+    onResponseSuccess: () => { closeFn() }
+  })
   const [Steps, setStepComponent] = useState<ComponentType<StepsProps>>()
   const onClose = () => {
-    suggest.reset()
+    suggest.form.reset(() => {
+      suggest.setLegalTermsAccepted(false)
+    })
     closeFn()
   }
   useEffect(() => {
@@ -36,34 +40,39 @@ export default function SuggestDialog ({ isOpen, closeFn, onLoadingFinish }: Pro
     }
     loadComponent()
   }, [isOpen, Steps])
+  const responseOk = !!suggest?.form?.response?.ok
   return (
     <Dialog
       onSubmit={suggest.onSubmit}
       onLoadingFinish={onLoadingFinish}
       isOpen={isOpen}
-      title={suggest.copies.title}
-      description={suggest.copies.description}
+      title={!responseOk ? suggest.copies.title : null}
+      description={!responseOk ? suggest.copies.description : null}
       onClose={onClose}
       closeFn={onClose}
       footer={
         <>
-          <Button
-            disabled={suggest.submitButtonDisabled}
-            type={ButtonType.submit}
-            fullWidth
-            style={ButtonStyles.branded}
-          >
-            {suggest.copies.submitButton}
-          </Button>
-          <Button
-            disabled={suggest.form.submitting}
-            fullWidth
-            outline
-            style={ButtonStyles.secondary}
-            onClick={closeFn}
-          >
-            <FormattedMessage defaultMessage='Cancelar' id='nZLeaQ' />
-          </Button>
+          {!responseOk ? (
+            <Button
+              disabled={suggest.submitButtonDisabled}
+              type={ButtonType.submit}
+              fullWidth
+              style={ButtonStyles.branded}
+            >
+              {suggest.copies.submitButton}
+            </Button>
+          ) : null}
+          {!responseOk ? (
+            <Button
+              disabled={suggest.form?.submitting}
+              fullWidth
+              outline
+              style={ButtonStyles.secondary}
+              onClick={closeFn}
+            >
+              <FormattedMessage defaultMessage='Cancelar' id='nZLeaQ' />
+            </Button>
+          ) : null}
         </>
       }
     >
