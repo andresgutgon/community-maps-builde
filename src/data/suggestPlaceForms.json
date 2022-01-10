@@ -75,7 +75,7 @@
             {
               "type":"Control",
               "scope":"#/properties/parking",
-              "label":"Tiene aparcamiento",
+              "label":"¿Tiene aparcamiento?",
               "options": { "format": "radio" }
             },
             {
