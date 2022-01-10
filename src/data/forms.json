@@ -35,9 +35,7 @@
           "default": 120000,
           "description": "Apadrina un cotxe. Recuperes els diners al cap de 3 anys i gaudeixes d'una millor tarifa."
         },
-        "name":{
-          "type":"string"
-        },
+        "name": { "type": "string", "minLength": 2 },
         "telephone":{
           "type":"integer",
           "description": "Sólo números en tú teléfono : )"
@@ -121,7 +119,7 @@
               "rule": {
                 "effect": "SHOW",
                 "condition": {
-                "scope": "#/properties/contribution_type",
+                  "scope": "#/properties/contribution_type",
                   "schema": { "enum": ["sponsorship"] }
                 }
               },
@@ -163,7 +161,7 @@
               "rule": {
                 "effect": "SHOW",
                 "condition": {
-                "scope": "#/properties/contribution_type",
+                  "scope": "#/properties/contribution_type",
                   "schema": { "enum": ["prepaid"] }
                 }
               },

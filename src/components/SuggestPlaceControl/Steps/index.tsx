@@ -12,7 +12,7 @@ type Props = { suggest: SuggestReturnType }
 const Steps = ({ suggest }: Props) => {
   const { categories } = useMapData()
   const [userKnowsAboutMapDragging, setUserKnowsAboutMapDragging] = useState<boolean>(false)
-  const [searchResult, setSearchResult] = useState<GeocodingResult>()
+  const [searchResult, setSearchResult] = useState<GeocodingResult>(null)
   const showCategory = suggest.step !== Step.address && categories.length > 1
   const showAddress = suggest.step !== Step.category
   const showForm = suggest.step === Step.form

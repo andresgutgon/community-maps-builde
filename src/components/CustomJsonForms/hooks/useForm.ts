@@ -1,6 +1,7 @@
 import { useReducer, useEffect } from 'react'
 import { useIntl } from 'react-intl'
-import { ErrorObject } from 'ajv'
+import { ErrorObject, ValidateFunction } from 'ajv'
+import { validate, createAjv } from '@jsonforms/core'
 import type { ValidationMode, JsonFormsCore } from '@jsonforms/core'
 
 import type { Form, Config, Category, Place } from '@maps/types/index'
@@ -20,6 +21,7 @@ type FormInstance = {
   instance: Form
   data: Object,
   submitting: boolean
+  validator: ValidateFunction | null
   validationMode: ValidationMode
   requiredFields: string[]
   errors: ErrorObject[]
@@ -71,10 +73,19 @@ function initFormInstance (
 
   if (!form) return null
 
+  let validationMode = NO_VALIDATION
+  let validator = null
+  try {
+    validator = createAjv().compile(form.jsonSchema)
+  } catch {
+    validationMode = RUN_VALIDATION
+  }
+
   return {
     identifier,
     data: form.initialData || {},
-    validationMode: NO_VALIDATION,
+    validator,
+    validationMode,
     instance: form,
     requiredFields: form.jsonSchema.required || [],
     errors: null,
@@ -153,6 +164,7 @@ enum Actions {
   SetErrors,
   SetSubmitting,
   SetResponse,
+  SetValidationMode,
   ResetState
 }
 type Action =
@@ -161,6 +173,7 @@ type Action =
   | { type: Actions.SetErrors, errors: ErrorObject[] }
   | { type: Actions.SetSubmitting, submitting: boolean }
   | { type: Actions.SetResponse, response: Response }
+  | { type: Actions.SetValidationMode, validationMode: ValidationMode }
   | { type: Actions.ResetState }
 const reducer = (
   config: Config,
@@ -196,13 +209,7 @@ const reducer = (
         form
       }
     case Actions.SetData:
-      const dataKeys = Object.keys(action.data)
-      const requiredFields = state.form?.requiredFields || []
-      const validationMode = !requiredFields.length
-        ? NO_VALIDATION
-        : requiredFields.every(required => dataKeys.includes(required))
-          ? RUN_VALIDATION : NO_VALIDATION
-      return updateFormState(state, { data: action.data, validationMode })
+      return updateFormState(state, { data: action.data })
     case Actions.SetErrors:
       const errors = action.errors
       return updateFormState(state, {
@@ -213,6 +220,8 @@ const reducer = (
       return updateFormState(state, { submitting: action.submitting })
     case Actions.SetResponse:
       return updateFormState(state, { response: action.response })
+    case Actions.SetValidationMode:
+      return updateFormState(state, { validationMode: action.validationMode })
     case Actions.ResetState:
       return {
         ...state,
@@ -285,6 +294,12 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
   const onSubmit = async (_closeFn: Function) => {
     if (!form) return
 
+    const errors = validate(form.validator, form.data)
+    if (errors.length > 0) {
+      dispatch({ type: Actions.SetValidationMode, validationMode: RUN_VALIDATION })
+      return
+    }
+
     dispatch({ type: Actions.SetSubmitting, submitting: true })
     const response = await makeRequest({
       method: Method.POST,
@@ -292,7 +307,7 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
       body: {
         type: form.entityType,
         slug: form.instance.slug,
-        data: { ...getExtraData(), ...form?.data }
+        data: { ...getExtraData(), ...form.data }
       }
     })
     dispatch({ type: Actions.SetResponse, response })
@@ -306,7 +321,12 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
   }
   if (!form) return null
 
-  return { ...form, onSubmit, onChange, reset }
+  return {
+    ...form,
+    onSubmit,
+    onChange,
+    reset
+  }
 }
 
 export default useForm

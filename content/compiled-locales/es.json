@@ -133,6 +133,12 @@
       "value": "Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar"
     }
   ],
+  "ElUisA": [
+    {
+      "type": 0,
+      "value": "Mostrar"
+    }
+  ],
   "FagJhM": [
     {
       "type": 0,
@@ -351,6 +357,12 @@
       "value": "Sugierenos un lugar"
     }
   ],
+  "cz9Q8R": [
+    {
+      "type": 0,
+      "value": "Ocultar"
+    }
+  ],
   "eOuNie": [
     {
       "type": 0,
@@ -471,6 +483,20 @@
     {
       "type": 0,
       "value": "Política de cookies"
+    }
+  ],
+  "pa1TSf": [
+    {
+      "type": 0,
+      "value": "Este campo debe ser igual o más de "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " letras"
     }
   ],
   "puO6Zk": [

@@ -305,7 +305,7 @@ const PricingRatesInput = ({
         label={label}
         required={required}
         uischema={uischema}
-        classNames={classNames}
+        className={classNames.label}
         rightValue={
           <div className={cn('transition-colors', { 'text-green-600': niceContribution })}>
             {formattedValue}

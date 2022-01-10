@@ -12,6 +12,7 @@ import LegalCheck from '@maps/components/LegalCheck'
 import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useErrorMessage'
 import { FormReturnType } from '@maps/components/CustomJsonForms/hooks/useForm'
 import { SuggestReturnType } from '@maps/components/SuggestPlaceControl/useSuggest'
+import defaultOptions from '@maps/components/CustomJsonForms/defaultOptions'
 
 type Props = { suggest: SuggestReturnType }
 const FormStep = ({ suggest }: Props) => {
@@ -35,6 +36,7 @@ const FormStep = ({ suggest }: Props) => {
               schema={form.instance.jsonSchema}
               uischema={form.instance.uiSchema}
               data={form.data}
+              config={defaultOptions}
               renderers={renderers}
               cells={vanillaCells}
               onChange={form.onChange}

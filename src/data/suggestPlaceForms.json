@@ -32,27 +32,105 @@
       ]
     }
   },
-  "van": {
-    "slug": "van",
+  "car": {
+    "slug": "car",
     "formButtonLabel": "Sugerir un lugar",
-    "description": "Sugierenos un lugar para Furgonetas",
+    "description": "Sugierenos un lugar para Coches",
+    "initialData": {
+      "access_24_hours": false,
+      "point_of_carge": false,
+      "mobile_coverage": false
+    },
     "jsonSchema": {
       "type":"object",
       "properties":{
         "email":{
           "type":"string",
           "format": "email"
-        }
+        },
+        "name": { "type": "string", "minLength": 2 },
+        "parking": {
+          "type": "string",
+          "enum": ["yes", "no"],
+          "i18n": "parking",
+          "translations": {
+            "no": "No tiene parking",
+            "yes": "Si tiene parking"
+          },
+          "description": "Si este lugar tiene parking asociado y las opciones que aplican en vuestro caso"
+        },
+        "access_24_hours": { "type": "boolean" },
+        "point_of_carge": { "type": "boolean" },
+        "mobile_coverage": { "type": "boolean" }
       },
-      "required": ["email"]
+      "required": ["name", "email", "parking"]
     },
     "uiSchema": {
       "type":"VerticalLayout",
       "elements":[
         {
-          "type":"Control",
-          "scope":"#/properties/email",
-          "label":"Email"
+          "type": "Group",
+          "label": "Aparcamiento",
+          "elements": [
+            {
+              "type":"Control",
+              "scope":"#/properties/parking",
+              "label":"Tiene aparcamiento",
+              "options": { "format": "radio" }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/access_24_hours",
+              "label":"Tiene acceso 24 horas",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/parking",
+                  "schema": { "enum": ["yes"] }
+                }
+              }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/point_of_carge",
+              "label":"Tiene un punto de carga asociado a la plaza de aparcamiento",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/parking",
+                  "schema": { "enum": ["yes"] }
+                }
+              }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/mobile_coverage",
+              "label":"Tiene covertura de móvil",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/parking",
+                  "schema": { "enum": ["yes"] }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Tus datos de contacto",
+          "elements": [
+            {
+              "type":"Control",
+              "scope":"#/properties/name",
+              "label":"Nombre"
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/email",
+              "label":"Email"
+            }
+          ]
         }
       ]
     }

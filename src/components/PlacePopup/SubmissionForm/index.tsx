@@ -14,6 +14,7 @@ import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
 import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
 import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useErrorMessage'
+import defaultOptions from '@maps/components/CustomJsonForms/defaultOptions'
 
 type Props = {
   isOpen: boolean
@@ -51,7 +52,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`
     : buttonLabel
   const showForm = !form?.response?.ok
-  const disabled = !form?.valid || form.submitting
+  const disabled = form.submitting
   return (
     <Dialog
       onSubmit={form.onSubmit}
@@ -99,7 +100,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
               schema={form.instance.jsonSchema}
               uischema={form.instance.uiSchema}
               data={form.data}
-              config={{ showUnfocusedDescription: true }}
+              config={defaultOptions}
               renderers={renderers}
               cells={vanillaCells}
               onChange={form.onChange}

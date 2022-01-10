@@ -75,7 +75,7 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
   const [category, setCategory] = useState<Category | null>(
     categories.length === 1 ? categories[0] : null
   )
-  const [step, setStep] = useState(!category ? Step.category : Step.address)
+  const [step, setStep] = useState(!category ? Step.category : Step.form)
   const form = useForm({
     entities: categories.map((entity: Category) => ({
       entity,
@@ -101,7 +101,7 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
   const submitButtonDisabled = Step.category === step
     ? !category : Step.address === step
       ? !address
-      : step === Step.form && !form?.valid || form?.submitting
+      : false
 
   const onCategoryChange = (selectedCategory: Category) => {
     setCategory(selectedCategory)

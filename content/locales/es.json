@@ -56,6 +56,9 @@
   "Eek11u": {
     "defaultMessage": "Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar"
   },
+  "ElUisA": {
+    "defaultMessage": "Mostrar"
+  },
   "FagJhM": {
     "defaultMessage": "¡Copiado!"
   },
@@ -143,6 +146,9 @@
   "bPxeVs": {
     "defaultMessage": "Sugierenos un lugar"
   },
+  "cz9Q8R": {
+    "defaultMessage": "Ocultar"
+  },
   "eOuNie": {
     "defaultMessage": "Buscar"
   },
@@ -181,6 +187,9 @@
   },
   "oxv0hl": {
     "defaultMessage": "Política de cookies"
+  },
+  "pa1TSf": {
+    "defaultMessage": "Este campo debe ser igual o más de {min} letras"
   },
   "puO6Zk": {
     "defaultMessage": "hora"

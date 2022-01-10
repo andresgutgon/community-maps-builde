@@ -36,6 +36,7 @@ const AddressStep = ({
 }: Props) => {
   const { locale } = useRouter()
   const styles = useStyles()
+  const [showInfo, setShowInfo] = useState<boolean>(false)
   const [dragging, setDragging] = useState<boolean>(false)
   const intl = useIntl()
   const geocoder = useGeocoder({ service: GeocoderService.nominatim, locale })
@@ -140,22 +141,37 @@ const AddressStep = ({
               <FormattedMessage defaultMessage='Cambiar direccón' id="DTelvK" />
             </Button>
           </div>
-          <div className={styles.control}>
-            <label htmlFor='addressAditionalInfo' className={styles.label}>
-              <FormattedMessage id="Ib04NK" defaultMessage='Información adicional' />
-            </label>
-            <textarea
-              className={styles.input}
-              id='addressAditionalInfo'
-              value={suggest.addressAditionalInfo}
-              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                suggest.setAddressAditionalInfo(event.target.value)
-              }}
-            />
-            <p className={styles.description}>
-              <FormattedMessage id="E8dzwn" defaultMessage='Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar' />
-            </p>
-          </div>
+            <div className={cn(styles.control, 'p-2 bg-gray-50 border border-gray-200 rounded')}>
+              <label htmlFor='addressAditionalInfo' className={styles.label}>
+                <div className='flex space-x-2 items-center'>
+                  <span>
+                    <FormattedMessage id="Ib04NK" defaultMessage='Información adicional' />
+                  </span>
+                  <div role='button' className='inline-block underline text-xs' onClick={() => setShowInfo(!showInfo)}>
+                    {showInfo ? (
+                      <FormattedMessage id="cz9Q8R" defaultMessage='Ocultar' />
+                    ) : (
+                      <FormattedMessage id="ElUisA" defaultMessage='Mostrar' />
+                    )}
+                  </div>
+                </div>
+              </label>
+              {showInfo ? (
+                <>
+                  <textarea
+                    className={styles.input}
+                    id='addressAditionalInfo'
+                    value={suggest.addressAditionalInfo}
+                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                      suggest.setAddressAditionalInfo(event.target.value)
+                    }}
+                  />
+                  <p className={styles.description}>
+                    <FormattedMessage id="E8dzwn" defaultMessage='Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar' />
+                  </p>
+                </>
+              ) : null}
+            </div>
         </div>
       </Fieldset>
   )

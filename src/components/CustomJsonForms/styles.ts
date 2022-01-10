@@ -51,7 +51,7 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['w-full mt-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
+      classNames: ['w-full space-y-2 mt-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
     },
     {
       name: 'group.label',
@@ -72,7 +72,7 @@ export const formStyles = {
     { name: 'control.radio.label', classNames: radioCheckboxLabel },
     {
       name: 'control.checkbox.group',
-      classNames: ['flex flex-row items-center space-x-2 cursor-pointer']
+      classNames: ['hidden-attribute flex flex-row items-center space-x-1 cursor-pointer']
     },
     {
       name: 'control.checkbox.input',

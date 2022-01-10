@@ -31,6 +31,12 @@ export const useTranslateError = (): TranslateErrorFn => {
           { min: inCents ? params.limit / 100 : params.limt }
         )
         break;
+      case 'minLength':
+        return intl.formatMessage(
+          { id: 'pa1TSf', defaultMessage: 'Este campo debe ser igual o más de {min} letras' },
+          { min: params.limit }
+        )
+        break;
       case 'maximum':
         return intl.formatMessage(
           { id: '4iGwAO', defaultMessage: 'Este campo debe ser igual o menos de {max}' },
