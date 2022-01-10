@@ -11,12 +11,7 @@ export type AddressType = {
   longitude: string
   address: string
 }
-export enum Step {
-  category = 'category',
-  address = 'address',
-  form = 'form',
-}
-
+export enum Step { category, address, form }
 type ReturnCopy = {
   title: string | null
   description: string | null

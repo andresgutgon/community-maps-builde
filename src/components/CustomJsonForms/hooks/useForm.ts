@@ -182,6 +182,9 @@ const reducer = (
         ? instance
         : instance || state.forms[state.genericSuggestIdentifier]
 
+      // Do nothing if the identifier is the same
+      if (form && form?.identifier === state?.form?.identifier) return state
+
       // Copy data from previous current form into forms
       return {
         ...state,
@@ -270,7 +273,7 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
     dispatch({ type: Actions.SetErrors, errors })
   }
 
-  // Reset form when a modal is closed
+  // Reset form after X timeout also execute the callback passed.
   const reset = (callback: Function, timeout: number = 500) => {
     setTimeout(() => {
       dispatch({ type: Actions.ResetState })
