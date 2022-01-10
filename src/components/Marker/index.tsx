@@ -104,7 +104,7 @@ const Marker = ({ color, percentage = Percentage.full, iconKey, size, isSelected
         <i
           className={
             cn(
-              'relative z-20 fas text-shadow-white',
+              'relative z-20 fas',
               ICONS[iconKey],
               {
                 'text-base': size === 'normal',

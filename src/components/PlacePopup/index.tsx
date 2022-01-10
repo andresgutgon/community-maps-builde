@@ -1,17 +1,12 @@
 import { useRef, useEffect, useMemo, useState } from 'react'
 import cn from 'classnames'
-import { FormattedMessage } from 'react-intl'
 import dynamic from 'next/dynamic'
 import { Map, Popup as LeafletPopup } from 'leaflet'
 import { Popup } from 'react-leaflet'
 
+import LoadingCode from '@maps/components/LoadingCode'
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Place as PlaceType } from '@maps/types/index'
-
-export const Loading = () =>
-  <div className='p-10 flex items-center justify-center h-28'>
-    <FormattedMessage defaultMessage='Cargando' id='m9eXO9' />{'...'}
-  </div>
 
 const MOBILE_WIDTH = 768
 
@@ -62,7 +57,7 @@ export default function PlacePopup ({ onClose, place }: Props) {
     async function loadComponent () {
       const Component = await dynamic(
         () => import('./PopupContent'),
-        { loading: () => <Loading /> }
+        { loading: () => <LoadingCode /> }
       )
 
       setContent(Component)

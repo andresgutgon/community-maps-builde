@@ -17,6 +17,9 @@
   "3sBbAu": {
     "defaultMessage": "día"
   },
+  "3vFpuC": {
+    "defaultMessage": "Debes aceptar los términos de legales"
+  },
   "4iGwAO": {
     "defaultMessage": "Este campo debe ser igual o menos de {max}"
   },
@@ -41,11 +44,26 @@
   "B2GImX": {
     "defaultMessage": "Totalmente financiados"
   },
+  "DTelvK": {
+    "defaultMessage": "Cambiar direccón"
+  },
   "DtZeeF": {
     "defaultMessage": "Tarifa según tu aportación"
   },
+  "E8dzwn": {
+    "defaultMessage": "Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar"
+  },
+  "Eek11u": {
+    "defaultMessage": "Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar"
+  },
+  "ElUisA": {
+    "defaultMessage": "Mostrar"
+  },
   "FagJhM": {
     "defaultMessage": "¡Copiado!"
+  },
+  "FmR1T5": {
+    "defaultMessage": "Elige el tipo de lugar"
   },
   "GI//kj": {
     "defaultMessage": "Por estado"
@@ -56,14 +74,26 @@
   "GbLpqH": {
     "defaultMessage": "Activos"
   },
+  "H3Kz8v": {
+    "defaultMessage": "Hubo un error inesperado en el servidor, Por favor intentalo de nuevo"
+  },
   "IOnTHc": {
     "defaultMessage": "Participar"
   },
   "IVA/Y9": {
     "defaultMessage": "Buscar una dirección"
   },
+  "Ib04NK": {
+    "defaultMessage": "Información adicional"
+  },
+  "K6pXDZ": {
+    "defaultMessage": "Categoría"
+  },
   "Kdq+g3": {
     "defaultMessage": "Cerrar filtros"
+  },
+  "LxAGKW": {
+    "defaultMessage": "¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar"
   },
   "MwlsML": {
     "defaultMessage": "Cerrar modal"
@@ -92,11 +122,20 @@
   "TKx/Q8": {
     "defaultMessage": "Mejor"
   },
+  "Tq7tlV": {
+    "defaultMessage": "Dirección"
+  },
+  "VMmmhi": {
+    "defaultMessage": "Elige una categoría para el lugar que vas a sugerir"
+  },
   "VTfGzG": {
     "defaultMessage": "Filtrar"
   },
   "VVn4Nd": {
     "defaultMessage": "Aportación al 100% completada"
+  },
+  "Wceeld": {
+    "defaultMessage": "Cambiar categoría"
   },
   "ZNZWBc": {
     "defaultMessage": "Inactivos"
@@ -104,8 +143,17 @@
   "at9R+C": {
     "defaultMessage": "Debes seleccionar un valor de la lista"
   },
+  "bPxeVs": {
+    "defaultMessage": "Sugierenos un lugar"
+  },
+  "cz9Q8R": {
+    "defaultMessage": "Ocultar"
+  },
   "eOuNie": {
     "defaultMessage": "Buscar"
+  },
+  "gNB19l": {
+    "defaultMessage": "Hubo un error al enviar la información"
   },
   "gRQW59": {
     "defaultMessage": "Bastante financiados"
@@ -119,20 +167,38 @@
   "k3fpzo": {
     "defaultMessage": "Si tu aportación es más de {value} tu tarifa por {timeRate} es {rate}"
   },
+  "kUKcmK": {
+    "defaultMessage": "Sugiérenos un lugar"
+  },
+  "l4IlHe": {
+    "defaultMessage": "Política de privacidad"
+  },
   "lkLfmX": {
     "defaultMessage": "Expandir mapa"
   },
   "m9eXO9": {
     "defaultMessage": "Cargando"
   },
+  "mFDtrP": {
+    "defaultMessage": "Acepto la {privacyLink} y la {cookiesLink}"
+  },
   "nZLeaQ": {
     "defaultMessage": "Cancelar"
+  },
+  "oxv0hl": {
+    "defaultMessage": "Política de cookies"
+  },
+  "pa1TSf": {
+    "defaultMessage": "Este campo debe ser igual o más de {min} letras"
   },
   "puO6Zk": {
     "defaultMessage": "hora"
   },
   "qc8eLe": {
     "defaultMessage": "A más aportación te podemos ofrecer mejor tarifa"
+  },
+  "spATk4": {
+    "defaultMessage": "Acepto la {link}"
   },
   "tClzXv": {
     "defaultMessage": "Enviando"
@@ -142,6 +208,12 @@
   },
   "vD8ftS": {
     "defaultMessage": "Cómo llegar"
+  },
+  "w2xatL": {
+    "defaultMessage": "Siguiente"
+  },
+  "yq+tl0": {
+    "defaultMessage": "Sugerir lugar"
   },
   "zaaFVR": {
     "defaultMessage": "El formato de email no es válido"

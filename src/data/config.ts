@@ -1,9 +1,10 @@
-import { Form, Theme, ThemeColor, Category, TileStyle } from '@maps/types/index'
+import { Config, Form, Theme, ThemeColor, Category, TileStyle } from '@maps/types/index'
 import { TILES } from '@maps/lib/tiles'
 import forms from './forms.json'
+import suggestPlaceForms from './suggestPlaceForms.json'
 import categories from './categories.json'
 
-const data = {
+const data: Config = {
   theme: {
     color: {
       textColorBase: '63, 62, 62',
@@ -18,7 +19,12 @@ const data = {
     } as ThemeColor,
     tileStyle: 'osm' as TileStyle
   } as Theme,
+  legal: {
+    privacyLink: 'https://www.sommobilitat.coop/politica-de-privadesa/',
+    cookiesLink: 'https://www.sommobilitat.coop/cookies/'
+  },
   forms: forms as Record<string, Form>,
+  suggestPlaceForms: suggestPlaceForms as Record<string, Form>,
   categories: categories as Record<string, Category>
 }
 

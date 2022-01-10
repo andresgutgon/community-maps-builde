@@ -1,12 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { XCircleIcon } from '@heroicons/react/outline'
 
-type Props = { message: string }
-const ErrorMessage = ({ message }: Props) => {
+type Props = { message: string; show: boolean }
+const ErrorMessage = ({ show, message }: Props) => {
   const ref = useRef<HTMLDivElement>()
+  const forceScrollOnRender = +new Date()
   useEffect(() => {
+    if (!ref?.current) return
     ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, [])
+  }, [forceScrollOnRender])
+
+  if (!show) return null
+
   return (
     <div className='relative bg-red-600 rounded'>
       <div ref={ref} className='absolute -top-28' />

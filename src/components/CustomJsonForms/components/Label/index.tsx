@@ -5,17 +5,17 @@ import { computeLabel, ControlElement } from '@jsonforms/core'
 
 const FORCE_FOCUS_TO_SHOW_DESCRIPTION = true
 type Props = {
-  id: string,
-  uischema: ControlElement,
-  required: boolean,
-  label: string,
-  classNames: { [className: string]: string },
+  id: string
+  uischema: ControlElement
+  required: boolean
+  label: string
+  className: string
   rightValue?: string | ReactNode
 }
-const Label = ({ id, label, required, classNames, uischema, rightValue }: Props) => {
+const Label = ({ id, label, required, className, uischema, rightValue }: Props) => {
   const hideRequiredAsterisk = uischema?.options?.hideRequiredAsterisk
   return (
-    <label htmlFor={id + '-input'} className={classNames.label}>
+    <label htmlFor={id + '-input'} className={className}>
       {computeLabel(
         label,
         required,

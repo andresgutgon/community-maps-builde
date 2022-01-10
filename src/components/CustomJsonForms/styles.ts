@@ -6,6 +6,7 @@
  * This is awesome because with Tailwind is all we need to customize
  * the look and feel of the forms
  */
+const radioCheckboxLabel = ['text-sm text-gray-800 cursor-pointer']
 export const formStyles = {
   styles: [
     {
@@ -22,7 +23,7 @@ export const formStyles = {
     },
     {
       name: 'control',
-      classNames: ['hidden-attribute flex flex-col w-full space-y-2']
+      classNames: ['hidden-attribute flex flex-col w-full space-y-1']
     },
     {
       name: 'control.label',
@@ -30,11 +31,11 @@ export const formStyles = {
     },
     {
       name: 'control.input',
-      classNames: ['simulateNoNumber p-2 block w-full shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: ['simulateNoNumber p-2 block text-sm w-full shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
     },
     {
       name: 'control.select',
-      classNames: ['block w-full p-2 shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: ['block w-full p-2 shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
     },
     {
       name: 'control.validation',
@@ -50,7 +51,7 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['w-full mt-2 space-y-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
+      classNames: ['w-full space-y-2 mt-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
     },
     {
       name: 'group.label',
@@ -68,9 +69,15 @@ export const formStyles = {
       name: 'control.radio.input',
       classNames: ['appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent']
     },
+    { name: 'control.radio.label', classNames: radioCheckboxLabel },
     {
-      name: 'control.radio.label',
-      classNames: ['text-sm text-gray-800 cursor-pointer']
-    }
+      name: 'control.checkbox.group',
+      classNames: ['hidden-attribute flex flex-row items-center space-x-1 cursor-pointer']
+    },
+    {
+      name: 'control.checkbox.input',
+      classNames: ['rounded appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent']
+    },
+    { name: 'control.checkbox.label', classNames: radioCheckboxLabel }
   ]
 }

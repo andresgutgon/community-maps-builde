@@ -47,6 +47,12 @@
       "value": "día"
     }
   ],
+  "3vFpuC": [
+    {
+      "type": 0,
+      "value": "Debes aceptar los términos de legales"
+    }
+  ],
   "4iGwAO": [
     {
       "type": 0,
@@ -103,16 +109,46 @@
       "value": "Totalmente financiados"
     }
   ],
+  "DTelvK": [
+    {
+      "type": 0,
+      "value": "Cambiar direccón"
+    }
+  ],
   "DtZeeF": [
     {
       "type": 0,
       "value": "Tarifa según tu aportación"
     }
   ],
+  "E8dzwn": [
+    {
+      "type": 0,
+      "value": "Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar"
+    }
+  ],
+  "Eek11u": [
+    {
+      "type": 0,
+      "value": "Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar"
+    }
+  ],
+  "ElUisA": [
+    {
+      "type": 0,
+      "value": "Mostrar"
+    }
+  ],
   "FagJhM": [
     {
       "type": 0,
       "value": "¡Copiado!"
+    }
+  ],
+  "FmR1T5": [
+    {
+      "type": 0,
+      "value": "Elige el tipo de lugar"
     }
   ],
   "GI//kj": [
@@ -133,6 +169,12 @@
       "value": "Activos"
     }
   ],
+  "H3Kz8v": [
+    {
+      "type": 0,
+      "value": "Hubo un error inesperado en el servidor, Por favor intentalo de nuevo"
+    }
+  ],
   "IOnTHc": [
     {
       "type": 0,
@@ -145,10 +187,28 @@
       "value": "Buscar una dirección"
     }
   ],
+  "Ib04NK": [
+    {
+      "type": 0,
+      "value": "Información adicional"
+    }
+  ],
+  "K6pXDZ": [
+    {
+      "type": 0,
+      "value": "Categoría"
+    }
+  ],
   "Kdq+g3": [
     {
       "type": 0,
       "value": "Cerrar filtros"
+    }
+  ],
+  "LxAGKW": [
+    {
+      "type": 0,
+      "value": "¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar"
     }
   ],
   "MwlsML": [
@@ -249,6 +309,18 @@
       "value": "Mejor"
     }
   ],
+  "Tq7tlV": [
+    {
+      "type": 0,
+      "value": "Dirección"
+    }
+  ],
+  "VMmmhi": [
+    {
+      "type": 0,
+      "value": "Elige una categoría para el lugar que vas a sugerir"
+    }
+  ],
   "VTfGzG": [
     {
       "type": 0,
@@ -259,6 +331,12 @@
     {
       "type": 0,
       "value": "Aportación al 100% completada"
+    }
+  ],
+  "Wceeld": [
+    {
+      "type": 0,
+      "value": "Cambiar categoría"
     }
   ],
   "ZNZWBc": [
@@ -273,10 +351,28 @@
       "value": "Debes seleccionar un valor de la lista"
     }
   ],
+  "bPxeVs": [
+    {
+      "type": 0,
+      "value": "Sugierenos un lugar"
+    }
+  ],
+  "cz9Q8R": [
+    {
+      "type": 0,
+      "value": "Ocultar"
+    }
+  ],
   "eOuNie": [
     {
       "type": 0,
       "value": "Buscar"
+    }
+  ],
+  "gNB19l": [
+    {
+      "type": 0,
+      "value": "Hubo un error al enviar la información"
     }
   ],
   "gRQW59": [
@@ -335,6 +431,18 @@
       "value": "rate"
     }
   ],
+  "kUKcmK": [
+    {
+      "type": 0,
+      "value": "Sugiérenos un lugar"
+    }
+  ],
+  "l4IlHe": [
+    {
+      "type": 0,
+      "value": "Política de privacidad"
+    }
+  ],
   "lkLfmX": [
     {
       "type": 0,
@@ -347,10 +455,48 @@
       "value": "Cargando"
     }
   ],
+  "mFDtrP": [
+    {
+      "type": 0,
+      "value": "Acepto la "
+    },
+    {
+      "type": 1,
+      "value": "privacyLink"
+    },
+    {
+      "type": 0,
+      "value": " y la "
+    },
+    {
+      "type": 1,
+      "value": "cookiesLink"
+    }
+  ],
   "nZLeaQ": [
     {
       "type": 0,
       "value": "Cancelar"
+    }
+  ],
+  "oxv0hl": [
+    {
+      "type": 0,
+      "value": "Política de cookies"
+    }
+  ],
+  "pa1TSf": [
+    {
+      "type": 0,
+      "value": "Este campo debe ser igual o más de "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " letras"
     }
   ],
   "puO6Zk": [
@@ -363,6 +509,16 @@
     {
       "type": 0,
       "value": "A más aportación te podemos ofrecer mejor tarifa"
+    }
+  ],
+  "spATk4": [
+    {
+      "type": 0,
+      "value": "Acepto la "
+    },
+    {
+      "type": 1,
+      "value": "link"
     }
   ],
   "tClzXv": [
@@ -381,6 +537,18 @@
     {
       "type": 0,
       "value": "Cómo llegar"
+    }
+  ],
+  "w2xatL": [
+    {
+      "type": 0,
+      "value": "Siguiente"
+    }
+  ],
+  "yq+tl0": [
+    {
+      "type": 0,
+      "value": "Sugerir lugar"
     }
   ],
   "zaaFVR": [

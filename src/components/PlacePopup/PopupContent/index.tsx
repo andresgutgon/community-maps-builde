@@ -1,18 +1,18 @@
+import { useRef, useEffect, useMemo, useState } from 'react'
 import cn from 'classnames'
-import { useEffect, useMemo, useState } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { ValidationMode, JsonSchema, VerticalLayout } from '@jsonforms/core'
 import { JsonFormsStyleContext } from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 
 import { useMapData } from '@maps/components/CommunityProvider'
-import type { Place, PlaceDetail } from '@maps/types/index'
+import type { Form, Place, PlaceDetail } from '@maps/types/index'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
-import { useGetForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import { EntityForm } from '@maps/components/CustomJsonForms/hooks/useForm'
 
 import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
-import { Loading } from '@maps/components/PlacePopup'
+import LoadingCode from '@maps/components/LoadingCode'
 import { displayStyles } from '@maps/components/CustomJsonForms/displayStyles'
 
 const noValidationMode = 'NoValidation' as ValidationMode
@@ -140,7 +140,8 @@ type PlaceContentProps = {
   place: PlaceDetail
 }
 const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => {
-  const form = useGetForm({ place })
+  const { config: { forms }} = useMapData()
+  const form = useRef<Form | null>(forms[place.form_slug]).current
   const intl = useIntl()
   const schema = useSchema({ place })
   const { name, address, lat, lng } = place
@@ -208,7 +209,7 @@ const PopupContent = ({ place }: Props) => {
     fetchData()
   }, [data, place, dataLoading, apiBase])
 
-  if (dataLoading) return <Loading />
+  if (dataLoading) return <LoadingCode />
 
   return (
     <>

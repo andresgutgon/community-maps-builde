@@ -20,7 +20,7 @@ const ModalWrapper = forwardRef<
   HTMLDivElement | HTMLFormElement, ModalWrapperProps
 >(function ModalWrapper({ closeFn, onSubmit, children }, ref) {
   let props: ElementProps = {
-    className: 'inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-lg sm:w-full'
+    className: 'inline-block align-bottom bg-white rounded-lg text-left shadow transform transition-all sm:my-8 sm:align-middle sm:max-w-md md:max-w-lg w-full'
   }
   props = onSubmit ? {
     ...props,
@@ -59,7 +59,7 @@ export default function Modal({
         initialFocus={initialFocusRef}
         onClose={onClose}
       >
-        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -88,7 +88,7 @@ export default function Modal({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <ModalWrapper closeFn={closeFn} onSubmit={onSubmit}>
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="rounded-xl bg-white px-4 pb-4 sm:p-6">
                 <div className="sm:flex sm:items-start">
                   <div className={cn(
                     'text-center sm:mt-0 space-y-2 sm:text-left',
@@ -107,7 +107,7 @@ export default function Modal({
                   </div>
                 </div>
                 {children ? (
-                  <div className='space-y-4 mt-3 mb-4'>{children}</div>
+                  <div className='space-y-4 mt-3'>{children}</div>
                 ): null}
                 <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
                   <Button

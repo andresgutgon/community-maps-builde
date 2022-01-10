@@ -1,5 +1,6 @@
 {
   "first-form": {
+    "slug": "first-form",
     "ctaLabel": "Haz click aquí",
     "formButtonLabel": "Guardar esto",
     "description": "Descripción para este formulario",
@@ -34,9 +35,7 @@
           "default": 120000,
           "description": "Apadrina un cotxe. Recuperes els diners al cap de 3 anys i gaudeixes d'una millor tarifa."
         },
-        "name":{
-          "type":"string"
-        },
+        "name": { "type": "string", "minLength": 2 },
         "telephone":{
           "type":"integer",
           "description": "Sólo números en tú teléfono : )"
@@ -61,102 +60,6 @@
     "uiSchema": {
       "type":"VerticalLayout",
       "elements": [
-        {
-          "type": "Group",
-          "label": "Tu aportación",
-          "elements": [
-            {
-              "type": "Control",
-              "scope": "#/properties/contribution_type",
-              "label": "Tipo de aportación",
-              "options": { "format": "radio" }
-            },
-            {
-              "type":"Control",
-              "scope":"#/properties/sponsorship_contribution_amount_in_cents",
-              "label": "Tu aportación",
-              "rule": {
-                "effect": "SHOW",
-                "condition": {
-                "scope": "#/properties/contribution_type",
-                  "schema": { "enum": ["sponsorship"] }
-                }
-              },
-              "options": {
-                "pricing": true,
-                "formatValue": "currency",
-                "pricingRates": [
-                  {
-                    "minimum": 25000,
-                    "maximum": 99900,
-                    "rates": {
-                      "hourly": 500,
-                      "daily": 5000
-                    }
-                  },
-                  {
-                    "minimum": 100000,
-                    "maximum": 499900,
-                    "rates": {
-                      "hourly": 450,
-                      "daily": 4500
-                    }
-                  },
-                  {
-                    "minimum": 500000,
-                    "maximum": 1000000,
-                    "rates": {
-                      "hourly": 400,
-                      "daily": 4000
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "type":"Control",
-              "scope":"#/properties/prepaid_contribution_amount_in_cents",
-              "label": "Tu aportación",
-              "rule": {
-                "effect": "SHOW",
-                "condition": {
-                "scope": "#/properties/contribution_type",
-                  "schema": { "enum": ["prepaid"] }
-                }
-              },
-              "options": {
-                "pricing": true,
-                "formatValue": "currency",
-                "pricingRates": [
-                  {
-                    "minimum": 5000,
-                    "maximum": 24900,
-                    "rates": {
-                      "hourly": 500,
-                      "daily": 5000
-                    }
-                  },
-                  {
-                    "minimum": 25000,
-                    "maximum": 99900,
-                    "rates": {
-                      "hourly": 450,
-                      "daily": 4500
-                    }
-                  },
-                  {
-                    "minimum": 100000,
-                    "maximum": 100000,
-                    "rates": {
-                      "hourly": 400,
-                      "daily": 4000
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        },
         {
           "type": "Group",
           "label": "Tus datos de contacto",
@@ -198,11 +101,108 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Group",
+          "label": "Tu aportación",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/contribution_type",
+              "label": "Tipo de aportación",
+              "options": { "format": "radio" }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/sponsorship_contribution_amount_in_cents",
+              "label": "Tu aportación",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/contribution_type",
+                  "schema": { "enum": ["sponsorship"] }
+                }
+              },
+              "options": {
+                "pricing": true,
+                "formatValue": "currency",
+                "pricingRates": [
+                  {
+                    "minimum": 25000,
+                    "maximum": 99900,
+                    "rates": {
+                      "hourly": 500,
+                      "daily": 5000
+                    }
+                  },
+                  {
+                    "minimum": 100000,
+                    "maximum": 499900,
+                    "rates": {
+                      "hourly": 450,
+                      "daily": 4500
+                    }
+                  },
+                  {
+                    "minimum": 500000,
+                    "maximum": 1000000,
+                    "rates": {
+                      "hourly": 400,
+                      "daily": 4000
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type":"Control",
+              "scope":"#/properties/prepaid_contribution_amount_in_cents",
+              "label": "Tu aportación",
+              "rule": {
+                "effect": "SHOW",
+                "condition": {
+                  "scope": "#/properties/contribution_type",
+                  "schema": { "enum": ["prepaid"] }
+                }
+              },
+              "options": {
+                "pricing": true,
+                "formatValue": "currency",
+                "pricingRates": [
+                  {
+                    "minimum": 5000,
+                    "maximum": 24900,
+                    "rates": {
+                      "hourly": 500,
+                      "daily": 5000
+                    }
+                  },
+                  {
+                    "minimum": 25000,
+                    "maximum": 99900,
+                    "rates": {
+                      "hourly": 450,
+                      "daily": 4500
+                    }
+                  },
+                  {
+                    "minimum": 100000,
+                    "maximum": 100000,
+                    "rates": {
+                      "hourly": 400,
+                      "daily": 4000
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     }
   },
   "bike_charger": {
+    "slug": "bike_charger",
     "jsonSchema": {
       "type":"object",
       "properties":{
