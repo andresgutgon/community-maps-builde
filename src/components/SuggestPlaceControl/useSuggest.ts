@@ -60,6 +60,8 @@ export type SuggestReturnType = {
   addressLatLng: LatLngLiteral | null
   setAddress: Dispatch<SetStateAction<AddressType | null>>
   onAddressChange: (latLng: LatLngLiteral, address: string) => void
+  addressAditionalInfo: string
+  setAddressAditionalInfo: Dispatch<SetStateAction<string>>
   moveToStep: MoveToStepFn
   onSubmit: (closeFn: Function) => void
 }
@@ -68,7 +70,6 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
   const { categories } = useMapData()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const [address, setAddress] = useState<AddressType | null>(null)
-  // TODO: Text area to add extra info about the address
   const [addressAditionalInfo, setAddressAditionalInfo] = useState('')
   const [addressLatLng, setLatLng] = useState<LatLngLiteral | null>(null)
   const [category, setCategory] = useState<Category | null>(
@@ -97,7 +98,10 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
     setCategory(null)
   }
   const showForm = step === Step.form && !form?.response?.ok
-  const submitButtonDisabled = step === Step.form && !form?.valid || form?.submitting
+  const submitButtonDisabled = Step.category === step
+    ? !category : Step.address === step
+      ? !address
+      : step === Step.form && !form?.valid || form?.submitting
 
   const onCategoryChange = (selectedCategory: Category) => {
     setCategory(selectedCategory)
@@ -135,6 +139,8 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
     addressLatLng,
     setAddress,
     onAddressChange,
+    addressAditionalInfo,
+    setAddressAditionalInfo,
     onSubmit
   }
 }

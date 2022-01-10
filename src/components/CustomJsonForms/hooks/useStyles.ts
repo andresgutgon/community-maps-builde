@@ -18,12 +18,14 @@ type CheckboxStyles = {
   label: string
 }
 type ReturnType = {
-  input: string,
-  radio: RadioStyles,
-  checkbox: CheckboxStyles,
-  description: string,
-  descriptionError: string,
-  group: GroupStyles,
+  control: string
+  label: string
+  input: string
+  radio: RadioStyles
+  checkbox: CheckboxStyles
+  description: string
+  descriptionError: string
+  group: GroupStyles
   verticalLayout: string
 }
 const useStyles = (): ReturnType => {
@@ -38,6 +40,12 @@ const useStyles = (): ReturnType => {
       ...formStyles.styles.find(style => style.name === 'control.validation').classNames,
       ...formStyles.styles.find(style => style.name === 'control.validation.error').classNames
     ].join(' ')
+  ).current
+  const control = useRef(
+    formStyles.styles.find(style => style.name === 'control').classNames.join(' ')
+  ).current
+  const label = useRef(
+    formStyles.styles.find(style => style.name === 'control.label').classNames.join(' ')
   ).current
   const input = useRef(
     formStyles.styles.find(style => style.name === 'control.input').classNames.join(' ')
@@ -67,9 +75,11 @@ const useStyles = (): ReturnType => {
     }
   ).current
   return {
+    control,
+    label,
+    input,
     radio,
     checkbox,
-    input,
     description,
     descriptionError,
     group,

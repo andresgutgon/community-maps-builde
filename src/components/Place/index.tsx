@@ -1,12 +1,9 @@
 import { useRef } from 'react'
 import { Marker } from 'react-leaflet'
-import { divIcon } from 'leaflet'
 import type { LeafletEventHandlerFnMap } from 'leaflet'
 
-import { MarkerColor } from '@maps/components/Marker'
 import type { Place as PlaceType } from '@maps/types/index'
 import { useMarkerPercentage, Percentage } from '@maps/components/Marker'
-import { buildMarkerStringType } from '@maps/components/Marker/useMarkersAsString'
 import useMarkerIcon from '@maps/hooks/useMarkerIcon'
 
 type Props = {

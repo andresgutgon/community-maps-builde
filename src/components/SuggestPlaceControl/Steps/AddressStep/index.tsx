@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import cn from 'classnames'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRouter } from 'next/router'
@@ -9,6 +9,7 @@ import { GeocoderService } from '@maps/types/index'
 import useGeocoder from '@maps/components/SearchInput/useGeocoder'
 import { useMapData } from '@maps/components/CommunityProvider'
 import useTile from '@maps/components/CommunityProvider/useTile'
+import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import Fieldset from '@maps/components/Fieldset'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
@@ -34,6 +35,7 @@ const AddressStep = ({
   setUserKnowsAboutMapDragging
 }: Props) => {
   const { locale } = useRouter()
+  const styles = useStyles()
   const [dragging, setDragging] = useState<boolean>(false)
   const intl = useIntl()
   const geocoder = useGeocoder({ service: GeocoderService.nominatim, locale })
@@ -126,16 +128,34 @@ const AddressStep = ({
 
   return (
       <Fieldset legend={legend}>
-        <div className='flex items-center space-x-2 justify-between'>
-          <SearchResult result={searchResult} />
-          <Button
-            outline
-            style={ButtonStyles.secondary}
-            size={ButtonSize.sm}
-            onClick={suggest.moveToStep(Step.address)}
-          >
-            <FormattedMessage defaultMessage='Cambiar direccón' id="DTelvK" />
-          </Button>
+        <div className={styles.verticalLayout}>
+          <div className='flex items-center space-x-2 justify-between'>
+            <SearchResult result={searchResult} />
+            <Button
+              outline
+              style={ButtonStyles.secondary}
+              size={ButtonSize.sm}
+              onClick={suggest.moveToStep(Step.address)}
+            >
+              <FormattedMessage defaultMessage='Cambiar direccón' id="DTelvK" />
+            </Button>
+          </div>
+          <div className={styles.control}>
+            <label htmlFor='addressAditionalInfo' className={styles.label}>
+              <FormattedMessage id="Ib04NK" defaultMessage='Información adicional' />
+            </label>
+            <textarea
+              className={styles.input}
+              id='addressAditionalInfo'
+              value={suggest.addressAditionalInfo}
+              onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                suggest.setAddressAditionalInfo(event.target.value)
+              }}
+            />
+            <p className={styles.description}>
+              <FormattedMessage id="E8dzwn" defaultMessage='Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar' />
+            </p>
+          </div>
         </div>
       </Fieldset>
   )
