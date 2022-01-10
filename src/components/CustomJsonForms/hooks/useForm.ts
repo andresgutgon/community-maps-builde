@@ -49,7 +49,6 @@ type InitFormInstanceProps = {
   translateBuilderFn: TranslateBuilderFn
 }
 const FORM_RESET_VALUES: Partial<FormInstance> = {
-  data: {},
   submitting: false,
   valid: false,
   errors: null,
@@ -217,7 +216,13 @@ const reducer = (
         forms: Object.keys(state.forms).map((identifier: string) => (
           {...state.forms[identifier], ...FORM_RESET_VALUES }
         )),
-        ...(state.form ? { form: { ...state.form, ...FORM_RESET_VALUES } } : {})
+        ...(state.form ? ({
+          form: {
+            ...state.form,
+            ...FORM_RESET_VALUES,
+            data: state.form.instance.initialData || {}
+          }
+        }) : {})
       }
     default:
       throw new Error('Unhandle reducer action')
