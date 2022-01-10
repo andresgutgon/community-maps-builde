@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useMapData } from '@maps/components/CommunityProvider'
 import { Step, SuggestReturnType } from '@maps/components/SuggestPlaceControl/useSuggest'
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
+import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useErrorMessage'
+import LegalCheck from '@maps/components/LegalCheck'
 
 import CategoryStep from './CategoryStep'
 import AddressStep from './AddressStep'
@@ -17,8 +19,10 @@ const Steps = ({ suggest }: Props) => {
   const showAddress = suggest.step !== Step.category
   const showForm = suggest.step === Step.form
   const responseOk = suggest?.form?.response?.ok
+  const error = useErrorMessage({ form: suggest.form })
   return (
     <>
+      {showForm ? <FormStep suggest={suggest} /> : null}
       {(!responseOk && showCategory) ?  <CategoryStep suggest={suggest} /> : null}
       {(!responseOk && showAddress) ? (
         <AddressStep
@@ -29,7 +33,13 @@ const Steps = ({ suggest }: Props) => {
           setUserKnowsAboutMapDragging={setUserKnowsAboutMapDragging}
         />
       ) : null}
-      {showForm ? <FormStep suggest={suggest} /> : null}
+      {showForm ? (
+        <LegalCheck
+          error={error.message}
+          checked={suggest.legalTermsAccepted}
+          onCheck={(accepted: boolean) => suggest.setLegalTermsAccepted(accepted)}
+        />
+      ) : null}
     </>
   )
 }

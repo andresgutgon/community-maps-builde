@@ -24,10 +24,11 @@ const CategoryItem = ({ isChecked = false, isSelected = false, category, right }
       htmlFor={category.slug}
       className={
         cn(
-          'flex items-center space-x-2 justify-between h-full',
+          'flex space-x-2 h-full',
           {
             'cursor-pointer flex-col rounded p-2 border border-transparent hover:border-gray-600 hover:shadow-sm': !isSelected,
-            'border-gray-600 hover:shadow-sm': isChecked
+            'border-gray-600 hover:shadow-sm': isChecked,
+            'items-center justify-between': !!right
           }
         )
       }
