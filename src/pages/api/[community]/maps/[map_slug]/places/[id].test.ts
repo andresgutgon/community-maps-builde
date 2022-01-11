@@ -25,7 +25,7 @@ describe('api/[community]/maps/[map_slug]/places/[slug]', () => {
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
         fetchMock.mockResponse(
-          JSON.stringify(placeDetail),
+          JSON.stringify({ ok: 200, data: placeDetail }),
           { status: 200 }
         )
         const response = await fetch()
