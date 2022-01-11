@@ -1,7 +1,5 @@
 import { useIntl } from 'react-intl'
 
-import { useMapData } from '@maps/components/CommunityProvider'
-
 export enum Method { GET = 'GET', POST = 'POST' }
 const buildUrl = (community: string, path: string) => `/api/${community}/maps/${path}`
 type Request = {
@@ -14,9 +12,9 @@ export type Response = {
   message: string,
   data?: any
 }
-const useMakeRequest = () => {
+type Props = { community: string }
+const useMakeRequest = ({ community }) => {
   const intl = useIntl()
-  const { community } = useMapData()
   const defaultError = intl.formatMessage({ defaultMessage: 'Hubo un error inesperado en el servidor, Por favor intentalo de nuevo', id: 'H3Kz8v' })
 
   return async ({ method, path, body }: Request): Promise<Response> => {

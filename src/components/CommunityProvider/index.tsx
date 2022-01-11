@@ -1,12 +1,13 @@
 import { useMemo, Dispatch, SetStateAction, useRef, ReactNode, createContext, useEffect, useState, useContext } from 'react'
-import { useRouter } from 'next/router'
 import { FormattedMessage } from 'react-intl'
 
 import { Category, Place, Config } from '@maps/types/index'
 import LoadingMap from '@maps/components/LoadingMap'
 import useQueryString, { UrlParam } from '@maps/components/CommunityProvider/useQueryString'
 import useFilters from '@maps/components/FilterControl/useFilters'
+import useMakeRequest, { Method } from '@maps/hooks/useMakeRequest'
 import useMarkersAsString, { MarkersAsString } from '@maps/components/Marker/useMarkersAsString'
+import { MapNotFoundError } from '@maps/components/ErrorBoundaries/TopMap'
 
 interface ContextProps {
   controlCssTag: HTMLStyleElement,
@@ -42,10 +43,11 @@ const CommunityContext = createContext<ContextProps | null>({
 type ProviderProps = {
   children: ReactNode,
   community: string,
-  mapId: string
+  mapSlug: string
 }
 
-export const CommunityProvider = ({ community, mapId, children }: ProviderProps) => {
+export const CommunityProvider = ({ community, mapSlug, children }: ProviderProps) => {
+  const makeRequest = useMakeRequest({ community })
   const { iconMarkers, buildIconMarkers } = useMarkersAsString()
   const controlCssTag = useMemo<HTMLStyleElement>(() => {
     const cssStyleTag = document.createElement('style')
@@ -59,7 +61,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     document.head.appendChild(cssStyleTag)
     return cssStyleTag
   }, [])
-  const apiBase = useRef(`/api/${community}/maps/${mapId}`).current
+  const apiBase = useRef(`/api/${community}/maps/${mapSlug}`).current
   const { filter } = useFilters()
   const { loadingUrlParams, urlParams, onLoadCategories, mapUrl } = useQueryString()
   const [config, setConfig] = useState(null)
@@ -97,8 +99,16 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
       if (fetchingConfig) return
 
       setFetchingConfig(true)
-      const configResponse = await fetch(`${apiBase}/config`)
-      const config = await configResponse.json()
+      const configResponse= await makeRequest({
+        method: Method.GET,
+        path: `${mapSlug}/config`
+      })
+
+      if (!configResponse.ok) {
+        throw new MapNotFoundError(mapSlug)
+      }
+
+      const config = configResponse.data
       const categorySlugs = Object.keys(config.categories)
       onLoadCategories(categorySlugs)
 
@@ -131,6 +141,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     }
     loadData()
   }, [
+    makeRequest,
     fetchingPlaces,
     setFetchingPlaces,
     fetchingConfig,
@@ -139,7 +150,7 @@ export const CommunityProvider = ({ community, mapId, children }: ProviderProps)
     apiBase,
     loadingUrlParams,
     community,
-    mapId,
+    mapSlug,
     loading,
     filter,
     urlParams,

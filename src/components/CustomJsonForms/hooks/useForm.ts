@@ -254,7 +254,7 @@ type Props = {
 }
 export const useForm = ({ entities, currentEntity, getExtraData, onResponseSuccess }: Props): FormReturnType | null => {
   const { config, community } = useMapData()
-  const makeRequest = useMakeRequest()
+  const makeRequest = useMakeRequest({ community })
   const translateBuilderFn = useTranslate()
   const translateError = useTranslateError()
 

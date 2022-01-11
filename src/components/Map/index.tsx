@@ -4,6 +4,7 @@ import { Control, ControlOptions, DomUtil, DomEvent,  Map as LeafletMap, Icon } 
 import 'leaflet.markercluster'
 import { useMapEvents, useMap, MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
+import TopMapErrorBoundary from '@maps/components/ErrorBoundaries/TopMap'
 
 import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
 import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/index'
@@ -118,12 +119,14 @@ const MapWrapper = () => {
   )
 }
 
-type Props = { community: string, mapId: string }
-const Map = ({ community, mapId }: Props) => {
+type Props = { community: string, mapSlug: string }
+const Map = ({ community, mapSlug }: Props) => {
   return (
-    <CommunityProvider community={community} mapId={mapId}>
-      <MapWrapper />
-    </CommunityProvider>
+    <TopMapErrorBoundary>
+      <CommunityProvider community={community} mapSlug={mapSlug}>
+        <MapWrapper />
+      </CommunityProvider>
+    </TopMapErrorBoundary>
   )
 }
 
