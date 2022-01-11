@@ -118,10 +118,10 @@ const MapWrapper = () => {
   )
 }
 
-type Props = { community: string, mapId: string }
-const Map = ({ community, mapId }: Props) => {
+type Props = { community: string, mapSlug: string }
+const Map = ({ community, mapSlug }: Props) => {
   return (
-    <CommunityProvider community={community} mapId={mapId}>
+    <CommunityProvider community={community} mapSlug={mapSlug}>
       <MapWrapper />
     </CommunityProvider>
   )

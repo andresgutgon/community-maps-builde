@@ -60,6 +60,7 @@ export type Form = {
 export type Place = {
   slug: string
   category_slug: string
+  map_slug: string
   form_slug: string | null
   lat: string
   lng: string

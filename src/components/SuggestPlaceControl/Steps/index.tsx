@@ -33,7 +33,7 @@ const Steps = ({ suggest }: Props) => {
           setUserKnowsAboutMapDragging={setUserKnowsAboutMapDragging}
         />
       ) : null}
-      {showForm ? (
+      {(showForm && !responseOk) ? (
         <LegalCheck
           error={error.message}
           checked={suggest.legalTermsAccepted}

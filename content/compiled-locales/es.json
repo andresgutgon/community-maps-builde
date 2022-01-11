@@ -357,6 +357,16 @@
       "value": "Sugierenos un lugar"
     }
   ],
+  "c13AgS": [
+    {
+      "type": 0,
+      "value": "Hubo un error cargando el mapa con slug "
+    },
+    {
+      "type": 1,
+      "value": "mapSlug"
+    }
+  ],
   "cz9Q8R": [
     {
       "type": 0,
@@ -441,6 +451,12 @@
     {
       "type": 0,
       "value": "Política de privacidad"
+    }
+  ],
+  "lYL/xX": [
+    {
+      "type": 0,
+      "value": "Hubo un error cargando los puntos en este mapa"
     }
   ],
   "lkLfmX": [

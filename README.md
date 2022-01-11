@@ -27,8 +27,24 @@ Take a look at the files ended in `*.test.ts` and get inspiration. When you are 
 yarn test:watch
 ```
 
-### Deployment
-TO BE DEFINED
+### Recreate demo data
+We have a demo map based on places found in [sommobilitat](https://www.sommobilitat.coop/crowdfunding)
+What we do is first fetch from their Wordpress API the places. You don't need to do this in general. This is already done.
+```
+node scripts/fetchSommobilitatRawPlaces.mjs
+```
+
+With the file fetched from sommobilitat we should see a JSON file in:
+`./scripts/sommobilitat.json`
+
+Now we generate demo map with:
+```
+node --experimental-json-modules ./scripts/generatePlaces.mjs
+```
+The flag `--experimental-json-modules` is important. Allow us to import JSON files in Node. Is experimental so maybe broke in the future.
+With these 2 scripts you should be able to have two demo maps in this project:
+1. One category. A map with only one category. Most common use case I guess
+2. Multiple categories. Just in case a community needs to show different kind of places.
 
 ### RESOURCES
 - [Leaflet tile providers](http://leaflet-extras.github.io/leaflet-providers/preview/index.html)

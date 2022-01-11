@@ -6,7 +6,7 @@ import LoadingMap from '@maps/components/LoadingMap'
 
 const MapRoute = () => {
   const router = useRouter()
-  const { community, id } = router.query
+  const { community, slug } = router.query
   // NOTE:
   // This line is important. It's what prevents server-side render
   // Leaflet depends on window therefor doesn't work on the server.
@@ -15,11 +15,11 @@ const MapRoute = () => {
     { ssr: false, loading: () => <LoadingMap /> }
   )
 
-  if (!router.query.community || !router.query.id) {
+  if (!router.query.community || !router.query.slug) {
     return <LoadingMap />
   }
   return (
-    <Map community={community?.toString()} mapId={id?.toString()} />
+    <Map community={community?.toString()} mapSlug={slug?.toString()} />
   )
 }
 

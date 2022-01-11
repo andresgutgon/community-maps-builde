@@ -1,7 +1,1 @@
-[
-  {
-    "slug": "first-map",
-    "name": "First map",
-    "description": "A description of this map maybe"
-  }
-]
+[{"name":"One category","slug":"one-category","description":"Possibly the most common use case"},{"name":"Multiple categories","slug":"multiple-categories","description":"Showcase a map with multiple categories"}]
