@@ -11,9 +11,11 @@ import { Category } from '@maps/types/index'
 const communityServerMap = ({ request, map, places, response }: ResponseWithMap) => {
   const { id } = request.query
   const place = places.find(p => p.slug  === id)
+
   if (!place) {
-    response.status(404).json({ message: 'place not found' })
+    response.status(404).json({ ok: false, message: 'place not found' })
   }
+
   let placeDetail = id === 'som-mobilitat-vielha'
     ? vielhaPlace
     : defaultPlace
@@ -25,8 +27,11 @@ const communityServerMap = ({ request, map, places, response }: ResponseWithMap)
     }
   }
   response.status(200).json({
-    ...place,
-    ...detail
+    ok: true,
+    data: {
+      ...place,
+      ...detail
+    }
   })
 }
 

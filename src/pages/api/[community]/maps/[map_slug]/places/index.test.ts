@@ -31,7 +31,8 @@ describe('api/[community]/maps/[id]/places', () => {
 
         expect(response.status).toBe(200);
 
-        expect(await response.json()).toStrictEqual(places)
+        const json = await response.json()
+        expect(json.data).toStrictEqual(places)
       }
     });
   })
@@ -49,8 +50,8 @@ describe('api/[community]/maps/[id]/places', () => {
         const response = await fetch();
 
         expect(response.status).toBe(404);
-
-        expect(await response.json()).toStrictEqual({ message: 'Not found map' })
+        const json = await response.json()
+        expect(json).toStrictEqual({ ok: false, message: 'Not found map' })
       }
     });
   })

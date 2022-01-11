@@ -9,7 +9,7 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import type { Form, Place, PlaceDetail } from '@maps/types/index'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import { EntityForm } from '@maps/components/CustomJsonForms/hooks/useForm'
-
+import useMakeRequest, { Method } from '@maps/hooks/useMakeRequest'
 import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
 import LoadingCode from '@maps/components/LoadingCode'
@@ -186,7 +186,8 @@ const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => 
 
 type Props = { place: Place }
 const PopupContent = ({ place }: Props) => {
-  const { apiBase } = useMapData()
+  const { community, mapSlug } = useMapData()
+  const makeRequest = useMakeRequest({ community, mapSlug })
   const [dataLoading, setDataLoading] = useState(true)
   const [data, setData] = useState(null)
   const [isOpen, setModal] = useState<boolean>(false)
@@ -200,14 +201,15 @@ const PopupContent = ({ place }: Props) => {
     if (data) return
 
     async function fetchData () {
-      const response = await fetch(`${apiBase}/places/${place.slug}`)
-      const data = await response.json()
-      setData(data)
+      const response = await makeRequest({
+        method: Method.GET, path: `places/${place.slug}`
+      })
+      setData(response.data)
       setDataLoading(false)
     }
 
     fetchData()
-  }, [data, place, dataLoading, apiBase])
+  }, [makeRequest, data, place, dataLoading])
 
   if (dataLoading) return <LoadingCode />
 

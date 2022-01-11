@@ -18,7 +18,8 @@ describe('api/mockServer/config', () => {
           }
         });
         expect(response.status).toBe(200);
-        expect(await response.json()).toStrictEqual(config)
+        const json = await response.json()
+        expect(json.data).toStrictEqual(config)
       }
     });
   })
@@ -32,10 +33,11 @@ describe('api/mockServer/config', () => {
         });
         expect(response.status).toBe(400);
         expect(await response.json()).toStrictEqual({
+          ok: false,
           message: 'Unauthorized request'
         })
       }
-    });
+    })
   })
 })
 

@@ -1,27 +1,46 @@
 import { useMemo, Dispatch, SetStateAction, useRef, ReactNode, createContext, useEffect, useState, useContext } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 
 import { Category, Place, Config } from '@maps/types/index'
-import LoadingMap from '@maps/components/LoadingMap'
+import LoadingMap, { LoadingMapType } from '@maps/components/LoadingMap'
 import useQueryString, { UrlParam } from '@maps/components/CommunityProvider/useQueryString'
 import useFilters from '@maps/components/FilterControl/useFilters'
 import useMakeRequest, { Method } from '@maps/hooks/useMakeRequest'
 import useMarkersAsString, { MarkersAsString } from '@maps/components/Marker/useMarkersAsString'
-import { MapNotFoundError } from '@maps/components/ErrorBoundaries/TopMap'
+
+enum LoadingErrorType { Map = 'Map', Place = 'Place'}
+type LoadingError = {
+  type: LoadingErrorType,
+  message: string
+}
+type UseLoadingErrorsProps = { mapSlug: string }
+const useLoadingErrors = ({ mapSlug }: UseLoadingErrorsProps): Record<LoadingErrorType, LoadingError> => {
+  const intl = useIntl()
+  return useRef({
+    [LoadingErrorType.Map]: {
+      type: LoadingErrorType.Map,
+      message: intl.formatMessage({ defaultMessage: 'Hubo un error cargando el mapa con slug {mapSlug}', id: 'c13AgS' }, { mapSlug })
+    },
+    [LoadingErrorType.Place]: {
+      type: LoadingErrorType.Map,
+      message: intl.formatMessage({ defaultMessage: 'Hubo un error cargando los puntos en este mapa', id: 'lYL/xX' })
+    }
+  }).current
+}
 
 interface ContextProps {
-  controlCssTag: HTMLStyleElement,
+  controlCssTag: HTMLStyleElement
   places: Place[]
   categories: Category[]
   setPlaces: Dispatch<SetStateAction<Place[]>>
   allPlaces: Place[]
   currentPlace: Place | null
   config: Config | null
-  loading: boolean,
-  urlParams: UrlParam,
-  apiBase: string,
-  mapUrl: string,
-  community: string,
+  loading: boolean
+  urlParams: UrlParam
+  mapUrl: string
+  mapSlug: string
+  community: string
   iconMarkers: MarkersAsString
 }
 const CommunityContext = createContext<ContextProps | null>({
@@ -35,8 +54,8 @@ const CommunityContext = createContext<ContextProps | null>({
   config: null,
   loading: true,
   urlParams: null,
-  apiBase: null,
   mapUrl: null,
+  mapSlug: null,
   iconMarkers: null
 })
 
@@ -47,7 +66,9 @@ type ProviderProps = {
 }
 
 export const CommunityProvider = ({ community, mapSlug, children }: ProviderProps) => {
-  const makeRequest = useMakeRequest({ community })
+  const makeRequest = useMakeRequest({ community, mapSlug })
+  const errors = useLoadingErrors({ mapSlug })
+  const [error, setError] = useState<LoadingError | null>(null)
   const { iconMarkers, buildIconMarkers } = useMarkersAsString()
   const controlCssTag = useMemo<HTMLStyleElement>(() => {
     const cssStyleTag = document.createElement('style')
@@ -61,7 +82,6 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
     document.head.appendChild(cssStyleTag)
     return cssStyleTag
   }, [])
-  const apiBase = useRef(`/api/${community}/maps/${mapSlug}`).current
   const { filter } = useFilters()
   const { loadingUrlParams, urlParams, onLoadCategories, mapUrl } = useQueryString()
   const [config, setConfig] = useState(null)
@@ -74,38 +94,41 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null)
   useEffect(() => {
     // Wait for parent host page to return URL info
-    if (!loading || loadingUrlParams) return
+    if (error?.type === LoadingErrorType.Map || !loading || loadingUrlParams) return
 
     async function loadData () {
       let current = null
       // Start fetching places when categories are loaded
       if (categories.current.length > 0 && !fetchingPlaces) {
         // Places are async
-        fetch(`${apiBase}/places`)
-          .then((response) => response.json())
-          .then(data => {
-            allPlaces.current = data
-            if (urlParams.placeSlug) {
-              current = allPlaces.current.find((place: Place) =>
-                place.slug === urlParams.placeSlug
-              )
-              setCurrentPlace(current)
-            }
+        const response = await makeRequest({
+          method: Method.GET, path: 'places'
+        })
 
-            setPlaces(filter(allPlaces.current, urlParams.filters))
-          })
+        if (!response.ok) {
+          return setError(errors.Place)
+        }
+
+        allPlaces.current = response.data
+        if (urlParams.placeSlug) {
+          current = allPlaces.current.find((place: Place) =>
+            place.slug === urlParams.placeSlug
+          )
+          setCurrentPlace(current)
+        }
+
+        setPlaces(filter(allPlaces.current, urlParams.filters))
       }
 
       if (fetchingConfig) return
 
       setFetchingConfig(true)
       const configResponse= await makeRequest({
-        method: Method.GET,
-        path: `${mapSlug}/config`
+        method: Method.GET, path: `config`
       })
 
       if (!configResponse.ok) {
-        throw new MapNotFoundError(mapSlug)
+        return setError(errors.Map)
       }
 
       const config = configResponse.data
@@ -142,12 +165,14 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
     loadData()
   }, [
     makeRequest,
+    errors,
+    error,
+    setError,
     fetchingPlaces,
     setFetchingPlaces,
     fetchingConfig,
     setFetchingConfig,
     themeCssTag,
-    apiBase,
     loadingUrlParams,
     community,
     mapSlug,
@@ -157,11 +182,22 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
     onLoadCategories,
     buildIconMarkers
   ])
+
+  if (error) {
+    return (
+      <LoadingMap
+        message={error.message}
+        type={LoadingMapType.Error}
+      />
+    )
+  }
+
   return (
     <CommunityContext.Provider
       value={{
         controlCssTag,
         community,
+        mapSlug,
         mapUrl,
         urlParams,
         currentPlace,
@@ -171,7 +207,6 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
         places,
         config,
         categories: categories.current,
-        apiBase,
         iconMarkers
       }}
     >

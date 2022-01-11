@@ -22,7 +22,9 @@ describe('api/[community]/config', () => {
 
         expect(response.status).toBe(200);
 
-        expect(await response.json()).toStrictEqual(config)
+        const json = await response.json()
+        expect(json.ok).toBe(true)
+        expect(json.data).toStrictEqual(config)
       }
     });
   })
@@ -34,6 +36,7 @@ describe('api/[community]/config', () => {
         const response = await fetch();
         expect(response.status).toBe(402);
         expect(await response.json()).toStrictEqual({
+          ok: false,
           message: 'Not community defined for this map'
         })
       }
@@ -49,6 +52,7 @@ describe('api/[community]/config', () => {
         const response = await fetch();
         expect(response.status).toBe(402);
         expect(await response.json()).toStrictEqual({
+          ok: false,
           message: 'Not community defined for this map'
         })
       }

@@ -146,6 +146,9 @@
   "bPxeVs": {
     "defaultMessage": "Sugierenos un lugar"
   },
+  "c13AgS": {
+    "defaultMessage": "Hubo un error cargando el mapa con slug {mapSlug}"
+  },
   "cz9Q8R": {
     "defaultMessage": "Ocultar"
   },
@@ -172,6 +175,9 @@
   },
   "l4IlHe": {
     "defaultMessage": "Política de privacidad"
+  },
+  "lYL/xX": {
+    "defaultMessage": "Hubo un error cargando los puntos en este mapa"
   },
   "lkLfmX": {
     "defaultMessage": "Expandir mapa"

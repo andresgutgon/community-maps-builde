@@ -52,11 +52,19 @@ const place = async ({ request, response, tokenHeaders, communityHost }: Respons
       headers: tokenHeaders
     }
   )
-  const data = await serverResponse.json()
-  const schemaData = parseMarkdownFields(data.jsonSchema, data.schemaData)
+  const json = await serverResponse.json()
+
+  if (serverResponse.status !== 200) {
+    return response.status(serverResponse.status).json(json)
+  }
+
+  const schemaData = parseMarkdownFields(json.data.jsonSchema, json.data.schemaData)
   response.status(200).json({
-    ...data,
-    schemaData
+    ok: true,
+    data: {
+      ...json.data,
+      schemaData
+    }
   })
 }
 
