@@ -6,6 +6,7 @@ import { useMapEvents } from 'react-leaflet'
 
 import { useMapData } from '@maps/components/CommunityProvider'
 import ReactControl from '@maps/components/ReactControl/index'
+import LoadingCode from '@maps/components/LoadingCode'
 
 import { FINANCING_RANGES, FinancingState, ActiveState } from './useFilters'
 import FilterDisplay from './Display'
@@ -30,11 +31,7 @@ const FilterControl = () => {
       if (!open || Form) return
       const Component = await dynamic(
         () => import('./Form'),
-        { loading: () => (
-          <div className='min-h-[100px] flex justify-center items-center'>
-            {intl.formatMessage({ id: 'm9eXO9', defaultMessage: 'Cargando' })}...
-          </div>
-        )}
+        { loading: () => <LoadingCode />}
       )
       setForm(Component)
       setLoading(false)

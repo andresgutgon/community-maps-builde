@@ -23,7 +23,7 @@ export default function SuggestDialog ({ isOpen, closeFn, onLoadingFinish }: Pro
   })
   const [Steps, setStepComponent] = useState<ComponentType<StepsProps>>()
   const onClose = () => {
-    suggest.form.reset(() => {
+    suggest?.form?.reset(() => {
       suggest.setLegalTermsAccepted(false)
     })
     closeFn()
