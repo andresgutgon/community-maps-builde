@@ -1,25 +1,23 @@
+import { useRef } from 'react'
 import cn from 'classnames'
 
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
-import { FinancingState } from '../useFilters'
-import useFinancingLabels from '../useFinancingLabels'
+import { State } from '../useFilters'
+import useStateLabels from '../useStateLabels'
 import { Percentage } from '@maps/components/Marker'
 
-const PERCENTAGES: Partial<Record<FinancingState, Percentage>> = {
-  [FinancingState.starting]: Percentage.thirty,
-  [FinancingState.middle]: Percentage.fifty,
-  [FinancingState.finishing]: Percentage.seventy,
-  [FinancingState.completed]: Percentage.full
+const PERCENTAGES: Partial<Record<State, Percentage>> = {
+  [State.starting]: Percentage.thirty,
+  [State.middle]: Percentage.fifty,
+  [State.finishing]: Percentage.seventy,
+  [State.active]: Percentage.full
 }
 
-type Props = {
-  showDescription: boolean
-  financingLabelsfinancingState: FinancingState
-}
-const FinancingLabel = ({ showDescription = false, financingState }) => {
-  const percentage = PERCENTAGES[financingState] || 0
+type Props = { showDescription: boolean, state: State }
+const StateLabel = ({ showDescription = false, state }: Props) => {
   const styles = useStyles()
-  const financingLabels = useFinancingLabels()
+  const labels = useStateLabels()
+  const percentage = PERCENTAGES[state] || 0
   const { bg, border } = {
     bg: 'bg-gray-100',
     border: 'border-gray-800'
@@ -63,7 +61,7 @@ const FinancingLabel = ({ showDescription = false, financingState }) => {
             )
           }
         >
-          {financingLabels[financingState].title}
+          {labels[state].title}
         </div>
         <span
           className={
@@ -75,11 +73,11 @@ const FinancingLabel = ({ showDescription = false, financingState }) => {
             )
           }
         >
-          {financingLabels[financingState].description}
+          {labels[state].description}
         </span>
       </div>
     </div>
   )
 }
 
-export default FinancingLabel
+export default StateLabel

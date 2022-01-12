@@ -96,9 +96,15 @@ type Legal = {
   privacyLink?: string,
   cookiesLink?: string
 }
+export type ShowFilters = {
+  status: boolean
+  crowdfounding: boolean
+  categories: boolean
+}
 export type Config = {
   theme: Theme
-  legal?: Legal,
+  showFilters: null | undefined | ShowFilters
+  legal?: Legal
   forms?: Record<string, Form>
   suggestPlaceForms?: Record<string, Form>
   categories: Record<string, Category>

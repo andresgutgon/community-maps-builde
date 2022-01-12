@@ -8,12 +8,28 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import ReactControl from '@maps/components/ReactControl/index'
 import LoadingCode from '@maps/components/LoadingCode'
 
-import { FINANCING_RANGES, FinancingState, ActiveState } from './useFilters'
+import { useShowFiltersWithDefaults, State } from './useFilters'
 import FilterDisplay from './Display'
 
 const FilterControl = () => {
   const intl = useIntl()
-  const { allPlaces, urlParams: { filters } } = useMapData()
+  const { allPlaces, urlParams: { filters }, config } = useMapData()
+  const showFilters = useShowFiltersWithDefaults(config.showFilters)
+  const unfilteredCrowdfoundingStates = useRef<State[]>([
+    State.starting,
+    State.middle,
+    State.finishing,
+  ]).current
+  const crowdfoundingStates = useRef<State[]>(showFilters.crowdfounding
+    ? unfilteredCrowdfoundingStates : []
+  ).current
+  const statusStates = useRef<State[]>(showFilters.status ? [State.active] : []).current
+  const states = useRef<State[]>([
+    State.all,
+    ...crowdfoundingStates,
+    ...statusStates
+  ]).current
+  const showAnyFilter = showFilters.status || showFilters.crowdfounding || showFilters.categories
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [Form, setForm] = useState(null)
@@ -22,13 +38,12 @@ const FilterControl = () => {
     setOpen(!open)
   }
   const [categorySlugs, setSelectedCategories] = useState<string[]>(filters.categories)
-  const [activeState, setActiveState] = useState<ActiveState>(filters.activeState)
-  const [financingState, setFinancingState] = useState<FinancingState>(filters.financingState)
+  const [state, setState] = useState<State>(filters.state)
   const closeFilter = () => setOpen(false)
   useMapEvents({ click: closeFilter, mousedown: closeFilter })
   useEffect(() => {
     async function loadComponent () {
-      if (!open || Form) return
+      if (!showAnyFilter || !open || Form) return
       const Component = await dynamic(
         () => import('./Form'),
         { loading: () => <LoadingCode />}
@@ -37,7 +52,10 @@ const FilterControl = () => {
       setLoading(false)
     }
     loadComponent()
-  }, [open, intl, loading, Form])
+  }, [open, intl, loading, Form, showAnyFilter])
+
+  if (!showAnyFilter) return null
+
   return (
     <ReactControl
       position='topleft'
@@ -54,19 +72,20 @@ const FilterControl = () => {
     >
       <FilterDisplay
         open={open}
-        activeState={activeState}
-        financingState={financingState}
+        state={state}
+        statusStates={statusStates}
+        unfilteredCrowdfoundingStates={unfilteredCrowdfoundingStates}
+        crowdfoundingStates={crowdfoundingStates}
         onToggleFilters={onToggleFilters}
         categorySlugs={categorySlugs}
       />
       {(Form && open) ? (
         <Form
-          activeState={activeState}
-          financingState={financingState}
+          currentState={state}
+          states={states}
+          setState={setState}
           categorySlugs={categorySlugs}
           setSelectedCategories={setSelectedCategories}
-          setFinancingState={setFinancingState}
-          setActiveState={setActiveState}
           onToggleFilters={onToggleFilters}
         />
       ): null}

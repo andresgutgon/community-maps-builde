@@ -1,6 +1,6 @@
 import cn from 'classnames'
 
-import { FINANCING_RANGES, FinancingState } from '@maps/components/FilterControl/useFilters'
+import { CROWDFOUNDING_RANGES } from '@maps/components/FilterControl/useFilters'
 import type { CategoryIcon } from '@maps/types/index'
 import { ICONS } from '@maps/lib/icons'
 
@@ -22,11 +22,11 @@ export enum Percentage {
 }
 
 export const useMarkerPercentage = (percentage: number): Percentage => {
-  if (percentage < FINANCING_RANGES.starting.max) {
+  if (percentage < CROWDFOUNDING_RANGES.starting.max) {
     return Percentage.thirty
-  } else if (percentage < FINANCING_RANGES.middle.max){
+  } else if (percentage < CROWDFOUNDING_RANGES.middle.max){
     return Percentage.fifty
-  } else if (percentage < FINANCING_RANGES.finishing.max){
+  } else if (percentage < CROWDFOUNDING_RANGES.finishing.max){
     return Percentage.seventy
   }
   return Percentage.full

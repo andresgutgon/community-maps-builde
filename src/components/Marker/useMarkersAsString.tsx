@@ -2,16 +2,23 @@ import { useState, useRef } from 'react'
 import { renderToString } from 'react-dom/server'
 
 import { Category, CategoryIcon } from '@maps/types/index'
-import { FinancingState } from '@maps/components/FilterControl/useFilters'
-import Marker, { Props as MarkerProps, MarkerColor, MarkerSize, Percentage } from '@maps/components/Marker'
+import Marker, { Props, MarkerColor, MarkerSize, Percentage } from '@maps/components/Marker'
 
-export const buildMarkerStringType = (iconKey: CategoryIcon, iconColor: MarkerColor, percentage: Percentage): string => `${iconKey}_${iconColor}_${percentage}`
+export const buildMarkerStringType = (
+  iconKey: CategoryIcon, iconColor: MarkerColor, percentage: Percentage
+): string => `${iconKey}_${iconColor}_${percentage}`
+
 export type MarkersAsString = Record<string, string>
-type Props  = Pick<MarkerProps, 'iconKey' | 'color' | 'percentage'>[]
+type MarkerProps  = Pick<Props, 'iconKey' | 'color' | 'percentage'>[]
 type ReturnType = {
   buildIconMarkers: (categories: Category[]) => void,
   iconMarkers: MarkersAsString
 }
+/**
+ * Icons in Leaflet are pased as strings. Even using React.
+ * This hook pre-compile all the icons necessary for this map based on
+ * their categories
+ */
 const useMarkersAsString = (): ReturnType => {
   const percentages = useRef<Percentage[]>( Object.values(Percentage)).current
   const [iconMarkers, setIconMarkers] = useState<MarkersAsString | null>(null)
@@ -19,13 +26,24 @@ const useMarkersAsString = (): ReturnType => {
     // Avoid recomputing if iconMarkers is not null
     if (iconMarkers) return iconMarkers
 
-    const icons = categories.reduce((memo: Props[], { iconKey, iconColor }: Category) => {
+    const icons = categories.reduce((memo: MarkerProps[], { iconKey, iconColor }: Category) => {
       const color = iconColor || MarkerColor.brand
       return [
         ...memo,
         ...percentages.map((percentage: Percentage) => ({ iconKey, color, percentage }))
       ]
-    }, []).reduce((memo: MarkersAsString, { percentage, iconKey, size, color, isSelected, withArrow }: MarkerProps) => {
+    }, []).reduce(
+      (
+        memo: MarkersAsString,
+        {
+          percentage,
+          iconKey,
+          size,
+          color,
+          isSelected,
+          withArrow
+        }: Props
+      ) => {
       const html = renderToString(
         <Marker
           isSelected

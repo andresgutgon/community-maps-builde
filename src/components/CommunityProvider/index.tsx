@@ -82,9 +82,9 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
     document.head.appendChild(cssStyleTag)
     return cssStyleTag
   }, [])
-  const { filter } = useFilters()
+  const { filterPlaces } = useFilters()
   const { loadingUrlParams, urlParams, onLoadCategories, mapUrl } = useQueryString()
-  const [config, setConfig] = useState(null)
+  const config = useRef<Config | null>(null)
   const [places, setPlaces] = useState<Place[]>([])
   const allPlaces = useRef<Place[]>([])
   const categories = useRef<Category[]>([])
@@ -117,33 +117,35 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
           setCurrentPlace(current)
         }
 
-        setPlaces(filter(allPlaces.current, urlParams.filters))
+        setPlaces(filterPlaces({
+          places: allPlaces.current,
+          filters: urlParams.filters,
+          showFilters: config.current.showFilters
+        }))
       }
 
       if (fetchingConfig) return
 
       setFetchingConfig(true)
-      const configResponse= await makeRequest({
-        method: Method.GET, path: `config`
-      })
+      const configResponse = await makeRequest({ method: Method.GET, path: `config` })
 
       if (!configResponse.ok) {
         return setError(errors.Map)
       }
 
-      const config = configResponse.data
-      const categorySlugs = Object.keys(config.categories)
+      const configData = configResponse.data
+      config.current = configData
+      const categorySlugs = Object.keys(config.current.categories)
       onLoadCategories(categorySlugs)
+      categories.current = categorySlugs.map((key: string) => config.current.categories[key])
 
-      categories.current = categorySlugs.map((key: string) => config.categories[key])
       // Only fetch once places
       setFetchingPlaces(true)
 
       // Build icon markers based on categories on this map
       buildIconMarkers(categories.current)
 
-      setConfig(config)
-      const themeColor = config.theme.color
+      const themeColor = config.current.theme.color
       if (themeColor) {
         themeCssTag.innerHTML = `
           :root {
@@ -164,6 +166,7 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
     }
     loadData()
   }, [
+    config,
     makeRequest,
     errors,
     error,
@@ -177,7 +180,7 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
     community,
     mapSlug,
     loading,
-    filter,
+    filterPlaces,
     urlParams,
     onLoadCategories,
     buildIconMarkers
@@ -205,7 +208,7 @@ export const CommunityProvider = ({ community, mapSlug, children }: ProviderProp
         allPlaces: allPlaces.current,
         setPlaces,
         places,
-        config,
+        config: config.current,
         categories: categories.current,
         iconMarkers
       }}
