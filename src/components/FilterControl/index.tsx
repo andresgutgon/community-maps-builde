@@ -13,7 +13,7 @@ import FilterDisplay from './Display'
 
 const FilterControl = () => {
   const intl = useIntl()
-  const { allPlaces, urlParams: { filters }, config } = useMapData()
+  const { categories, allPlaces, urlParams: { filters }, config } = useMapData()
   const showFilters = useShowFiltersWithDefaults(config.showFilters)
   const unfilteredCrowdfoundingStates = useRef<State[]>([
     State.starting,
@@ -29,7 +29,10 @@ const FilterControl = () => {
     ...crowdfoundingStates,
     ...statusStates
   ]).current
-  const showAnyFilter = showFilters.status || showFilters.crowdfounding || showFilters.categories
+  const showAnyFilter =
+    showFilters.status
+      || showFilters.crowdfounding
+      || showFilters.categories && categories.length > 1
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [Form, setForm] = useState(null)

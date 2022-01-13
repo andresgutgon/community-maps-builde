@@ -43,15 +43,6 @@ function filterByRange (state: State, showFilters: ShowFilters) {
   }
 }
 
-function filterByState (state: State, showFilters: ShowFilters) {
-  const isActive = State.active === state
-  return (place: Place): boolean => {
-    if (!showFilters?.status && isActive) return true
-
-    return isActive && place.active
-  }
-}
-
 const buildShowFilters = (showFilters: ShowFilters): ShowFilters =>
   ({ ...DEFAULT_SHOW_FILTERS, ...(showFilters || {})})
 export const useShowFiltersWithDefaults = (showFilters: ShowFilters): ShowFilters =>
@@ -64,15 +55,17 @@ const useFilters = (): ReturnType  => {
   const filterPlaces: FilterFn = ({ places, filters: { state, categories }, showFilters }) => {
     const show = buildShowFilters(showFilters)
     const isAllState = State.all === state
+    const isActive = State.active === state
+    const showActiveFilter = show.status
     const categoriesFilterFn = filterByCategory(categories, show)
     const rangeFilterFn = filterByRange(state, show)
-    const stateFilterFn = filterByState(state, show)
     return places.filter((place: Place) => {
-      const isActiveState = stateFilterFn(place)
       const included = categoriesFilterFn(place)
       const inRange = rangeFilterFn(place)
 
-      if (isActiveState || isAllState) return included
+      if (isAllState) return included
+      if (showActiveFilter && isActive) return included && place.active
+      if (isActive) return included
 
       return included && inRange
     })

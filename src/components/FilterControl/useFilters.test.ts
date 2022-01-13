@@ -52,6 +52,15 @@ describe('#filterPlaces by state', () => {
     expect(filtered).toStrictEqual([])
   })
 
+  test('active but not with category ignoring categories', () => {
+    const filtered = filterPlaces({
+      places,
+      filters: { state: State.active, categories: [allCat.van] },
+      showFilters: { status: true, crowdfounding: true, categories: false }
+    })
+    expect(filtered).toStrictEqual([active])
+  })
+
   test('crowdfounding', () => {
     const filtered = filterPlaces({
       places,
@@ -74,6 +83,18 @@ describe('#filterPlaces by state', () => {
       showFilters: { status: false, crowdfounding: true, categories: true }
     })
     expect(filtered).toStrictEqual([middle])
+  })
+
+  test('active ignoring crowdfounding', () => {
+    const filtered = filterPlaces({
+      places,
+      filters: {
+        state: State.active,
+        categories
+      },
+      showFilters: { status: true, crowdfounding: false, categories: true }
+    })
+    expect(filtered).toStrictEqual([active])
   })
 
   test('filter train category and middle crowdfounding', () => {
