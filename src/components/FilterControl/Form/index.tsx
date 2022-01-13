@@ -56,7 +56,7 @@ const FilterForm = ({
   return (
     <div className={cn('overflow-y-auto max-h-[440px] xs:max-h-[500px] sm:max-h-[1000px]', styles.verticalLayout)}>
       {states.length > 1 ? (
-        <Fieldset legend={<FormattedMessage defaultMessage='Por porcentaje de aportación' id="TGWZPT" />}>
+        <Fieldset legend={<FormattedMessage defaultMessage='Por estado' id="GI//kj" />}>
           <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
             {states.map((state: State) => (
               <li className='h-full w-full flex' key={state}>
