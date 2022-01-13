@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { FinancingState, ActiveState, Filters } from '@maps/components/FilterControl/useFilters'
+import { State, Filters } from '@maps/components/FilterControl/useFilters'
 
 type ReturnTypeHostWindow = { host: Window, isIframe: boolean }
 function useHostWindow ():  ReturnTypeHostWindow {
@@ -18,18 +18,19 @@ function useHostWindow ():  ReturnTypeHostWindow {
   }, [])
 }
 
-const MATCHER = new RegExp(/(?<filterKey>st|cat|cont)\[(?<filterValue>.*)\]/)
+const MATCHER = new RegExp(/(?<filterKey>st|cat)\[(?<filterValue>.*)\]/)
 const DEFAULT_URL_PARAMS = {
   placeSlug: null,
-  filters: { categories: [], activeState: ActiveState.all, financingState: FinancingState.anyFinancingState }
+  filters: { categories: [], state: State.all }
 }
 export type UrlParam = { placeSlug: string | null; filters: Filters }
 function readParams (queryString: string) {
-  const activeStates = [ActiveState.all, ActiveState.active, ActiveState.inactive]
-  const financingStates = [
-    FinancingState.anyFinancingState, FinancingState.starting,
-    FinancingState.middle, FinancingState.finishing,
-    FinancingState.completed
+  const states = [
+    State.all,
+    State.starting,
+    State.middle,
+    State.finishing,
+    State.active
   ]
   const decodeQueryString = decodeURI(queryString)
   const queryParams = new URLSearchParams(decodeQueryString)
@@ -40,12 +41,10 @@ function readParams (queryString: string) {
 
     const { filterKey, filterValue } = filterGroups
 
-    if (filterKey === 'st' && activeStates.includes(filterValue as ActiveState)) {
-      memo.activeState = filterValue as ActiveState
-    } else if (filterKey === 'cat') {
+    if (filterKey === 'cat') {
       memo.categories = filterValue.split(',') || []
-    } else if (filterKey === 'cont' && financingStates.includes(filterValue as FinancingState)) {
-      memo.financingState = filterValue as FinancingState
+    } else if (filterKey === 'st' && states.includes(filterValue as State)) {
+      memo.state = filterValue as State
     }
     return memo
   }, DEFAULT_URL_PARAMS.filters)
@@ -54,8 +53,8 @@ function readParams (queryString: string) {
     filters
   }
 }
-function writeParams ({ categories, activeState, financingState }: Filters): string {
-  return `cat[${categories.join(',')}];st[${activeState}];cont[${financingState}]`
+function writeParams ({ categories, state }: Filters): string {
+  return `cat[${categories.join(',')}];st[${state}]`
 }
 
 type ReturnType = {

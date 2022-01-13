@@ -35,15 +35,6 @@
   "85GhLR": {
     "defaultMessage": "Copiar enlace"
   },
-  "9FzJdt": {
-    "defaultMessage": "Cualquier porcentaje de aportación"
-  },
-  "An+6PB": {
-    "defaultMessage": "Lugares inactivos"
-  },
-  "B2GImX": {
-    "defaultMessage": "Totalmente financiados"
-  },
   "DTelvK": {
     "defaultMessage": "Cambiar direccón"
   },
@@ -68,9 +59,6 @@
   "GI//kj": {
     "defaultMessage": "Por estado"
   },
-  "GSkc36": {
-    "defaultMessage": "Lugares activos"
-  },
   "GbLpqH": {
     "defaultMessage": "Activos"
   },
@@ -85,6 +73,9 @@
   },
   "Ib04NK": {
     "defaultMessage": "Información adicional"
+  },
+  "J3iaDf": {
+    "defaultMessage": "Estos puntos están funcionando"
   },
   "K6pXDZ": {
     "defaultMessage": "Categoría"
@@ -116,9 +107,6 @@
   "QK2a+D": {
     "defaultMessage": "Poco financiados"
   },
-  "TGWZPT": {
-    "defaultMessage": "Por porcentaje de aportación"
-  },
   "TKx/Q8": {
     "defaultMessage": "Mejor"
   },
@@ -131,14 +119,11 @@
   "VTfGzG": {
     "defaultMessage": "Filtrar"
   },
-  "VVn4Nd": {
-    "defaultMessage": "Aportación al 100% completada"
+  "VvIgYE": {
+    "defaultMessage": "Todos los lugares sin filtrar"
   },
   "Wceeld": {
     "defaultMessage": "Cambiar categoría"
-  },
-  "ZNZWBc": {
-    "defaultMessage": "Inactivos"
   },
   "at9R+C": {
     "defaultMessage": "Debes seleccionar un valor de la lista"

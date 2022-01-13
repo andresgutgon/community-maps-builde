@@ -8,35 +8,38 @@ import { useMapData } from '@maps/components/CommunityProvider'
 import ControlHandler from '@maps/components/ControlHandler'
 
 import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
-import FinancingLabel from '../FinancingLabel'
-import { FINANCING_RANGES, FinancingState, ActiveState } from '../useFilters'
+import StateLabel from '../StateLabel'
+import { useShowFiltersWithDefaults, CROWDFOUNDING_RANGES, State } from '../useFilters'
 
 type Props = {
-  open: boolean,
-  activeState: ActiveState,
-  financingState: FinancingState,
+  open: boolean
+  state: State
+  statusStates: State[]
+  unfilteredCrowdfoundingStates: State[]
+  crowdfoundingStates: State[]
   categorySlugs: string[]
   onToggleFilters: () => void
 }
 const FilterDisplay = ({
   open,
-  activeState,
-  financingState,
+  statusStates,
+  unfilteredCrowdfoundingStates,
+  crowdfoundingStates,
+  state,
   onToggleFilters,
   categorySlugs
 }) => {
   const intl = useIntl()
-  const { allPlaces, places, categories } = useMapData()
+  const { allPlaces, places, categories, config } = useMapData()
+  const showFilters = useShowFiltersWithDefaults(config.showFilters)
   const selectedCategories = useMemo(() =>
     categories.filter((c: CategoryType) => categorySlugs.includes(c.slug))
   , [categories, categorySlugs])
-  const activePlacesLabel = intl.formatMessage({ id: 'GSkc36', defaultMessage: 'Lugares activos' })
-  const inactivePlacesLabel = intl.formatMessage({ id: 'An+6PB', defaultMessage: 'Lugares inactivos' })
-  const showStateFilter = activeState !== ActiveState.all
-  const financingRange = FINANCING_RANGES[financingState]
-  const showFinancingFilter = activeState !== ActiveState.active && !!financingRange
   const showCategoriesFilter = categories.length > 1 && selectedCategories.length !== categories.length
-  const showFilters = showStateFilter || showFinancingFilter || showCategoriesFilter
+  const showCategories = showCategoriesFilter && showFilters.categories
+  const showStatus = statusStates.length > 0 && state === State.active
+  const showCrowdfounding = crowdfoundingStates.length > 0 && unfilteredCrowdfoundingStates.includes(state)
+  const show = showCategories || showCrowdfounding || showStatus
   const label = intl.formatMessage({ id: '4kF+sS', defaultMessage: 'Filtrar lugares' })
   const allVisible = places.length === allPlaces.length
   return (
@@ -77,37 +80,19 @@ const FilterDisplay = ({
           </>
         )}
       </ControlHandler>
-      {(!open && showFilters) ? (
+      {(!open && show) ? (
         <div className='flex-1 flex flex-col space-y-1 sm:space-y-2 border-t border-gray-100 mt-2 pt-2'>
-          {showStateFilter ? (
-            <div className='flex flex-row items-center space-x-2'>
-              <div className='w-6 h-6 flex items-center justify-center'>
-                <div className={
-                  cn(
-                    'rounded-full h-3 w-3',
-                    {
-                      'bg-green-600': activeState === ActiveState.active,
-                      'bg-gray-400': activeState === ActiveState.inactive
-                    }
-                  )}
-                />
-              </div>
-              <span className='ml-2 text-xs text-gray-900'>
-                {activeState === ActiveState.active ? activePlacesLabel : inactivePlacesLabel}
-              </span>
-            </div>
+          {(showCrowdfounding || showStatus) ? (
+            <StateLabel showDescription state={state} />
           ) : null}
-          {showFinancingFilter ? (
-            <FinancingLabel showDescription financingState={financingState} />
-          ) : null}
-          {showCategoriesFilter ? (
+          {showCategories ? (
             <ul className='flex flex-row space-x-1'>
               {categories.map((category: CategoryType) =>
                 <li key={category.slug}>
                   <Marker
                     withArrow={false}
                     percentage={Percentage.full}
-                    color={MarkerColor.black}
+                    color={category.iconColor || MarkerColor.brand}
                     size={MarkerSize.small}
                     isSelected={categorySlugs.includes(category.slug)}
                     iconKey={category.iconKey}

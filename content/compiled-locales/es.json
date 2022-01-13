@@ -91,24 +91,6 @@
       "value": "Copiar enlace"
     }
   ],
-  "9FzJdt": [
-    {
-      "type": 0,
-      "value": "Cualquier porcentaje de aportación"
-    }
-  ],
-  "An+6PB": [
-    {
-      "type": 0,
-      "value": "Lugares inactivos"
-    }
-  ],
-  "B2GImX": [
-    {
-      "type": 0,
-      "value": "Totalmente financiados"
-    }
-  ],
   "DTelvK": [
     {
       "type": 0,
@@ -157,12 +139,6 @@
       "value": "Por estado"
     }
   ],
-  "GSkc36": [
-    {
-      "type": 0,
-      "value": "Lugares activos"
-    }
-  ],
   "GbLpqH": [
     {
       "type": 0,
@@ -191,6 +167,12 @@
     {
       "type": 0,
       "value": "Información adicional"
+    }
+  ],
+  "J3iaDf": [
+    {
+      "type": 0,
+      "value": "Estos puntos están funcionando"
     }
   ],
   "K6pXDZ": [
@@ -297,12 +279,6 @@
       "value": "Poco financiados"
     }
   ],
-  "TGWZPT": [
-    {
-      "type": 0,
-      "value": "Por porcentaje de aportación"
-    }
-  ],
   "TKx/Q8": [
     {
       "type": 0,
@@ -327,22 +303,16 @@
       "value": "Filtrar"
     }
   ],
-  "VVn4Nd": [
+  "VvIgYE": [
     {
       "type": 0,
-      "value": "Aportación al 100% completada"
+      "value": "Todos los lugares sin filtrar"
     }
   ],
   "Wceeld": [
     {
       "type": 0,
       "value": "Cambiar categoría"
-    }
-  ],
-  "ZNZWBc": [
-    {
-      "type": 0,
-      "value": "Inactivos"
     }
   ],
   "at9R+C": [

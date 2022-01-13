@@ -1,55 +1,77 @@
+import { useRef } from 'react'
 import { Place } from '@maps/types/index'
 
-export enum ActiveState { all = 'all', active = 'active', inactive = 'inactive' }
+import { ShowFilters } from '@maps/types/index'
 import { Percentage } from '@maps/components/Marker'
 
-export enum FinancingState {
-  anyFinancingState = 'anyFinancingState',
+export enum State {
+  all = 'all',
   starting = 'starting',
   middle = 'middle',
   finishing = 'finishing',
-  completed = 'completed'
+  active = 'active'
 }
-export type FinancingRange = { min: number, max: number }
-export const FINANCING_RANGES: Partial<Record<FinancingState, FinancingRange>> = {
-  [FinancingState.starting]: { min: 0, max: 5 },
-  [FinancingState.middle]: { min: 5, max: 75 },
-  [FinancingState.finishing]: { min: 75, max: 100 },
-  [FinancingState.completed]: { min: 100, max: 100 }
+export type CrowdfoundingRange = { min: number, max: number }
+export const DEFAULT_SHOW_FILTERS: ShowFilters = {
+  status: true, crowdfounding: true, categories: true
+}
+export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfoundingRange>> = {
+  [State.starting]: { min: 0, max: 5 },
+  [State.middle]: { min: 5, max: 75 },
+  [State.finishing]: { min: 75, max: 100 }
+}
+export type Filters = { state: State; categories: string[] }
+
+function filterByCategory (categories: string[], showFilters: ShowFilters) {
+  return (place): boolean => {
+    if (!showFilters?.categories) return true
+
+    return categories.includes(place.category_slug)
+  }
 }
 
-export type Filters = {
-  activeState: ActiveState
-  financingState: FinancingState
-  categories: string[]
+function filterByRange (state: State, showFilters: ShowFilters) {
+  const range = CROWDFOUNDING_RANGES[state]
+  return (place: Place): boolean => {
+    if (!showFilters?.crowdfounding) return true
+
+    // Exclude active places from range
+    if (place.active) return false
+
+    const percentage = place.goalProgress
+    return percentage >= range?.min && percentage < range?.max
+  }
 }
-type FilterFn = (allPlaces: Place[], filters: Filters) => Place[]
-type ReturnType = { filter: FilterFn }
-const useFilters = () => {
-  const filter: FilterFn = (allPlaces: Place[], { activeState, financingState, categories }: Filters) => {
-    const anyActiveState = ActiveState.all === activeState
-    const isActive = ActiveState.active === activeState
-    const range = FINANCING_RANGES[financingState]
-    const anyFinancingState = isActive || FinancingState.anyFinancingState === financingState
-    return allPlaces.filter((place: Place) => {
-      const placeState = place.active ? ActiveState.active : ActiveState.inactive
-      const percentage = place.goalProgress
-      const categoryIncluded = categories.includes(place.category_slug)
-      return (
-        anyActiveState ? true : activeState === placeState
-      )
-        && (
-          anyFinancingState
-            ? true
-            : (!!range && range.min === range.max)
-              ? percentage >= range.min
-              : percentage >= range.min && percentage < range.max
-        )
-        && categoryIncluded
+
+const buildShowFilters = (showFilters: ShowFilters): ShowFilters =>
+  ({ ...DEFAULT_SHOW_FILTERS, ...(showFilters || {})})
+export const useShowFiltersWithDefaults = (showFilters: ShowFilters): ShowFilters =>
+  useRef<ShowFilters>(buildShowFilters(showFilters)).current
+
+type FilterFnProps = { places: Place[], filters: Filters, showFilters: ShowFilters }
+type FilterFn = ({ places, filters }: FilterFnProps) => Place[]
+type ReturnType = { filterPlaces: FilterFn }
+const useFilters = (): ReturnType  => {
+  const filterPlaces: FilterFn = ({ places, filters: { state, categories }, showFilters }) => {
+    const show = buildShowFilters(showFilters)
+    const isAllState = State.all === state
+    const isActive = State.active === state
+    const showActiveFilter = show.status
+    const categoriesFilterFn = filterByCategory(categories, show)
+    const rangeFilterFn = filterByRange(state, show)
+    return places.filter((place: Place) => {
+      const included = categoriesFilterFn(place)
+      const inRange = rangeFilterFn(place)
+
+      if (isAllState) return included
+      if (showActiveFilter && isActive) return included && place.active
+      if (isActive) return included
+
+      return included && inRange
     })
   }
 
-  return { filter }
+  return { filterPlaces }
 }
 
 export default useFilters
