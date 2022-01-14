@@ -18,6 +18,9 @@ const data = {
     } as ThemeColor,
     tileStyle: 'osm' as TileStyle
   } as Theme,
+  crowdfounding: {
+    showMarkerProgress: true
+  },
   showFilters: { status: true, crowdfounding: true, categories: true },
   legal: {
     privacyLink: 'https://www.sommobilitat.coop/politica-de-privadesa/',

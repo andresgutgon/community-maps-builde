@@ -96,6 +96,9 @@ type Legal = {
   privacyLink?: string,
   cookiesLink?: string
 }
+type Crowdfunding = {
+  showMarkerProgress: boolean
+}
 export type ShowFilters = {
   status: boolean
   crowdfounding: boolean
@@ -103,6 +106,7 @@ export type ShowFilters = {
 }
 export type Config = {
   theme: Theme
+  crowdfounding: Crowdfunding
   showFilters: null | undefined | ShowFilters
   legal?: Legal
   forms?: Record<string, Form>
