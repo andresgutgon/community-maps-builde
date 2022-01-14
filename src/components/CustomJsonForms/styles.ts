@@ -11,7 +11,7 @@ export const formStyles = {
   styles: [
     {
       name: 'vertical.layout',
-      classNames: ['space-y-2']
+      classNames: ['space-y-4']
     },
     {
       name: 'horizontal.layout',
