@@ -11,7 +11,7 @@ export const formStyles = {
   styles: [
     {
       name: 'vertical.layout',
-      classNames: ['space-y-2']
+      classNames: ['space-y-4']
     },
     {
       name: 'horizontal.layout',
@@ -39,7 +39,7 @@ export const formStyles = {
     },
     {
       name: 'control.validation',
-      classNames: ['p-1 border border-transparent text-xs']
+      classNames: ['p-1 border border-transparent text-xs empty:hidden']
     },
     {
       name: 'control.validation.error',
