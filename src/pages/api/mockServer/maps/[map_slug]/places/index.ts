@@ -4,7 +4,7 @@ import type { ResponseWithMap } from '@maps/lib/middlewares/mockServer/withMap'
 import { Category } from '@maps/types/index'
 
 const communityServerMap = ({ places, response }: ResponseWithMap) => {
-  response.status(200).json({ ok: true, data: places })
+  response.status(200).json(places)
 }
 
 export default withBearerToken(withMap(communityServerMap))

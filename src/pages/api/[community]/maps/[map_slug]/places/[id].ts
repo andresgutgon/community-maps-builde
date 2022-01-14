@@ -25,6 +25,9 @@ function parseMarkdownValue (value: string) {
   return `${MARKDOWN_INDICATOR} ${sanitizeHtml(htmlText).trim()}`
 }
 
+/**
+ * Parse and sanitize fields that are in Markdown format.
+ */
 const parseMarkdownFields = (jsonSchema: JsonSchema | null, schemaData: any | null): any | null => {
   if (!jsonSchema || !schemaData) return null
 
@@ -57,15 +60,10 @@ const place = async ({ request, response, tokenHeaders, communityHost }: Respons
   if (serverResponse.status !== 200) {
     return response.status(serverResponse.status).json(json)
   }
+  const { jsonSchema, schemaData } = json
 
-  const schemaData = parseMarkdownFields(json.data.jsonSchema, json.data.schemaData)
-  response.status(200).json({
-    ok: true,
-    data: {
-      ...json.data,
-      schemaData
-    }
-  })
+  const parsedSchemaData = parseMarkdownFields(jsonSchema, schemaData)
+  response.status(200).json({ ...json, schemaData: parsedSchemaData })
 }
 
 export default withHeaderBearerToken(place)

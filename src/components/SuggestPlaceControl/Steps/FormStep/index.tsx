@@ -24,10 +24,7 @@ const FormStep = ({ suggest }: Props) => {
   return (
     <>
       <ErrorMessage show={error.showError} message={error.message} />
-      <SuccessMessage
-        show={!!form?.response?.ok}
-        message={form?.response?.message}
-      />
+      <SuccessMessage response={form?.response} />
       {!form.response?.ok ? (
         <JsonFormsStyleContext.Provider value={formStyles}>
           <JsonForms

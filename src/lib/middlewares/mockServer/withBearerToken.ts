@@ -14,7 +14,7 @@ const withBearerToken = (handler: NextApiHandler) => (request: NextApiRequest, r
     return handler(request, response)
   }
 
-  response.status(400).send({ ok: false, message: 'Unauthorized request' })
+  response.status(401).send({ message: 'Unauthorized request' })
 }
 
 export default withBearerToken

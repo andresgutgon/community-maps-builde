@@ -21,7 +21,6 @@ const withHeaderBearerToken = (handler: NextApiHandlerWithToken) => (request: Ne
 
   if (!community) {
     return response.status(402).send({
-      ok: false,
       message: 'Not community defined for this map'
     })
   }

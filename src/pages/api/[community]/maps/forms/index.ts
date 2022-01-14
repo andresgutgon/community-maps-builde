@@ -12,10 +12,7 @@ const formSubmit = async ({ request, response, tokenHeaders, communityHost }: Re
   } catch { termsAccepted = false }
 
   if (!termsAccepted) {
-    return response.status(422).json({
-      ok: false,
-      message: MUST_ACCEPT_TERMS
-    })
+    return response.status(422).json({ message: MUST_ACCEPT_TERMS })
   }
   const serverResponse = await fetch(
     `${communityHost}/maps/forms`,

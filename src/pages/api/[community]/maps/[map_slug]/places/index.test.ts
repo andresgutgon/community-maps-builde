@@ -24,7 +24,7 @@ describe('api/[community]/maps/[id]/places', () => {
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
         fetchMock.mockResponse(
-          JSON.stringify({ ok: true, data: places }),
+          JSON.stringify(places),
           { status: 200 }
         )
         const response = await fetch();
@@ -32,7 +32,7 @@ describe('api/[community]/maps/[id]/places', () => {
         expect(response.status).toBe(200);
 
         const json = await response.json()
-        expect(json.data).toStrictEqual(places)
+        expect(json).toStrictEqual(places)
       }
     })
   })
@@ -44,14 +44,14 @@ describe('api/[community]/maps/[id]/places', () => {
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
         fetchMock.mockResponse(
-          JSON.stringify({ ok: false, message: 'Not found map' }),
+          JSON.stringify({ message: 'Not found map' }),
           { status: 404 }
         )
         const response = await fetch()
 
         expect(response.status).toBe(404)
         const json = await response.json()
-        expect(json).toStrictEqual({ ok: false, message: 'Not found map' })
+        expect(json).toStrictEqual({ message: 'Not found map' })
       }
     })
   })
@@ -63,7 +63,6 @@ describe('api/[community]/maps/[id]/places', () => {
         const response = await fetch();
         expect(response.status).toBe(402);
         expect(await response.json()).toStrictEqual({
-          ok: false,
           message: 'Not community defined for this map'
         })
       }
@@ -79,7 +78,6 @@ describe('api/[community]/maps/[id]/places', () => {
         const response = await fetch();
         expect(response.status).toBe(402);
         expect(await response.json()).toStrictEqual({
-          ok: false,
           message: 'Not community defined for this map'
         })
       }

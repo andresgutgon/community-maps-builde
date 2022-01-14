@@ -7,7 +7,7 @@ type UseErrorMessageProps = { form: FormReturnType | null }
 type UserErrorMessageReturnType = { message: null | string, showError: boolean }
 export const useErrorMessage = ({ form }: UseErrorMessageProps): UserErrorMessageReturnType => {
   const intl = useIntl()
-  const error = form?.response?.message
+  const error = form?.response?.data?.message
 
   if (error === MUST_ACCEPT_TERMS) return { showError: false, message: error }
 

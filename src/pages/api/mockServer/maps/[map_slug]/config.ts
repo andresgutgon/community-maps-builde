@@ -9,10 +9,7 @@ const communityServerConfig = ({ map, response }: ResponseWithMap) => {
   const categories = map.slug === 'one-category'
     ? { car: categoriesJson.car }
     : categoriesJson
-  response.status(200).json({
-    ok: true,
-    data: { ...config, categories }
-  })
+  response.status(200).json({ ...config, categories })
 }
 
 export default withBearerToken(withMap(communityServerConfig))

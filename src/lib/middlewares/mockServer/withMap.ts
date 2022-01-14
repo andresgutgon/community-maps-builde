@@ -22,7 +22,6 @@ const withMap = (handler: NextApiHandlerWithMap) => (request: NextApiRequest, re
 
   if (!map) {
     return response.status(404).send({
-      ok: false,
       message: 'Map not found'
     })
   }

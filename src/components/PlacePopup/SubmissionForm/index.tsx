@@ -89,10 +89,7 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
       }
     >
       <ErrorMessage show={error.showError} message={error.message} />
-      <SuccessMessage
-        show={!!form?.response?.ok}
-        message={form?.response?.message}
-      />
+      <SuccessMessage response={form?.response} />
       {showForm ? (
         <>
           <JsonFormsStyleContext.Provider value={formStyles}>

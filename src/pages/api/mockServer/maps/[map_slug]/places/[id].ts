@@ -13,7 +13,7 @@ const communityServerMap = ({ request, map, places, response }: ResponseWithMap)
   const place = places.find(p => p.slug  === id)
 
   if (!place) {
-    response.status(404).json({ ok: false, message: 'place not found' })
+    response.status(404).json({ message: 'place not found' })
   }
 
   let placeDetail = id === 'som-mobilitat-vielha'
@@ -26,13 +26,7 @@ const communityServerMap = ({ request, map, places, response }: ResponseWithMap)
       progress: place.goalProgress
     }
   }
-  response.status(200).json({
-    ok: true,
-    data: {
-      ...place,
-      ...detail
-    }
-  })
+  response.status(200).json({ ...place, ...detail })
 }
 
 export default withBearerToken(withMap(communityServerMap))
