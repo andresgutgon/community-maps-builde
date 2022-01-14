@@ -9,8 +9,10 @@ export enum MarkerColor {
   black = 'black',
   pink = 'pink',
   green = 'green',
+  lime = 'lime',
   blue = 'blue',
   yellow = 'yellow',
+  violet = 'violet',
   red = 'red'
 }
 
@@ -36,9 +38,11 @@ export type Color = { textColor: string, border: string, bg: string }
 export const ICON_COLORS: Record<MarkerColor, Color> = {
   brand: { textColor: 'text-brand-button', border: 'border-brand-base', bg: 'bg-brand-button' },
   black: { textColor: 'text-gray-700', border: 'border-gray-800', bg: 'bg-gray-700/30' },
-  pink: { textColor: 'text-pink-900', border: 'border-pink-800', bg: 'bg-pink-500' },
+  pink: { textColor: 'text-pink-900', border: 'border-pink-800', bg: 'bg-pink-300' },
+  lime: { textColor: 'text-lime-800', border: 'border-lime-800', bg: 'bg-lime-500' },
   green: { textColor: 'text-green-800', border: 'border-green-800', bg: 'bg-green-500' },
-  blue: { textColor: 'text-blue-800', border: 'border-blue-800', bg: 'bg-blue-500' },
+  blue: { textColor: 'text-blue-900', border: 'border-blue-900', bg: 'bg-blue-300' },
+  violet: { textColor: 'text-violet-800', border: 'border-violet-800', bg: 'bg-violet-300' },
   yellow: { textColor: 'text-yellow-800', border: 'border-yellow-800', bg: 'bg-yellow-500' },
   red: { textColor: 'text-red-900', border: 'border-red-800', bg: 'bg-red-400' }
 }
@@ -121,7 +125,7 @@ const Marker = ({ color, percentage = Percentage.full, iconKey, size, isSelected
           <div
             className={
               cn(
-                '-mt-2 p-1 w-3 h-3 -ml-0.5 border rounded-sm transform rotate-45',
+                '-mt-2 p-1 w-3 h-3 -ml-0.5 border rounded-sm rotate-45',
                 {
                   [bg]: isSelected,
                   [border]: isSelected,

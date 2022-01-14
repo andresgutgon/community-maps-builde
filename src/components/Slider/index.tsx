@@ -67,7 +67,7 @@ export default function Slider({
         <SliderHandle
           className={
             cn(
-              'cursor-cursor transition-colors shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2 outline-white',
+              'cursor-cursor transition-colors shadow w-4 h-4 rounded-full z-10 origin-center -top-1/2 outline-white outline-2 outline-dotted outline-offset-2',
               COLORS[disabled ? Color.default : color]
             )
           }

@@ -13,12 +13,11 @@ function withOpacity (cssVariable) {
 }
 
 module.exports = {
-  purge: [
+  content: [
     './src/components/**/*.{ts,tsx}',
     './src/pages/**/*.{ts,tsx}',
     './src/lib/**/*.{ts,tsx}'
   ],
-  mode: 'jit',
   theme: {
     container: {
       center: true,
@@ -27,7 +26,7 @@ module.exports = {
     extend: {
       screens: { 'xs': '375px' },
       colors: {
-        twitter: '#00acee'
+        twitter: '#00acee',
       },
       textColor: {
         brand: {
@@ -80,14 +79,8 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      textColor: ['checked'],
-      borderColor: ['checked'],
-    }
-  },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography')
-  ],
+  ]
 }

@@ -39,7 +39,7 @@ export const formStyles = {
     },
     {
       name: 'control.validation',
-      classNames: ['p-1 border border-transparent text-xs']
+      classNames: ['p-1 border border-transparent text-xs empty:hidden']
     },
     {
       name: 'control.validation.error',
