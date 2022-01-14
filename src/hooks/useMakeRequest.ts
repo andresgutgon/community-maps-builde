@@ -32,9 +32,10 @@ const useMakeRequest = ({ community, mapSlug }: Props) => {
           ...(body ?  { body: JSON.stringify(body) } : {})
         }
       )
-      const responseData: Response = await response.json()
-      return responseData
-    } catch {
+      const data: Response = await response.json()
+      return { ok: response.ok, data }
+    } catch (error) {
+      console.error(error)
       return { ok: false, message: defaultError}
     }
   }

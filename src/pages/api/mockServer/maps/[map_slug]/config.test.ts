@@ -21,7 +21,7 @@ describe('api/mockServer/config', () => {
         })
         expect(response.status).toBe(200);
         const json = await response.json()
-        expect(json.data).toStrictEqual({
+        expect(json).toStrictEqual({
           ...config,
           categories: { car: categories.car }
         })
@@ -36,9 +36,8 @@ describe('api/mockServer/config', () => {
         const response = await fetch({
           headers: { 'content-type': 'application/json' }
         });
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(401);
         expect(await response.json()).toStrictEqual({
-          ok: false,
           message: 'Unauthorized request'
         })
       }

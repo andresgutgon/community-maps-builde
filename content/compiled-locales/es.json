@@ -525,6 +525,20 @@
       "value": "Cómo llegar"
     }
   ],
+  "w0H4hf": [
+    {
+      "type": 0,
+      "value": "Este campo "
+    },
+    {
+      "type": 1,
+      "value": "fieldName"
+    },
+    {
+      "type": 0,
+      "value": " es obligatorio"
+    }
+  ],
   "w2xatL": [
     {
       "type": 0,

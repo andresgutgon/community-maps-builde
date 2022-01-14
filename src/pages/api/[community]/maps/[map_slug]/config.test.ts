@@ -6,7 +6,7 @@ import configHandler from './config'
 
 import fetchMock from "jest-fetch-mock"
 global.fetch = fetchMock
-fetchMock.mockResponse(JSON.stringify({ ok: true, data: config }))
+fetchMock.mockResponse(JSON.stringify(config))
 
 const DEMO_TOKEN = process.env.DEMO_SECRET_TOKEN
 const DEMO_PATH = 'demo'
@@ -23,8 +23,7 @@ describe('api/[community]/config', () => {
         expect(response.status).toBe(200);
 
         const json = await response.json()
-        expect(json.ok).toBe(true)
-        expect(json.data).toStrictEqual(config)
+        expect(json).toStrictEqual(config)
       }
     });
   })
@@ -36,11 +35,10 @@ describe('api/[community]/config', () => {
         const response = await fetch();
         expect(response.status).toBe(402);
         expect(await response.json()).toStrictEqual({
-          ok: false,
           message: 'Not community defined for this map'
         })
       }
-    });
+    })
   })
 
   it('fails without community defined in maps server as environment variable', async () => {
@@ -52,11 +50,10 @@ describe('api/[community]/config', () => {
         const response = await fetch();
         expect(response.status).toBe(402);
         expect(await response.json()).toStrictEqual({
-          ok: false,
           message: 'Not community defined for this map'
         })
       }
-    });
+    })
   })
 })
 

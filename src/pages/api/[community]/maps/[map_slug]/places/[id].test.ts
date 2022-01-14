@@ -25,7 +25,7 @@ describe('api/[community]/maps/[map_slug]/places/[slug]', () => {
       params: { community: DEMO_PATH },
       test: async ({ fetch }) => {
         fetchMock.mockResponse(
-          JSON.stringify({ ok: 200, data: placeDetail }),
+          JSON.stringify(placeDetail),
           { status: 200 }
         )
         const response = await fetch()
@@ -34,13 +34,10 @@ describe('api/[community]/maps/[map_slug]/places/[slug]', () => {
 
         const json = await response.json()
         expect(json).toStrictEqual({
-          ok: true,
-          data: {
-            ...placeDetail,
-            schemaData: {
-              ...(placeDetail as any).schemaData,
-              "warning": "[markdown] <p> <strong>Atención</strong>: debido al COVID algunas restricciones se podran aplicar. <a target=\"_blank\" href=\"https://www.sommobilitat.coop/mesures-covid19/\">más informacion</a></p>"
-            }
+          ...placeDetail,
+          schemaData: {
+            ...(placeDetail as any).schemaData,
+            "warning": "[markdown] <p> <strong>Atención</strong>: debido al COVID algunas restricciones se podran aplicar. <a target=\"_blank\" href=\"https://www.sommobilitat.coop/mesures-covid19/\">más informacion</a></p>"
           }
         })
       }

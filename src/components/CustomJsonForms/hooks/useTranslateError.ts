@@ -32,10 +32,15 @@ export const useTranslateError = (): TranslateErrorFn => {
         )
         break;
       case 'minLength':
-        return intl.formatMessage(
+        const requiredMessage = intl.formatMessage(
+          { id: 'w0H4hf', defaultMessage: 'Este campo {fieldName} es obligatorio' },
+          { fieldName }
+        )
+        const minLengthMessage = intl.formatMessage(
           { id: 'pa1TSf', defaultMessage: 'Este campo debe ser igual o más de {min} letras' },
           { min: params.limit }
         )
+        return params.limit <= 2 ? requiredMessage : minLengthMessage
         break;
       case 'maximum':
         return intl.formatMessage(
