@@ -1,5 +1,6 @@
 import cn from 'classnames'
 
+import { useMapData } from '@maps/components/CommunityProvider'
 import { CROWDFOUNDING_RANGES } from '@maps/components/FilterControl/useFilters'
 import type { CategoryIcon } from '@maps/types/index'
 import { ICONS } from '@maps/lib/icons'
@@ -22,6 +23,10 @@ export enum Percentage {
 }
 
 export const useMarkerPercentage = (percentage: number): Percentage => {
+  const { config: { crowdfounding: { showMarkerProgress } }} = useMapData()
+
+  if (!showMarkerProgress) return Percentage.full
+
   if (percentage < CROWDFOUNDING_RANGES.starting.max) {
     return Percentage.thirty
   } else if (percentage < CROWDFOUNDING_RANGES.middle.max){
