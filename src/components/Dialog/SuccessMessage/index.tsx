@@ -1,9 +1,12 @@
 import { Fragment } from 'react'
 import { CheckIcon } from '@heroicons/react/outline'
 import { Transition } from '@headlessui/react'
+import { Response } from '@maps/hooks/useMakeRequest'
 
-type Props = { message: null | string, show: boolean }
-const SuccessMessage = ({ show, message }: Props) => {
+type Props = { response: Response | null }
+const SuccessMessage = ({ response }: Props) => {
+  const show = !!response?.ok
+  const message = response?.data?.message
   return (
     <Transition.Root show={show}>
       <Transition.Child
