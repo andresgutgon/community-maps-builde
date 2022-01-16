@@ -1,14 +1,13 @@
 import { useRef, useEffect, useMemo, useState } from 'react'
 import cn from 'classnames'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { ValidationMode, JsonSchema, VerticalLayout } from '@jsonforms/core'
+import { ValidationMode } from '@jsonforms/core'
 import { JsonFormsStyleContext } from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Form, Place, PlaceDetail } from '@maps/types/index'
-import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
-import { EntityForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import Button, { Size as ButtonSize, Styles as ButtonStyles } from '@maps/components/Button'
 import useMakeRequest, { Method } from '@maps/hooks/useMakeRequest'
 import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
@@ -18,12 +17,6 @@ import { displayStyles } from '@maps/components/CustomJsonForms/displayStyles'
 const noValidationMode = 'NoValidation' as ValidationMode
 
 type UseSchemaProps = { place: PlaceDetail }
-type ReturnType = {
-  present: boolean,
-  data: any,
-  jsonSchema: JsonSchema,
-  uischema: VerticalLayout
-}
 const useSchema = ({ place }: UseSchemaProps) => useMemo(
   () => {
     const { schemaData, jsonSchema, uiSchema } = place
