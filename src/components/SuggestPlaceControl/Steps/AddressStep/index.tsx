@@ -1,9 +1,15 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState
+} from 'react'
 import cn from 'classnames'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRouter } from 'next/router'
 import { DragEndEvent, Map as LeafletMap } from 'leaflet'
-import { Marker, useMap, TileLayer, MapContainer } from 'react-leaflet'
+import { Marker, TileLayer, MapContainer } from 'react-leaflet'
 
 import { GeocoderService } from '@maps/types/index'
 import useGeocoder from '@maps/components/SearchInput/useGeocoder'
@@ -12,12 +18,18 @@ import useTile from '@maps/components/CommunityProvider/useTile'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import Fieldset from '@maps/components/Fieldset'
-import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import Button, {
+  Size as ButtonSize,
+  Styles as ButtonStyles
+} from '@maps/components/Button'
 import SearchInput from '@maps/components/SearchInput/InForm'
 import SearchResult from '@maps/components/SearchResult'
 import { Percentage } from '@maps/components/Marker'
 import useMarkerIcon from '@maps/hooks/useMarkerIcon'
-import { Step, SuggestReturnType } from '@maps/components/SuggestPlaceControl/useSuggest'
+import {
+  Step,
+  SuggestReturnType
+} from '@maps/components/SuggestPlaceControl/useSuggest'
 
 type Props = {
   suggest: SuggestReturnType
@@ -40,11 +52,17 @@ const AddressStep = ({
   const [dragging, setDragging] = useState<boolean>(false)
   const intl = useIntl()
   const geocoder = useGeocoder({ service: GeocoderService.nominatim, locale })
-  const { config, places } = useMapData()
+  const { config } = useMapData()
   const tile = useTile(config)
-  const icon = useMarkerIcon({ percentage: Percentage.full, slug: suggest?.category?.slug })
+  const icon = useMarkerIcon({
+    percentage: Percentage.full,
+    slug: suggest?.category?.slug
+  })
   const [map, setMap] = useState<LeafletMap | null>(null)
-  const legend = intl.formatMessage({ defaultMessage: 'Dirección', id: 'Tq7tlV' })
+  const legend = intl.formatMessage({
+    defaultMessage: 'Dirección',
+    id: 'Tq7tlV'
+  })
   useEffect(() => {
     map?.fitBounds(searchResult.bbox)
   }, [map, searchResult])
@@ -67,23 +85,20 @@ const AddressStep = ({
         </div>
         {searchResult ? (
           <>
-        <div
-          className={
-            cn(
-              'relative z-0 p-4 border rounded flex items-center space-x-2 justify-between',
-              {
-                'border-gray-400': !dragging,
-                'animate-pulse bg-green-300 border-green-700': dragging
-              }
-            )
-          }>
+            <div
+              className={cn(
+                'relative z-0 p-4 border rounded flex items-center space-x-2 justify-between',
+                {
+                  'border-gray-400': !dragging,
+                  'animate-pulse bg-green-300 border-green-700': dragging
+                }
+              )}
+            >
               <SearchResult result={searchResult} />
             </div>
             {!userKnowsAboutMapDragging ? (
               <div className='flex flex-row space-x-4 my-2 bg-yellow-100 rounded p-4 text-yellow-800 text-xs'>
-                <span className='text-3xl animate-bounce'>
-                  👇&nbsp;
-                </span>
+                <span className='text-3xl animate-bounce'>👇&nbsp;</span>
                 <FormattedMessage
                   id='Eek11u'
                   defaultMessage='Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar'
@@ -128,52 +143,67 @@ const AddressStep = ({
   }
 
   return (
-      <Fieldset legend={legend}>
-        <div className={styles.verticalLayout}>
-          <div className='flex items-center space-x-2 justify-between'>
-            <SearchResult result={searchResult} />
-            <Button
-              outline
-              style={ButtonStyles.secondary}
-              size={ButtonSize.sm}
-              onClick={suggest.moveToStep(Step.address)}
-            >
-              <FormattedMessage defaultMessage='Cambiar direccón' id="DTelvK" />
-            </Button>
-          </div>
-            <div className={cn(styles.control, 'p-2 bg-gray-50 border border-gray-200 rounded')}>
-              <label htmlFor='addressAditionalInfo' className={styles.label}>
-                <div className='flex space-x-2 items-center'>
-                  <span>
-                    <FormattedMessage id="Ib04NK" defaultMessage='Información adicional' />
-                  </span>
-                  <div role='button' className='inline-block underline text-xs' onClick={() => setShowInfo(!showInfo)}>
-                    {showInfo ? (
-                      <FormattedMessage id="cz9Q8R" defaultMessage='Ocultar' />
-                    ) : (
-                      <FormattedMessage id="ElUisA" defaultMessage='Mostrar' />
-                    )}
-                  </div>
-                </div>
-              </label>
-              {showInfo ? (
-                <>
-                  <textarea
-                    className={styles.input}
-                    id='addressAditionalInfo'
-                    value={suggest.addressAditionalInfo}
-                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                      suggest.setAddressAditionalInfo(event.target.value)
-                    }}
-                  />
-                  <p className={styles.description}>
-                    <FormattedMessage id="E8dzwn" defaultMessage='Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar' />
-                  </p>
-                </>
-              ) : null}
-            </div>
+    <Fieldset legend={legend}>
+      <div className={styles.verticalLayout}>
+        <div className='flex items-center space-x-2 justify-between'>
+          <SearchResult result={searchResult} />
+          <Button
+            outline
+            style={ButtonStyles.secondary}
+            size={ButtonSize.sm}
+            onClick={suggest.moveToStep(Step.address)}
+          >
+            <FormattedMessage defaultMessage='Cambiar direccón' id='DTelvK' />
+          </Button>
         </div>
-      </Fieldset>
+        <div
+          className={cn(
+            styles.control,
+            'p-2 bg-gray-50 border border-gray-200 rounded'
+          )}
+        >
+          <label htmlFor='addressAditionalInfo' className={styles.label}>
+            <div className='flex space-x-2 items-center'>
+              <span>
+                <FormattedMessage
+                  id='Ib04NK'
+                  defaultMessage='Información adicional'
+                />
+              </span>
+              <div
+                role='button'
+                className='inline-block underline text-xs'
+                onClick={() => setShowInfo(!showInfo)}
+              >
+                {showInfo ? (
+                  <FormattedMessage id='cz9Q8R' defaultMessage='Ocultar' />
+                ) : (
+                  <FormattedMessage id='ElUisA' defaultMessage='Mostrar' />
+                )}
+              </div>
+            </div>
+          </label>
+          {showInfo ? (
+            <>
+              <textarea
+                className={styles.input}
+                id='addressAditionalInfo'
+                value={suggest.addressAditionalInfo}
+                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                  suggest.setAddressAditionalInfo(event.target.value)
+                }}
+              />
+              <p className={styles.description}>
+                <FormattedMessage
+                  id='E8dzwn'
+                  defaultMessage='Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar'
+                />
+              </p>
+            </>
+          ) : null}
+        </div>
+      </div>
+    </Fieldset>
   )
 }
 

@@ -10,9 +10,7 @@ const Fieldset = ({ legend, children }: Props) => {
 
   return (
     <fieldset className={styles.group.layout}>
-      <legend className={styles.group.label}>
-        {legend}
-      </legend>
+      <legend className={styles.group.label}>{legend}</legend>
       {children}
     </fieldset>
   )

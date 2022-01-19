@@ -1,17 +1,21 @@
-import { useEffect, ReactNode } from 'react'
 import { Control } from 'leaflet'
-import { LeafletElement, createElementHook, LeafletContextInterface, createControlHook } from '@react-leaflet/core'
+import {
+  LeafletElement,
+  createElementHook,
+  LeafletContextInterface,
+  createControlHook
+} from '@react-leaflet/core'
 
 import { ControlOptionsWithChildren } from './DummyControl'
 import { createContainerComponent } from './createContainerComponent'
 
 export function createControlComponentWithChildren<
   E extends Control,
-  P extends ControlOptionsWithChildren,
+  P extends ControlOptionsWithChildren
 >(createInstance: (props: P) => E) {
   function createElement(
     props: P,
-    context: LeafletContextInterface,
+    context: LeafletContextInterface
   ): LeafletElement<E> {
     return { instance: createInstance(props), context }
   }
@@ -20,4 +24,3 @@ export function createControlComponentWithChildren<
 
   return createContainerComponent(useControl)
 }
-

@@ -15,5 +15,4 @@ const ReactControl = createControlComponentWithChildren<
   return new DummyControl(props)
 })
 
-
 export default ReactControl

@@ -1,18 +1,18 @@
 import dynamic from 'next/dynamic'
-import { useEffect, RefObject, ReactNode, ComponentClass, useState } from 'react'
+import { useEffect, RefObject, ReactNode, useState } from 'react'
 
 export type SubmitFn = (closeFn: Function) => Promise<any> | void
 export type Props = {
-  title?: string | null,
-  description?: string | null,
-  initialFocusRef?: RefObject<any>,
-  onClose: () => void,
-  onLoadingFinish?: () => void,
-  children?: ReactNode,
-  onSubmit?: SubmitFn,
-  stackFooterButtons?: boolean,
-  footer?: ReactNode,
-  isOpen: boolean,
+  title?: string | null
+  description?: string | null
+  initialFocusRef?: RefObject<any>
+  onClose: () => void
+  onLoadingFinish?: () => void
+  children?: ReactNode
+  onSubmit?: SubmitFn
+  stackFooterButtons?: boolean
+  footer?: ReactNode
+  isOpen: boolean
   closeFn: Function
 }
 export default function Dialog({
@@ -31,7 +31,7 @@ export default function Dialog({
   const [Modal, setModal] = useState(null)
   useEffect(() => {
     if (Modal) return
-    async function loadComponent () {
+    async function loadComponent() {
       if (!isOpen) return
       const Component = await dynamic(() => import('./Modal'))
       setModal(Component)
@@ -58,4 +58,3 @@ export default function Dialog({
     </Modal>
   )
 }
-

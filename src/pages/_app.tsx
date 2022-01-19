@@ -12,9 +12,9 @@ import CA_LOCALE from '../../content/compiled-locales/ca.json'
 import '../styles/index.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 
-function CommunityBuilderApp ({ Component, pageProps }: AppProps) {
-  const { locale, defaultLocale } = useRouter();
-  const [shortLocale] = locale ? locale.split('-') : [defaultLocale];
+function CommunityBuilderApp({ Component, pageProps }: AppProps) {
+  const { locale, defaultLocale } = useRouter()
+  const [shortLocale] = locale ? locale.split('-') : [defaultLocale]
 
   const messages = useMemo(() => {
     switch (shortLocale) {
@@ -30,15 +30,15 @@ function CommunityBuilderApp ({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Constructor de mapas</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
-        <IntlProvider
-          locale={shortLocale}
-          messages={messages}
-          onError={() => null}
-        >
-          <Component {...pageProps} />
-        </IntlProvider>
+      <IntlProvider
+        locale={shortLocale}
+        messages={messages}
+        onError={() => null}
+      >
+        <Component {...pageProps} />
+      </IntlProvider>
     </>
   )
 }

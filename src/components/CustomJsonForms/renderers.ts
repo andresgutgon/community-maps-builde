@@ -1,7 +1,9 @@
 import { vanillaRenderers } from '@jsonforms/vanilla-renderers'
 
 // Our custom renderers
-import PricingRatesInput, { pricingRatesTester } from './Renderers/controls/PricingRatesInput'
+import PricingRatesInput, {
+  pricingRatesTester
+} from './Renderers/controls/PricingRatesInput'
 import BooleanControl, { booleanTester } from './Renderers/controls/Boolean'
 
 /**

@@ -5,13 +5,16 @@ enum RoundedType {
   topRight = 'topRight',
   bottomRight = 'bottomRight'
 }
-export enum RoundedSize { none = 'none', md = 'md' }
+export enum RoundedSize {
+  none = 'none',
+  md = 'md'
+}
 type RoundedCorners = Record<RoundedType, Record<RoundedSize, string>>
 const ROUNDED_CORNERS: RoundedCorners = {
-  topLeft: { none: 'rounded-tl-none', md: 'rounded-tl'},
-  bottomLeft: { none: 'rounded-bl-none', md: 'rounded-bl'},
-  topRight: { none: 'rounded-tr-none', md: 'rounded-tr'},
-  bottomRight: { none: 'rounded-br-none', md: 'rounded-br'},
+  topLeft: { none: 'rounded-tl-none', md: 'rounded-tl' },
+  bottomLeft: { none: 'rounded-bl-none', md: 'rounded-bl' },
+  topRight: { none: 'rounded-tr-none', md: 'rounded-tr' },
+  bottomRight: { none: 'rounded-br-none', md: 'rounded-br' }
 }
 type AllRounded = Record<RoundedType, RoundedSize>
 export type Rounded = Partial<AllRounded>
@@ -28,7 +31,7 @@ const useBorderRadius = ({ rounded }: Props): string | string[] =>
 
     const allCorners = { ...DEFAULT_ROUNDED, ...rounded }
     return Object.keys(allCorners).map((cornerKey: RoundedType) => {
-      const value: RoundedSize  = allCorners[cornerKey]
+      const value: RoundedSize = allCorners[cornerKey]
       return ROUNDED_CORNERS[cornerKey][value]
     })
   }, [rounded])

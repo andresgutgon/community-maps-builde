@@ -1,14 +1,18 @@
 import { useEffect, ChangeEvent, useRef, useState } from 'react'
-import cn from 'classnames'
 
 import config from '@maps/data/config'
 import { CategoryIcon } from '@maps/types/index'
 import { ICONS } from '@maps/lib/icons'
-import Marker, { Percentage, MarkerColor, MarkerSize } from '@maps/components/Marker'
+import Marker, {
+  Percentage,
+  MarkerColor,
+  MarkerSize
+} from '@maps/components/Marker'
 
 type HeaderProps = { title: string }
-const Header = ({ title }: HeaderProps) =>
+const Header = ({ title }: HeaderProps) => (
   <h2 className='font-medium text-2xl mb-2'>{title}</h2>
+)
 
 const Markers = () => {
   useEffect(() => {
@@ -29,44 +33,41 @@ const Markers = () => {
     `
   }, [])
   const colors = useRef<MarkerColor[]>(Object.values(MarkerColor)).current
-  const [withArrow, setArrow] = useState<boolean>(true)
   const [size, setSize] = useState<MarkerSize>(MarkerSize.normal)
   const [percentage, setPercentage] = useState<Percentage>(Percentage.full)
   return (
-    <div className="container p-4">
+    <div className='container p-4'>
       <main className='space-y-4'>
         <div className='text-center pb-3 border-b border-gray-100'>
-          <h1 className="text-xl font-medium">
-            Markers
-          </h1>
+          <h1 className='text-xl font-medium'>Markers</h1>
           <p>All the markers with styles you can use in the map</p>
         </div>
         <div className='flex flex-row space-x-3'>
           <select
-            name="type"
+            name='type'
             value={size}
             onChange={(event: ChangeEvent<HTMLSelectElement>) =>
               setSize(event.target.value as MarkerSize)
             }
           >
-            {Object.values(MarkerSize).map((size: MarkerSize) =>
+            {Object.values(MarkerSize).map((size: MarkerSize) => (
               <option key={size} value={size}>
                 {size}
               </option>
-            )}
+            ))}
           </select>
           <select
-            name="percentage"
+            name='percentage'
             value={percentage}
             onChange={(event: ChangeEvent<HTMLSelectElement>) =>
               setPercentage(event.target.value as Percentage)
             }
           >
-            {Object.values(Percentage).map((percentage: Percentage) =>
+            {Object.values(Percentage).map((percentage: Percentage) => (
               <option key={percentage} value={percentage}>
                 {percentage}
               </option>
-            )}
+            ))}
           </select>
         </div>
         <section>
@@ -74,7 +75,10 @@ const Markers = () => {
           <ul className='grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3'>
             {colors.map((color: MarkerColor) => {
               return (
-                <li key={color} className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'>
+                <li
+                  key={color}
+                  className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'
+                >
                   <Marker
                     isSelected
                     withArrow
@@ -97,9 +101,12 @@ const Markers = () => {
             {Object.keys(ICONS).map((key: CategoryIcon, index: number) => {
               const isSelected = index !== 0
               return (
-                <li key={key} className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'>
+                <li
+                  key={key}
+                  className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'
+                >
                   <Marker
-                    withArrow={withArrow}
+                    withArrow
                     percentage={Percentage.full}
                     color={MarkerColor.brand}
                     size={size}

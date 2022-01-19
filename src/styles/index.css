@@ -39,7 +39,6 @@ html {
   @apply hidden;
 }
 
-
 .leaflet-popup {
   @apply w-72 sm:w-80;
   margin-bottom: 65px;
@@ -84,7 +83,7 @@ input.simulateNoNumber::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input.simulateNoNumber[type=number] {
+input.simulateNoNumber[type='number'] {
   -moz-appearance: textfield;
 }
 

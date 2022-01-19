@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import cn from 'classnames'
 import { useIntl } from 'react-intl'
@@ -13,26 +13,33 @@ import FilterDisplay from './Display'
 
 const FilterControl = () => {
   const intl = useIntl()
-  const { categories, allPlaces, urlParams: { filters }, config } = useMapData()
+  const {
+    categories,
+    allPlaces,
+    urlParams: { filters },
+    config
+  } = useMapData()
   const showFilters = useShowFiltersWithDefaults(config.showFilters)
   const unfilteredCrowdfoundingStates = useRef<State[]>([
     State.starting,
     State.middle,
-    State.finishing,
+    State.finishing
   ]).current
-  const crowdfoundingStates = useRef<State[]>(showFilters.crowdfounding
-    ? unfilteredCrowdfoundingStates : []
+  const crowdfoundingStates = useRef<State[]>(
+    showFilters.crowdfounding ? unfilteredCrowdfoundingStates : []
   ).current
-  const statusStates = useRef<State[]>(showFilters.status ? [State.active] : []).current
+  const statusStates = useRef<State[]>(
+    showFilters.status ? [State.active] : []
+  ).current
   const states = useRef<State[]>([
     State.all,
     ...crowdfoundingStates,
     ...statusStates
   ]).current
   const showAnyFilter =
-    showFilters.status
-      || showFilters.crowdfounding
-      || showFilters.categories && categories.length > 1
+    showFilters.status ||
+    showFilters.crowdfounding ||
+    (showFilters.categories && categories.length > 1)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [Form, setForm] = useState(null)
@@ -40,17 +47,18 @@ const FilterControl = () => {
     if (!Form) setLoading(true)
     setOpen(!open)
   }
-  const [categorySlugs, setSelectedCategories] = useState<string[]>(filters.categories)
+  const [categorySlugs, setSelectedCategories] = useState<string[]>(
+    filters.categories
+  )
   const [state, setState] = useState<State>(filters.state)
   const closeFilter = () => setOpen(false)
   useMapEvents({ click: closeFilter, mousedown: closeFilter })
   useEffect(() => {
-    async function loadComponent () {
+    async function loadComponent() {
       if (!showAnyFilter || !open || Form) return
-      const Component = await dynamic(
-        () => import('./Form'),
-        { loading: () => <LoadingCode />}
-      )
+      const Component = await dynamic(() => import('./Form'), {
+        loading: () => <LoadingCode />
+      })
       setForm(Component)
       setLoading(false)
     }
@@ -62,16 +70,11 @@ const FilterControl = () => {
   return (
     <ReactControl
       position='topleft'
-      className={
-        cn(
-          'transition-width',
-          {
-            'hidden': !allPlaces.length,
-            'flex items-center justify-center': !open,
-            'flex-col leaflet-expanded-control bg-gray-50': open
-          }
-        )
-      }
+      className={cn('transition-width', {
+        hidden: !allPlaces.length,
+        'flex items-center justify-center': !open,
+        'flex-col leaflet-expanded-control bg-gray-50': open
+      })}
     >
       <FilterDisplay
         open={open}
@@ -82,7 +85,7 @@ const FilterControl = () => {
         onToggleFilters={onToggleFilters}
         categorySlugs={categorySlugs}
       />
-      {(Form && open) ? (
+      {Form && open ? (
         <Form
           currentState={state}
           states={states}
@@ -91,7 +94,7 @@ const FilterControl = () => {
           setSelectedCategories={setSelectedCategories}
           onToggleFilters={onToggleFilters}
         />
-      ): null}
+      ) : null}
     </ReactControl>
   )
 }

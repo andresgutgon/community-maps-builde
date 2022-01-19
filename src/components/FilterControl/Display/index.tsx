@@ -7,19 +7,14 @@ import type { Category as CategoryType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import ControlHandler from '@maps/components/ControlHandler'
 
-import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
+import Marker, {
+  Percentage,
+  MarkerColor,
+  MarkerSize
+} from '@maps/components/Marker'
 import StateLabel from '../StateLabel'
-import { useShowFiltersWithDefaults, CROWDFOUNDING_RANGES, State } from '../useFilters'
+import { useShowFiltersWithDefaults, State } from '../useFilters'
 
-type Props = {
-  open: boolean
-  state: State
-  statusStates: State[]
-  unfilteredCrowdfoundingStates: State[]
-  crowdfoundingStates: State[]
-  categorySlugs: string[]
-  onToggleFilters: () => void
-}
 const FilterDisplay = ({
   open,
   statusStates,
@@ -32,43 +27,44 @@ const FilterDisplay = ({
   const intl = useIntl()
   const { allPlaces, places, categories, config } = useMapData()
   const showFilters = useShowFiltersWithDefaults(config.showFilters)
-  const selectedCategories = useMemo(() =>
-    categories.filter((c: CategoryType) => categorySlugs.includes(c.slug))
-  , [categories, categorySlugs])
-  const showCategoriesFilter = categories.length > 1 && selectedCategories.length !== categories.length
+  const selectedCategories = useMemo(
+    () =>
+      categories.filter((c: CategoryType) => categorySlugs.includes(c.slug)),
+    [categories, categorySlugs]
+  )
+  const showCategoriesFilter =
+    categories.length > 1 && selectedCategories.length !== categories.length
   const showCategories = showCategoriesFilter && showFilters.categories
   const showStatus = statusStates.length > 0 && state === State.active
-  const showCrowdfounding = crowdfoundingStates.length > 0 && unfilteredCrowdfoundingStates.includes(state)
+  const showCrowdfounding =
+    crowdfoundingStates.length > 0 &&
+    unfilteredCrowdfoundingStates.includes(state)
   const show = showCategories || showCrowdfounding || showStatus
-  const label = intl.formatMessage({ id: '4kF+sS', defaultMessage: 'Filtrar lugares' })
+  const label = intl.formatMessage({
+    id: '4kF+sS',
+    defaultMessage: 'Filtrar lugares'
+  })
   const allVisible = places.length === allPlaces.length
   return (
     <button onClick={onToggleFilters} className='w-full'>
-      <ControlHandler
-        icon='fa-filter'
-        label={label}
-        expanded={open}
-      >
+      <ControlHandler icon='fa-filter' label={label} expanded={open}>
         {!open ? (
           allPlaces.length > 0 ? (
             <div
-              className={
-                cn(
-                  'justify-end text-center flex py-1 px-2 rounded-full font-medium',
-                  {
-                    'bg-brand-button text-brand-button': allVisible,
-                    'bg-gray-200 text-gray-600': !allVisible,
-                  }
-                )
-              }
+              className={cn(
+                'justify-end text-center flex py-1 px-2 rounded-full font-medium',
+                {
+                  'bg-brand-button text-brand-button': allVisible,
+                  'bg-gray-200 text-gray-600': !allVisible
+                }
+              )}
             >
               {allVisible
                 ? places.length
                 : intl.formatMessage(
                     { id: 'iB0EB1', defaultMessage: '{filter} de {total}' },
                     { filter: places.length, total: allPlaces.length }
-                  )
-              }
+                  )}
             </div>
           ) : null
         ) : (
@@ -76,18 +72,18 @@ const FilterDisplay = ({
             <span className='sr-only'>
               <FormattedMessage defaultMessage='Cerrar filtros' id='Kdq+g3' />
             </span>
-            <XIcon className="h-6 w-6 text-gray-600" aria-hidden="true" />
+            <XIcon className='h-6 w-6 text-gray-600' aria-hidden='true' />
           </>
         )}
       </ControlHandler>
-      {(!open && show) ? (
+      {!open && show ? (
         <div className='flex-1 flex flex-col space-y-1 sm:space-y-2 border-t border-gray-100 mt-2 pt-2'>
-          {(showCrowdfounding || showStatus) ? (
+          {showCrowdfounding || showStatus ? (
             <StateLabel showDescription state={state} />
           ) : null}
           {showCategories ? (
             <ul className='flex flex-row space-x-1'>
-              {categories.map((category: CategoryType) =>
+              {categories.map((category: CategoryType) => (
                 <li key={category.slug}>
                   <Marker
                     withArrow={false}
@@ -98,7 +94,7 @@ const FilterDisplay = ({
                     iconKey={category.iconKey}
                   />
                 </li>
-              )}
+              ))}
             </ul>
           ) : null}
         </div>

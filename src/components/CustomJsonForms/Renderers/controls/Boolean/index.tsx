@@ -1,8 +1,16 @@
 import { ChangeEvent } from 'react'
-import cn from 'classnames'
-import { validate, computeLabel, rankWith, RankedTester, isBooleanControl, ControlProps } from '@jsonforms/core'
+import {
+  computeLabel,
+  rankWith,
+  RankedTester,
+  isBooleanControl,
+  ControlProps
+} from '@jsonforms/core'
 import { withJsonFormsControlProps } from '@jsonforms/react'
-import { withVanillaControlProps, VanillaRendererProps } from '@jsonforms/vanilla-renderers'
+import {
+  withVanillaControlProps,
+  VanillaRendererProps
+} from '@jsonforms/vanilla-renderers'
 
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import Description from '@maps/components/CustomJsonForms/components/Description'
@@ -17,7 +25,6 @@ const BooleanControl = ({
   description,
   errors,
   data,
-  schema,
   uischema,
   classNames,
   visible,
@@ -44,11 +51,7 @@ const BooleanControl = ({
           }}
         />
         <span className={styles.checkbox.label}>
-          {computeLabel(
-            label,
-            required,
-            hideRequiredAsterisk
-          )}
+          {computeLabel(label, required, hideRequiredAsterisk)}
         </span>
       </label>
       <Description
@@ -61,4 +64,6 @@ const BooleanControl = ({
   )
 }
 
-export default withVanillaControlProps(withJsonFormsControlProps(BooleanControl))
+export default withVanillaControlProps(
+  withJsonFormsControlProps(BooleanControl)
+)

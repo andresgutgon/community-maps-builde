@@ -17,43 +17,62 @@ export const useTranslateError = (): TranslateErrorFn => {
   ): string => {
     const params = error.params
     const inCents = !!error.instancePath.match(/_in_cents$/)
-    switch(error.keyword) {
+    switch (error.keyword) {
       case 'required':
-        const fieldName = ((uischema as any)?.label || params.missingProperty || '').toLowerCase()
+        const fieldName = (
+          (uischema as any)?.label ||
+          params.missingProperty ||
+          ''
+        ).toLowerCase()
         return intl.formatMessage(
-          { id: '3Fs00I', defaultMessage: 'El campo {fieldName} es obligatorio' },
+          {
+            id: '3Fs00I',
+            defaultMessage: 'El campo {fieldName} es obligatorio'
+          },
           { fieldName }
         )
-        break;
+        break
       case 'minimum':
         return intl.formatMessage(
-          { id: '1izKCT', defaultMessage: 'Este campo debe ser igual o más de {min}' },
+          {
+            id: '1izKCT',
+            defaultMessage: 'Este campo debe ser igual o más de {min}'
+          },
           { min: inCents ? params.limit / 100 : params.limt }
         )
-        break;
+        break
       case 'minLength':
         const requiredMessage = intl.formatMessage(
-          { id: 'w0H4hf', defaultMessage: 'Este campo {fieldName} es obligatorio' },
+          {
+            id: 'w0H4hf',
+            defaultMessage: 'Este campo {fieldName} es obligatorio'
+          },
           { fieldName }
         )
         const minLengthMessage = intl.formatMessage(
-          { id: 'pa1TSf', defaultMessage: 'Este campo debe ser igual o más de {min} letras' },
+          {
+            id: 'pa1TSf',
+            defaultMessage: 'Este campo debe ser igual o más de {min} letras'
+          },
           { min: params.limit }
         )
         return params.limit <= 2 ? requiredMessage : minLengthMessage
-        break;
+        break
       case 'maximum':
         return intl.formatMessage(
-          { id: '4iGwAO', defaultMessage: 'Este campo debe ser igual o menos de {max}' },
+          {
+            id: '4iGwAO',
+            defaultMessage: 'Este campo debe ser igual o menos de {max}'
+          },
           { max: inCents ? params.limit / 100 : params.limt }
         )
-        break;
+        break
       case 'enum':
         return intl.formatMessage({
           id: 'at9R+C',
           defaultMessage: 'Debes seleccionar un valor de la lista'
         })
-        break;
+        break
       case 'format':
         const format = params.format
         if (format === 'email') {
@@ -63,7 +82,7 @@ export const useTranslateError = (): TranslateErrorFn => {
           })
         }
         return error.message
-        break;
+        break
       case 'type':
         const type = params.type
         if (type === 'integer') {
@@ -73,7 +92,7 @@ export const useTranslateError = (): TranslateErrorFn => {
           })
         }
         return error.message
-        break;
+        break
       default:
         return error.message
     }

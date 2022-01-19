@@ -14,14 +14,17 @@ const ControlHandler = ({ expanded = false, icon, label, children }: Props) => {
       <div className='flex-0 flex flex-row items-center space-x-3'>
         <i className={cn('text-gray-800 ml-1 fas', icon)} />
         {isString ? (
-          <span className={cn('text-gray-800 font-medium', { 'text-lg': expanded })}>
+          <span
+            className={cn('text-gray-800 font-medium', { 'text-lg': expanded })}
+          >
             {label}
           </span>
-        ): label}
+        ) : (
+          label
+        )}
       </div>
       {children}
     </div>
-
   )
 }
 

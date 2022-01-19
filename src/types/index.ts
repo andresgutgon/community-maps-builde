@@ -1,9 +1,13 @@
-import { JsonSchema, HorizontalLayout, VerticalLayout, GroupLayout } from '@jsonforms/core'
-import type { IGeocoder } from '@maps/components/SearchInput/geocoders'
+import {
+  JsonSchema,
+  HorizontalLayout,
+  VerticalLayout,
+  GroupLayout
+} from '@jsonforms/core'
 import { TILES } from '@maps/lib/tiles'
 import { MarkerColor } from '@maps/components/Marker'
 
-export type { JsonSchema, } from '@jsonforms/core'
+export type { JsonSchema } from '@jsonforms/core'
 export type UIJsonFormSchema = HorizontalLayout | VerticalLayout | GroupLayout
 export enum GeocoderService {
   nominatim = 'nominatim',
@@ -11,15 +15,15 @@ export enum GeocoderService {
 }
 
 export type MapAttribution = {
-  linkText: string,
+  linkText: string
   link?: string
 }
 
 export type Tile = {
-  url: string,
-  free: boolean,
-  minZoom: number,
-  maxZoom: number,
+  url: string
+  free: boolean
+  minZoom: number
+  maxZoom: number
   attributions: Array<MapAttribution>
 }
 export type TileStyle = keyof typeof TILES
@@ -43,12 +47,12 @@ export type Category = {
   iconKey: CategoryIcon
   iconColor: MarkerColor
   name: string
-  description: string | null,
+  description: string | null
   shareInTwitterText?: string
 }
 
 export type Form = {
-  slug: string,
+  slug: string
   ctaLabel?: string
   formButtonLabel?: string
   description?: string
@@ -71,8 +75,8 @@ export type Place = {
 }
 
 export type PlaceDetail = Place & {
-  schemaData?: any,
-  jsonSchema?: JsonSchema,
+  schemaData?: any
+  jsonSchema?: JsonSchema
   uiSchema?: UIJsonFormSchema
 }
 
@@ -88,12 +92,12 @@ export type ThemeColor = {
   buttonTextInvertedColorHover: string
 }
 export type Theme = {
-  color?: ThemeColor,
+  color?: ThemeColor
   tileStyle: TileStyle
 }
 
 type Legal = {
-  privacyLink?: string,
+  privacyLink?: string
   cookiesLink?: string
 }
 type Crowdfunding = {

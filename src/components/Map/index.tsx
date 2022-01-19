@@ -1,12 +1,15 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
-import { Control, ControlOptions, DomUtil, DomEvent,  Map as LeafletMap, Icon } from 'leaflet'
+import { Map as LeafletMap, Icon } from 'leaflet'
 import 'leaflet.markercluster'
-import { useMapEvents, useMap, MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
+import { MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 
-import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
-import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/index'
+import {
+  CommunityProvider,
+  useMapData
+} from '@maps/components/CommunityProvider'
+import type { Place as PlaceType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
 import Search from '@maps/components/SearchControl'
 import Fullscreen from '@maps/components/FullscreenControl'
@@ -28,7 +31,7 @@ Icon.Default.mergeOptions({
 })
 
 const MapWrapper = () => {
-  const { locale } = useRouter();
+  const { locale } = useRouter()
   const { currentPlace, config, places } = useMapData()
   const tile = useTile(config)
   const [mapLoaded, setMapLoaded] = useState<boolean>(false)
@@ -40,7 +43,7 @@ const MapWrapper = () => {
     setOpenPlace(currentPlace)
   }, [currentPlace])
   useEffect(() => {
-    if (!map || mapLoaded) return;
+    if (!map || mapLoaded) return
 
     if (currentPlace) {
       map.setView(
@@ -49,21 +52,28 @@ const MapWrapper = () => {
       )
       setMapLoaded(true)
     } else if (places.length > 0) {
-      map.fitBounds(clusterRef.current.getBounds());
+      map.fitBounds(clusterRef.current.getBounds())
       setMapLoaded(true)
     } else {
       // While loading places set center in Barcelona
       // This could be a config so community could set their default center
-      map.setView({
-        lat: 41.385947, lng: 2.170495
-      }, 10)
+      map.setView(
+        {
+          lat: 41.385947,
+          lng: 2.170495
+        },
+        10
+      )
     }
   }, [mapLoaded, map, places, currentPlace])
   const onClickPlace = (place: PlaceType) => {
     setOpenPlace(openPlace?.slug === place.name ? null : place)
   }
-  const onClosePopup = () => { setOpenPlace(null) }
-  {/*
+  const onClosePopup = () => {
+    setOpenPlace(null)
+  }
+  {
+    /*
     Document what these options are:
 
     @fadeAnimation: disabled to avoid showing empty popup wrapper when place
@@ -72,7 +82,8 @@ const MapWrapper = () => {
     @zoomControl: We set the control manually with the <ZoomControl /> component
     @whenCreated: we set map instance as a local state here to get access to it and to center map.
 
-  */}
+  */
+  }
   return (
     <MapContainer
       fadeAnimation={false}
@@ -96,7 +107,7 @@ const MapWrapper = () => {
         removeOutsideVisibleBounds={true}
         spiderfyOnMaxZoom={false}
       >
-        {places.map((place: PlaceType, index: number) =>
+        {places.map((place: PlaceType) => (
           <Place
             key={place.slug}
             place={place}
@@ -104,7 +115,7 @@ const MapWrapper = () => {
             onClick={onClickPlace}
             onClosePopup={onClosePopup}
           />
-        )}
+        ))}
       </MarkerClusterGroup>
 
       {/* Place detail popup */}
@@ -118,7 +129,7 @@ const MapWrapper = () => {
   )
 }
 
-type Props = { community: string, mapSlug: string }
+type Props = { community: string; mapSlug: string }
 const Map = ({ community, mapSlug }: Props) => {
   return (
     <CommunityProvider community={community} mapSlug={mapSlug}>

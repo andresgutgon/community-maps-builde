@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { DivIcon, divIcon } from 'leaflet'
 
-import type { Category } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import { Percentage } from '@maps/components/Marker'
 import { buildMarkerStringType } from '@maps/components/Marker/useMarkersAsString'
@@ -16,13 +15,12 @@ const useMarkerIcon = ({ percentage, slug }: Props): DivIcon | null => {
     return divIcon({
       className: null,
       html: iconMarkers[buildMarkerStringType(iconKey, iconColor, percentage)],
-      iconSize:    [40, 40],
-      iconAnchor:  [19, 46],
+      iconSize: [40, 40],
+      iconAnchor: [19, 46],
       popupAnchor: [2, -50],
-      tooltipAnchor: [2, -40],
+      tooltipAnchor: [2, -40]
     })
-  }
-  , [iconMarkers, slug, config, percentage])
+  }, [iconMarkers, slug, config, percentage])
 }
 
 export default useMarkerIcon

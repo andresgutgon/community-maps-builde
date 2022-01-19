@@ -1,30 +1,37 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useMap } from 'react-leaflet'
 
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import ReactControl from '@maps/components/ReactControl/index'
-import { ResultsTopSpace, ResultsXSpace,  useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
-import Button, { Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
+import {
+  ResultsXSpace,
+  useSearchInputProps
+} from '@maps/components/SearchInput/useSearchInputProps'
+import Button, {
+  Types as ButtonTypes,
+  Styles as ButtonStyles
+} from '@maps/components/Button'
 
-type FakeSearchProps = { onClick?: () => void, disabled?: boolean }
+type FakeSearchProps = { onClick?: () => void; disabled?: boolean }
 const FakeSearch = ({ onClick, disabled = false }: FakeSearchProps) => {
-  const { placeholder, buttonLabel, formClasses, inputClasses, buttonProps } = useSearchInputProps({
-    resultsXSpace: ResultsXSpace.normal
-  })
+  const { placeholder, buttonLabel, formClasses, inputClasses } =
+    useSearchInputProps({
+      resultsXSpace: ResultsXSpace.normal
+    })
   return (
-    <div {...(onClick ? { onClick, className: formClasses } : { className: formClasses })}>
+    <div
+      {...(onClick
+        ? { onClick, className: formClasses }
+        : { className: formClasses })}
+    >
       <input
         disabled={disabled}
         className={inputClasses}
         placeholder={placeholder}
         type='text'
       />
-      <Button
-        disabled
-        style={ButtonStyles.branded}
-        type={ButtonTypes.submit}
-      >
+      <Button disabled style={ButtonStyles.branded} type={ButtonTypes.submit}>
         {buttonLabel}
       </Button>
     </div>
@@ -46,10 +53,13 @@ const SearchControl = ({ locale }: Props) => {
     map.fitBounds(result.bbox)
   }
   return (
-    <ReactControl className='leaflet-search leaflet-expanded-control' position='topleft'>
+    <ReactControl
+      className='leaflet-search leaflet-expanded-control'
+      position='topleft'
+    >
       {Search ? (
         <Search locale={locale} onSearch={onSearch} />
-      ): (
+      ) : (
         <FakeSearch onClick={onClick} />
       )}
     </ReactControl>

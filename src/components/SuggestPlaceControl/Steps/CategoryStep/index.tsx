@@ -4,12 +4,22 @@ import cn from 'classnames'
 import { FormattedMessage } from 'react-intl'
 
 import Fieldset from '@maps/components/Fieldset'
-import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
-import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import Marker, {
+  Percentage,
+  MarkerColor,
+  MarkerSize
+} from '@maps/components/Marker'
+import Button, {
+  Size as ButtonSize,
+  Styles as ButtonStyles
+} from '@maps/components/Button'
 import { useMapData } from '@maps/components/CommunityProvider'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { Category } from '@maps/types/index'
-import { SuggestReturnType, MoveToStepFn, Step } from '@maps/components/SuggestPlaceControl/useSuggest'
+import {
+  SuggestReturnType,
+  Step
+} from '@maps/components/SuggestPlaceControl/useSuggest'
 
 type CategoryItemProps = {
   category: Category
@@ -17,21 +27,22 @@ type CategoryItemProps = {
   isChecked?: boolean
   right?: ReactNode
 }
-const CategoryItem = ({ isChecked = false, isSelected = false, category, right }: CategoryItemProps) => {
+const CategoryItem = ({
+  isChecked = false,
+  isSelected = false,
+  category,
+  right
+}: CategoryItemProps) => {
   const styles = useStyles()
   return (
     <label
       htmlFor={category.slug}
-      className={
-        cn(
-          'flex space-x-2 h-full',
-          {
-            'cursor-pointer flex-col rounded p-2 border border-transparent hover:border-gray-600 hover:shadow-sm': !isSelected,
-            'border-gray-600 hover:shadow-sm': isChecked,
-            'items-center justify-between': !!right
-          }
-        )
-      }
+      className={cn('flex space-x-2 h-full', {
+        'cursor-pointer flex-col rounded p-2 border border-transparent hover:border-gray-600 hover:shadow-sm':
+          !isSelected,
+        'border-gray-600 hover:shadow-sm': isChecked,
+        'items-center justify-between': !!right
+      })}
     >
       <div className='flex items-center sm:h-full'>
         <div className='flex-none'>
@@ -46,12 +57,18 @@ const CategoryItem = ({ isChecked = false, isSelected = false, category, right }
         </div>
         <div className='flex-0 flex-col items-start flex sm:flex-col ml-2 relative'>
           {!isSelected ? (
-            <input id={category.slug} type='radio' name='category' style={{ left: '-9999px' }} className='absolute'/>
+            <input
+              id={category.slug}
+              type='radio'
+              name='category'
+              style={{ left: '-9999px' }}
+              className='absolute'
+            />
           ) : null}
           <div className={cn(styles.radio.label, 'font-medium')}>
             {category.name}
           </div>
-          {(!isSelected && category.description) ? (
+          {!isSelected && category.description ? (
             <span className='text-xs text-gray-500'>
               {category.description}
             </span>
@@ -67,13 +84,19 @@ type Props = { suggest: SuggestReturnType }
 const CategoryStep = ({ suggest }: Props) => {
   const intl = useIntl()
   const { categories } = useMapData()
-  const legend = intl.formatMessage({ defaultMessage: 'Categoría', id: 'K6pXDZ' })
+  const legend = intl.formatMessage({
+    defaultMessage: 'Categoría',
+    id: 'K6pXDZ'
+  })
 
   if (!suggest.category || suggest.step === Step.category) {
     return (
       <ul className='grid sm:grid-cols-2 gap-2'>
-        {categories.map((category: Category, index: number) =>
-          <li key={category.slug} onClick={() => suggest.onCategoryChange(category)}>
+        {categories.map((category: Category, index: number) => (
+          <li
+            key={category.slug}
+            onClick={() => suggest.onCategoryChange(category)}
+          >
             <CategoryItem
               category={category}
               isChecked={category.slug === suggest.category?.slug}
@@ -82,7 +105,7 @@ const CategoryStep = ({ suggest }: Props) => {
               <div className='h-px mb-1 w-full sm:hidden bg-gray-100' />
             ) : null}
           </li>
-        )}
+        ))}
       </ul>
     )
   }
@@ -99,7 +122,7 @@ const CategoryStep = ({ suggest }: Props) => {
             size={ButtonSize.sm}
             onClick={suggest.moveToStep(Step.category)}
           >
-            <FormattedMessage defaultMessage='Cambiar categoría' id="Wceeld" />
+            <FormattedMessage defaultMessage='Cambiar categoría' id='Wceeld' />
           </Button>
         }
       />

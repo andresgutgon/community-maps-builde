@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { Place } from '@maps/types/index'
 
 import { ShowFilters } from '@maps/types/index'
-import { Percentage } from '@maps/components/Marker'
 
 export enum State {
   all = 'all',
@@ -11,18 +10,21 @@ export enum State {
   finishing = 'finishing',
   active = 'active'
 }
-export type CrowdfoundingRange = { min: number, max: number }
+export type CrowdfoundingRange = { min: number; max: number }
 export const DEFAULT_SHOW_FILTERS: ShowFilters = {
-  status: true, crowdfounding: true, categories: true
+  status: true,
+  crowdfounding: true,
+  categories: true
 }
-export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfoundingRange>> = {
-  [State.starting]: { min: 0, max: 5 },
-  [State.middle]: { min: 5, max: 75 },
-  [State.finishing]: { min: 75, max: 100 }
-}
+export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfoundingRange>> =
+  {
+    [State.starting]: { min: 0, max: 5 },
+    [State.middle]: { min: 5, max: 75 },
+    [State.finishing]: { min: 75, max: 100 }
+  }
 export type Filters = { state: State; categories: string[] }
 
-function filterByCategory (categories: string[], showFilters: ShowFilters) {
+function filterByCategory(categories: string[], showFilters: ShowFilters) {
   return (place): boolean => {
     if (!showFilters?.categories) return true
 
@@ -30,7 +32,7 @@ function filterByCategory (categories: string[], showFilters: ShowFilters) {
   }
 }
 
-function filterByRange (state: State, showFilters: ShowFilters) {
+function filterByRange(state: State, showFilters: ShowFilters) {
   const range = CROWDFOUNDING_RANGES[state]
   return (place: Place): boolean => {
     if (!showFilters?.crowdfounding) return true
@@ -43,16 +45,27 @@ function filterByRange (state: State, showFilters: ShowFilters) {
   }
 }
 
-const buildShowFilters = (showFilters: ShowFilters): ShowFilters =>
-  ({ ...DEFAULT_SHOW_FILTERS, ...(showFilters || {})})
-export const useShowFiltersWithDefaults = (showFilters: ShowFilters): ShowFilters =>
-  useRef<ShowFilters>(buildShowFilters(showFilters)).current
+const buildShowFilters = (showFilters: ShowFilters): ShowFilters => ({
+  ...DEFAULT_SHOW_FILTERS,
+  ...(showFilters || {})
+})
+export const useShowFiltersWithDefaults = (
+  showFilters: ShowFilters
+): ShowFilters => useRef<ShowFilters>(buildShowFilters(showFilters)).current
 
-type FilterFnProps = { places: Place[], filters: Filters, showFilters: ShowFilters }
+type FilterFnProps = {
+  places: Place[]
+  filters: Filters
+  showFilters: ShowFilters
+}
 type FilterFn = ({ places, filters }: FilterFnProps) => Place[]
 type ReturnType = { filterPlaces: FilterFn }
-const useFilters = (): ReturnType  => {
-  const filterPlaces: FilterFn = ({ places, filters: { state, categories }, showFilters }) => {
+const useFilters = (): ReturnType => {
+  const filterPlaces: FilterFn = ({
+    places,
+    filters: { state, categories },
+    showFilters
+  }) => {
     const show = buildShowFilters(showFilters)
     const isAllState = State.all === state
     const isActive = State.active === state

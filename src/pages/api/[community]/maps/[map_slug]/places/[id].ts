@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { JsonSchema } from '@jsonforms/core'
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'
@@ -6,17 +5,20 @@ import sanitizeHtml from 'sanitize-html'
 import withHeaderBearerToken from '@maps/lib/middlewares/withHeaderBearerToken'
 import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerToken'
 
-const renderer = new marked.Renderer();
+const renderer = new marked.Renderer()
 // Add target="_blank" to all links
 const linkRenderer = renderer.link
 renderer.link = (href, title, text) => {
-  const html = linkRenderer.call(renderer, href, title, text);
-  return html.replace(/^<a /, `<a target="_blank" rel="noreferrer noopener nofollow" `);
+  const html = linkRenderer.call(renderer, href, title, text)
+  return html.replace(
+    /^<a /,
+    `<a target="_blank" rel="noreferrer noopener nofollow" `
+  )
 }
 marked.setOptions({ renderer })
 
 const MARKDOWN_INDICATOR = '[markdown]'
-function parseMarkdownValue (value: string) {
+function parseMarkdownValue(value: string) {
   // Remove placeholder used to mark this field as markdown
   const markdownText = value.replace(MARKDOWN_INDICATOR, '')
   const htmlText = marked.parse(markdownText)
@@ -28,12 +30,17 @@ function parseMarkdownValue (value: string) {
 /**
  * Parse and sanitize fields that are in Markdown format.
  */
-const parseMarkdownFields = (jsonSchema: JsonSchema | null, schemaData: any | null): any | null => {
+const parseMarkdownFields = (
+  jsonSchema: JsonSchema | null,
+  schemaData: any | null
+): any | null => {
   if (!jsonSchema || !schemaData) return null
 
   const properties = jsonSchema.properties
-  const markdownFields = Object.keys(properties).filter((propKey: string) =>
-    properties[propKey].type === 'string' && properties[propKey].format === 'markdown'
+  const markdownFields = Object.keys(properties).filter(
+    (propKey: string) =>
+      properties[propKey].type === 'string' &&
+      properties[propKey].format === 'markdown'
   )
   const dataKeys = Object.keys(schemaData)
   return dataKeys.reduce((memo: any, key: string) => {
@@ -46,7 +53,12 @@ const parseMarkdownFields = (jsonSchema: JsonSchema | null, schemaData: any | nu
   }, {})
 }
 
-const place = async ({ request, response, tokenHeaders, communityHost }: ResponseWithAuth) => {
+const place = async ({
+  request,
+  response,
+  tokenHeaders,
+  communityHost
+}: ResponseWithAuth) => {
   const { map_slug: slug, id } = request.query
   const serverResponse = await fetch(
     `${communityHost}/maps/${slug}/places/${id}`,

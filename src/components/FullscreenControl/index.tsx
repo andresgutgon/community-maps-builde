@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
-import dynamic from 'next/dynamic'
 import screenfull from 'screenfull'
 
 import ControlHandler from '@maps/components/ControlHandler'
@@ -9,8 +8,14 @@ import ReactControl from '@maps/components/ReactControl/index'
 const FullscreenControl = () => {
   const [expanded, setExpanded] = useState<boolean>(false)
   const intl = useIntl()
-  const expandLabel = intl.formatMessage({ id: 'lkLfmX', defaultMessage: 'Expandir mapa' })
-  const contractLabel = intl.formatMessage({ id: '/kG/Lg', defaultMessage: 'Minimizar mapa' })
+  const expandLabel = intl.formatMessage({
+    id: 'lkLfmX',
+    defaultMessage: 'Expandir mapa'
+  })
+  const contractLabel = intl.formatMessage({
+    id: '/kG/Lg',
+    defaultMessage: 'Minimizar mapa'
+  })
   const onToggleFullscreen = useCallback(() => {
     if (expanded) {
       screenfull.exit()
@@ -20,7 +25,7 @@ const FullscreenControl = () => {
     setExpanded(!expanded)
   }, [expanded])
   useEffect(() => {
-    screenfull.on('change', (foo) => {
+    screenfull.on('change', () => {
       setExpanded(!!document.fullscreenElement)
     })
     return () => {

@@ -2,18 +2,15 @@ import { useRef, ChangeEvent, useState } from 'react'
 import { useKeyboard } from '@react-aria/interactions'
 import { useMapEvents } from 'react-leaflet'
 
-import Button, { Size as ButtonSize, Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
+import Button from '@maps/components/Button'
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import { GeocoderService } from '@maps/types/index'
-import { Props as UseSearchProps, useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
+import {
+  Props as UseSearchProps,
+  useSearchInputProps
+} from '@maps/components/SearchInput/useSearchInputProps'
 import useGeocoder from './useGeocoder'
 import SearchResults from './Resuts'
-
-type AddressResult = {
-  street: string | null,
-  detail: string | null,
-  context: string | null
-}
 
 export type CommonSearchProps = UseSearchProps & {
   locale: string
@@ -106,7 +103,7 @@ const SearchInput = ({
     setVisible(false)
     setFocus(true)
   }
-  const onBlur= () => {
+  const onBlur = () => {
     setFocus(false)
   }
   return (
@@ -152,4 +149,3 @@ const SearchInput = ({
 }
 
 export default SearchInput
-

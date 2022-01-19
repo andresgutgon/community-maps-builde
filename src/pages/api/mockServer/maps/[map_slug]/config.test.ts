@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
 import config from '@maps/data/config'
@@ -19,7 +18,7 @@ describe('api/mockServer/config', () => {
             'API-KEY': DEMO_TOKEN
           }
         })
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(200)
         const json = await response.json()
         expect(json).toStrictEqual({
           ...config,
@@ -35,8 +34,8 @@ describe('api/mockServer/config', () => {
       test: async ({ fetch }) => {
         const response = await fetch({
           headers: { 'content-type': 'application/json' }
-        });
-        expect(response.status).toBe(401);
+        })
+        expect(response.status).toBe(401)
         expect(await response.json()).toStrictEqual({
           message: 'Unauthorized request'
         })
@@ -44,4 +43,3 @@ describe('api/mockServer/config', () => {
     })
   })
 })
-
