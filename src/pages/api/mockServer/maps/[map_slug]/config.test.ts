@@ -16,7 +16,7 @@ describe('api/mockServer/config', () => {
         const response = await fetch({
           headers: {
             'content-type': 'application/json',
-            'Authorization': `Bearer ${DEMO_TOKEN}`
+            'API-KEY': DEMO_TOKEN
           }
         })
         expect(response.status).toBe(200);
