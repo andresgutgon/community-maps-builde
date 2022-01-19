@@ -2,12 +2,21 @@ import { renderHook } from '@testing-library/react-hooks'
 
 import useFilters, { State } from './useFilters'
 
-enum allCat { car = 'car', train = 'train', bike = 'bike', van = 'van' }
+enum allCat {
+  car = 'car',
+  train = 'train',
+  bike = 'bike',
+  van = 'van'
+}
 let categories = [allCat.car, allCat.train, allCat.bike, allCat.van]
 const active = { category_slug: allCat.car, active: true, goalProgress: 68 }
 const starting = { category_slug: allCat.car, active: false, goalProgress: 4.9 }
 const middle = { category_slug: allCat.train, active: false, goalProgress: 73 }
-const finishing = { category_slug: allCat.train, active: false, goalProgress: 100 }
+const finishing = {
+  category_slug: allCat.train,
+  active: false,
+  goalProgress: 100
+}
 const places = [starting, middle, finishing, active]
 let filterPlaces
 beforeEach(() => {

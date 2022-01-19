@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import Button, {
+  Size as ButtonSize,
+  Types as ButtonType,
+  Styles as ButtonStyles
+} from '@maps/components/Button'
 import ControlHandler from '@maps/components/ControlHandler'
 import ReactControl from '@maps/components/ReactControl/index'
 
@@ -32,9 +36,15 @@ const SuggestPlaceControl = () => {
             style={ButtonStyles.branded}
           >
             {isModalLoading ? (
-              <><FormattedMessage defaultMessage='Cargando' id="m9eXO9" />{'...'}</>
+              <>
+                <FormattedMessage defaultMessage='Cargando' id='m9eXO9' />
+                {'...'}
+              </>
             ) : (
-              <FormattedMessage defaultMessage='Sugiérenos un lugar' id="kUKcmK" />
+              <FormattedMessage
+                defaultMessage='Sugiérenos un lugar'
+                id='kUKcmK'
+              />
             )}
           </Button>
         }

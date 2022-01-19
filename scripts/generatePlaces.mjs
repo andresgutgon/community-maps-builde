@@ -5,9 +5,9 @@ import sommobilitatPlaces from '../scripts/sommobilitat.json'
 
 const allCategories = Object.values(categories)
 const STATUS_MAPPING = {
-  "En procés": "founding",
-  "Previst": "planned",
-  "Operatiu": "active"
+  'En procés': 'founding',
+  Previst: 'planned',
+  Operatiu: 'active'
 }
 const forms = ['first-form', 'bike_charger', null]
 const randomProgress = (min, max) => {
@@ -25,8 +25,8 @@ function buildCategorySlug(mapSlug) {
 }
 
 let completedContributionItems = 0
-function buildMap ({ mapSlug, parkings }) {
-  const places = parkings.map(place => {
+function buildMap({ mapSlug, parkings }) {
+  const places = parkings.map((place) => {
     const [lat, lng] = place.position.split(',')
     const formSlug = forms[Math.floor(Math.random() * forms.length)]
     const categorySlug = buildCategorySlug(mapSlug)
@@ -56,10 +56,7 @@ function buildMap ({ mapSlug, parkings }) {
     }
   })
 
-  fs.writeFileSync(
-    `./src/data/places-${mapSlug}.json`,
-    JSON.stringify(places)
-  )
+  fs.writeFileSync(`./src/data/places-${mapSlug}.json`, JSON.stringify(places))
 }
 
 /**
@@ -67,7 +64,7 @@ function buildMap ({ mapSlug, parkings }) {
  * for the demo data. Ignore if you're not developing in this repo.
  * The data should be already in `./src/data/places.json`
  */
-async function buildMaps () {
+async function buildMaps() {
   const maps = [
     {
       name: 'One category',
@@ -77,13 +74,10 @@ async function buildMaps () {
     {
       name: 'Multiple categories',
       slug: 'multiple-categories',
-      description: 'Showcase a map with multiple categories',
+      description: 'Showcase a map with multiple categories'
     }
   ]
-  fs.writeFileSync(
-    './src/data/maps.json',
-    JSON.stringify(maps)
-  )
+  fs.writeFileSync('./src/data/maps.json', JSON.stringify(maps))
   maps.forEach((map) =>
     buildMap({ mapSlug: map.slug, parkings: sommobilitatPlaces })
   )

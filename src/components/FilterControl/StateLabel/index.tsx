@@ -9,7 +9,7 @@ const PERCENTAGES: Partial<Record<State, Percentage>> = {
   [State.starting]: Percentage.thirty,
   [State.middle]: Percentage.fifty,
   [State.finishing]: Percentage.seventy,
-  [State.active]: Percentage.full,
+  [State.active]: Percentage.full
 }
 
 type Props = { showDescription: boolean; state: State }
@@ -34,21 +34,21 @@ const StateLabel = ({ showDescription = false, state }: Props) => {
       <div
         className={cn('flex-0 flex sm:flex-col ml-2', {
           'flex-row items-center sm:items-start': !showDescription,
-          'flex-col items-start': showDescription,
+          'flex-col items-start': showDescription
         })}
       >
         <div
           className={cn(styles.radio.label, {
             'font-medium': showDescription,
             'sm:font-medium': !showDescription,
-            'text-xs sm:text-sm': !showDescription,
+            'text-xs sm:text-sm': !showDescription
           })}
         >
           {labels[state].title}
         </div>
         <span
           className={cn('text-xs text-gray-500', {
-            'hidden sm:block': !showDescription,
+            'hidden sm:block': !showDescription
           })}
         >
           {labels[state].description}

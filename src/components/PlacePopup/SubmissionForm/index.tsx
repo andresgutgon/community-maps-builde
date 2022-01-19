@@ -1,27 +1,41 @@
 import { useEffect, useState } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { JsonFormsStyleContext, vanillaCells } from '@jsonforms/vanilla-renderers'
+import {
+  JsonFormsStyleContext,
+  vanillaCells
+} from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 
 import LegalCheck from '@maps/components/LegalCheck'
 import renderers from '@maps/components/CustomJsonForms/renderers'
-import Button, { Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import Button, {
+  Types as ButtonType,
+  Styles as ButtonStyles
+} from '@maps/components/Button'
 import Dialog from '@maps/components/Dialog'
 import type { Place as PlaceType } from '@maps/types/index'
 import { formStyles } from '@maps/components/CustomJsonForms/styles'
 import SuccessMessage from '@maps/components/Dialog/SuccessMessage'
 import ErrorMessage from '@maps/components/Dialog/ErrorMessage'
-import { EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import {
+  EntityForm,
+  useForm
+} from '@maps/components/CustomJsonForms/hooks/useForm'
 import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useErrorMessage'
 import defaultOptions from '@maps/components/CustomJsonForms/defaultOptions'
 
 type Props = {
   isOpen: boolean
   place: PlaceType | null
-  closeFn: () => void,
+  closeFn: () => void
   onLoadingFinish: () => void
 }
-export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinish }: Props) {
+export default function SubmissionForm({
+  isOpen,
+  closeFn,
+  place,
+  onLoadingFinish
+}: Props) {
   const intl = useIntl()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const currentEntity = { entity: place, entityType: EntityForm.place }
@@ -45,7 +59,10 @@ export default function SubmissionForm ({ isOpen, closeFn, place, onLoadingFinis
 
   if (!form) return null
 
-  const defaultButtonLabel = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
+  const defaultButtonLabel = intl.formatMessage({
+    id: 'IOnTHc',
+    defaultMessage: 'Participar'
+  })
   const buttonLabel = form?.instance?.formButtonLabel || defaultButtonLabel
   const submit = form.submitting
     ? `${intl.formatMessage({ id: 'tClzXv', defaultMessage: 'Enviando' })}...`

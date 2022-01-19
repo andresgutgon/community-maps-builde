@@ -42,7 +42,7 @@ const useMobileControlsVisibility =
         div.leaflet-top { opacity: 1; }
         div.leaflet-top * { pointer-events: auto; }
       `
-      },
+      }
     }
   }
 
@@ -56,7 +56,7 @@ export default function PlacePopup({ onClose, place }: Props) {
   const latLng = useMemo(
     () => ({
       lat: parseFloat(place?.lat || '0'),
-      lng: parseFloat(place?.lng || '0'),
+      lng: parseFloat(place?.lng || '0')
     }),
     [place]
   )
@@ -66,7 +66,7 @@ export default function PlacePopup({ onClose, place }: Props) {
 
     async function loadComponent() {
       const Component = await dynamic(() => import('./PopupContent'), {
-        loading: () => <LoadingCode />,
+        loading: () => <LoadingCode />
       })
 
       setContent(Component)

@@ -9,11 +9,18 @@ export enum Styles {
   secondary = 'secondary',
   transparent = 'transparent'
 }
-export enum Types { button = 'button', submit = 'submit' }
-export enum Size { sm = 'sm', md = 'md', none = 'none' }
+export enum Types {
+  button = 'button',
+  submit = 'submit'
+}
+export enum Size {
+  sm = 'sm',
+  md = 'md',
+  none = 'none'
+}
 
 type SizeClasses = {
-  padding: string,
+  padding: string
   text: string
 }
 const SIZES: Record<Size, SizeClasses> = {
@@ -38,7 +45,7 @@ type Props = {
   withShadow?: boolean
   onClick?: (event: SyntheticEvent) => void
 }
-const Button = forwardRef<HTMLButtonElement, Props>(function Button (
+const Button = forwardRef<HTMLButtonElement, Props>(function Button(
   {
     children,
     style,
@@ -51,11 +58,14 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
     rounded,
     focused = false,
     withShadow = false
-  }, ref
+  },
+  ref
 ) {
   const borderRadius = useBorderRadius({ rounded })
   if (type === Types.button && !onClick) {
-    throw new Error('A button has type "button" but it does not have "onClick" prop')
+    throw new Error(
+      'A button has type "button" but it does not have "onClick" prop'
+    )
   }
   const { padding, text } = useSize(size)
   const buttonType = onClick ? Types.button : type
@@ -65,8 +75,7 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
       type={buttonType}
       disabled={disabled}
       onClick={onClick}
-      className={
-      cn(
+      className={cn(
         'font-medium',
         'focus:outline-none focus:ring-2 focus:ring-offset-2',
         'focus:ring-gray-500',
@@ -78,13 +87,20 @@ const Button = forwardRef<HTMLButtonElement, Props>(function Button (
         borderRadius,
         {
           'w-full sm:w-auto': fullWidth,
-          'bg-brand-button text-brand-button hover:text-brand-button-hover hover:bg-brand-button-hover border-transparent': !outline && Styles.branded === style,
-          'bg-transparent border-brand-base/50 hover:border-brand-base text-brand-button-inverted hover:bg-brand-fill hover:text-brand-button-inverted-hover': outline && Styles.branded === style,
-          'bg-white text-gray-700 border-gray-300 hover:bg-gray-50': outline && Styles.secondary === style,
-          'bg-white text-gray-800 hover:bg-gray-50': outline && Styles.primary === style,
-          'bg-gray-800 text-white hover:bg-gray-900': !outline && Styles.primary === style,
-          'bg-transparent text-gray-700 border-none': Styles.transparent === style,
-          'shadow-sm hover:shadow transition-shadow active:shadow-inner': !disabled && Styles.transparent !== style,
+          'bg-brand-button text-brand-button hover:text-brand-button-hover hover:bg-brand-button-hover border-transparent':
+            !outline && Styles.branded === style,
+          'bg-transparent border-brand-base/50 hover:border-brand-base text-brand-button-inverted hover:bg-brand-fill hover:text-brand-button-inverted-hover':
+            outline && Styles.branded === style,
+          'bg-white text-gray-700 border-gray-300 hover:bg-gray-50':
+            outline && Styles.secondary === style,
+          'bg-white text-gray-800 hover:bg-gray-50':
+            outline && Styles.primary === style,
+          'bg-gray-800 text-white hover:bg-gray-900':
+            !outline && Styles.primary === style,
+          'bg-transparent text-gray-700 border-none':
+            Styles.transparent === style,
+          'shadow-sm hover:shadow transition-shadow active:shadow-inner':
+            !disabled && Styles.transparent !== style,
           'shadow-sm': withShadow,
           'border-gray-500': focused
         }

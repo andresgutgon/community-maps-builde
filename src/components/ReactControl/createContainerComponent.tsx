@@ -4,7 +4,7 @@ import {
   useEffect,
   forwardRef,
   useImperativeHandle,
-  Ref,
+  Ref
 } from 'react'
 import { createPortal } from 'react-dom'
 import { ElementHook, LeafletProvider } from '@react-leaflet/core'

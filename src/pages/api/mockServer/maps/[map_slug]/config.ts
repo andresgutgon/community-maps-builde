@@ -5,9 +5,8 @@ import config from '@maps/data/config'
 import categoriesJson from '@maps/data/categories.json'
 
 const communityServerConfig = ({ map, response }: ResponseWithMap) => {
-  const categories = map.slug === 'one-category'
-    ? { car: categoriesJson.car }
-    : categoriesJson
+  const categories =
+    map.slug === 'one-category' ? { car: categoriesJson.car } : categoriesJson
   response.status(200).json({ ...config, categories })
 }
 

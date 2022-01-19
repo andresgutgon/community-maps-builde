@@ -9,15 +9,11 @@ const notEmptyChildren = (children: Array<ReactNode>): ReactNode => {
 type ContentProps = { children: ReactNode; stackFooterButtons: boolean }
 const Content = ({ children, stackFooterButtons }: ContentProps) => (
   <div
-    className={
-      cn(
-        'rounded-b-xl bg-gray-50 px-4 py-3 sm:px-6 flex',
-        {
-          'space-y-2 flex-col items-center': stackFooterButtons,
-          'space-y-2 sm:space-y-0 space-x-2 space-x-reverse flex-col sm:flex-row-reverse': !stackFooterButtons
-        }
-    )
-    }
+    className={cn('rounded-b-xl bg-gray-50 px-4 py-3 sm:px-6 flex', {
+      'space-y-2 flex-col items-center': stackFooterButtons,
+      'space-y-2 sm:space-y-0 space-x-2 space-x-reverse flex-col sm:flex-row-reverse':
+        !stackFooterButtons
+    })}
   >
     {children}
   </div>

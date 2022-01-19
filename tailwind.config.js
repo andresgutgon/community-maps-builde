@@ -1,12 +1,12 @@
 const round = (num) =>
-    num
+  num
     .toFixed(7)
     .replace(/(\.[0-9]+?)0+$/, '$1')
     .replace(/\.0$/, '')
 const rem = (px) => `${round(px / 16)}rem`
 const em = (px, base) => `${round(px / base)}em`
 
-function withOpacity (cssVariable) {
+function withOpacity(cssVariable) {
   return ({ opacityValue }) => {
     return `rgba(var(${cssVariable}), ${opacityValue || 1})`
   }
@@ -21,12 +21,12 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: '2rem'
     },
     extend: {
-      screens: { 'xs': '375px' },
+      screens: { xs: '375px' },
       colors: {
-        twitter: '#00acee',
+        twitter: '#00acee'
       },
       textColor: {
         brand: {
@@ -34,7 +34,9 @@ module.exports = {
           button: withOpacity('--color-text-button'),
           'button-hover': withOpacity('--color-text-button-hover'),
           'button-inverted': withOpacity('--color-text-inverted-button'),
-          'button-inverted-hover': withOpacity('--color-text-inverted-button-hover')
+          'button-inverted-hover': withOpacity(
+            '--color-text-inverted-button-hover'
+          )
         }
       },
       borderColor: {
@@ -62,25 +64,22 @@ module.exports = {
             },
             p: {
               marginTop: em(4, 12),
-              marginBottom: em(4, 12),
+              marginBottom: em(4, 12)
             }
-          },
-        },
+          }
+        }
       },
       borderRadius: {
         inherit: 'inherit'
       },
       outline: {
-        white: '2px solid rgba(255, 255, 255, 0.5)',
+        white: '2px solid rgba(255, 255, 255, 0.5)'
       },
       transitionProperty: {
-        'width': 'width',
-        'left': 'left'
-      },
-    },
+        width: 'width',
+        left: 'left'
+      }
+    }
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography')
-  ]
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')]
 }

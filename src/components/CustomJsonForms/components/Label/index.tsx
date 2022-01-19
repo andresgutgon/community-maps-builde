@@ -9,15 +9,18 @@ type Props = {
   className: string
   rightValue?: string | ReactNode
 }
-const Label = ({ id, label, required, className, uischema, rightValue }: Props) => {
+const Label = ({
+  id,
+  label,
+  required,
+  className,
+  uischema,
+  rightValue
+}: Props) => {
   const hideRequiredAsterisk = uischema?.options?.hideRequiredAsterisk
   return (
     <label htmlFor={id + '-input'} className={className}>
-      {computeLabel(
-        label,
-        required,
-        hideRequiredAsterisk
-      )}
+      {computeLabel(label, required, hideRequiredAsterisk)}
       {rightValue ? (
         <div className='text-2xl font-medium'>{rightValue}</div>
       ) : null}

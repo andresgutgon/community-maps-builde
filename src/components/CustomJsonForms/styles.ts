@@ -15,7 +15,9 @@ export const formStyles = {
     },
     {
       name: 'horizontal.layout',
-      classNames: ['w-full space-y-2 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-2']
+      classNames: [
+        'w-full space-y-2 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-2'
+      ]
     },
     {
       name: 'vertical.layout.item',
@@ -27,15 +29,21 @@ export const formStyles = {
     },
     {
       name: 'control.label',
-      classNames: ['flex flex-col sm:items-center sm:flex-row sm:justify-between text-sm font-medium text-gray-700']
+      classNames: [
+        'flex flex-col sm:items-center sm:flex-row sm:justify-between text-sm font-medium text-gray-700'
+      ]
     },
     {
       name: 'control.input',
-      classNames: ['simulateNoNumber p-2 block text-sm w-full shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: [
+        'simulateNoNumber p-2 block text-sm w-full shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md'
+      ]
     },
     {
       name: 'control.select',
-      classNames: ['block w-full p-2 shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md']
+      classNames: [
+        'block w-full p-2 shadow-sm focus:ring-0 focus:border-gray-500 sm:text-sm border-gray-300 rounded-md'
+      ]
     },
     {
       name: 'control.validation',
@@ -43,7 +51,9 @@ export const formStyles = {
     },
     {
       name: 'control.validation.error',
-      classNames: ['rounded-sm block text-red-600 bg-red-50 border border-red-100']
+      classNames: [
+        'rounded-sm block text-red-600 bg-red-50 border border-red-100'
+      ]
     },
     {
       name: 'input.description',
@@ -51,11 +61,15 @@ export const formStyles = {
     },
     {
       name: 'group.layout',
-      classNames: ['w-full space-y-2 mt-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4']
+      classNames: [
+        'w-full space-y-2 mt-2 rounded border border-gray-200 pt-2 pb-4 px-2 sm:px-4'
+      ]
     },
     {
       name: 'group.label',
-      classNames: ['py-0.5 px-1 text-xs text-gray-600 rounded uppercase tracking-wide']
+      classNames: [
+        'py-0.5 px-1 text-xs text-gray-600 rounded uppercase tracking-wide'
+      ]
     },
     {
       name: 'control.radio',
@@ -67,16 +81,22 @@ export const formStyles = {
     },
     {
       name: 'control.radio.input',
-      classNames: ['appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent']
+      classNames: [
+        'appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent'
+      ]
     },
     { name: 'control.radio.label', classNames: radioCheckboxLabel },
     {
       name: 'control.checkbox.group',
-      classNames: ['hidden-attribute flex flex-row items-center space-x-1 cursor-pointer']
+      classNames: [
+        'hidden-attribute flex flex-row items-center space-x-1 cursor-pointer'
+      ]
     },
     {
       name: 'control.checkbox.input',
-      classNames: ['rounded appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent']
+      classNames: [
+        'rounded appearance-none focus:ring-gray-800 checked:text-gray-800 checked:border-transparent'
+      ]
     },
     { name: 'control.checkbox.label', classNames: radioCheckboxLabel }
   ]

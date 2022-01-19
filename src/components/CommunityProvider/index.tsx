@@ -7,24 +7,24 @@ import {
   createContext,
   useEffect,
   useState,
-  useContext,
+  useContext
 } from 'react'
 import { useIntl } from 'react-intl'
 
 import { Category, Place, Config } from '@maps/types/index'
 import LoadingMap, { LoadingMapType } from '@maps/components/LoadingMap'
 import useQueryString, {
-  UrlParam,
+  UrlParam
 } from '@maps/components/CommunityProvider/useQueryString'
 import useFilters from '@maps/components/FilterControl/useFilters'
 import useMakeRequest, { Method } from '@maps/hooks/useMakeRequest'
 import useMarkersAsString, {
-  MarkersAsString,
+  MarkersAsString
 } from '@maps/components/Marker/useMarkersAsString'
 
 enum LoadingErrorType {
   Map = 'Map',
-  Place = 'Place',
+  Place = 'Place'
 }
 type LoadingError = {
   type: LoadingErrorType
@@ -32,7 +32,7 @@ type LoadingError = {
 }
 type UseLoadingErrorsProps = { mapSlug: string }
 const useLoadingErrors = ({
-  mapSlug,
+  mapSlug
 }: UseLoadingErrorsProps): Record<LoadingErrorType, LoadingError> => {
   const intl = useIntl()
   return useRef({
@@ -41,18 +41,18 @@ const useLoadingErrors = ({
       message: intl.formatMessage(
         {
           defaultMessage: 'Hubo un error cargando el mapa con slug {mapSlug}',
-          id: 'c13AgS',
+          id: 'c13AgS'
         },
         { mapSlug }
-      ),
+      )
     },
     [LoadingErrorType.Place]: {
       type: LoadingErrorType.Map,
       message: intl.formatMessage({
         defaultMessage: 'Hubo un error cargando los puntos en este mapa',
-        id: 'lYL/xX',
-      }),
-    },
+        id: 'lYL/xX'
+      })
+    }
   }).current
 }
 
@@ -84,7 +84,7 @@ const CommunityContext = createContext<ContextProps | null>({
   urlParams: null,
   mapUrl: null,
   mapSlug: null,
-  iconMarkers: null,
+  iconMarkers: null
 })
 
 type ProviderProps = {
@@ -96,7 +96,7 @@ type ProviderProps = {
 export const CommunityProvider = ({
   community,
   mapSlug,
-  children,
+  children
 }: ProviderProps) => {
   const makeRequest = useMakeRequest({ community, mapSlug })
   const errors = useLoadingErrors({ mapSlug })
@@ -137,7 +137,7 @@ export const CommunityProvider = ({
         // Places are async
         const response = await makeRequest({
           method: Method.GET,
-          path: 'places',
+          path: 'places'
         })
 
         if (!response.ok) {
@@ -156,7 +156,7 @@ export const CommunityProvider = ({
           filterPlaces({
             places: allPlaces.current,
             filters: urlParams.filters,
-            showFilters: config.current.showFilters,
+            showFilters: config.current.showFilters
           })
         )
       }
@@ -166,7 +166,7 @@ export const CommunityProvider = ({
       setFetchingConfig(true)
       const configResponse = await makeRequest({
         method: Method.GET,
-        path: `config`,
+        path: `config`
       })
 
       if (!configResponse.ok) {
@@ -225,7 +225,7 @@ export const CommunityProvider = ({
     filterPlaces,
     urlParams,
     onLoadCategories,
-    buildIconMarkers,
+    buildIconMarkers
   ])
 
   if (error) {
@@ -247,7 +247,7 @@ export const CommunityProvider = ({
         places,
         config: config.current,
         categories: categories.current,
-        iconMarkers,
+        iconMarkers
       }}
     >
       {loading ? <LoadingMap /> : children}

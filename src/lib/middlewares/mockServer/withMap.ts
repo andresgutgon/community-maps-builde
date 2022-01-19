@@ -11,25 +11,28 @@ export type ResponseWithMap = {
   places: Place[]
   map: Map
 }
-type NextApiHandlerWithMap = (responseWithAuth: ResponseWithMap) => void | Promise<void>
+type NextApiHandlerWithMap = (
+  responseWithAuth: ResponseWithMap
+) => void | Promise<void>
 
 /**
  * This middleware put dummy config in the request
  */
-const withMap = (handler: NextApiHandlerWithMap) => (request: NextApiRequest, response: NextApiResponse) => {
-  const slug = (request.query.map_slug || '').toString()
-  const map = maps.find(m => m.slug ===slug)
+const withMap =
+  (handler: NextApiHandlerWithMap) =>
+  (request: NextApiRequest, response: NextApiResponse) => {
+    const slug = (request.query.map_slug || '').toString()
+    const map = maps.find((m) => m.slug === slug)
 
-  if (!map) {
-    return response.status(404).send({
-      message: 'Map not found'
-    })
+    if (!map) {
+      return response.status(404).send({
+        message: 'Map not found'
+      })
+    }
+
+    const places =
+      map.slug === 'one-category' ? placesOneCategory : placesMultipleCategories
+    return handler({ request, response, map, places })
   }
-
-  const places = map.slug === 'one-category'
-    ? placesOneCategory
-    : placesMultipleCategories
-  return handler({ request, response, map, places })
-}
 
 export default withMap

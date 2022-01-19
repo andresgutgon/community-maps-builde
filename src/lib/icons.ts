@@ -9,4 +9,3 @@ export const ICONS: Record<CategoryIcon, string> = {
   [CategoryIcon.car_charger]: 'fa-bolt',
   [CategoryIcon.bike_charger]: 'fa-bicycle'
 }
-

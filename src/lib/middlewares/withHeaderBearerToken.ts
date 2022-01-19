@@ -13,32 +13,36 @@ type CustomHeaders = Headers & {
  *    -H "API-KEY: SUPER_SECRET_TOKEN"
  */
 export type ResponseWithAuth = {
-  request: NextApiRequest,
-  response: NextApiResponse,
-  tokenHeaders: CustomHeaders,
+  request: NextApiRequest
+  response: NextApiResponse
+  tokenHeaders: CustomHeaders
   communityHost: string
 }
-type NextApiHandlerWithToken = (responseWithAuth: ResponseWithAuth) => void | Promise<void>
-const withHeaderBearerToken = (handler: NextApiHandlerWithToken) => (request: NextApiRequest, response: NextApiResponse) => {
-  const slug = request.query.community?.toString() || ''
-  const community = findCommunity(slug)
+type NextApiHandlerWithToken = (
+  responseWithAuth: ResponseWithAuth
+) => void | Promise<void>
+const withHeaderBearerToken =
+  (handler: NextApiHandlerWithToken) =>
+  (request: NextApiRequest, response: NextApiResponse) => {
+    const slug = request.query.community?.toString() || ''
+    const community = findCommunity(slug)
 
-  if (!community) {
-    return response.status(402).send({
-      message: 'Not community defined for this map'
+    if (!community) {
+      return response.status(402).send({
+        message: 'Not community defined for this map'
+      })
+    }
+
+    var tokenHeaders = new Headers({
+      'Content-Type': 'application/json',
+      'API-KEY': community.token
+    }) as CustomHeaders
+    return handler({
+      request,
+      response,
+      tokenHeaders,
+      communityHost: community.host
     })
   }
-
-  var tokenHeaders = new Headers({
-    'Content-Type': 'application/json',
-    'API-KEY': community.token
-  })as CustomHeaders
-  return handler({
-    request,
-    response,
-    tokenHeaders,
-    communityHost: community.host
-  })
-}
 
 export default withHeaderBearerToken

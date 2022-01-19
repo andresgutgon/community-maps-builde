@@ -3,9 +3,8 @@ import { Map, Control, Util, DomUtil, DomEvent } from 'leaflet'
 import type { ControlOptions } from 'leaflet'
 import { addClassName } from '@react-leaflet/core'
 
-
 export interface ControlOptionsWithChildren extends ControlOptions {
-  children: ReactNode,
+  children: ReactNode
   className?: string
 }
 
@@ -20,7 +19,7 @@ class DummyControl extends Control {
     Util.setOptions(this, options)
   }
 
-  setClass (className: string = '', prevClassName: string = '') {
+  setClass(className: string = '', prevClassName: string = '') {
     const oldClasses = prevClassName.split(' ')
     const newClasses = className.split(' ')
     const container = this.getContainer()
@@ -38,7 +37,7 @@ class DummyControl extends Control {
    * the user is over this control. And let React take the control
    */
   onAdd(_map: Map) {
-    const controlDiv = DomUtil.create("div")
+    const controlDiv = DomUtil.create('div')
     const options = this.options as ControlOptionsWithChildren
     addClassName(
       controlDiv,

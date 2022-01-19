@@ -7,7 +7,10 @@ import { JsonForms } from '@jsonforms/react'
 
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Form, Place, PlaceDetail } from '@maps/types/index'
-import Button, { Size as ButtonSize, Styles as ButtonStyles } from '@maps/components/Button'
+import Button, {
+  Size as ButtonSize,
+  Styles as ButtonStyles
+} from '@maps/components/Button'
 import useMakeRequest, { Method } from '@maps/hooks/useMakeRequest'
 import SubmissionForm from '@maps/components/PlacePopup/SubmissionForm'
 import displayRenderers from '@maps/components/CustomJsonForms/displayRenderers'
@@ -17,18 +20,16 @@ import { displayStyles } from '@maps/components/CustomJsonForms/displayStyles'
 const noValidationMode = 'NoValidation' as ValidationMode
 
 type UseSchemaProps = { place: PlaceDetail }
-const useSchema = ({ place }: UseSchemaProps) => useMemo(
-  () => {
+const useSchema = ({ place }: UseSchemaProps) =>
+  useMemo(() => {
     const { schemaData, jsonSchema, uiSchema } = place
-    return ({
+    return {
       present: !!schemaData && !!jsonSchema && !!uiSchema,
       data: schemaData,
       jsonSchema,
       uiSchema
-    })
-  },
-  [place]
-)
+    }
+  }, [place])
 
 const GOOGLE_DIRECTIONS_URL_BASE = 'https://www.google.com/maps/dir/?api=1&'
 type HeaderProps = {
@@ -47,7 +48,7 @@ const Header = ({ name, address, lat, lng }: HeaderProps) => {
           className='text-gray-800 font-medium underline'
           href={`${GOOGLE_DIRECTIONS_URL_BASE}&destination=${lat},${lng}`}
           rel='noreferrer'
-          target="_blank"
+          target='_blank'
         >
           <FormattedMessage defaultMessage='Cómo llegar' id='vD8ftS' />
         </a>
@@ -75,7 +76,13 @@ const ShareTwitter = ({ place }: ShareTwitterProps) => {
     : placeUrl
   const url = `https://twitter.com/intent/tweet?text=${encodeURI(text)}`
   return (
-    <a className='flex items-center' href={url} target='_blank' rel='noreferrer' title={shareTwitterTitle}>
+    <a
+      className='flex items-center'
+      href={url}
+      target='_blank'
+      rel='noreferrer'
+      title={shareTwitterTitle}
+    >
       <i className='fab fa-twitter text-xl text-twitter' />
     </a>
   )
@@ -87,7 +94,10 @@ const CopyUrl = ({ place }: CopyUrlProps) => {
   const intl = useIntl()
   const placeUrl = usePlaceUrl(place)
   const copyUrlTitle = intl.formatMessage(
-    { id: 'iqHmPx', defaultMessage: 'Copia el enlace a este lugar {placeName}' },
+    {
+      id: 'iqHmPx',
+      defaultMessage: 'Copia el enlace a este lugar {placeName}'
+    },
     { placeName: place.name }
   )
   useEffect(() => {
@@ -106,17 +116,17 @@ const CopyUrl = ({ place }: CopyUrlProps) => {
       title={copyUrlTitle}
     >
       <i
-        className={
-          cn(
-            'text-sm',
-            {
-              'far fa-copy text-gray-400': !copied,
-              'fas fa-check text-green-500': copied,
-            }
-          )
-        }
+        className={cn('text-sm', {
+          'far fa-copy text-gray-400': !copied,
+          'fas fa-check text-green-500': copied
+        })}
       />
-      <span className={cn('text-xs text-gray-600', { 'text-gray-600': !copied, 'text-green-800': copied })}>
+      <span
+        className={cn('text-xs text-gray-600', {
+          'text-gray-600': !copied,
+          'text-green-800': copied
+        })}
+      >
         {copied ? (
           <FormattedMessage defaultMessage='¡Copiado!' id='FagJhM' />
         ) : (
@@ -128,18 +138,30 @@ const CopyUrl = ({ place }: CopyUrlProps) => {
 }
 
 type PlaceContentProps = {
-  isModalLoading: boolean,
-  onClick: () => void,
+  isModalLoading: boolean
+  onClick: () => void
   place: PlaceDetail
 }
-const PlaceContent = ({ place, isModalLoading, onClick }: PlaceContentProps) => {
-  const { config: { forms }} = useMapData()
+const PlaceContent = ({
+  place,
+  isModalLoading,
+  onClick
+}: PlaceContentProps) => {
+  const {
+    config: { forms }
+  } = useMapData()
   const form = useRef<Form | null>(forms[place.form_slug]).current
   const intl = useIntl()
   const schema = useSchema({ place })
   const { name, address, lat, lng } = place
-  const button = intl.formatMessage({ id: 'IOnTHc', defaultMessage: 'Participar' })
-  const buttonLoading = `${intl.formatMessage({ id: 'm9eXO9', defaultMessage: 'Cargando' })}...`
+  const button = intl.formatMessage({
+    id: 'IOnTHc',
+    defaultMessage: 'Participar'
+  })
+  const buttonLoading = `${intl.formatMessage({
+    id: 'm9eXO9',
+    defaultMessage: 'Cargando'
+  })}...`
   const buttonLabel = isModalLoading ? buttonLoading : form?.ctaLabel || button
   return (
     <div className='flex flex-col'>
@@ -193,9 +215,10 @@ const PopupContent = ({ place }: Props) => {
   useEffect(() => {
     if (data) return
 
-    async function fetchData () {
+    async function fetchData() {
       const response = await makeRequest({
-        method: Method.GET, path: `places/${place.slug}`
+        method: Method.GET,
+        path: `places/${place.slug}`
       })
       setData(response.data)
       setDataLoading(false)

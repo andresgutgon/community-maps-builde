@@ -51,7 +51,7 @@ export interface NominatimOptions extends GeocoderOptions {
 export class Nominatim implements IGeocoder {
   options: NominatimOptions = {
     serviceUrl: 'https://nominatim.openstreetmap.org/',
-    htmlTemplate: function(r: NominatimResult) {
+    htmlTemplate: function (r: NominatimResult) {
       const address = r.address
       let className: string
       const parts = []
@@ -59,15 +59,24 @@ export class Nominatim implements IGeocoder {
         parts.push('{building} {road} {house_number}')
       }
 
-      if (address.city || (address as any).town || address.village || address.hamlet) {
-        className = parts.length > 0 ? 'leaflet-control-geocoder-address-detail' : ''
+      if (
+        address.city ||
+        (address as any).town ||
+        address.village ||
+        address.hamlet
+      ) {
+        className =
+          parts.length > 0 ? 'leaflet-control-geocoder-address-detail' : ''
         parts.push(
-          '<span class="' + className + '">{postcode} {city} {town} {village} {hamlet}</span>'
+          '<span class="' +
+            className +
+            '">{postcode} {city} {town} {village} {hamlet}</span>'
         )
       }
 
       if (address.state || address.country) {
-        className = parts.length > 0 ? 'leaflet-control-geocoder-address-context' : ''
+        className =
+          parts.length > 0 ? 'leaflet-control-geocoder-address-context' : ''
         parts.push('<span class="' + className + '">{state} {country}</span>')
       }
 
@@ -86,7 +95,7 @@ export class Nominatim implements IGeocoder {
       format: 'json',
       addressdetails: 1
     })
-    getJSON(this.options.serviceUrl + 'search', params, data => {
+    getJSON(this.options.serviceUrl + 'search', params, (data) => {
       const results: GeocodingResult[] = []
       for (let i = data.length - 1; i >= 0; i--) {
         const bbox = data[i].boundingbox
@@ -94,7 +103,9 @@ export class Nominatim implements IGeocoder {
         results[i] = {
           icon: data[i].icon,
           name: data[i].display_name,
-          html: this.options.htmlTemplate ? this.options.htmlTemplate(data[i]) : undefined,
+          html: this.options.htmlTemplate
+            ? this.options.htmlTemplate(data[i])
+            : undefined,
           bbox: latLngBounds([bbox[0], bbox[2]], [bbox[1], bbox[3]]),
           center: latLng(data[i].lat, data[i].lon),
           properties: data[i]
@@ -104,7 +115,12 @@ export class Nominatim implements IGeocoder {
     })
   }
 
-  reverse(location: L.LatLngLiteral, scale: number, cb: GeocodingCallback, context?: any) {
+  reverse(
+    location: L.LatLngLiteral,
+    scale: number,
+    cb: GeocodingCallback,
+    context?: any
+  ) {
     const params = reverseParams(this.options, {
       lat: location.lat,
       lon: location.lng,
@@ -112,14 +128,16 @@ export class Nominatim implements IGeocoder {
       addressdetails: 1,
       format: 'json'
     })
-    getJSON(this.options.serviceUrl + 'reverse', params, data => {
+    getJSON(this.options.serviceUrl + 'reverse', params, (data) => {
       const result: GeocodingResult[] = []
       if (data && data.lat && data.lon) {
         const center = latLng(data.lat, data.lon)
         const bbox = latLngBounds(center, center)
         result.push({
           name: data.display_name,
-          html: this.options.htmlTemplate ? this.options.htmlTemplate(data) : undefined,
+          html: this.options.htmlTemplate
+            ? this.options.htmlTemplate(data)
+            : undefined,
           center: center,
           bbox: bbox,
           properties: data
@@ -131,5 +149,5 @@ export class Nominatim implements IGeocoder {
 }
 
 export function nominatim(options?: Partial<NominatimOptions>) {
-  return new Nominatim(options);
+  return new Nominatim(options)
 }

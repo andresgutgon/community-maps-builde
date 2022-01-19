@@ -7,7 +7,7 @@ import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import { GeocoderService } from '@maps/types/index'
 import {
   Props as UseSearchProps,
-  useSearchInputProps,
+  useSearchInputProps
 } from '@maps/components/SearchInput/useSearchInputProps'
 import useGeocoder from './useGeocoder'
 import SearchResults from './Resuts'
@@ -29,7 +29,7 @@ const SearchInput = ({
   buttonRounded,
   buttonWithShadow,
   buttonShowFocus,
-  onSearch,
+  onSearch
 }: SearchInputProps) => {
   const {
     placeholder,
@@ -37,7 +37,7 @@ const SearchInput = ({
     formClasses,
     inputClasses,
     buttonProps,
-    resultsListProps,
+    resultsListProps
   } = useSearchInputProps({
     buttonStyle,
     inputClasses: inputClassesProp,
@@ -47,7 +47,7 @@ const SearchInput = ({
     buttonOutline,
     buttonRounded,
     buttonWithShadow,
-    buttonShowFocus,
+    buttonShowFocus
   })
   const firstResultRef = useRef(null)
   const [focused, setFocus] = useState(false)
@@ -96,7 +96,7 @@ const SearchInput = ({
           }
           break
       }
-    },
+    }
   })
   const disabled = !search || searching
   const onFocus = () => {

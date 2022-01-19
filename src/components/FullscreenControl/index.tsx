@@ -8,8 +8,14 @@ import ReactControl from '@maps/components/ReactControl/index'
 const FullscreenControl = () => {
   const [expanded, setExpanded] = useState<boolean>(false)
   const intl = useIntl()
-  const expandLabel = intl.formatMessage({ id: 'lkLfmX', defaultMessage: 'Expandir mapa' })
-  const contractLabel = intl.formatMessage({ id: '/kG/Lg', defaultMessage: 'Minimizar mapa' })
+  const expandLabel = intl.formatMessage({
+    id: 'lkLfmX',
+    defaultMessage: 'Expandir mapa'
+  })
+  const contractLabel = intl.formatMessage({
+    id: '/kG/Lg',
+    defaultMessage: 'Minimizar mapa'
+  })
   const onToggleFullscreen = useCallback(() => {
     if (expanded) {
       screenfull.exit()

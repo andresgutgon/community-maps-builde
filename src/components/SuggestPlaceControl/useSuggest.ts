@@ -2,7 +2,11 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { LatLngLiteral } from 'leaflet'
 
-import { FormReturnType, EntityForm, useForm } from '@maps/components/CustomJsonForms/hooks/useForm'
+import {
+  FormReturnType,
+  EntityForm,
+  useForm
+} from '@maps/components/CustomJsonForms/hooks/useForm'
 import { useMapData } from '@maps/components/CommunityProvider'
 import type { Category } from '@maps/types/index'
 
@@ -11,7 +15,11 @@ export type AddressType = {
   longitude: string
   address: string
 }
-export enum Step { category, address, form }
+export enum Step {
+  category,
+  address,
+  form
+}
 type ReturnCopy = {
   title: string | null
   description: string | null
@@ -25,16 +33,32 @@ const useCopies = ({ form, step }: UseCopiesProps): ReturnCopy => {
   const intl = useIntl()
   let description = null
   let button = intl.formatMessage({ defaultMessage: 'Siguiente', id: 'w2xatL' })
-  const title = intl.formatMessage({ defaultMessage: 'Sugierenos un lugar', id: 'bPxeVs' })
+  const title = intl.formatMessage({
+    defaultMessage: 'Sugierenos un lugar',
+    id: 'bPxeVs'
+  })
 
   if (step === Step.category) {
-    description = intl.formatMessage({ defaultMessage: 'Elige una categoría para el lugar que vas a sugerir', id: 'VMmmhi' })
+    description = intl.formatMessage({
+      defaultMessage: 'Elige una categoría para el lugar que vas a sugerir',
+      id: 'VMmmhi'
+    })
   } else if (step === Step.address) {
-    description = intl.formatMessage({ defaultMessage: '¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar', id: 'LxAGKW' })
+    description = intl.formatMessage({
+      defaultMessage:
+        '¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar',
+      id: 'LxAGKW'
+    })
   } else if (step === Step.form && !form?.response?.ok) {
-    const defaultDescription = intl.formatMessage({ defaultMessage: 'Elige el tipo de lugar', id: 'FmR1T5' })
+    const defaultDescription = intl.formatMessage({
+      defaultMessage: 'Elige el tipo de lugar',
+      id: 'FmR1T5'
+    })
     description = form?.instance?.description || defaultDescription
-    const defaultButton = intl.formatMessage({ id: 'yq+tl0', defaultMessage: 'Sugerir lugar' })
+    const defaultButton = intl.formatMessage({
+      id: 'yq+tl0',
+      defaultMessage: 'Sugerir lugar'
+    })
     button = form?.instance?.formButtonLabel || defaultButton
   }
 
@@ -76,9 +100,7 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
     categories.length === 1 ? categories[0] : null
   )
   const [step, setStep] = useState(
-    !category
-      ? Step.category
-      : !address ? Step.address : Step.form
+    !category ? Step.category : !address ? Step.address : Step.form
   )
   const form = useForm({
     entities: categories.map((entity: Category) => ({
@@ -102,8 +124,10 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
     setCategory(null)
   }
   const showForm = step === Step.form && !form?.response?.ok
-  const submitButtonDisabled = Step.category === step
-    ? !category : Step.address === step
+  const submitButtonDisabled =
+    Step.category === step
+      ? !category
+      : Step.address === step
       ? !address
       : false
 
@@ -115,7 +139,7 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
     setLatLng(latLng)
     setAddress({ latitude: lat.toString(), longitude: lng.toString(), address })
   }
-  const moveToStep = (step: Step) => ()  => {
+  const moveToStep = (step: Step) => () => {
     setStep(step)
   }
   const onSubmit = (closeFn: Function) => {

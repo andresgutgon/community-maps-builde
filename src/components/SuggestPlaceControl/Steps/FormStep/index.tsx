@@ -1,4 +1,7 @@
-import { JsonFormsStyleContext, vanillaCells } from '@jsonforms/vanilla-renderers'
+import {
+  JsonFormsStyleContext,
+  vanillaCells
+} from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 
 import renderers from '@maps/components/CustomJsonForms/renderers'

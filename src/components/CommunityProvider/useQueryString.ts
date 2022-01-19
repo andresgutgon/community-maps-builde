@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { State, Filters } from '@maps/components/FilterControl/useFilters'
 
-type ReturnTypeHostWindow = { host: Window, isIframe: boolean }
-function useHostWindow ():  ReturnTypeHostWindow {
+type ReturnTypeHostWindow = { host: Window; isIframe: boolean }
+function useHostWindow(): ReturnTypeHostWindow {
   return useMemo(() => {
     try {
       const isIframe = window.self !== window.parent
@@ -24,7 +24,7 @@ const DEFAULT_URL_PARAMS = {
   filters: { categories: [], state: State.all }
 }
 export type UrlParam = { placeSlug: string | null; filters: Filters }
-function readParams (queryString: string) {
+function readParams(queryString: string) {
   const states = [
     State.all,
     State.starting,
@@ -53,7 +53,7 @@ function readParams (queryString: string) {
     filters
   }
 }
-function writeParams ({ categories, state }: Filters): string {
+function writeParams({ categories, state }: Filters): string {
   return `cat[${categories.join(',')}];st[${state}]`
 }
 
@@ -61,18 +61,20 @@ type ReturnType = {
   loadingUrlParams: boolean
   mapUrl: string
   urlParams: UrlParam
-  onLoadCategories: (categorySlugs: string[]) => void,
+  onLoadCategories: (categorySlugs: string[]) => void
   changeFiltersInUrl: (filters: Filters) => void
 }
 const useQueryString = (): ReturnType => {
   const { host, isIframe } = useHostWindow()
   const [queryString, setQueryString] = useState(window.location.search)
   const [loadingUrlParams, setLoading] = useState(true)
-  const [urlParams, setUrlParams] = useState<null | UrlParam>(DEFAULT_URL_PARAMS)
+  const [urlParams, setUrlParams] = useState<null | UrlParam>(
+    DEFAULT_URL_PARAMS
+  )
   const [mapUrl, setMapUrl] = useState<string>()
 
   useEffect(() => {
-    function handleMessage ({ data }: MessageEvent) {
+    function handleMessage({ data }: MessageEvent) {
       if (data.type === 'GET_PARAMS_FROM_PARENT') {
         setUrlParams(readParams(data.queryString))
         setQueryString(data.queryString)
@@ -105,7 +107,7 @@ const useQueryString = (): ReturnType => {
         ...filters,
         categories: !categories.length
           ? categorySlugs
-          : categories.filter(c => categorySlugs.includes(c))
+          : categories.filter((c) => categorySlugs.includes(c))
       }
     })
   }

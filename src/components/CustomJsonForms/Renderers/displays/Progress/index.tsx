@@ -1,4 +1,12 @@
-import { rankWith, RankedTester, uiTypeIs, and, schemaTypeIs, optionIs, ControlProps } from '@jsonforms/core'
+import {
+  rankWith,
+  RankedTester,
+  uiTypeIs,
+  and,
+  schemaTypeIs,
+  optionIs,
+  ControlProps
+} from '@jsonforms/core'
 import ProgressIndicator from '@maps/components/ProgressIndicator'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 
@@ -9,7 +17,10 @@ const isProgressDisplay = and(
 )
 export const progressTester: RankedTester = rankWith(10, isProgressDisplay)
 
-enum TextDisplayType { default = 'default', warning = 'warning' }
+enum TextDisplayType {
+  default = 'default',
+  warning = 'warning'
+}
 type TextDisplayProps = ControlProps & {
   type: TextDisplayType
 }
@@ -25,4 +36,3 @@ const LinkDisplay = ({ label, data }: TextDisplayProps) => {
 }
 
 export default withJsonFormsControlProps(LinkDisplay)
-

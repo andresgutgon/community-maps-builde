@@ -7,18 +7,18 @@ import type { Form, Config, Category, Place } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import {
   useTranslateError,
-  TranslateErrorFn,
+  TranslateErrorFn
 } from '@maps/components/CustomJsonForms/hooks/useTranslateError'
 import {
   useTranslate,
   TranslateFn,
-  TranslateBuilderFn,
+  TranslateBuilderFn
 } from '@maps/components/CustomJsonForms/hooks/useTranslate'
 import useMakeRequest, { Response, Method } from '@maps/hooks/useMakeRequest'
 
 export enum EntityForm {
   place = 'place',
-  suggestPlace = 'suggestPlace',
+  suggestPlace = 'suggestPlace'
 }
 type EntityType = Category | Place | null
 type FormEntity = { entityType: EntityForm; entity: EntityType }
@@ -65,7 +65,7 @@ const FORM_RESET_VALUES: Partial<FormInstance> = {
   valid: false,
   errors: null,
   response: null,
-  validationMode: NO_VALIDATION,
+  validationMode: NO_VALIDATION
 }
 
 function initFormInstance({
@@ -74,7 +74,7 @@ function initFormInstance({
   formSlug,
   entityType,
   translateError,
-  translateBuilderFn,
+  translateBuilderFn
 }: InitFormInstanceProps): null | FormInstance {
   const { forms, suggestPlaceForms } = config
   const form =
@@ -106,8 +106,8 @@ function initFormInstance({
     entityType,
     i18n: {
       translate: translateBuilderFn(form.jsonSchema),
-      translateError,
-    },
+      translateError
+    }
   }
 }
 
@@ -119,7 +119,7 @@ type State = {
 const INITIAL_STATE: State = {
   genericSuggestIdentifier: `${EntityForm.suggestPlace}_generic`,
   forms: {},
-  form: null,
+  form: null
 }
 type InitFormsProps = {
   entities: FormEntity[]
@@ -134,7 +134,7 @@ const initForms =
     currentEntity,
     config,
     translateError,
-    translateBuilderFn,
+    translateBuilderFn
   }: InitFormsProps) =>
   (state: State): State => {
     const common = { config, translateBuilderFn, translateError }
@@ -147,13 +147,13 @@ const initForms =
                 ...common,
                 identifier,
                 formSlug: (entity as Place)?.form_slug,
-                entityType,
+                entityType
               })
             : initFormInstance({
                 ...common,
                 identifier,
                 formSlug: entity?.slug,
-                entityType,
+                entityType
               })
 
         if (!formInstance) return instances
@@ -166,8 +166,8 @@ const initForms =
           ...common,
           identifier: state.genericSuggestIdentifier,
           formSlug: 'suggest_place_generic',
-          entityType: EntityForm.suggestPlace,
-        }),
+          entityType: EntityForm.suggestPlace
+        })
       }
     )
 
@@ -197,8 +197,8 @@ function updateFormState(
     ...prevState,
     form: {
       ...form,
-      ...nextFormState,
-    },
+      ...nextFormState
+    }
   }
 }
 
@@ -209,7 +209,7 @@ enum Actions {
   SetSubmitting,
   SetResponse,
   SetValidationMode,
-  ResetState,
+  ResetState
 }
 type Action =
   | {
@@ -241,7 +241,7 @@ const reducer =
             translateError,
             translateBuilderFn,
             formSlug: action.formSlug,
-            entityType: action.entityType,
+            entityType: action.entityType
           })
         const form: FormInstance | null =
           action.entityType === EntityForm.place
@@ -257,9 +257,9 @@ const reducer =
           forms: {
             ...state.forms,
             ...(state.form ? { [state.form.identifier]: state.form } : {}),
-            ...(form ? { [form.identifier]: form } : {}),
+            ...(form ? { [form.identifier]: form } : {})
           },
-          form,
+          form
         }
       case Actions.SetData:
         return updateFormState(state, { data: action.data })
@@ -269,7 +269,7 @@ const reducer =
           errors,
           valid:
             state.form?.validationMode === RUN_VALIDATION &&
-            !action.errors.length,
+            !action.errors.length
         })
       case Actions.SetSubmitting:
         return updateFormState(state, { submitting: action.submitting })
@@ -282,17 +282,17 @@ const reducer =
           ...state,
           forms: Object.keys(state.forms).map((identifier: string) => ({
             ...state.forms[identifier],
-            ...FORM_RESET_VALUES,
+            ...FORM_RESET_VALUES
           })),
           ...(state.form
             ? {
                 form: {
                   ...state.form,
                   ...FORM_RESET_VALUES,
-                  data: state.form.instance.initialData || {},
-                },
+                  data: state.form.instance.initialData || {}
+                }
               }
-            : {}),
+            : {})
         }
       default:
         throw new Error('Unhandle reducer action')
@@ -314,7 +314,7 @@ export const useForm = ({
   entities,
   currentEntity,
   getExtraData,
-  onResponseSuccess,
+  onResponseSuccess
 }: Props): FormReturnType | null => {
   const { config, community } = useMapData()
   const makeRequest = useMakeRequest({ community })
@@ -330,7 +330,7 @@ export const useForm = ({
       currentEntity,
       config,
       translateError,
-      translateBuilderFn,
+      translateBuilderFn
     })
   )
 
@@ -370,7 +370,7 @@ export const useForm = ({
     if (errors.length > 0) {
       dispatch({
         type: Actions.SetValidationMode,
-        validationMode: RUN_VALIDATION,
+        validationMode: RUN_VALIDATION
       })
       return
     }
@@ -382,8 +382,8 @@ export const useForm = ({
       body: {
         type: form.entityType,
         slug: form.instance.slug,
-        data: { ...getExtraData(), ...form.data },
-      },
+        data: { ...getExtraData(), ...form.data }
+      }
     })
     dispatch({ type: Actions.SetResponse, response })
     dispatch({ type: Actions.SetSubmitting, submitting: false })
@@ -400,7 +400,7 @@ export const useForm = ({
     ...form,
     onSubmit,
     onChange,
-    reset,
+    reset
   }
 }
 

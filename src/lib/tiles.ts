@@ -40,19 +40,13 @@ export const TILES = {
     url: 'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
     free: false,
     maxZoom: 20,
-    attributions: [
-      ...SHARED_ATTRIBUTIONS,
-      ...STADIA_ATTRIBUTIONS
-    ]
+    attributions: [...SHARED_ATTRIBUTIONS, ...STADIA_ATTRIBUTIONS]
   },
   stadiaSmoothDark: {
     ...TILE_DEFAULTS,
     url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
     dark: true,
     maxZoom: 20,
-    attributions: [
-      ...SHARED_ATTRIBUTIONS,
-      ...STADIA_ATTRIBUTIONS
-    ]
+    attributions: [...SHARED_ATTRIBUTIONS, ...STADIA_ATTRIBUTIONS]
   }
 }

@@ -6,6 +6,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint --fix",
+    "run_prettier": "npx prettier --write .",
     "prettier_script": "npx prettier --check .",
     "lint_and_tsc": "yarn prettier_script && yarn lint && yarn tsc",
     "test": "jest",

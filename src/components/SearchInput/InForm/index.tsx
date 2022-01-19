@@ -28,7 +28,7 @@ const SearchInFom = (props: Props) => {
       buttonStyle={Styles.secondary}
       buttonRounded={{
         topLeft: RoundedSize.none,
-        bottomLeft: RoundedSize.none,
+        bottomLeft: RoundedSize.none
       }}
     />
   )

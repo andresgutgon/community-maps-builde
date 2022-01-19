@@ -6,7 +6,7 @@ import { ICONS } from '@maps/lib/icons'
 import Marker, {
   Percentage,
   MarkerColor,
-  MarkerSize,
+  MarkerSize
 } from '@maps/components/Marker'
 
 type HeaderProps = { title: string }
