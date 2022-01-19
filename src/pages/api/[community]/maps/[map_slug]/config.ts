@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 
 import withHeaderBearerToken from '@maps/lib/middlewares/withHeaderBearerToken'
 import type { ResponseWithAuth } from '@maps/lib/middlewares/withHeaderBearerToken'

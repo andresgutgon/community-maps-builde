@@ -1,6 +1,5 @@
 import { ChangeEvent } from 'react'
-import cn from 'classnames'
-import { validate, computeLabel, rankWith, RankedTester, isBooleanControl, ControlProps } from '@jsonforms/core'
+import { computeLabel, rankWith, RankedTester, isBooleanControl, ControlProps } from '@jsonforms/core'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 import { withVanillaControlProps, VanillaRendererProps } from '@jsonforms/vanilla-renderers'
 
@@ -17,7 +16,6 @@ const BooleanControl = ({
   description,
   errors,
   data,
-  schema,
   uischema,
   classNames,
   visible,

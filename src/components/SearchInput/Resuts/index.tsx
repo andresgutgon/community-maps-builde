@@ -1,4 +1,4 @@
-import { MutableRefObject, forwardRef, SyntheticEvent, useCallback, useEffect } from 'react'
+import { MutableRefObject, forwardRef, useCallback, useEffect } from 'react'
 import { FocusScope, useFocusManager } from '@react-aria/focus'
 import { FormattedMessage } from 'react-intl'
 import cn from 'classnames'

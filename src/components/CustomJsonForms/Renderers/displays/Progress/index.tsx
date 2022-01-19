@@ -1,6 +1,4 @@
-import { useMemo, ReactNode } from 'react'
-import cn from 'classnames'
-import { UISchemaElement, JsonSchema, rankWith, RankedTester, uiTypeIs, and, schemaTypeIs, optionIs, ControlProps } from '@jsonforms/core'
+import { rankWith, RankedTester, uiTypeIs, and, schemaTypeIs, optionIs, ControlProps } from '@jsonforms/core'
 import ProgressIndicator from '@maps/components/ProgressIndicator'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 

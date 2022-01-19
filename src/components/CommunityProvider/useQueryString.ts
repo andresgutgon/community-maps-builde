@@ -86,7 +86,6 @@ const useQueryString = (): ReturnType => {
       // Ask parent window about their URL params
       host.postMessage({ type: 'GET_URL' }, '*')
     } else {
-      const params = new URLSearchParams(queryString)
       const { pathname, origin: baseUrl } = window.location
       setUrlParams(readParams(host.location.search))
       setMapUrl(`${baseUrl}${pathname}`)

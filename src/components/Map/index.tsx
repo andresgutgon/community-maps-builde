@@ -1,12 +1,12 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
-import { Control, ControlOptions, DomUtil, DomEvent,  Map as LeafletMap, Icon } from 'leaflet'
+import { Map as LeafletMap, Icon } from 'leaflet'
 import 'leaflet.markercluster'
-import { useMapEvents, useMap, MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
+import { MapContainer, ZoomControl, TileLayer } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 import { CommunityProvider, useMapData } from '@maps/components/CommunityProvider'
-import type { Category, MapAttribution, Place as PlaceType } from '@maps/types/index'
+import type { Place as PlaceType } from '@maps/types/index'
 import useTile from '@maps/components/CommunityProvider/useTile'
 import Search from '@maps/components/SearchControl'
 import Fullscreen from '@maps/components/FullscreenControl'
@@ -96,7 +96,7 @@ const MapWrapper = () => {
         removeOutsideVisibleBounds={true}
         spiderfyOnMaxZoom={false}
       >
-        {places.map((place: PlaceType, index: number) =>
+        {places.map((place: PlaceType) =>
           <Place
             key={place.slug}
             place={place}

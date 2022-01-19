@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { TILES } from '@maps/lib/tiles'
-import type { MapAttribution, Config, Tile } from '@maps/types/index'
+import type { MapAttribution, Config } from '@maps/types/index'
 
 type ReturnType = {
   url: string

@@ -1,16 +1,25 @@
 import { useReducer, useEffect } from 'react'
-import { useIntl } from 'react-intl'
 import { ErrorObject, ValidateFunction } from 'ajv'
 import { validate, createAjv } from '@jsonforms/core'
 import type { ValidationMode, JsonFormsCore } from '@jsonforms/core'
 
 import type { Form, Config, Category, Place } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
-import { useTranslateError, TranslateErrorFn } from '@maps/components/CustomJsonForms/hooks/useTranslateError'
-import { useTranslate, TranslateFn, TranslateBuilderFn } from '@maps/components/CustomJsonForms/hooks/useTranslate'
+import {
+  useTranslateError,
+  TranslateErrorFn,
+} from '@maps/components/CustomJsonForms/hooks/useTranslateError'
+import {
+  useTranslate,
+  TranslateFn,
+  TranslateBuilderFn,
+} from '@maps/components/CustomJsonForms/hooks/useTranslate'
 import useMakeRequest, { Response, Method } from '@maps/hooks/useMakeRequest'
 
-export enum EntityForm { place = 'place', suggestPlace = 'suggestPlace' }
+export enum EntityForm {
+  place = 'place',
+  suggestPlace = 'suggestPlace',
+}
 type EntityType = Category | Place | null
 type FormEntity = { entityType: EntityForm; entity: EntityType }
 
@@ -19,7 +28,7 @@ const NO_VALIDATION = 'NoValidation' as ValidationMode
 type FormInstance = {
   identifier: string
   instance: Form
-  data: Object,
+  data: Object
   submitting: boolean
   validator: ValidateFunction | null
   validationMode: ValidationMode
@@ -29,7 +38,7 @@ type FormInstance = {
   valid: boolean
   entityType: EntityForm
   i18n: {
-    translateError: TranslateErrorFn,
+    translateError: TranslateErrorFn
     translate: TranslateFn
   }
 }
@@ -40,14 +49,15 @@ type FormInstances = Record<string, FormInstance>
 /**
  * DRY the way we build the index on state.forms
  */
-const buildIdentifier = (entityType: EntityForm, slug: string | null): string => `${entityType}_${slug}`
+const buildIdentifier = (entityType: EntityForm, slug: string | null): string =>
+  `${entityType}_${slug}`
 
 type InitFormInstanceProps = {
   config: Config
   identifier: string
   formSlug: string | null
-  entityType: EntityForm,
-  translateError: TranslateErrorFn,
+  entityType: EntityForm
+  translateError: TranslateErrorFn
   translateBuilderFn: TranslateBuilderFn
 }
 const FORM_RESET_VALUES: Partial<FormInstance> = {
@@ -55,21 +65,22 @@ const FORM_RESET_VALUES: Partial<FormInstance> = {
   valid: false,
   errors: null,
   response: null,
-  validationMode: NO_VALIDATION
+  validationMode: NO_VALIDATION,
 }
 
-function initFormInstance (
-  {
-    config,
-    identifier,
-    formSlug,
-    entityType,
-    translateError,
-    translateBuilderFn
-  }: InitFormInstanceProps
-): null | FormInstance {
+function initFormInstance({
+  config,
+  identifier,
+  formSlug,
+  entityType,
+  translateError,
+  translateBuilderFn,
+}: InitFormInstanceProps): null | FormInstance {
   const { forms, suggestPlaceForms } = config
-  const form = entityType === EntityForm.place ? forms[formSlug] : suggestPlaceForms[formSlug]
+  const form =
+    entityType === EntityForm.place
+      ? forms[formSlug]
+      : suggestPlaceForms[formSlug]
 
   if (!form) return null
 
@@ -95,56 +106,89 @@ function initFormInstance (
     entityType,
     i18n: {
       translate: translateBuilderFn(form.jsonSchema),
-      translateError
-    }
+      translateError,
+    },
   }
 }
 
-type State = { genericSuggestIdentifier: string, forms: FormInstances, form: FormInstance | null }
-const INITIAL_STATE: State  = { genericSuggestIdentifier: `${EntityForm.suggestPlace}_generic`,  forms: {}, form: null }
+type State = {
+  genericSuggestIdentifier: string
+  forms: FormInstances
+  form: FormInstance | null
+}
+const INITIAL_STATE: State = {
+  genericSuggestIdentifier: `${EntityForm.suggestPlace}_generic`,
+  forms: {},
+  form: null,
+}
 type InitFormsProps = {
   entities: FormEntity[]
   currentEntity: FormEntity
   config: Config
-  translateError: TranslateErrorFn,
+  translateError: TranslateErrorFn
   translateBuilderFn: TranslateBuilderFn
 }
-const initForms = ({ entities, currentEntity, config, translateError, translateBuilderFn }: InitFormsProps) => (state: State): State => {
-  const common = { config, translateBuilderFn, translateError }
-  const forms = entities.reduce<FormInstances>(
-    (instances: FormInstances, { entityType, entity }: FormEntity) => {
-      const identifier = buildIdentifier(entityType, entity?.slug)
-      const formInstance = entityType === EntityForm.place
-        ? initFormInstance({ ...common, identifier, formSlug: (entity as Place)?.form_slug, entityType })
-        : initFormInstance({ ...common, identifier, formSlug: entity?.slug, entityType })
+const initForms =
+  ({
+    entities,
+    currentEntity,
+    config,
+    translateError,
+    translateBuilderFn,
+  }: InitFormsProps) =>
+  (state: State): State => {
+    const common = { config, translateBuilderFn, translateError }
+    const forms = entities.reduce<FormInstances>(
+      (instances: FormInstances, { entityType, entity }: FormEntity) => {
+        const identifier = buildIdentifier(entityType, entity?.slug)
+        const formInstance =
+          entityType === EntityForm.place
+            ? initFormInstance({
+                ...common,
+                identifier,
+                formSlug: (entity as Place)?.form_slug,
+                entityType,
+              })
+            : initFormInstance({
+                ...common,
+                identifier,
+                formSlug: entity?.slug,
+                entityType,
+              })
 
-      if (!formInstance) return instances
+        if (!formInstance) return instances
 
-      instances[identifier] = formInstance
-      return instances
-    },
-    {
-      [state.genericSuggestIdentifier]: initFormInstance({
-        ...common,
-        identifier: state.genericSuggestIdentifier,
-        formSlug: 'suggest_place_generic',
-        entityType: EntityForm.suggestPlace
-      })
-    }
-  )
+        instances[identifier] = formInstance
+        return instances
+      },
+      {
+        [state.genericSuggestIdentifier]: initFormInstance({
+          ...common,
+          identifier: state.genericSuggestIdentifier,
+          formSlug: 'suggest_place_generic',
+          entityType: EntityForm.suggestPlace,
+        }),
+      }
+    )
 
-  // Set current form if there is one
-  const currentSlug = buildIdentifier(currentEntity.entityType, currentEntity.entity?.slug)
-  const form = forms[currentSlug]
+    // Set current form if there is one
+    const currentSlug = buildIdentifier(
+      currentEntity.entityType,
+      currentEntity.entity?.slug
+    )
+    const form = forms[currentSlug]
 
-  return { ...INITIAL_STATE, forms, form }
-}
+    return { ...INITIAL_STATE, forms, form }
+  }
 
 /**
  * Only update current form instance if already there.
  * This method defend us form destructuring `form=null`
  */
-function updateFormState (prevState: State, nextFormState: Partial<FormInstance>): State {
+function updateFormState(
+  prevState: State,
+  nextFormState: Partial<FormInstance>
+): State {
   const form = prevState.form
 
   if (!form) return prevState
@@ -153,8 +197,8 @@ function updateFormState (prevState: State, nextFormState: Partial<FormInstance>
     ...prevState,
     form: {
       ...form,
-      ...nextFormState
-    }
+      ...nextFormState,
+    },
   }
 }
 
@@ -165,81 +209,95 @@ enum Actions {
   SetSubmitting,
   SetResponse,
   SetValidationMode,
-  ResetState
+  ResetState,
 }
 type Action =
-  | { type: Actions.SetForm, entityType: EntityForm, formSlug: string, identifier: string}
-  | { type: Actions.SetData, data: Object }
-  | { type: Actions.SetErrors, errors: ErrorObject[] }
-  | { type: Actions.SetSubmitting, submitting: boolean }
-  | { type: Actions.SetResponse, response: Response }
-  | { type: Actions.SetValidationMode, validationMode: ValidationMode }
+  | {
+      type: Actions.SetForm
+      entityType: EntityForm
+      formSlug: string
+      identifier: string
+    }
+  | { type: Actions.SetData; data: Object }
+  | { type: Actions.SetErrors; errors: ErrorObject[] }
+  | { type: Actions.SetSubmitting; submitting: boolean }
+  | { type: Actions.SetResponse; response: Response }
+  | { type: Actions.SetValidationMode; validationMode: ValidationMode }
   | { type: Actions.ResetState }
-const reducer = (
-  config: Config,
-  translateError: TranslateErrorFn,
-  translateBuilderFn: TranslateBuilderFn
-) => (state: State, action: Action) => {
-  switch (action.type) {
-    case Actions.SetForm:
-      const { forms, suggestPlaceForms } = config
-      const instance = state.forms[action.identifier] || initFormInstance({
-        config,
-        identifier: action.identifier,
-        translateError,
-        translateBuilderFn,
-        formSlug: action.formSlug,
-        entityType: action.entityType
-      })
-      const form: FormInstance | null = action.entityType === EntityForm.place
-        ? instance
-        : instance || state.forms[state.genericSuggestIdentifier]
+const reducer =
+  (
+    config: Config,
+    translateError: TranslateErrorFn,
+    translateBuilderFn: TranslateBuilderFn
+  ) =>
+  (state: State, action: Action) => {
+    switch (action.type) {
+      case Actions.SetForm:
+        const instance =
+          state.forms[action.identifier] ||
+          initFormInstance({
+            config,
+            identifier: action.identifier,
+            translateError,
+            translateBuilderFn,
+            formSlug: action.formSlug,
+            entityType: action.entityType,
+          })
+        const form: FormInstance | null =
+          action.entityType === EntityForm.place
+            ? instance
+            : instance || state.forms[state.genericSuggestIdentifier]
 
-      // Do nothing if the identifier is the same
-      if (form && form?.identifier === state?.form?.identifier) return state
+        // Do nothing if the identifier is the same
+        if (form && form?.identifier === state?.form?.identifier) return state
 
-      // Copy data from previous current form into forms
-      return {
-        ...state,
-        forms: {
-          ...state.forms,
-          ...(state.form ? { [state.form.identifier]: state.form } : {}),
-          ...(form ? { [form.identifier]: form } : {})
-        },
-        form
-      }
-    case Actions.SetData:
-      return updateFormState(state, { data: action.data })
-    case Actions.SetErrors:
-      const errors = action.errors
-      return updateFormState(state, {
-        errors,
-        valid: state.form?.validationMode === RUN_VALIDATION && !action.errors.length
-      })
-    case Actions.SetSubmitting:
-      return updateFormState(state, { submitting: action.submitting })
-    case Actions.SetResponse:
-      return updateFormState(state, { response: action.response })
-    case Actions.SetValidationMode:
-      return updateFormState(state, { validationMode: action.validationMode })
-    case Actions.ResetState:
-      return {
-        ...state,
-        forms: Object.keys(state.forms).map((identifier: string) => (
-          {...state.forms[identifier], ...FORM_RESET_VALUES }
-        )),
-        ...(state.form ? ({
-          form: {
-            ...state.form,
+        // Copy data from previous current form into forms
+        return {
+          ...state,
+          forms: {
+            ...state.forms,
+            ...(state.form ? { [state.form.identifier]: state.form } : {}),
+            ...(form ? { [form.identifier]: form } : {}),
+          },
+          form,
+        }
+      case Actions.SetData:
+        return updateFormState(state, { data: action.data })
+      case Actions.SetErrors:
+        const errors = action.errors
+        return updateFormState(state, {
+          errors,
+          valid:
+            state.form?.validationMode === RUN_VALIDATION &&
+            !action.errors.length,
+        })
+      case Actions.SetSubmitting:
+        return updateFormState(state, { submitting: action.submitting })
+      case Actions.SetResponse:
+        return updateFormState(state, { response: action.response })
+      case Actions.SetValidationMode:
+        return updateFormState(state, { validationMode: action.validationMode })
+      case Actions.ResetState:
+        return {
+          ...state,
+          forms: Object.keys(state.forms).map((identifier: string) => ({
+            ...state.forms[identifier],
             ...FORM_RESET_VALUES,
-            data: state.form.instance.initialData || {}
-          }
-        }) : {})
-      }
-    default:
-      throw new Error('Unhandle reducer action')
+          })),
+          ...(state.form
+            ? {
+                form: {
+                  ...state.form,
+                  ...FORM_RESET_VALUES,
+                  data: state.form.instance.initialData || {},
+                },
+              }
+            : {}),
+        }
+      default:
+        throw new Error('Unhandle reducer action')
+    }
   }
-}
 
 export type FormReturnType = FormInstance & {
   onChange: (jsonForm: JsonFormsCore) => void
@@ -252,7 +310,12 @@ type Props = {
   getExtraData: () => Object
   onResponseSuccess?: () => void
 }
-export const useForm = ({ entities, currentEntity, getExtraData, onResponseSuccess }: Props): FormReturnType | null => {
+export const useForm = ({
+  entities,
+  currentEntity,
+  getExtraData,
+  onResponseSuccess,
+}: Props): FormReturnType | null => {
   const { config, community } = useMapData()
   const makeRequest = useMakeRequest({ community })
   const translateBuilderFn = useTranslate()
@@ -262,13 +325,22 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
   const [{ form }, dispatch] = useReducer(
     reducer(config, translateError, translateBuilderFn),
     INITIAL_STATE,
-    initForms({ entities, currentEntity, config, translateError, translateBuilderFn })
+    initForms({
+      entities,
+      currentEntity,
+      config,
+      translateError,
+      translateBuilderFn,
+    })
   )
 
   // When entity change change used form
   const entityType = currentEntity.entityType
   const slug = currentEntity.entity?.slug
-  const formSlug = entityType === EntityForm.place ? (currentEntity.entity as Place)?.form_slug : slug
+  const formSlug =
+    entityType === EntityForm.place
+      ? (currentEntity.entity as Place)?.form_slug
+      : slug
   useEffect(() => {
     if (!slug) return
 
@@ -296,7 +368,10 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
 
     const errors = validate(form.validator, form.data)
     if (errors.length > 0) {
-      dispatch({ type: Actions.SetValidationMode, validationMode: RUN_VALIDATION })
+      dispatch({
+        type: Actions.SetValidationMode,
+        validationMode: RUN_VALIDATION,
+      })
       return
     }
 
@@ -307,8 +382,8 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
       body: {
         type: form.entityType,
         slug: form.instance.slug,
-        data: { ...getExtraData(), ...form.data }
-      }
+        data: { ...getExtraData(), ...form.data },
+      },
     })
     dispatch({ type: Actions.SetResponse, response })
     dispatch({ type: Actions.SetSubmitting, submitting: false })
@@ -325,7 +400,7 @@ export const useForm = ({ entities, currentEntity, getExtraData, onResponseSucce
     ...form,
     onSubmit,
     onChange,
-    reset
+    reset,
   }
 }
 

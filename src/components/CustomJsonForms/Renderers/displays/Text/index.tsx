@@ -1,6 +1,6 @@
-import { useMemo, ReactNode } from 'react'
+import { useMemo } from 'react'
 import cn from 'classnames'
-import { UISchemaElement, JsonSchema, rankWith, RankedTester, uiTypeIs, and, or, schemaTypeIs, schemaMatches, optionIs, ControlProps, computeLabel } from '@jsonforms/core'
+import { rankWith, RankedTester, uiTypeIs, and, schemaTypeIs, optionIs, ControlProps } from '@jsonforms/core'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 
 const isTextDisplay = and(uiTypeIs('Display'), schemaTypeIs('string'))

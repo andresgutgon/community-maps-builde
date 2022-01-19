@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { DivIcon, divIcon } from 'leaflet'
 
-import type { Category } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import { Percentage } from '@maps/components/Marker'
 import { buildMarkerStringType } from '@maps/components/Marker/useMarkersAsString'

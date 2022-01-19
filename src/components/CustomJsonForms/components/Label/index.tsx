@@ -1,9 +1,6 @@
 import { ReactNode } from 'react'
-import cn from 'classnames'
-import { ErrorObject } from 'ajv'
 import { computeLabel, ControlElement } from '@jsonforms/core'
 
-const FORCE_FOCUS_TO_SHOW_DESCRIPTION = true
 type Props = {
   id: string
   uischema: ControlElement

@@ -38,11 +38,7 @@ const useMarkersAsString = (): ReturnType => {
         {
           percentage,
           iconKey,
-          size,
-          color,
-          isSelected,
-          withArrow
-        }: Props
+          color        }: Props
       ) => {
       const html = renderToString(
         <Marker

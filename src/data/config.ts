@@ -1,5 +1,4 @@
-import { Config, Form, Theme, ThemeColor, Category, TileStyle } from '@maps/types/index'
-import { TILES } from '@maps/lib/tiles'
+import { Form, Theme, ThemeColor, TileStyle } from '@maps/types/index'
 import forms from './forms.json'
 import suggestPlaceForms from './suggestPlaceForms.json'
 

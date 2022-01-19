@@ -1,4 +1,4 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 import maps from '@maps/data/maps.json'
 import placesOneCategory from '@maps/data/places-one-category.json'
@@ -11,7 +11,7 @@ export type ResponseWithMap = {
   places: Place[]
   map: Map
 }
-type NextApiHandlerWithMap<T = any> = (responseWithAuth: ResponseWithMap) => void | Promise<void>
+type NextApiHandlerWithMap = (responseWithAuth: ResponseWithMap) => void | Promise<void>
 
 /**
  * This middleware put dummy config in the request

@@ -1,5 +1,4 @@
 import { JsonSchema, HorizontalLayout, VerticalLayout, GroupLayout } from '@jsonforms/core'
-import type { IGeocoder } from '@maps/components/SearchInput/geocoders'
 import { TILES } from '@maps/lib/tiles'
 import { MarkerColor } from '@maps/components/Marker'
 

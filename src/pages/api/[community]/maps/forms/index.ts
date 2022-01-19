@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 
 import { MUST_ACCEPT_TERMS } from '@maps/components/LegalCheck'
 import withHeaderBearerToken from '@maps/lib/middlewares/withHeaderBearerToken'

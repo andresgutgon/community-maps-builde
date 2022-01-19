@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { useEffect, RefObject, ReactNode, ComponentClass, useState } from 'react'
+import { useEffect, RefObject, ReactNode, useState } from 'react'
 
 export type SubmitFn = (closeFn: Function) => Promise<any> | void
 export type Props = {

@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRouter } from 'next/router'
 import { DragEndEvent, Map as LeafletMap } from 'leaflet'
-import { Marker, useMap, TileLayer, MapContainer } from 'react-leaflet'
+import { Marker, TileLayer, MapContainer } from 'react-leaflet'
 
 import { GeocoderService } from '@maps/types/index'
 import useGeocoder from '@maps/components/SearchInput/useGeocoder'
@@ -12,7 +12,7 @@ import useTile from '@maps/components/CommunityProvider/useTile'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import Fieldset from '@maps/components/Fieldset'
-import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import Button, { Size as ButtonSize, Styles as ButtonStyles } from '@maps/components/Button'
 import SearchInput from '@maps/components/SearchInput/InForm'
 import SearchResult from '@maps/components/SearchResult'
 import { Percentage } from '@maps/components/Marker'
@@ -40,7 +40,7 @@ const AddressStep = ({
   const [dragging, setDragging] = useState<boolean>(false)
   const intl = useIntl()
   const geocoder = useGeocoder({ service: GeocoderService.nominatim, locale })
-  const { config, places } = useMapData()
+  const { config } = useMapData()
   const tile = useTile(config)
   const icon = useMarkerIcon({ percentage: Percentage.full, slug: suggest?.category?.slug })
   const [map, setMap] = useState<LeafletMap | null>(null)

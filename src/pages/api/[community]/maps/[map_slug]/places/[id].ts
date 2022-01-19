@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { JsonSchema } from '@jsonforms/core'
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'

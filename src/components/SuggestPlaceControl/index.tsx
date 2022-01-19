@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
-import dynamic from 'next/dynamic'
-import screenfull from 'screenfull'
 
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import ControlHandler from '@maps/components/ControlHandler'

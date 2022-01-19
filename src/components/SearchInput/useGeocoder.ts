@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
-import { Control } from 'leaflet'
-import type { IGeocoder, GeocodingResult } from '@maps/components/SearchInput/geocoders'
+import type { IGeocoder } from '@maps/components/SearchInput/geocoders'
 
 import { nominatim } from './geocoders/index'
 import { GeocoderService } from '@maps/types/index'

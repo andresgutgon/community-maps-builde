@@ -9,17 +9,8 @@ import ControlHandler from '@maps/components/ControlHandler'
 
 import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
 import StateLabel from '../StateLabel'
-import { useShowFiltersWithDefaults, CROWDFOUNDING_RANGES, State } from '../useFilters'
+import { useShowFiltersWithDefaults, State } from '../useFilters'
 
-type Props = {
-  open: boolean
-  state: State
-  statusStates: State[]
-  unfilteredCrowdfoundingStates: State[]
-  crowdfoundingStates: State[]
-  categorySlugs: string[]
-  onToggleFilters: () => void
-}
 const FilterDisplay = ({
   open,
   statusStates,

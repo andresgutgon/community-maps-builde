@@ -5,11 +5,11 @@ import { FormattedMessage } from 'react-intl'
 
 import Fieldset from '@maps/components/Fieldset'
 import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
-import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import Button, { Size as ButtonSize, Styles as ButtonStyles } from '@maps/components/Button'
 import { useMapData } from '@maps/components/CommunityProvider'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { Category } from '@maps/types/index'
-import { SuggestReturnType, MoveToStepFn, Step } from '@maps/components/SuggestPlaceControl/useSuggest'
+import { SuggestReturnType, Step } from '@maps/components/SuggestPlaceControl/useSuggest'
 
 type CategoryItemProps = {
   category: Category

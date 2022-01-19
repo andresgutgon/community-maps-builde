@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import cn from 'classnames'
 import { useIntl } from 'react-intl'
 
@@ -7,15 +7,9 @@ import { useMapData } from '@maps/components/CommunityProvider'
 
 export const MUST_ACCEPT_TERMS = 'MUST_ACCEPT_TERMS'
 
-type LegalLinkProps = { href: string; text: string }
 const LegalLink = ({ href, text }) =>
   <a href={href} className='underline' target='_blank' rel='noreferrer'>{text}</a>
 
-type Props = {
-  checked: boolean,
-  onCheck: (checked: boolean) => void,
-  error: string | null
-}
 const LegalCheck = ({ error, checked, onCheck }) => {
   const styles = useStyles()
   const intl = useIntl()

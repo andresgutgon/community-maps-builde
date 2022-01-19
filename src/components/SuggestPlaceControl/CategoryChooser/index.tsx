@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
 import { ReactNode } from 'react'
 import { useIntl } from 'react-intl'
 import cn from 'classnames'
@@ -6,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 
 import Fieldset from '@maps/components/Fieldset'
 import Marker, { Percentage, MarkerColor, MarkerSize }from '@maps/components/Marker'
-import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
+import Button, { Size as ButtonSize, Styles as ButtonStyles } from '@maps/components/Button'
 import { useMapData } from '@maps/components/CommunityProvider'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { Category } from '@maps/types/index'
@@ -60,10 +59,6 @@ const CategoryItem = ({ isSelected = false, category, right }: CategoryItemProps
   )
 }
 
-type Props = {
-  selectedCategory: Category | null
-  setCategory: Dispatch<SetStateAction<null | Category>>
-}
 const CategoryChooser = ({ selectedCategory, setCategory }) => {
   const intl = useIntl()
   const { categories } = useMapData()

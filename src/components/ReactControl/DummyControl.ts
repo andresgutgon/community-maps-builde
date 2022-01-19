@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { Map, Evented, Control, Util, DomUtil, DomEvent } from 'leaflet'
-import type { TileEventHandlerFn, ControlOptions } from 'leaflet'
+import { Map, Control, Util, DomUtil, DomEvent } from 'leaflet'
+import type { ControlOptions } from 'leaflet'
 import { addClassName } from '@react-leaflet/core'
 
 

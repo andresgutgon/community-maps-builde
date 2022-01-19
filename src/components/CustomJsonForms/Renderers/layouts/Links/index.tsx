@@ -11,10 +11,7 @@ export const LinksRenderer = ({
   schema,
   uischema,
   path,
-  visible,
-  getStyle,
-  getStyleAsClassName
-}: RendererProps & VanillaRendererProps) => {
+  visible}: RendererProps & VanillaRendererProps) => {
   const { renderers, cells } = useJsonForms()
   const links = (uischema as LinksLayout).elements
   return (

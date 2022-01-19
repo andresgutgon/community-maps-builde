@@ -2,14 +2,12 @@ import { ComponentType, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { FormattedMessage } from 'react-intl'
 
-import SearchInput  from '@maps/components/SearchInput/InForm'
 
-import type { Category } from '@maps/types/index'
 import LoadingCode from '@maps/components/LoadingCode'
 import Button, { Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import Dialog from '@maps/components/Dialog'
 
-import useSuggest, { SuggestReturnType, Step } from '../useSuggest'
+import useSuggest, { SuggestReturnType } from '../useSuggest'
 
 type StepsProps = { suggest: SuggestReturnType }
 type Props = {

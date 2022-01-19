@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
 import placeDetail from '@maps/data/places/default.json'
@@ -7,8 +6,6 @@ import handler from './[id]'
 import fetchMock from "jest-fetch-mock"
 global.fetch = fetchMock
 
-const DEMO_TOKEN = process.env.DEMO_SECRET_TOKEN
-const DEMO_HOST = process.env.DEMO_HOST
 const DEMO_PATH = 'demo'
 const MAP_SLUG = 'first-map'
 const PLACE_SLUG = 'place-slug'

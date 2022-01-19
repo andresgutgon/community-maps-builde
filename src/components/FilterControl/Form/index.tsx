@@ -1,12 +1,11 @@
-import { Dispatch, SetStateAction, useMemo, useRef } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import cn from 'classnames'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline'
 
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { Category as CategoryType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
-import Slider, { Color } from '@maps/components/Slider'
 import Button, { Size as ButtonSize, Types as ButtonType, Styles as ButtonStyles } from '@maps/components/Button'
 import useQueryString  from '@maps/components/CommunityProvider/useQueryString'
 import Fieldset from '@maps/components/Fieldset'
@@ -30,10 +29,9 @@ const FilterForm = ({
   setSelectedCategories,
   onToggleFilters
 }: Props) => {
-  const intl = useIntl()
   const { changeFiltersInUrl } = useQueryString()
   const styles = useStyles()
-  const { allPlaces, places, setPlaces, categories, config } = useMapData()
+  const { allPlaces, setPlaces, categories, config } = useMapData()
   const showFilters = useShowFiltersWithDefaults(config.showFilters)
   const { filterPlaces } = useFilters()
   const onFilterSubmit = () => {

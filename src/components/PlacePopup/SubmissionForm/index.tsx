@@ -1,6 +1,5 @@
-import { Fragment, lazy, useEffect, useState, SyntheticEvent } from 'react'
+import { useEffect, useState } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { JsonSchema } from '@jsonforms/core'
 import { JsonFormsStyleContext, vanillaCells } from '@jsonforms/vanilla-renderers'
 import { JsonForms } from '@jsonforms/react'
 

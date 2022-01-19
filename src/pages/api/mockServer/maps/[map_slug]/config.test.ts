@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
 import config from '@maps/data/config'

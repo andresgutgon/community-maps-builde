@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { testApiHandler } from 'next-test-api-route-handler'
 
 import config from '@maps/data/config'
@@ -8,7 +7,6 @@ import fetchMock from "jest-fetch-mock"
 global.fetch = fetchMock
 fetchMock.mockResponse(JSON.stringify(config))
 
-const DEMO_TOKEN = process.env.DEMO_SECRET_TOKEN
 const DEMO_PATH = 'demo'
 
 describe('api/[community]/config', () => {

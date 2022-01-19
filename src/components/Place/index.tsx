@@ -13,7 +13,7 @@ type Props = {
   isOpenPlace: boolean
 }
 export default function Place ({ isOpenPlace, onClosePopup, place, onClick }: Props) {
-  const { name, lat, lng, active, goalProgress } = place
+  const { lat, lng, active, goalProgress } = place
   const realPercentage = useMarkerPercentage(goalProgress)
   const percentage = active ? Percentage.full : realPercentage
   const icon = useMarkerIcon({ percentage, slug: place.category_slug })

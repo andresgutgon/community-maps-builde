@@ -1,6 +1,5 @@
-import { useMemo, ReactNode } from 'react'
 import cn from 'classnames'
-import { UISchemaElement, JsonSchema, rankWith, RankedTester, uiTypeIs, and, schemaTypeIs, formatIs, ControlProps } from '@jsonforms/core'
+import { rankWith, RankedTester, uiTypeIs, and, schemaTypeIs, formatIs, ControlProps } from '@jsonforms/core'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 
 const isLinkDisplay = and(

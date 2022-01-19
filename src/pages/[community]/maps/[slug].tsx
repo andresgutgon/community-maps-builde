@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import LoadingMap from '@maps/components/LoadingMap'

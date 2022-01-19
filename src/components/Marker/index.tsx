@@ -63,7 +63,6 @@ export type Props = {
 }
 const Marker = ({ color, percentage = Percentage.full, iconKey, size, isSelected, withArrow }: Props) => {
   const { bg, textColor, border } = ICON_COLORS[color]
-  const percentages = [30, 50, 70, 100]
   return (
     <div
       className={

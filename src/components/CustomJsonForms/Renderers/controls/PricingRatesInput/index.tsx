@@ -1,14 +1,13 @@
-import { useCallback, MouseEvent, memo, useRef, useState, useEffect, useMemo } from 'react'
+import { MouseEvent, useRef, useState, useMemo } from 'react'
 import cn from 'classnames'
 import debounce from 'lodash/debounce'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { rankWith, RankedTester, uiTypeIs, and, or, schemaTypeIs, schemaMatches, optionIs, ControlProps, computeLabel } from '@jsonforms/core'
+import { rankWith, RankedTester, uiTypeIs, and, or, schemaTypeIs, schemaMatches, optionIs, ControlProps } from '@jsonforms/core'
 import { withJsonFormsControlProps } from '@jsonforms/react'
 import { withVanillaControlProps, VanillaRendererProps } from '@jsonforms/vanilla-renderers'
 
 import { Format, Currency, fromCentsToFloat, toCentsFromFloat, useFormatValue } from '@maps/hooks/useFormatValue'
 import Slider, { Color } from '@maps/components/Slider'
-import Button, { Styles, Size } from '@maps/components/Button'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import Label from '@maps/components/CustomJsonForms/components/Label'
 import Description from '@maps/components/CustomJsonForms/components/Description'
@@ -57,8 +56,6 @@ type RateProps = {
   onRateClick: (minimumRate: number) => void
 }
 const Rate = ({ currentTimeRate, bestRate, isCurrent, format, currency, rateConfig, onRateClick }: RateProps) => {
-  const hourly = useFormatValue({ value: rateConfig.rates.hourly, format, currency })
-  const daily = useFormatValue({ value: rateConfig.rates.daily, format, currency })
   const isTheBestRate = bestRate.rates.daily === rateConfig.rates.daily
   const timeRateValue = useFormatValue({
     value: currentTimeRate === TimeRate.hourly ? rateConfig.rates.hourly : rateConfig.rates.daily,
@@ -251,11 +248,8 @@ const PricingRatesInput = ({
   schema,
   uischema,
   visible,
-  config,
   path,
-  handleChange,
-  enabled
-}: Props) => {
+  handleChange}: Props) => {
   const inCents = useRef<boolean>(!!path.match(/_in_cents$/)).current
   const minimum = useRef<number>(fromCentsToFloat(schema.minimum, inCents)).current
   const maximum = useRef<number>(fromCentsToFloat(schema.maximum, inCents)).current

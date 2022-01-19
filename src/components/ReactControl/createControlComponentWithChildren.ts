@@ -1,4 +1,3 @@
-import { useEffect, ReactNode } from 'react'
 import { Control } from 'leaflet'
 import { LeafletElement, createElementHook, LeafletContextInterface, createControlHook } from '@react-leaflet/core'
 

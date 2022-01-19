@@ -1,15 +1,15 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useMap } from 'react-leaflet'
 
 import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import ReactControl from '@maps/components/ReactControl/index'
-import { ResultsTopSpace, ResultsXSpace,  useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
+import { ResultsXSpace,  useSearchInputProps } from '@maps/components/SearchInput/useSearchInputProps'
 import Button, { Types as ButtonTypes, Styles as ButtonStyles } from '@maps/components/Button'
 
 type FakeSearchProps = { onClick?: () => void, disabled?: boolean }
 const FakeSearch = ({ onClick, disabled = false }: FakeSearchProps) => {
-  const { placeholder, buttonLabel, formClasses, inputClasses, buttonProps } = useSearchInputProps({
+  const { placeholder, buttonLabel, formClasses, inputClasses } = useSearchInputProps({
     resultsXSpace: ResultsXSpace.normal
   })
   return (

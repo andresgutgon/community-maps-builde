@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { Place } from '@maps/types/index'
 
 import { ShowFilters } from '@maps/types/index'
-import { Percentage } from '@maps/components/Marker'
 
 export enum State {
   all = 'all',

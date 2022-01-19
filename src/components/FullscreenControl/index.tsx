@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
-import dynamic from 'next/dynamic'
 import screenfull from 'screenfull'
 
 import ControlHandler from '@maps/components/ControlHandler'
@@ -20,7 +19,7 @@ const FullscreenControl = () => {
     setExpanded(!expanded)
   }, [expanded])
   useEffect(() => {
-    screenfull.on('change', (foo) => {
+    screenfull.on('change', () => {
       setExpanded(!!document.fullscreenElement)
     })
     return () => {
