@@ -10,7 +10,7 @@ type CustomHeaders = Headers & {
  * This middleware adds secret token to the response based on [community] param
  * curl https://community-odoo-server.org/maps/config
  *    -H "Accept: application/json"
- *    -H "Authorization: Bearer SUPER_SECRET_TOKEN"
+ *    -H "API-KEY: SUPER_SECRET_TOKEN"
  */
 export type ResponseWithAuth = {
   request: NextApiRequest,
@@ -31,9 +31,8 @@ const withHeaderBearerToken = (handler: NextApiHandlerWithToken) => (request: Ne
 
   var tokenHeaders = new Headers({
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${community.token}`,
     'API-KEY': community.token
-  }) as CustomHeaders
+  })as CustomHeaders
   return handler({
     request,
     response,

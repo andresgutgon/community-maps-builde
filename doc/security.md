@@ -22,5 +22,5 @@ We'll make this request to get the config for a map with `:map_id` (A number or 
 ```
 curl https://somconnexion-odoo.org/api/maps/:map_id/config
    -H "Accept: application/json"
-      -H "Authorization: Bearer SECRET_TOKEN"
+   -H "API-KEY: SECRET_TOKEN"
 ```
