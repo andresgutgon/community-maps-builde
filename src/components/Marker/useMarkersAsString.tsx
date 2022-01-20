@@ -12,13 +12,23 @@ import Marker, {
 export const buildMarkerStringType = (
   iconKey: CategoryIcon,
   iconColor: MarkerColor,
-  percentage: Percentage
-): string => `${iconKey}_${iconColor}_${percentage}`
+  percentage: Percentage,
+  active: boolean
+): string =>
+  `${iconKey}_${iconColor}_${percentage}_${active ? 'active' : 'inactive'}`
 
 export type MarkersAsString = Record<string, string>
-type MarkerProps = Pick<Props, 'iconKey' | 'color' | 'percentage'>[]
+export type MarkerPropsItem = Pick<
+  Props,
+  'iconKey' | 'color' | 'percentage' | 'active'
+>
+type MarkerProps = MarkerPropsItem[]
+export type BuildMarkerFn = (
+  categories: Category[],
+  showPercentage: boolean
+) => void
 type ReturnType = {
-  buildIconMarkers: (categories: Category[]) => void
+  buildIconMarkers: BuildMarkerFn
   iconMarkers: MarkersAsString
 }
 /**
@@ -29,26 +39,43 @@ type ReturnType = {
 const useMarkersAsString = (): ReturnType => {
   const percentages = useRef<Percentage[]>(Object.values(Percentage)).current
   const [iconMarkers, setIconMarkers] = useState<MarkersAsString | null>(null)
-  const buildIconMarkers = (categories: Category[]) => {
+  const buildIconMarkers = (
+    categories: Category[],
+    showPercentage: boolean
+  ) => {
     // Avoid recomputing if iconMarkers is not null
     if (iconMarkers) return iconMarkers
 
     const icons = categories
       .reduce((memo: MarkerProps[], { iconKey, iconColor }: Category) => {
         const color = iconColor || MarkerColor.brand
+        const activePercentages = showPercentage
+          ? percentages
+          : [Percentage.full]
         return [
           ...memo,
-          ...percentages.map((percentage: Percentage) => ({
+          ...activePercentages.map((percentage: Percentage) => ({
             iconKey,
             color,
-            percentage
+            percentage,
+            active: true
+          })),
+          ...activePercentages.map((percentage: Percentage) => ({
+            iconKey,
+            color,
+            percentage,
+            active: false
           }))
         ]
       }, [])
       .reduce(
-        (memo: MarkersAsString, { percentage, iconKey, color }: Props) => {
+        (
+          memo: MarkersAsString,
+          { percentage, iconKey, color, active }: Props
+        ) => {
           const html = renderToString(
             <Marker
+              active={active}
               isSelected
               withArrow
               iconKey={iconKey}
@@ -57,7 +84,7 @@ const useMarkersAsString = (): ReturnType => {
               size={MarkerSize.normal}
             />
           )
-          memo[buildMarkerStringType(iconKey, color, percentage)] = html
+          memo[buildMarkerStringType(iconKey, color, percentage, active)] = html
           return memo
         },
         {}

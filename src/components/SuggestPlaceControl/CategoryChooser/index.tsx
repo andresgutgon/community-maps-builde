@@ -39,6 +39,7 @@ const CategoryItem = ({
       <div className='flex items-center sm:h-full'>
         <div className='flex-none'>
           <Marker
+            active
             isSelected
             withArrow={false}
             percentage={Percentage.full}

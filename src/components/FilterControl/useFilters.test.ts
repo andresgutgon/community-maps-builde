@@ -1,7 +1,17 @@
 import { renderHook } from '@testing-library/react-hooks'
 
-import useFilters, { State } from './useFilters'
+import { Place } from '@maps/types/index'
+import useFilters, { FilterFn, State } from './useFilters'
 
+const commonPlace = {
+  slug: 'no',
+  map_slug: 'no',
+  form_slug: null,
+  lat: 'no',
+  lng: 'no',
+  name: 'no',
+  address: null
+}
 enum allCat {
   car = 'car',
   train = 'train',
@@ -9,16 +19,32 @@ enum allCat {
   van = 'van'
 }
 let categories = [allCat.car, allCat.train, allCat.bike, allCat.van]
-const active = { category_slug: allCat.car, active: true, goalProgress: 68 }
-const starting = { category_slug: allCat.car, active: false, goalProgress: 4.9 }
-const middle = { category_slug: allCat.train, active: false, goalProgress: 73 }
-const finishing = {
+const active: Place = {
+  ...commonPlace,
+  category_slug: allCat.car,
+  active: true,
+  goalProgress: 68
+}
+const starting: Place = {
+  ...commonPlace,
+  category_slug: allCat.car,
+  active: false,
+  goalProgress: 4.9
+}
+const middle: Place = {
+  ...commonPlace,
+  category_slug: allCat.train,
+  active: false,
+  goalProgress: 73
+}
+const finishing: Place = {
+  ...commonPlace,
   category_slug: allCat.train,
   active: false,
   goalProgress: 100
 }
 const places = [starting, middle, finishing, active]
-let filterPlaces
+let filterPlaces: FilterFn
 beforeEach(() => {
   const { result } = renderHook(() => useFilters())
   filterPlaces = result.current.filterPlaces
