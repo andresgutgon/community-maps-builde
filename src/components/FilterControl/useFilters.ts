@@ -25,7 +25,7 @@ export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfoundingRange>> =
 export type Filters = { state: State; categories: string[] }
 
 function filterByCategory(categories: string[], showFilters: ShowFilters) {
-  return (place): boolean => {
+  return (place: Place): boolean => {
     if (!showFilters?.categories) return true
 
     return categories.includes(place.category_slug)
@@ -58,7 +58,7 @@ type FilterFnProps = {
   filters: Filters
   showFilters: ShowFilters
 }
-type FilterFn = ({ places, filters }: FilterFnProps) => Place[]
+export type FilterFn = ({ places, filters }: FilterFnProps) => Place[]
 type ReturnType = { filterPlaces: FilterFn }
 const useFilters = (): ReturnType => {
   const filterPlaces: FilterFn = ({

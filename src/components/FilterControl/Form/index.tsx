@@ -134,6 +134,7 @@ const FilterForm = ({
                     )}
                   </div>
                   <Marker
+                    active
                     withArrow={false}
                     percentage={Percentage.full}
                     color={category.iconColor || MarkerColor.brand}

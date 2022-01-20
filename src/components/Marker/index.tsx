@@ -88,6 +88,7 @@ export const ICON_COLORS: Record<MarkerColor, Color> = {
   red: { textColor: 'text-red-900', border: 'border-red-800', bg: 'bg-red-400' }
 }
 
+export const MARKER_BG_OPACITY = 'bg-opacity-30'
 export enum MarkerSize {
   normal = 'normal',
   small = 'small'
@@ -98,6 +99,7 @@ export type Props = {
   percentage: Percentage
   iconKey: CategoryIcon
   isSelected: boolean
+  active: boolean
   withArrow: boolean
 }
 const Marker = ({
@@ -106,6 +108,7 @@ const Marker = ({
   iconKey,
   size,
   isSelected,
+  active,
   withArrow
 }: Props) => {
   const { bg, textColor, border } = ICON_COLORS[color]
@@ -115,6 +118,7 @@ const Marker = ({
         'h-10 w-10': size === 'normal',
         'h-6 w-6': size === 'small',
         [bg]: isSelected,
+        [MARKER_BG_OPACITY]: !active,
         [border]: isSelected
       })}
     >
@@ -137,7 +141,8 @@ const Marker = ({
             <div
               style={{ height: `${percentage}%` }}
               className={cn('z-10 absolute left-0 right-0 bottom-0', {
-                [bg]: isSelected
+                [bg]: isSelected,
+                [MARKER_BG_OPACITY]: !active
               })}
             />
           </>
@@ -158,6 +163,7 @@ const Marker = ({
               '-mt-2 p-1 w-3 h-3 -ml-0.5 border rounded-sm rotate-45',
               {
                 [bg]: isSelected,
+                [MARKER_BG_OPACITY]: !active,
                 [border]: isSelected,
                 'bg-gray-300 border-gray-700/60': !isSelected
               }

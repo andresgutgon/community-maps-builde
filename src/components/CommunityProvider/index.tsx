@@ -185,7 +185,10 @@ export const CommunityProvider = ({
       setFetchingPlaces(true)
 
       // Build icon markers based on categories on this map
-      buildIconMarkers(categories.current)
+      buildIconMarkers(
+        categories.current,
+        config.current.crowdfounding.showMarkerProgress
+      )
 
       const themeColor = config.current.theme.color
       if (themeColor) {

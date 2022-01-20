@@ -15,6 +15,7 @@ const Header = ({ title }: HeaderProps) => (
 )
 
 const Markers = () => {
+  const [active, setIsActive] = useState(true)
   useEffect(() => {
     const styleTag = document.createElement('style')
     styleTag.setAttribute('id', 'theme-brand-colors')
@@ -69,6 +70,14 @@ const Markers = () => {
               </option>
             ))}
           </select>
+          <label htmlFor='status' className='flex items-center space-x-2'>
+            <input
+              type='checkbox'
+              id='status'
+              onChange={() => setIsActive(!active)}
+            />
+            <span>Status Active</span>
+          </label>
         </div>
         <section>
           <Header title='Colors' />
@@ -81,6 +90,7 @@ const Markers = () => {
                 >
                   <Marker
                     isSelected
+                    active={active}
                     withArrow
                     percentage={percentage}
                     color={color}
@@ -106,6 +116,7 @@ const Markers = () => {
                   className='rounded flex flex-col space-y-2 items-center justify-center border border-gray-100 p-4 sm:p-12'
                 >
                   <Marker
+                    active
                     withArrow
                     percentage={Percentage.full}
                     color={MarkerColor.brand}

@@ -55,6 +55,7 @@ const AddressStep = ({
   const { config } = useMapData()
   const tile = useTile(config)
   const icon = useMarkerIcon({
+    active: true,
     percentage: Percentage.full,
     slug: suggest?.category?.slug
   })

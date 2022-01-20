@@ -86,6 +86,7 @@ const FilterDisplay = ({
               {categories.map((category: CategoryType) => (
                 <li key={category.slug}>
                   <Marker
+                    active
                     withArrow={false}
                     percentage={Percentage.full}
                     color={category.iconColor || MarkerColor.brand}

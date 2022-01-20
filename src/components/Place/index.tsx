@@ -21,7 +21,7 @@ export default function Place({
   const { lat, lng, active, goalProgress } = place
   const realPercentage = useMarkerPercentage(goalProgress)
   const percentage = active ? Percentage.full : realPercentage
-  const icon = useMarkerIcon({ percentage, slug: place.category_slug })
+  const icon = useMarkerIcon({ active, percentage, slug: place.category_slug })
   const latLng = useRef({ lat: parseFloat(lat), lng: parseFloat(lng) }).current
   let eventHandlers: LeafletEventHandlerFnMap = {
     click: () => {
