@@ -91,7 +91,7 @@ export type SuggestReturnType = {
 }
 type Props = { onResponseSuccess?: () => void }
 const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
-  const { categories } = useMapData()
+  const { mapSlug, categories } = useMapData()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const [address, setAddress] = useState<AddressType | null>(null)
   const [addressAditionalInfo, setAddressAditionalInfo] = useState('')
@@ -113,6 +113,7 @@ const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
     },
     getExtraData: () => ({
       legalTermsAccepted,
+      mapSlug,
       categorySlug: category?.slug,
       address,
       addressAditionalInfo
