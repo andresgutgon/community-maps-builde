@@ -1,6 +1,7 @@
 import cn from 'classnames'
+import { geocoders } from 'leaflet-control-geocoder'
+type GeocodingResult = geocoders.GeocodingResult
 
-import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import { Styles } from '@maps/components/Button'
 import { RoundedSize } from '@maps/components/Button/useBorderRadius'

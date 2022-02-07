@@ -1,9 +1,16 @@
-import { MutableRefObject, forwardRef, useCallback, useEffect } from 'react'
+import {
+  KeyboardEvent as ReactKeyboardEvent,
+  MutableRefObject,
+  forwardRef,
+  useCallback,
+  useEffect
+} from 'react'
+import cn from 'classnames'
 import { FocusScope, useFocusManager } from '@react-aria/focus'
 import { FormattedMessage } from 'react-intl'
-import cn from 'classnames'
+import { geocoders } from 'leaflet-control-geocoder'
+type GeocodingResult = geocoders.GeocodingResult
 
-import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import {
   ResutsListProps,
   ResultsTopSpace,
@@ -27,7 +34,7 @@ type ResultItemProps = {
 const ResultItem = forwardRef<HTMLButtonElement, ResultItemProps>(
   function ResultItemButton({ onEsc, result, onClick }, ref) {
     const focusManager = useFocusManager()
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
       switch (event.key) {
         case 'ArrowDown':
           focusManager.focusNext({ wrap: true })
@@ -55,7 +62,11 @@ const ResultItem = forwardRef<HTMLButtonElement, ResultItemProps>(
     )
   }
 )
-const ESC_KEY = 27
+const ESC_KEY = 'Escape'
+// NOTE: Typescript doesn't like React.KeyboardEvent
+interface KeyboardEvent extends Event {
+  key: string
+}
 type Props = {
   resultsListProps: ResutsListProps
   results: GeocodingResult[]
@@ -71,7 +82,7 @@ const SearchResults = ({
   firstResultRef
 }: Props) => {
   const escFunction = useCallback((event: KeyboardEvent) => {
-    if (event.keyCode === ESC_KEY) {
+    if (event.key === ESC_KEY) {
       event.stopPropagation()
     }
   }, [])

@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useMap } from 'react-leaflet'
+import { geocoders } from 'leaflet-control-geocoder'
+type GeocodingResult = geocoders.GeocodingResult
 
-import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import ReactControl from '@maps/components/ReactControl/index'
 import {
   ResultsXSpace,

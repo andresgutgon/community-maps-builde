@@ -1,6 +1,6 @@
 import cn from 'classnames'
-
-import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
+import { geocoders } from 'leaflet-control-geocoder'
+type GeocodingResult = geocoders.GeocodingResult
 
 const cleanEmptyParts = (parts: Array<string | null>): null | string => {
   const partsWithContent = parts.filter((p) => p && p !== '(undefined)')

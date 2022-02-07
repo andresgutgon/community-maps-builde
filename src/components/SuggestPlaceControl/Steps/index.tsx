@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { geocoders } from 'leaflet-control-geocoder'
+type GeocodingResult = geocoders.GeocodingResult
 
 import { useMapData } from '@maps/components/CommunityProvider'
 import {
   Step,
   SuggestReturnType
 } from '@maps/components/SuggestPlaceControl/useSuggest'
-import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import { useErrorMessage } from '@maps/components/CustomJsonForms/hooks/useErrorMessage'
 import LegalCheck from '@maps/components/LegalCheck'
 
