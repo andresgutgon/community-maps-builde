@@ -1,9 +1,10 @@
 import { useRef, ChangeEvent, useState } from 'react'
 import { useKeyboard } from '@react-aria/interactions'
 import { useMapEvents } from 'react-leaflet'
+import { geocoders } from 'leaflet-control-geocoder'
+type GeocodingResult = geocoders.GeocodingResult
 
 import Button from '@maps/components/Button'
-import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import { GeocoderService } from '@maps/types/index'
 import {
   Props as UseSearchProps,

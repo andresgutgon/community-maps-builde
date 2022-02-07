@@ -1,18 +1,20 @@
 import { useMemo } from 'react'
-import type { IGeocoder } from '@maps/components/SearchInput/geocoders'
 
-import { nominatim } from './geocoders/index'
+import { geocoders } from 'leaflet-control-geocoder'
 import { GeocoderService } from '@maps/types/index'
 
 type UseGeocoderProps = {
   service: GeocoderService
   locale: string
 }
-const useGeocoder = ({ service, locale }: UseGeocoderProps): IGeocoder => {
+const useGeocoder = ({
+  service,
+  locale
+}: UseGeocoderProps): geocoders.IGeocoder => {
   return useMemo(() => {
     switch (service) {
       case GeocoderService.nominatim:
-        return nominatim({
+        return geocoders.nominatim({
           geocodingQueryParams: { 'accept-language': locale }
         })
     }

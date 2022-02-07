@@ -10,13 +10,14 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { useRouter } from 'next/router'
 import { DragEndEvent, Map as LeafletMap } from 'leaflet'
 import { Marker, TileLayer, MapContainer } from 'react-leaflet'
+import { geocoders } from 'leaflet-control-geocoder'
+type GeocodingResult = geocoders.GeocodingResult
 
 import { GeocoderService } from '@maps/types/index'
 import useGeocoder from '@maps/components/SearchInput/useGeocoder'
 import { useMapData } from '@maps/components/CommunityProvider'
 import useTile from '@maps/components/CommunityProvider/useTile'
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
-import type { GeocodingResult } from '@maps/components/SearchInput/geocoders'
 import Fieldset from '@maps/components/Fieldset'
 import Button, {
   Size as ButtonSize,
