@@ -91,12 +91,12 @@ describe('#filterPlaces by state', () => {
     const filtered = filterPlaces({
       places,
       filters: { state: State.active, categories: [allCat.van] },
-      showFilters: { status: true, crowdfounding: true, categories: false }
+      showFilters: { status: true, crowdfunding: true, categories: false }
     })
     expect(filtered).toStrictEqual([active])
   })
 
-  test('crowdfounding', () => {
+  test('crowdfunding', () => {
     const filtered = filterPlaces({
       places,
       filters: {
@@ -108,31 +108,31 @@ describe('#filterPlaces by state', () => {
     expect(filtered).toStrictEqual([middle])
   })
 
-  test('crowdfounding ignoring active', () => {
+  test('crowdfunding ignoring active', () => {
     const filtered = filterPlaces({
       places,
       filters: {
         state: State.middle,
         categories
       },
-      showFilters: { status: false, crowdfounding: true, categories: true }
+      showFilters: { status: false, crowdfunding: true, categories: true }
     })
     expect(filtered).toStrictEqual([middle])
   })
 
-  test('active ignoring crowdfounding', () => {
+  test('active ignoring crowdfunding', () => {
     const filtered = filterPlaces({
       places,
       filters: {
         state: State.active,
         categories
       },
-      showFilters: { status: true, crowdfounding: false, categories: true }
+      showFilters: { status: true, crowdfunding: false, categories: true }
     })
     expect(filtered).toStrictEqual([active])
   })
 
-  test('filter train category and middle crowdfounding', () => {
+  test('filter train category and middle crowdfunding', () => {
     const filtered = filterPlaces({
       places,
       filters: {
@@ -153,7 +153,7 @@ describe('#showFilters', () => {
         state: State.active,
         categories: categories
       },
-      showFilters: { status: false, crowdfounding: true, categories: true }
+      showFilters: { status: false, crowdfunding: true, categories: true }
     })
     expect(filtered).toStrictEqual(places)
   })
@@ -165,31 +165,31 @@ describe('#showFilters', () => {
         state: State.active,
         categories: [allCat.car]
       },
-      showFilters: { status: false, crowdfounding: true, categories: true }
+      showFilters: { status: false, crowdfunding: true, categories: true }
     })
     expect(filtered).toStrictEqual([starting, active])
   })
 
-  test('ignore crowdfounding', () => {
+  test('ignore crowdfunding', () => {
     const filtered = filterPlaces({
       places,
       filters: {
         state: State.middle,
         categories: categories
       },
-      showFilters: { status: true, crowdfounding: false, categories: true }
+      showFilters: { status: true, crowdfunding: false, categories: true }
     })
     expect(filtered).toStrictEqual(places)
   })
 
-  test('ignore crowdfounding but use categories', () => {
+  test('ignore crowdfunding but use categories', () => {
     const filtered = filterPlaces({
       places,
       filters: {
         state: State.middle,
         categories: [allCat.car]
       },
-      showFilters: { status: true, crowdfounding: false, categories: true }
+      showFilters: { status: true, crowdfunding: false, categories: true }
     })
     expect(filtered).toStrictEqual([starting, active])
   })
@@ -201,19 +201,19 @@ describe('#showFilters', () => {
         state: State.all,
         categories: [allCat.car]
       },
-      showFilters: { status: true, crowdfounding: true, categories: false }
+      showFilters: { status: true, crowdfunding: true, categories: false }
     })
     expect(filtered).toStrictEqual(places)
   })
 
-  test('do not show active places when filtering by crowdfounding', () => {
+  test('do not show active places when filtering by crowdfunding', () => {
     const filtered = filterPlaces({
       places,
       filters: {
         state: State.middle,
         categories: [allCat.car]
       },
-      showFilters: { status: true, crowdfounding: true, categories: false }
+      showFilters: { status: true, crowdfunding: true, categories: false }
     })
     expect(filtered).toStrictEqual([middle])
   })

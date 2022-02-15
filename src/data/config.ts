@@ -17,10 +17,10 @@ const data = {
     } as ThemeColor,
     tileStyle: 'osm' as TileStyle
   } as Theme,
-  crowdfounding: {
+  crowdfunding: {
     showMarkerProgress: true
   },
-  showFilters: { status: true, crowdfounding: true, categories: true },
+  showFilters: { status: true, crowdfunding: true, categories: true },
   legal: {
     privacyLink: 'https://www.sommobilitat.coop/politica-de-privadesa/',
     cookiesLink: 'https://www.sommobilitat.coop/cookies/'

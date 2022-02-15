@@ -20,25 +20,25 @@ const FilterControl = () => {
     config
   } = useMapData()
   const showFilters = useShowFiltersWithDefaults(config.showFilters)
-  const unfilteredCrowdfoundingStates = useRef<State[]>([
+  const unfilteredCrowdfundingStates = useRef<State[]>([
     State.starting,
     State.middle,
     State.finishing
   ]).current
-  const crowdfoundingStates = useRef<State[]>(
-    showFilters.crowdfounding ? unfilteredCrowdfoundingStates : []
+  const crowdfundingStates = useRef<State[]>(
+    showFilters.crowdfunding ? unfilteredCrowdfundingStates : []
   ).current
   const statusStates = useRef<State[]>(
     showFilters.status ? [State.active] : []
   ).current
   const states = useRef<State[]>([
     State.all,
-    ...crowdfoundingStates,
+    ...crowdfundingStates,
     ...statusStates
   ]).current
   const showAnyFilter =
     showFilters.status ||
-    showFilters.crowdfounding ||
+    showFilters.crowdfunding ||
     (showFilters.categories && categories.length > 1)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -80,8 +80,8 @@ const FilterControl = () => {
         open={open}
         state={state}
         statusStates={statusStates}
-        unfilteredCrowdfoundingStates={unfilteredCrowdfoundingStates}
-        crowdfoundingStates={crowdfoundingStates}
+        unfilteredCrowdfundingStates={unfilteredCrowdfundingStates}
+        crowdfundingStates={crowdfundingStates}
         onToggleFilters={onToggleFilters}
         categorySlugs={categorySlugs}
       />

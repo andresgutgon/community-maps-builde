@@ -107,14 +107,14 @@ erDiagram
 ```
 
 ### CROWDFOUNDING TYPES
-Crowdfounding models is something that is not directly related with this proyect.
+Crowdfunding models is something that is not directly related with this proyect.
 The way our Odoo servers expose what they can capture is through `forms.submission_schema` JSON field.
 This field will tell React how the UI of the submision form should look. And what to send back to the server.
 Is responsability of the server to validate and store the information send from the maps.
 
-Beind said that. These are some of the crowdfounding models we contemplate
+Beind said that. These are some of the crowdfunding models we contemplate
 
-- `crowdfounding_types`
+- `crowdfunding_types`
   - `none` - by default is interest in users
   - `ammount_of_money` - (ABSOLUTE) User compromise a fixed amount of money
   - `loan` - (ABSOLUTE) User compromises a contribution and he receives a yearly interest + some benefits on the service (optional) + return of the contribution after loan period is over.
@@ -125,6 +125,6 @@ Beind said that. These are some of the crowdfounding models we contemplate
     - `credit_and_fee` - Combination of both.
   - `mileage` - (KILOMETRAJE) User compromises a certain amount of mileage to be used on the vehicle.
 
-** Not all of type of crowdfounding can be mixed.
+** Not all of type of crowdfunding can be mixed.
 
 

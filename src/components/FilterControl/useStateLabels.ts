@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 import { useIntl } from 'react-intl'
 
-import { CrowdfoundingRange, CROWDFOUNDING_RANGES, State } from './useFilters'
+import { CrowdfundingRange, CROWDFOUNDING_RANGES, State } from './useFilters'
 
 const useBuildDescription = () => {
   const intl = useIntl()
-  return ({ min, max }: CrowdfoundingRange): string => {
+  return ({ min, max }: CrowdfundingRange): string => {
     return intl.formatMessage(
       { defaultMessage: 'De {min} a {max}% de aportación', id: 'OwIhLK' },
       { min, max: max - 1 }

@@ -44,9 +44,10 @@ const parseMarkdownFields = (
   )
   const dataKeys = Object.keys(schemaData)
   return dataKeys.reduce((memo: any, key: string) => {
-    const value = markdownFields.includes(key)
-      ? parseMarkdownValue(schemaData[key])
-      : schemaData[key]
+    const hasMarkdown = markdownFields.includes(key)
+    const rawValue = schemaData[key]
+    const value =
+      hasMarkdown && !!rawValue ? parseMarkdownValue(rawValue) : rawValue
     memo[key] = value
     return memo
     // Process as markdown

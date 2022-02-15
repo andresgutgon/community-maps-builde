@@ -18,8 +18,8 @@ import { useShowFiltersWithDefaults, State } from '../useFilters'
 const FilterDisplay = ({
   open,
   statusStates,
-  unfilteredCrowdfoundingStates,
-  crowdfoundingStates,
+  unfilteredCrowdfundingStates,
+  crowdfundingStates,
   state,
   onToggleFilters,
   categorySlugs
@@ -36,10 +36,10 @@ const FilterDisplay = ({
     categories.length > 1 && selectedCategories.length !== categories.length
   const showCategories = showCategoriesFilter && showFilters.categories
   const showStatus = statusStates.length > 0 && state === State.active
-  const showCrowdfounding =
-    crowdfoundingStates.length > 0 &&
-    unfilteredCrowdfoundingStates.includes(state)
-  const show = showCategories || showCrowdfounding || showStatus
+  const showCrowdfunding =
+    crowdfundingStates.length > 0 &&
+    unfilteredCrowdfundingStates.includes(state)
+  const show = showCategories || showCrowdfunding || showStatus
   const label = intl.formatMessage({
     id: '4kF+sS',
     defaultMessage: 'Filtrar lugares'
@@ -78,7 +78,7 @@ const FilterDisplay = ({
       </ControlHandler>
       {!open && show ? (
         <div className='flex-1 flex flex-col space-y-1 sm:space-y-2 border-t border-gray-100 mt-2 pt-2'>
-          {showCrowdfounding || showStatus ? (
+          {showCrowdfunding || showStatus ? (
             <StateLabel showDescription state={state} />
           ) : null}
           {showCategories ? (

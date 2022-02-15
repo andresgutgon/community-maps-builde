@@ -105,12 +105,12 @@ type Crowdfunding = {
 }
 export type ShowFilters = {
   status: boolean
-  crowdfounding: boolean
+  crowdfunding: boolean
   categories: boolean
 }
 export type Config = {
   theme: Theme
-  crowdfounding: Crowdfunding
+  crowdfunding: Crowdfunding
   showFilters: null | undefined | ShowFilters
   legal?: Legal
   forms?: Record<string, Form>

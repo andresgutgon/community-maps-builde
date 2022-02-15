@@ -27,7 +27,7 @@ export enum Percentage {
 export const useMarkerPercentage = (percentage: number): Percentage => {
   const {
     config: {
-      crowdfounding: { showMarkerProgress }
+      crowdfunding: { showMarkerProgress }
     }
   } = useMapData()
 

@@ -187,7 +187,7 @@ export const CommunityProvider = ({
       // Build icon markers based on categories on this map
       buildIconMarkers(
         categories.current,
-        config.current.crowdfounding.showMarkerProgress
+        config.current.crowdfunding.showMarkerProgress
       )
 
       const themeColor = config.current.theme.color

@@ -10,18 +10,17 @@ export enum State {
   finishing = 'finishing',
   active = 'active'
 }
-export type CrowdfoundingRange = { min: number; max: number }
+export type CrowdfundingRange = { min: number; max: number }
 export const DEFAULT_SHOW_FILTERS: ShowFilters = {
   status: true,
-  crowdfounding: true,
+  crowdfunding: true,
   categories: true
 }
-export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfoundingRange>> =
-  {
-    [State.starting]: { min: 0, max: 5 },
-    [State.middle]: { min: 5, max: 75 },
-    [State.finishing]: { min: 75, max: 100 }
-  }
+export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfundingRange>> = {
+  [State.starting]: { min: 0, max: 5 },
+  [State.middle]: { min: 5, max: 75 },
+  [State.finishing]: { min: 75, max: 100 }
+}
 export type Filters = { state: State; categories: string[] }
 
 function filterByCategory(categories: string[], showFilters: ShowFilters) {
@@ -35,7 +34,7 @@ function filterByCategory(categories: string[], showFilters: ShowFilters) {
 function filterByRange(state: State, showFilters: ShowFilters) {
   const range = CROWDFOUNDING_RANGES[state]
   return (place: Place): boolean => {
-    if (!showFilters?.crowdfounding) return true
+    if (!showFilters?.crowdfunding) return true
 
     // Exclude active places from range
     if (place.active) return false
