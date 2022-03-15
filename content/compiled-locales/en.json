@@ -2,19 +2,19 @@
   "+xDksj": [
     {
       "type": 0,
-      "value": "Casi financiados"
+      "value": "Almost completed"
     }
   ],
   "/kG/Lg": [
     {
       "type": 0,
-      "value": "Minimizar mapa"
+      "value": "Minify map"
     }
   ],
   "1izKCT": [
     {
       "type": 0,
-      "value": "Este campo debe ser igual o más de "
+      "value": "This value must be greater or equal than "
     },
     {
       "type": 1,
@@ -24,13 +24,13 @@
   "1uGo7W": [
     {
       "type": 0,
-      "value": "Este campo es numérico"
+      "value": "This value is a number"
     }
   ],
   "3Fs00I": [
     {
       "type": 0,
-      "value": "El campo "
+      "value": "The field "
     },
     {
       "type": 1,
@@ -38,25 +38,25 @@
     },
     {
       "type": 0,
-      "value": " es obligatorio"
+      "value": " is mandatory"
     }
   ],
   "3sBbAu": [
     {
       "type": 0,
-      "value": "día"
+      "value": "day"
     }
   ],
   "3vFpuC": [
     {
       "type": 0,
-      "value": "Debes aceptar los términos de legales"
+      "value": "You must accept legal terms"
     }
   ],
   "4iGwAO": [
     {
       "type": 0,
-      "value": "Este campo debe ser igual o menos de "
+      "value": "This field must be lower or equal than "
     },
     {
       "type": 1,
@@ -66,13 +66,13 @@
   "4kF+sS": [
     {
       "type": 0,
-      "value": "Filtrar lugares"
+      "value": "Filter"
     }
   ],
   "54j70O": [
     {
       "type": 0,
-      "value": "Comparte en Twitter "
+      "value": "Share on twitter "
     },
     {
       "type": 1,
@@ -82,133 +82,133 @@
   "7AAm0o": [
     {
       "type": 0,
-      "value": "Por categoría"
+      "value": "By category"
     }
   ],
   "85GhLR": [
     {
       "type": 0,
-      "value": "Copiar enlace"
+      "value": "Copy link"
     }
   ],
   "DTelvK": [
     {
       "type": 0,
-      "value": "Cambiar direccón"
+      "value": "Change your address"
     }
   ],
   "DtZeeF": [
     {
       "type": 0,
-      "value": "Tarifa según tu aportación"
+      "value": "Tariff depending on the contribution"
     }
   ],
   "E8dzwn": [
     {
       "type": 0,
-      "value": "Deja aquí cualquier aclaración relacionada con este lugar en lo relativo a su dirección o cualquier otro tema que nos quieras comentar"
+      "value": "Leave here any comment you want to make"
     }
   ],
   "Eek11u": [
     {
       "type": 0,
-      "value": "Arrastra el punto si quieres ajustar la direccón. Si la ves bien pulsa continuar"
+      "value": "Drag&drop the marker to refine our selection. When it's correct click Continue"
     }
   ],
   "ElUisA": [
     {
       "type": 0,
-      "value": "Mostrar"
+      "value": "Show"
     }
   ],
   "FagJhM": [
     {
       "type": 0,
-      "value": "¡Copiado!"
+      "value": "¡Copied!"
     }
   ],
   "FmR1T5": [
     {
       "type": 0,
-      "value": "Elige el tipo de lugar"
+      "value": "Show the type"
     }
   ],
   "GI//kj": [
     {
       "type": 0,
-      "value": "Por estado"
+      "value": "By status"
     }
   ],
   "GbLpqH": [
     {
       "type": 0,
-      "value": "Activos"
+      "value": "Actives"
     }
   ],
   "H3Kz8v": [
     {
       "type": 0,
-      "value": "Hubo un error inesperado en el servidor, Por favor intentalo de nuevo"
+      "value": "There's been a server error. Please try again."
     }
   ],
   "IOnTHc": [
     {
       "type": 0,
-      "value": "Participar"
+      "value": "Participate"
     }
   ],
   "IVA/Y9": [
     {
       "type": 0,
-      "value": "Buscar una dirección"
+      "value": "Search by address"
     }
   ],
   "Ib04NK": [
     {
       "type": 0,
-      "value": "Información adicional"
+      "value": "Aditional information"
     }
   ],
   "J3iaDf": [
     {
       "type": 0,
-      "value": "Estos puntos están funcionando"
+      "value": "Those are the active locations"
     }
   ],
   "K6pXDZ": [
     {
       "type": 0,
-      "value": "Categoría"
+      "value": "Category"
     }
   ],
   "Kdq+g3": [
     {
       "type": 0,
-      "value": "Cerrar filtros"
+      "value": "Close filter"
     }
   ],
   "LxAGKW": [
     {
       "type": 0,
-      "value": "¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar"
+      "value": "Search the address to propose a location."
     }
   ],
   "MwlsML": [
     {
       "type": 0,
-      "value": "Cerrar modal"
+      "value": "Close modal"
     }
   ],
   "Ne/FEr": [
     {
       "type": 0,
-      "value": "Precio por hora"
+      "value": "Price by hour"
     }
   ],
   "OS3K9O": [
     {
       "type": 0,
-      "value": "Si tu aportación es de "
+      "value": "For a contribution between "
     },
     {
       "type": 1,
@@ -216,7 +216,7 @@
     },
     {
       "type": 0,
-      "value": " a "
+      "value": " and "
     },
     {
       "type": 1,
@@ -224,7 +224,7 @@
     },
     {
       "type": 0,
-      "value": " tu tarifa por "
+      "value": " your tariff "
     },
     {
       "type": 1,
@@ -232,7 +232,7 @@
     },
     {
       "type": 0,
-      "value": " es "
+      "value": " will be "
     },
     {
       "type": 1,
@@ -242,7 +242,7 @@
   "OwIhLK": [
     {
       "type": 0,
-      "value": "De "
+      "value": "From "
     },
     {
       "type": 1,
@@ -250,7 +250,7 @@
     },
     {
       "type": 0,
-      "value": " a "
+      "value": " to "
     },
     {
       "type": 1,
@@ -258,79 +258,79 @@
     },
     {
       "type": 0,
-      "value": "% de aportación"
+      "value": "% contributed"
     }
   ],
   "P8VfZA": [
     {
       "type": 0,
-      "value": "Todos"
+      "value": "All"
     }
   ],
   "Pga9q2": [
     {
       "type": 0,
-      "value": "Lo sentimos, no hay resultados para esta dirección"
+      "value": "Sorry, no results for this address"
     }
   ],
   "QK2a+D": [
     {
       "type": 0,
-      "value": "Poco financiados"
+      "value": "Underfunded"
     }
   ],
   "TKx/Q8": [
     {
       "type": 0,
-      "value": "Mejor"
+      "value": "Best"
     }
   ],
   "Tq7tlV": [
     {
       "type": 0,
-      "value": "Dirección"
+      "value": "Address"
     }
   ],
   "VMmmhi": [
     {
       "type": 0,
-      "value": "Elige una categoría para el lugar que vas a sugerir"
+      "value": "Choose a category for the location proposal"
     }
   ],
   "VTfGzG": [
     {
       "type": 0,
-      "value": "Filtrar"
+      "value": "Filter"
     }
   ],
   "VvIgYE": [
     {
       "type": 0,
-      "value": "Todos los lugares sin filtrar"
+      "value": "All non filtered locations"
     }
   ],
   "Wceeld": [
     {
       "type": 0,
-      "value": "Cambiar categoría"
+      "value": "Change category"
     }
   ],
   "at9R+C": [
     {
       "type": 0,
-      "value": "Debes seleccionar un valor de la lista"
+      "value": "You must select a value from the list."
     }
   ],
   "bPxeVs": [
     {
       "type": 0,
-      "value": "Sugierenos un lugar"
+      "value": "Suggest a place"
     }
   ],
   "c13AgS": [
     {
       "type": 0,
-      "value": "Hubo un error cargando el mapa con slug "
+      "value": "There is been a problem loading "
     },
     {
       "type": 1,
@@ -340,25 +340,25 @@
   "cz9Q8R": [
     {
       "type": 0,
-      "value": "Ocultar"
+      "value": "Hide"
     }
   ],
   "eOuNie": [
     {
       "type": 0,
-      "value": "Buscar"
+      "value": "Search"
     }
   ],
   "gNB19l": [
     {
       "type": 0,
-      "value": "Hubo un error al enviar la información"
+      "value": "There was a problem sending your request."
     }
   ],
   "gRQW59": [
     {
       "type": 0,
-      "value": "Bastante financiados"
+      "value": "Well funded"
     }
   ],
   "iB0EB1": [
@@ -368,7 +368,7 @@
     },
     {
       "type": 0,
-      "value": " de "
+      "value": " from "
     },
     {
       "type": 1,
@@ -378,7 +378,7 @@
   "iqHmPx": [
     {
       "type": 0,
-      "value": "Copia el enlace a este lugar "
+      "value": "Copy link to this location "
     },
     {
       "type": 1,
@@ -388,7 +388,7 @@
   "k3fpzo": [
     {
       "type": 0,
-      "value": "Si tu aportación es más de "
+      "value": "For a contribution greater than "
     },
     {
       "type": 1,
@@ -396,7 +396,7 @@
     },
     {
       "type": 0,
-      "value": " tu tarifa por "
+      "value": " your tariff "
     },
     {
       "type": 1,
@@ -404,7 +404,7 @@
     },
     {
       "type": 0,
-      "value": " es "
+      "value": " will be "
     },
     {
       "type": 1,
@@ -414,37 +414,37 @@
   "kUKcmK": [
     {
       "type": 0,
-      "value": "Sugiérenos un lugar"
+      "value": "Suggest a place"
     }
   ],
   "l4IlHe": [
     {
       "type": 0,
-      "value": "Política de privacidad"
+      "value": "Privacy policy"
     }
   ],
   "lYL/xX": [
     {
       "type": 0,
-      "value": "Hubo un error cargando los puntos en este mapa"
+      "value": "There is being a problem loading"
     }
   ],
   "lkLfmX": [
     {
       "type": 0,
-      "value": "Expandir mapa"
+      "value": "Expand map"
     }
   ],
   "m9eXO9": [
     {
       "type": 0,
-      "value": "Cargando"
+      "value": "Loading"
     }
   ],
   "mFDtrP": [
     {
       "type": 0,
-      "value": "Acepto la "
+      "value": "I accept the "
     },
     {
       "type": 1,
@@ -452,7 +452,7 @@
     },
     {
       "type": 0,
-      "value": " y la "
+      "value": " and the "
     },
     {
       "type": 1,
@@ -462,19 +462,19 @@
   "nZLeaQ": [
     {
       "type": 0,
-      "value": "Cancelar"
+      "value": "Cancel"
     }
   ],
   "oxv0hl": [
     {
       "type": 0,
-      "value": "Política de cookies"
+      "value": "Cookies policy"
     }
   ],
   "pa1TSf": [
     {
       "type": 0,
-      "value": "Este campo debe ser igual o más de "
+      "value": "This field must have minimum "
     },
     {
       "type": 1,
@@ -482,25 +482,25 @@
     },
     {
       "type": 0,
-      "value": " letras"
+      "value": " letters"
     }
   ],
   "puO6Zk": [
     {
       "type": 0,
-      "value": "hora"
+      "value": "hour"
     }
   ],
   "qc8eLe": [
     {
       "type": 0,
-      "value": "A más aportación te podemos ofrecer mejor tarifa"
+      "value": "For a greater contribution you'll get a better tariff"
     }
   ],
   "spATk4": [
     {
       "type": 0,
-      "value": "Acepto la "
+      "value": "I accept the "
     },
     {
       "type": 1,
@@ -510,25 +510,25 @@
   "tClzXv": [
     {
       "type": 0,
-      "value": "Enviando"
+      "value": "Sending"
     }
   ],
   "tHIDSe": [
     {
       "type": 0,
-      "value": "Precio por día"
+      "value": "Price by day"
     }
   ],
   "vD8ftS": [
     {
       "type": 0,
-      "value": "Cómo llegar"
+      "value": "How to arrive"
     }
   ],
   "w0H4hf": [
     {
       "type": 0,
-      "value": "Este campo "
+      "value": "This field "
     },
     {
       "type": 1,
@@ -536,25 +536,25 @@
     },
     {
       "type": 0,
-      "value": " es obligatorio"
+      "value": " is mandatory"
     }
   ],
   "w2xatL": [
     {
       "type": 0,
-      "value": "Siguiente"
+      "value": "Continue"
     }
   ],
   "yq+tl0": [
     {
       "type": 0,
-      "value": "Sugerir lugar"
+      "value": "Suggest a place"
     }
   ],
   "zaaFVR": [
     {
       "type": 0,
-      "value": "El formato de email no es válido"
+      "value": "Email format is invalid"
     }
   ]
 }

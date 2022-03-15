@@ -34,9 +34,11 @@ const withHeaderBearerToken =
     }
 
     var tokenHeaders = new Headers({
-      // 'Content-Type': 'application/json',
       'API-KEY': community.token
     }) as CustomHeaders
+    if (request.method != 'GET') {
+      tokenHeaders.set('Content-Type', 'application/json')
+    }
     return handler({
       request,
       response,
