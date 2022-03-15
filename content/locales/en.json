@@ -1,0 +1,215 @@
+{
+  "QK2a+D": {
+    "defaultMessage": "Underfunded"
+  },
+  "gRQW59": {
+    "defaultMessage": "Well funded"
+  },
+  "+xDksj": {
+    "defaultMessage": "Almost completed"
+  },
+  "/kG/Lg": {
+    "defaultMessage": "Minify map"
+  },
+  "1izKCT": {
+    "defaultMessage": "This value must be greater or equal than {min}"
+  },
+  "1uGo7W": {
+    "defaultMessage": "This value is a number"
+  },
+  "3Fs00I": {
+    "defaultMessage": "The field {fieldName} is mandatory"
+  },
+  "3sBbAu": {
+    "defaultMessage": "day"
+  },
+  "3vFpuC": {
+    "defaultMessage": "You must accept legal terms"
+  },
+  "4iGwAO": {
+    "defaultMessage": "This field must be lower or equal than {max}"
+  },
+  "4kF+sS": {
+    "defaultMessage": "Filter"
+  },
+  "54j70O": {
+    "defaultMessage": "Share on twitter {placeName}"
+  },
+  "7AAm0o": {
+    "defaultMessage": "By category"
+  },
+  "85GhLR": {
+    "defaultMessage": "Copy link"
+  },
+  "DTelvK": {
+    "defaultMessage": "Change your address"
+  },
+  "DtZeeF": {
+    "defaultMessage": "Tariff depending on the contribution"
+  },
+  "E8dzwn": {
+    "defaultMessage": "Leave here any comment you want to make"
+  },
+  "Eek11u": {
+    "defaultMessage": "Drag&drop the marker to refine our selection. When it's correct click Continue"
+  },
+  "ElUisA": {
+    "defaultMessage": "Show"
+  },
+  "FagJhM": {
+    "defaultMessage": "¡Copied!"
+  },
+  "FmR1T5": {
+    "defaultMessage": "Show the type"
+  },
+  "GI//kj": {
+    "defaultMessage": "By status"
+  },
+  "GbLpqH": {
+    "defaultMessage": "Actives"
+  },
+  "H3Kz8v": {
+    "defaultMessage": "There's been a server error. Please try again."
+  },
+  "IOnTHc": {
+    "defaultMessage": "Participate"
+  },
+  "IVA/Y9": {
+    "defaultMessage": "Search by address"
+  },
+  "Ib04NK": {
+    "defaultMessage": "Aditional information"
+  },
+  "J3iaDf": {
+    "defaultMessage": "Those are the active locations"
+  },
+  "K6pXDZ": {
+    "defaultMessage": "Category"
+  },
+  "Kdq+g3": {
+    "defaultMessage": "Close filter"
+  },
+  "LxAGKW": {
+    "defaultMessage": "Search the address to propose a location."
+  },
+  "MwlsML": {
+    "defaultMessage": "Close modal"
+  },
+  "Ne/FEr": {
+    "defaultMessage": "Price by hour"
+  },
+  "OS3K9O": {
+    "defaultMessage": "For a contribution between {min} and {max} your tariff {timeRate} will be {rate}"
+  },
+  "OwIhLK": {
+    "defaultMessage": "From {min} to {max}% contributed"
+  },
+  "P8VfZA": {
+    "defaultMessage": "All"
+  },
+  "Pga9q2": {
+    "defaultMessage": "Sorry, no results for this address"
+  },
+  "TKx/Q8": {
+    "defaultMessage": "Best"
+  },
+  "Tq7tlV": {
+    "defaultMessage": "Address"
+  },
+  "VMmmhi": {
+    "defaultMessage": "Choose a category for the location proposal"
+  },
+  "VTfGzG": {
+    "defaultMessage": "Filter"
+  },
+  "VvIgYE": {
+    "defaultMessage": "All non filtered locations"
+  },
+  "Wceeld": {
+    "defaultMessage": "Change category"
+  },
+  "at9R+C": {
+    "defaultMessage": "You must select a value from the list."
+  },
+  "bPxeVs": {
+    "defaultMessage": "Suggest a place"
+  },
+  "c13AgS": {
+    "defaultMessage": "There is been a problem loading {mapSlug}"
+  },
+  "cz9Q8R": {
+    "defaultMessage": "Hide"
+  },
+  "eOuNie": {
+    "defaultMessage": "Search"
+  },
+  "gNB19l": {
+    "defaultMessage": "There was a problem sending your request."
+  },
+  "iB0EB1": {
+    "defaultMessage": "{filter} from {total}"
+  },
+  "iqHmPx": {
+    "defaultMessage": "Copy link to this location {placeName}"
+  },
+  "k3fpzo": {
+    "defaultMessage": "For a contribution greater than {value} your tariff {timeRate} will be {rate}"
+  },
+  "kUKcmK": {
+    "defaultMessage": "Suggest a place"
+  },
+  "l4IlHe": {
+    "defaultMessage": "Privacy policy"
+  },
+  "lYL/xX": {
+    "defaultMessage": "There is being a problem loading"
+  },
+  "lkLfmX": {
+    "defaultMessage": "Expand map"
+  },
+  "m9eXO9": {
+    "defaultMessage": "Loading"
+  },
+  "mFDtrP": {
+    "defaultMessage": "I accept the {privacyLink} and the {cookiesLink}"
+  },
+  "nZLeaQ": {
+    "defaultMessage": "Cancel"
+  },
+  "oxv0hl": {
+    "defaultMessage": "Cookies policy"
+  },
+  "pa1TSf": {
+    "defaultMessage": "This field must have minimum {min} letters"
+  },
+  "puO6Zk": {
+    "defaultMessage": "hour"
+  },
+  "qc8eLe": {
+    "defaultMessage": "For a greater contribution you'll get a better tariff"
+  },
+  "spATk4": {
+    "defaultMessage": "I accept the {link}"
+  },
+  "tClzXv": {
+    "defaultMessage": "Sending"
+  },
+  "tHIDSe": {
+    "defaultMessage": "Price by day"
+  },
+  "vD8ftS": {
+    "defaultMessage": "How to arrive"
+  },
+  "w0H4hf": {
+    "defaultMessage": "This field {fieldName} is mandatory"
+  },
+  "w2xatL": {
+    "defaultMessage": "Continue"
+  },
+  "yq+tl0": {
+    "defaultMessage": "Suggest a place"
+  },
+  "zaaFVR": {
+    "defaultMessage": "Email format is invalid"
+  }
+}

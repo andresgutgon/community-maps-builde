@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl'
 // LOCALES
 import ES_LOCALE from '../../content/compiled-locales/es.json'
 import CA_LOCALE from '../../content/compiled-locales/ca.json'
+import EN_LOCALE from '../../content/compiled-locales/en.json'
 
 // Styles
 import '../styles/index.css'
@@ -22,6 +23,8 @@ function CommunityBuilderApp({ Component, pageProps }: AppProps) {
         return ES_LOCALE
       case 'ca':
         return CA_LOCALE
+      case 'en':
+        return EN_LOCALE
       default:
         return ES_LOCALE
     }
