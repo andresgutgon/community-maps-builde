@@ -49,7 +49,7 @@ type PricingRate = { hourly: number; daily: number }
 type PricingRateConfig = {
   minimum: number
   maximum: number
-  rates: PricingRate
+  rates?: PricingRate
 }
 function parsePricingRates(
   pricingRates: null | PricingRateConfig[],
