@@ -1,9 +1,15 @@
 import {
-  ControlElement,
   rankWith,
   RankedTester,
   uiTypeIs,
+  ControlProps
 } from '@jsonforms/core'
+import { withJsonFormsControlProps } from '@jsonforms/react'
+import {
+  withVanillaControlProps,
+  VanillaRendererProps
+} from '@jsonforms/vanilla-renderers'
+
 
 const isImage = (
   uiTypeIs('Control')
@@ -12,27 +18,23 @@ const isImage = (
 export const imageTester: RankedTester = rankWith(10, isImage)
 
 
-type Props = {
-  src?: string
-  alt: string
-  uischema: ControlElement
-  visible: boolean
-}
-const RendererImage = ({
-  src,
-  visible,
+type Props = ControlProps & VanillaRendererProps
+const ImageControl = ({
   uischema,
+  visible,
+  classNames
 }: Props) => {
-  // const showImage = !isImageHidden(
-    // visible,
-    src
-  // )
+  const src = uischema?.options?.src
+
+  if (!visible) return null
+
   return (
-    <div className='sm:p-6'>
-      {/* {showImage ? src : null} */}
-      <img className='rounded-xl' src={src}/>
+    <div className={classNames.wrapper}>
+      <img src={src}/>
     </div>
   )
 }
 
-export default RendererImage
+export default withVanillaControlProps(
+  withJsonFormsControlProps(ImageControl)
+)

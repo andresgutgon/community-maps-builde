@@ -5,7 +5,7 @@ import PricingRatesInput, {
   pricingRatesTester
 } from './Renderers/controls/PricingRatesInput'
 import BooleanControl, { booleanTester } from './Renderers/controls/Boolean'
-import RendererImage, { imageTester } from './Renderers/controls/Image'
+import ImageControl, { imageTester } from './Renderers/controls/Image'
 
 /**
  * We try to use as much as possible the renderers JSONforsm offer:
@@ -20,7 +20,7 @@ const renderers = [
   ...vanillaRenderers,
   { tester: pricingRatesTester, renderer: PricingRatesInput },
   { tester: booleanTester, renderer: BooleanControl },
-  { tester: imageTester, renderer: RendererImage}
+  { tester: imageTester, renderer: ImageControl }
 ]
 
 export default renderers
