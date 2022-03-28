@@ -108,6 +108,13 @@
           "elements": [
             {
               "type": "Control",
+              "scope": "#/properties/image_url",
+               "options": {
+                "src": "car-photo.jpg"
+              }
+            },
+            {
+              "type": "Control",
               "scope": "#/properties/contribution_type",
               "label": "Tipo de aportación",
               "options": { "format": "radio" }
