@@ -390,7 +390,7 @@ export const useForm = ({
     dispatch({ type: Actions.SetSubmitting, submitting: false })
 
     if (response.ok) {
-      reset(() => {
+      setInterval(() => {
         if (onResponseSuccess) onResponseSuccess()
       }, 2000)
     }
