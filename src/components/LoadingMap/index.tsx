@@ -7,7 +7,9 @@ export enum LoadingMapType {
 }
 const LOADING_TEXT = {
   es: 'Cargando mapa...',
-  ca: 'Carregant mapa...'
+  ca: 'Carregant mapa...',
+  en: 'Loading map...',
+  nl: 'Kaart laden...'
 }
 type Props = { message?: string; type?: LoadingMapType }
 const LoadingMap = ({ message, type = LoadingMapType.Info }: Props) => {
