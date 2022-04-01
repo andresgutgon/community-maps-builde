@@ -27,9 +27,7 @@ type TextDisplayProps = ControlProps & {
 const LinkDisplay = ({ label, data }: TextDisplayProps) => {
   return (
     <div className='flex flex-col w-full'>
-      <h3 className='text-base text-gray-800 font-medium'>
-        {`${label} (${data}%)`}
-      </h3>
+      <h3 className='text-base text-gray-800 font-medium'>{`${label}`}</h3>
       <ProgressIndicator value={data} size='normal' />
     </div>
   )
