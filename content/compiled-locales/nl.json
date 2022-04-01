@@ -1,0 +1,560 @@
+{
+  "+xDksj": [
+    {
+      "type": 0,
+      "value": "Financiering bijna rond"
+    }
+  ],
+  "/kG/Lg": [
+    {
+      "type": 0,
+      "value": "Verklein kaart"
+    }
+  ],
+  "1izKCT": [
+    {
+      "type": 0,
+      "value": "Deze waarde moet groter zijn of gelijk aan "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    }
+  ],
+  "1uGo7W": [
+    {
+      "type": 0,
+      "value": "Deze waarde is een getal"
+    }
+  ],
+  "3Fs00I": [
+    {
+      "type": 0,
+      "value": "Het veld "
+    },
+    {
+      "type": 1,
+      "value": "fieldName"
+    },
+    {
+      "type": 0,
+      "value": " is verplicht"
+    }
+  ],
+  "3sBbAu": [
+    {
+      "type": 0,
+      "value": "dag"
+    }
+  ],
+  "3vFpuC": [
+    {
+      "type": 0,
+      "value": "Je moet akkoord gaan met de gebruiksvoorwaarden"
+    }
+  ],
+  "4iGwAO": [
+    {
+      "type": 0,
+      "value": "Deze waarde moet lager of gelijk zijn aan "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    }
+  ],
+  "4kF+sS": [
+    {
+      "type": 0,
+      "value": "Filter"
+    }
+  ],
+  "54j70O": [
+    {
+      "type": 0,
+      "value": "Deel op twitter "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "7AAm0o": [
+    {
+      "type": 0,
+      "value": "Volgens type"
+    }
+  ],
+  "85GhLR": [
+    {
+      "type": 0,
+      "value": "Kopieer link"
+    }
+  ],
+  "DTelvK": [
+    {
+      "type": 0,
+      "value": "Wijzig jouw adres"
+    }
+  ],
+  "DtZeeF": [
+    {
+      "type": 0,
+      "value": "Tarieven afhankelijk van jouw bijdrage"
+    }
+  ],
+  "E8dzwn": [
+    {
+      "type": 0,
+      "value": "Laat hier jouw bemerkingen achter"
+    }
+  ],
+  "Eek11u": [
+    {
+      "type": 0,
+      "value": "Versleep het punt om onze selectie te verfijnen. Als het juist staat, klik 'Verder gaan'"
+    }
+  ],
+  "ElUisA": [
+    {
+      "type": 0,
+      "value": "Toon"
+    }
+  ],
+  "FagJhM": [
+    {
+      "type": 0,
+      "value": "Gekopieerd!"
+    }
+  ],
+  "FmR1T5": [
+    {
+      "type": 0,
+      "value": "Toon het type"
+    }
+  ],
+  "GI//kj": [
+    {
+      "type": 0,
+      "value": "Volgens status"
+    }
+  ],
+  "GbLpqH": [
+    {
+      "type": 0,
+      "value": "Actieve"
+    }
+  ],
+  "H3Kz8v": [
+    {
+      "type": 0,
+      "value": "De server gaf een fout. Probeer aub opnieuw."
+    }
+  ],
+  "IOnTHc": [
+    {
+      "type": 0,
+      "value": "Neem deel"
+    }
+  ],
+  "IVA/Y9": [
+    {
+      "type": 0,
+      "value": "Zoek op adres"
+    }
+  ],
+  "Ib04NK": [
+    {
+      "type": 0,
+      "value": "Bijomende informatie"
+    }
+  ],
+  "J3iaDf": [
+    {
+      "type": 0,
+      "value": "Dit zijn de actieve locaties"
+    }
+  ],
+  "K6pXDZ": [
+    {
+      "type": 0,
+      "value": "Categorie"
+    }
+  ],
+  "Kdq+g3": [
+    {
+      "type": 0,
+      "value": "Sluit filter"
+    }
+  ],
+  "LxAGKW": [
+    {
+      "type": 0,
+      "value": "Zoek op adres om een locatie voor te stellen"
+    }
+  ],
+  "MwlsML": [
+    {
+      "type": 0,
+      "value": "Sluit modal"
+    }
+  ],
+  "Ne/FEr": [
+    {
+      "type": 0,
+      "value": "Uurprijs"
+    }
+  ],
+  "OS3K9O": [
+    {
+      "type": 0,
+      "value": "Voor een bijdrage tussen "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " en "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " wordt jouw tarief "
+    },
+    {
+      "type": 1,
+      "value": "timeRate"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "rate"
+    }
+  ],
+  "OwIhLK": [
+    {
+      "type": 0,
+      "value": "Van "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " tot "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": "% bijgedragen"
+    }
+  ],
+  "P8VfZA": [
+    {
+      "type": 0,
+      "value": "Alles"
+    }
+  ],
+  "Pga9q2": [
+    {
+      "type": 0,
+      "value": "Excuses, dit adres geeft geen resultaten."
+    }
+  ],
+  "QK2a+D": [
+    {
+      "type": 0,
+      "value": "Onder-gefinancierd"
+    }
+  ],
+  "TKx/Q8": [
+    {
+      "type": 0,
+      "value": "Beste"
+    }
+  ],
+  "Tq7tlV": [
+    {
+      "type": 0,
+      "value": "Adres"
+    }
+  ],
+  "VMmmhi": [
+    {
+      "type": 0,
+      "value": "Kies een categorie voor jouw locatie"
+    }
+  ],
+  "VTfGzG": [
+    {
+      "type": 0,
+      "value": "Filter"
+    }
+  ],
+  "VvIgYE": [
+    {
+      "type": 0,
+      "value": "Alle niet-gefilterde locaties"
+    }
+  ],
+  "Wceeld": [
+    {
+      "type": 0,
+      "value": "Wijzig categorie"
+    }
+  ],
+  "at9R+C": [
+    {
+      "type": 0,
+      "value": "Selecteer een waarde uit de lijst."
+    }
+  ],
+  "bPxeVs": [
+    {
+      "type": 0,
+      "value": "Stel een locatie voor"
+    }
+  ],
+  "c13AgS": [
+    {
+      "type": 0,
+      "value": "Er was een probleem met het laden van "
+    },
+    {
+      "type": 1,
+      "value": "mapSlug"
+    }
+  ],
+  "cz9Q8R": [
+    {
+      "type": 0,
+      "value": "Verberg"
+    }
+  ],
+  "eOuNie": [
+    {
+      "type": 0,
+      "value": "Zoek"
+    }
+  ],
+  "gNB19l": [
+    {
+      "type": 0,
+      "value": "Er was een probleem met het verzenden van jouw verzoek."
+    }
+  ],
+  "gRQW59": [
+    {
+      "type": 0,
+      "value": "Gedeeltelijk gefinancierd"
+    }
+  ],
+  "iB0EB1": [
+    {
+      "type": 1,
+      "value": "filter"
+    },
+    {
+      "type": 0,
+      "value": " van "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    }
+  ],
+  "iqHmPx": [
+    {
+      "type": 0,
+      "value": "Kopieer de link naar deze locatie "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "k3fpzo": [
+    {
+      "type": 0,
+      "value": "Voor een bijdrage groter dan "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": " wordt jouw tarief "
+    },
+    {
+      "type": 1,
+      "value": "timeRate"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "rate"
+    }
+  ],
+  "kUKcmK": [
+    {
+      "type": 0,
+      "value": "Stel een locatie voor"
+    }
+  ],
+  "l4IlHe": [
+    {
+      "type": 0,
+      "value": "Privacy-beleid"
+    }
+  ],
+  "lYL/xX": [
+    {
+      "type": 0,
+      "value": "Er is een probleem met het laden"
+    }
+  ],
+  "lkLfmX": [
+    {
+      "type": 0,
+      "value": "Maximaliseer de kaart"
+    }
+  ],
+  "m9eXO9": [
+    {
+      "type": 0,
+      "value": "Aan het laden"
+    }
+  ],
+  "mFDtrP": [
+    {
+      "type": 0,
+      "value": "I ga akkoord met de "
+    },
+    {
+      "type": 1,
+      "value": "privacyLink"
+    },
+    {
+      "type": 0,
+      "value": " en de "
+    },
+    {
+      "type": 1,
+      "value": "cookiesLink"
+    }
+  ],
+  "nZLeaQ": [
+    {
+      "type": 0,
+      "value": "Annuleer"
+    }
+  ],
+  "oxv0hl": [
+    {
+      "type": 0,
+      "value": "Cookies-beleid"
+    }
+  ],
+  "pa1TSf": [
+    {
+      "type": 0,
+      "value": "Deze waarde moet minstens "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " letters hebben."
+    }
+  ],
+  "puO6Zk": [
+    {
+      "type": 0,
+      "value": "uur"
+    }
+  ],
+  "qc8eLe": [
+    {
+      "type": 0,
+      "value": "Met een grotere bijdrage ontvang je een beter tarief."
+    }
+  ],
+  "spATk4": [
+    {
+      "type": 0,
+      "value": "I ga akkoord met "
+    },
+    {
+      "type": 1,
+      "value": "link"
+    }
+  ],
+  "tClzXv": [
+    {
+      "type": 0,
+      "value": "Aan het versturen"
+    }
+  ],
+  "tHIDSe": [
+    {
+      "type": 0,
+      "value": "Dagprijs"
+    }
+  ],
+  "vD8ftS": [
+    {
+      "type": 0,
+      "value": "Hoe er te geraken?"
+    }
+  ],
+  "w0H4hf": [
+    {
+      "type": 0,
+      "value": "Dit veld "
+    },
+    {
+      "type": 1,
+      "value": "fieldName"
+    },
+    {
+      "type": 0,
+      "value": " is verplicht"
+    }
+  ],
+  "w2xatL": [
+    {
+      "type": 0,
+      "value": "Ga verder"
+    }
+  ],
+  "yq+tl0": [
+    {
+      "type": 0,
+      "value": "Stel een locatie voor"
+    }
+  ],
+  "zaaFVR": [
+    {
+      "type": 0,
+      "value": "Check het emailadres aub"
+    }
+  ]
+}

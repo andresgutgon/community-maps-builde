@@ -1,0 +1,215 @@
+{
+  "QK2a+D": {
+    "defaultMessage": "Onder-gefinancierd"
+  },
+  "gRQW59": {
+    "defaultMessage": "Gedeeltelijk gefinancierd"
+  },
+  "+xDksj": {
+    "defaultMessage": "Financiering bijna rond"
+  },
+  "/kG/Lg": {
+    "defaultMessage": "Verklein kaart"
+  },
+  "1izKCT": {
+    "defaultMessage": "Deze waarde moet groter zijn of gelijk aan {min}"
+  },
+  "1uGo7W": {
+    "defaultMessage": "Deze waarde is een getal"
+  },
+  "3Fs00I": {
+    "defaultMessage": "Het veld {fieldName} is verplicht"
+  },
+  "3sBbAu": {
+    "defaultMessage": "dag"
+  },
+  "3vFpuC": {
+    "defaultMessage": "Je moet akkoord gaan met de gebruiksvoorwaarden"
+  },
+  "4iGwAO": {
+    "defaultMessage": "Deze waarde moet lager of gelijk zijn aan {max}"
+  },
+  "4kF+sS": {
+    "defaultMessage": "Filter"
+  },
+  "54j70O": {
+    "defaultMessage": "Deel op twitter {placeName}"
+  },
+  "7AAm0o": {
+    "defaultMessage": "Volgens type"
+  },
+  "85GhLR": {
+    "defaultMessage": "Kopieer link"
+  },
+  "DTelvK": {
+    "defaultMessage": "Wijzig jouw adres"
+  },
+  "DtZeeF": {
+    "defaultMessage": "Tarieven afhankelijk van jouw bijdrage"
+  },
+  "E8dzwn": {
+    "defaultMessage": "Laat hier jouw bemerkingen achter"
+  },
+  "Eek11u": {
+    "defaultMessage": "Versleep het punt om onze selectie te verfijnen. Als het juist staat, klik 'Verder gaan'"
+  },
+  "ElUisA": {
+    "defaultMessage": "Toon"
+  },
+  "FagJhM": {
+    "defaultMessage": "Gekopieerd!"
+  },
+  "FmR1T5": {
+    "defaultMessage": "Toon het type"
+  },
+  "GI//kj": {
+    "defaultMessage": "Volgens status"
+  },
+  "GbLpqH": {
+    "defaultMessage": "Actieve"
+  },
+  "H3Kz8v": {
+    "defaultMessage": "De server gaf een fout. Probeer aub opnieuw."
+  },
+  "IOnTHc": {
+    "defaultMessage": "Neem deel"
+  },
+  "IVA/Y9": {
+    "defaultMessage": "Zoek op adres"
+  },
+  "Ib04NK": {
+    "defaultMessage": "Bijomende informatie"
+  },
+  "J3iaDf": {
+    "defaultMessage": "Dit zijn de actieve locaties"
+  },
+  "K6pXDZ": {
+    "defaultMessage": "Categorie"
+  },
+  "Kdq+g3": {
+    "defaultMessage": "Sluit filter"
+  },
+  "LxAGKW": {
+    "defaultMessage": "Zoek op adres om een locatie voor te stellen"
+  },
+  "MwlsML": {
+    "defaultMessage": "Sluit modal"
+  },
+  "Ne/FEr": {
+    "defaultMessage": "Uurprijs"
+  },
+  "OS3K9O": {
+    "defaultMessage": "Voor een bijdrage tussen {min} en {max} wordt jouw tarief {timeRate} {rate}"
+  },
+  "OwIhLK": {
+    "defaultMessage": "Van {min} tot {max}% bijgedragen"
+  },
+  "P8VfZA": {
+    "defaultMessage": "Alles"
+  },
+  "Pga9q2": {
+    "defaultMessage": "Excuses, dit adres geeft geen resultaten."
+  },
+  "TKx/Q8": {
+    "defaultMessage": "Beste"
+  },
+  "Tq7tlV": {
+    "defaultMessage": "Adres"
+  },
+  "VMmmhi": {
+    "defaultMessage": "Kies een categorie voor jouw locatie"
+  },
+  "VTfGzG": {
+    "defaultMessage": "Filter"
+  },
+  "VvIgYE": {
+    "defaultMessage": "Alle niet-gefilterde locaties"
+  },
+  "Wceeld": {
+    "defaultMessage": "Wijzig categorie"
+  },
+  "at9R+C": {
+    "defaultMessage": "Selecteer een waarde uit de lijst."
+  },
+  "bPxeVs": {
+    "defaultMessage": "Stel een locatie voor"
+  },
+  "c13AgS": {
+    "defaultMessage": "Er was een probleem met het laden van {mapSlug}"
+  },
+  "cz9Q8R": {
+    "defaultMessage": "Verberg"
+  },
+  "eOuNie": {
+    "defaultMessage": "Zoek"
+  },
+  "gNB19l": {
+    "defaultMessage": "Er was een probleem met het verzenden van jouw verzoek."
+  },
+  "iB0EB1": {
+    "defaultMessage": "{filter} van {total}"
+  },
+  "iqHmPx": {
+    "defaultMessage": "Kopieer de link naar deze locatie {placeName}"
+  },
+  "k3fpzo": {
+    "defaultMessage": "Voor een bijdrage groter dan {value} wordt jouw tarief {timeRate} {rate}"
+  },
+  "kUKcmK": {
+    "defaultMessage": "Stel een locatie voor"
+  },
+  "l4IlHe": {
+    "defaultMessage": "Privacy-beleid"
+  },
+  "lYL/xX": {
+    "defaultMessage": "Er is een probleem met het laden"
+  },
+  "lkLfmX": {
+    "defaultMessage": "Maximaliseer de kaart"
+  },
+  "m9eXO9": {
+    "defaultMessage": "Aan het laden"
+  },
+  "mFDtrP": {
+    "defaultMessage": "I ga akkoord met de {privacyLink} en de {cookiesLink}"
+  },
+  "nZLeaQ": {
+    "defaultMessage": "Annuleer"
+  },
+  "oxv0hl": {
+    "defaultMessage": "Cookies-beleid"
+  },
+  "pa1TSf": {
+    "defaultMessage": "Deze waarde moet minstens {min} letters hebben."
+  },
+  "puO6Zk": {
+    "defaultMessage": "uur"
+  },
+  "qc8eLe": {
+    "defaultMessage": "Met een grotere bijdrage ontvang je een beter tarief."
+  },
+  "spATk4": {
+    "defaultMessage": "I ga akkoord met {link}"
+  },
+  "tClzXv": {
+    "defaultMessage": "Aan het versturen"
+  },
+  "tHIDSe": {
+    "defaultMessage": "Dagprijs"
+  },
+  "vD8ftS": {
+    "defaultMessage": "Hoe er te geraken?"
+  },
+  "w0H4hf": {
+    "defaultMessage": "Dit veld {fieldName} is verplicht"
+  },
+  "w2xatL": {
+    "defaultMessage": "Ga verder"
+  },
+  "yq+tl0": {
+    "defaultMessage": "Stel een locatie voor"
+  },
+  "zaaFVR": {
+    "defaultMessage": "Check het emailadres aub"
+  }
+}
