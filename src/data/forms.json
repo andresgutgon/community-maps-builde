@@ -108,6 +108,13 @@
           "elements": [
             {
               "type": "Control",
+              "scope": "#/properties/markdown",
+              "options": { 
+                "markdown": "<h1>titulo</h1><p>párrafo</p>" 
+              }
+            },
+            {
+              "type": "Control",
               "scope": "#/properties/contribution_type",
               "label": "Tipo de aportación",
               "options": { "format": "radio" }
