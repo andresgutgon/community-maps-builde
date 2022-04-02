@@ -23,9 +23,12 @@ export default function SuggestDialog({
   onLoadingFinish
 }: Props) {
   const suggest = useSuggest({
-    onResponseSuccess: () => {
-      closeFn()
-    }
+    // Here handle suggest place success
+    onResponseSuccess: () => {}
+    // Before we were closing dialog. Not anymore.
+    // onResponseSuccess: () => {
+    //   closeFn()
+    // }
   })
   const [Steps, setStepComponent] = useState<ComponentType<StepsProps>>()
   const onClose = () => {
