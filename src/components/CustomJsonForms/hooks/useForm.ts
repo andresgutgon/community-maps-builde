@@ -77,15 +77,10 @@ function initFormInstance({
   translateBuilderFn
 }: InitFormInstanceProps): null | FormInstance {
   const { forms, suggestPlaceForms } = config
-
-  try {
-    const suggestPlaceForm = suggestPlaceForms[formSlug]
-  } catch {
-    const suggestPlaceForm = false
-  }
-
   const form =
-    entityType === EntityForm.place ? forms[formSlug] : suggestPlaceForm
+    entityType === EntityForm.place
+      ? forms[formSlug]
+      : suggestPlaceForms[formSlug]
 
   if (!form) return null
 

@@ -73,11 +73,11 @@ export const formStyles = {
     },
     {
       name: 'control.radio',
-      classNames: ['flex flex-row items-center space-x-3']
+      classNames: ['w-full']
     },
     {
       name: 'control.radio.option',
-      classNames: ['flex flex-row items-center space-x-2 cursor-pointer']
+      classNames: ['w-full space-x-2 cursor-pointer']
     },
     {
       name: 'control.radio.input',
