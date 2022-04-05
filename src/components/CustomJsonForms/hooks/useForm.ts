@@ -316,7 +316,7 @@ export const useForm = ({
   getExtraData,
   onResponseSuccess
 }: Props): FormReturnType | null => {
-  const { config, community, mapSlug } = useMapData()
+  const { config, community, mapSlug, mapUrl } = useMapData()
   const makeRequest = useMakeRequest({ community })
   const translateBuilderFn = useTranslate()
   const translateError = useTranslateError()
@@ -383,6 +383,7 @@ export const useForm = ({
         type: form.entityType,
         slug,
         mapSlug,
+        mapUrl,
         data: { ...getExtraData(), ...form.data }
       }
     })
