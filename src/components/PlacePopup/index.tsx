@@ -28,6 +28,7 @@ const useMobileControlsVisibility =
     const isMobile = useRef<boolean>(windowWidth <= MOBILE_WIDTH).current
     return {
       onOpenPopup: () => {
+        // Here we add code on the popup open event
         if (!isMobile) return
 
         controlCssTag.innerHTML = `

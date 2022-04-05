@@ -25,6 +25,7 @@ export default function Place({
   const latLng = useRef({ lat: parseFloat(lat), lng: parseFloat(lng) }).current
   let eventHandlers: LeafletEventHandlerFnMap = {
     click: () => {
+      // TODO: Here we need to re-center the map to center popup
       onClick(place)
     }
   }
