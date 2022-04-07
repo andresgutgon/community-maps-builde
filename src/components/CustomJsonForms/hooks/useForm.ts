@@ -391,9 +391,12 @@ export const useForm = ({
     dispatch({ type: Actions.SetSubmitting, submitting: false })
 
     if (response.ok) {
-      reset(() => {
-        if (onResponseSuccess) onResponseSuccess()
-      }, 2000)
+      // Here handle success response for all forms.
+      if (onResponseSuccess) onResponseSuccess()
+      // We don't reset dialog to initial state anymore.
+      // reset(() => {
+      //   if (onResponseSuccess) onResponseSuccess()
+      // }, 2000)
     }
   }
   if (!form) return null
