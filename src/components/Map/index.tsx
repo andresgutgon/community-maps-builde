@@ -68,6 +68,7 @@ const MapWrapper = () => {
   }, [mapLoaded, map, places, currentPlace])
   const onClickPlace = (place: PlaceType) => {
     setOpenPlace(openPlace?.slug === place.name ? null : place)
+    // TODO: Here we need to re-center the map to center popup
   }
   const onClosePopup = () => {
     setOpenPlace(null)
@@ -90,6 +91,7 @@ const MapWrapper = () => {
       tap={false}
       zoomControl={false}
       whenCreated={setMap}
+      scrollWheelZoom={false}
       className='z-40 bg-gray-50 w-screen h-screen'
     >
       {/* Map's controls */}

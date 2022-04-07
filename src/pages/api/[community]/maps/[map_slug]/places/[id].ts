@@ -24,7 +24,11 @@ function parseMarkdownValue(value: string) {
   const htmlText = marked.parse(markdownText)
   // Is always a good idea to sanitize input. Even if this come from
   // our trusted backends
-  return `${MARKDOWN_INDICATOR} ${sanitizeHtml(htmlText).trim()}`
+  const return_val = `${MARKDOWN_INDICATOR} ${sanitizeHtml(htmlText, {
+    allowedTags: ['img', 'br', 'ul', 'li', 'p', 'strong', 'a'],
+    allowedAttributes: { img: ['src'], a: ['href', 'target'] }
+  }).trim()}`
+  return return_val
 }
 
 /**
