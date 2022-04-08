@@ -27,7 +27,7 @@ function parseMarkdownValue(value: string) {
   const return_val = `${MARKDOWN_INDICATOR} ${sanitizeHtml(htmlText, {
     allowedTags: ['div', 'img', 'br', 'ul', 'li', 'p', 'strong', 'a', 'span'],
     allowedAttributes: {
-      div: ['class'],
+      div: ['class', 'role'],
       img: ['class', 'src'],
       ul: ['class'],
       li: ['class'],
