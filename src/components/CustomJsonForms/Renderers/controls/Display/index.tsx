@@ -17,7 +17,7 @@ const DisplayControl = ({ uischema, visible, classNames }: Props) => {
   const sanitized_html = sanitizeHtml(html, {
     allowedTags: ['div', 'img', 'br', 'ul', 'li', 'p', 'strong', 'a', 'span'],
     allowedAttributes: {
-      div: ['class'],
+      div: ['class', 'role'],
       img: ['class', 'src'],
       ul: ['class'],
       li: ['class'],
