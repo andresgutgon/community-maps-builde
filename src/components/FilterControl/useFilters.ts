@@ -19,7 +19,7 @@ export const DEFAULT_SHOW_FILTERS: ShowFilters = {
 export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfundingRange>> = {
   [State.starting]: { min: 0, max: 5 },
   [State.middle]: { min: 5, max: 75 },
-  [State.finishing]: { min: 75, max: 100 }
+  [State.finishing]: { min: 75, max: 101 }
 }
 export type Filters = { state: State; categories: string[] }
 
