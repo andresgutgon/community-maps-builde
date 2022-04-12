@@ -18,6 +18,7 @@ const buildMarker = ({ color, iconKey, percentage, active }: MarkerPropsItem) =>
       iconKey={iconKey}
       color={color}
       percentage={percentage}
+      isFilter={false}
       size={MarkerSize.normal}
     />
   ).toString()

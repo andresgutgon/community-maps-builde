@@ -96,6 +96,7 @@ const Markers = () => {
                     color={color}
                     size={size}
                     iconKey={CategoryIcon.car}
+                    isFilter={false}
                   />
                   <div className='text-center text-gray-400 text-sm'>
                     {color}
@@ -123,6 +124,7 @@ const Markers = () => {
                     size={size}
                     iconKey={key}
                     isSelected={isSelected}
+                    isFilter={false}
                   />
                   <div className='text-center text-gray-400 text-sm'>
                     {key}&nbsp;

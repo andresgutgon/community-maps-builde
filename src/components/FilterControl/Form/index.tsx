@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import cn from 'classnames'
 import { FormattedMessage } from 'react-intl'
-import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline'
 
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { Category as CategoryType } from '@maps/types/index'

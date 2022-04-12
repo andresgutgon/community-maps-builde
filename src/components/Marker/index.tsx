@@ -99,6 +99,7 @@ export type Props = {
   percentage: Percentage
   iconKey: CategoryIcon
   isSelected: boolean
+  isFilter: boolean
   active: boolean
   withArrow: boolean
 }
