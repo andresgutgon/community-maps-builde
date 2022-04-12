@@ -92,6 +92,7 @@ const FilterDisplay = ({
                     color={category.iconColor || MarkerColor.brand}
                     size={MarkerSize.small}
                     isSelected={categorySlugs.includes(category.slug)}
+                    isFilter={false}
                     iconKey={category.iconKey}
                   />
                 </li>

@@ -82,6 +82,7 @@ const useMarkersAsString = (): ReturnType => {
               color={color}
               percentage={percentage}
               size={MarkerSize.normal}
+              isFilter={false}
             />
           )
           memo[buildMarkerStringType(iconKey, color, percentage, active)] = html

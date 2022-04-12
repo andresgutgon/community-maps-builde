@@ -54,6 +54,7 @@ const CategoryItem = ({
             color={category.iconColor || MarkerColor.brand}
             size={MarkerSize.normal}
             iconKey={category.iconKey}
+            isFilter={false}
           />
         </div>
         <div className='flex-0 flex-col items-start flex sm:flex-col ml-2 relative'>
