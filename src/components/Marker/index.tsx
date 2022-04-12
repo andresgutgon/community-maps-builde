@@ -113,16 +113,13 @@ const Marker = ({
   active,
   withArrow
 }: Props) => {
-  if (!isFilter) {
-    isFilter = false
-  }
   const { bg, textColor, border } = ICON_COLORS[color]
   return (
     <div
       className={cn({
         'overflow-hidden relative flex-none mt-1 sm:mt-0 rounded-full p-2 h-6 w-6 xs:h-8 xs:w-8':
-          isFilter === true,
-        'relative rounded-full shadow-sm': isFilter === false,
+          isFilter,
+        'relative rounded-full shadow-sm': !isFilter,
         'h-10 w-10': size === 'normal',
         'h-6 w-6': size === 'small',
         [bg]: isSelected,
