@@ -113,6 +113,9 @@ const Marker = ({
   active,
   withArrow
 }: Props) => {
+  if (!isFilter) {
+    isFilter = false
+  }
   const { bg, textColor, border } = ICON_COLORS[color]
   return (
     <div
