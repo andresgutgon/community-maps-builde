@@ -107,41 +107,42 @@ const FilterForm = ({
             <FormattedMessage defaultMessage='Por categoría' id='7AAm0o' />
           }
         >
-          <ul className='flex space-x-2'>
+          <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
             {categories.map((category: CategoryType) => {
               const isSelected = categorySlugs.includes(category.slug)
               return (
                 <li
                   key={category.slug}
                   onClick={() => onCategoryToggle(category.slug)}
-                  className='cursor-pointer relative'
+                  className='h-full w-full flex cursor-pointer relative'
                 >
-                  <div
+                  <label
                     className={cn(
-                      'bg-gray-600 z-20 font-medium border-2 border-white/80 flex items-center justify-center absolute -top-2 -right-2 w-6 h-6 shadow rounded-full'
+                      'w-full p-2 cursor-pointer  rounded border border-transparent',
+                      'hover:shadow-sm hover:border-gray-300'
                     )}
                   >
-                    {isSelected ? (
-                      <MinusSmIcon
-                        className='h-3 w-3 text-white'
-                        aria-hidden='true'
+                    <div className='flex md:items-center'>
+                      <Marker
+                        active
+                        withArrow={false}
+                        percentage={Percentage.full}
+                        color={category.iconColor || MarkerColor.brand}
+                        size={MarkerSize.normal}
+                        isSelected={isSelected}
+                        iconKey={category.iconKey}
+                        isFilter={true}
                       />
-                    ) : (
-                      <PlusSmIcon
-                        className='h-3 w-3 text-white'
-                        aria-hidden='true'
-                      />
-                    )}
-                  </div>
-                  <Marker
-                    active
-                    withArrow={false}
-                    percentage={Percentage.full}
-                    color={category.iconColor || MarkerColor.brand}
-                    size={MarkerSize.normal}
-                    isSelected={isSelected}
-                    iconKey={category.iconKey}
-                  />
+                      <div className='flex-0 flex sm:flex-col ml-2 flex-row items-center sm:items-start'>
+                        <div className='text-sm text-gray-800 cursor-pointer sm:font-medium text-xs sm:text-sm'>
+                          {category.name}
+                        </div>
+                        <span className='text-xs text-gray-500 hidden sm:block'>
+                          {category.description}
+                        </span>
+                      </div>
+                    </div>
+                  </label>
                 </li>
               )
             })}
