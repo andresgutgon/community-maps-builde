@@ -15,7 +15,18 @@ const DisplayControl = ({ uischema, visible, classNames }: Props) => {
   if (!visible) return null
   const html = uischema?.options?.html
   const sanitized_html = sanitizeHtml(html, {
-    allowedTags: ['div', 'img', 'br', 'ul', 'li', 'p', 'strong', 'a', 'span'],
+    allowedTags: [
+      'div',
+      'img',
+      'br',
+      'ul',
+      'li',
+      'p',
+      'strong',
+      'a',
+      'span',
+      'label'
+    ],
     allowedAttributes: {
       div: ['class', 'role'],
       img: ['class', 'src'],
@@ -23,7 +34,8 @@ const DisplayControl = ({ uischema, visible, classNames }: Props) => {
       li: ['class'],
       p: ['class'],
       a: ['class', 'href', 'target'],
-      span: ['class']
+      span: ['class'],
+      label: ['for', 'class']
     }
   }).trim()
 
