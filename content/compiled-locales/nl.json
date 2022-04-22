@@ -294,7 +294,7 @@
   "VMmmhi": [
     {
       "type": 0,
-      "value": "Kies een categorie voor jouw locatie"
+      "value": "Kies een type voor jouw locatie"
     }
   ],
   "VTfGzG": [
@@ -500,7 +500,7 @@
   "spATk4": [
     {
       "type": 0,
-      "value": "I ga akkoord met "
+      "value": "Ik ga akkoord met het "
     },
     {
       "type": 1,
