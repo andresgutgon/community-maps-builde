@@ -60,6 +60,7 @@ interface ContextProps {
   controlCssTag: HTMLStyleElement
   places: Place[]
   categories: Category[]
+  categoriesInProposal: Category[]
   setPlaces: Dispatch<SetStateAction<Place[]>>
   allPlaces: Place[]
   currentPlace: Place | null
@@ -75,6 +76,7 @@ const CommunityContext = createContext<ContextProps | null>({
   controlCssTag: null,
   places: [],
   categories: [],
+  categoriesInProposal: [],
   allPlaces: [],
   community: null,
   currentPlace: null,
@@ -121,6 +123,7 @@ export const CommunityProvider = ({
   const [places, setPlaces] = useState<Place[]>([])
   const allPlaces = useRef<Place[]>([])
   const categories = useRef<Category[]>([])
+  const categoriesInProposal = useRef<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [fetchingConfig, setFetchingConfig] = useState(false)
   const [fetchingPlaces, setFetchingPlaces] = useState(false)
@@ -175,10 +178,18 @@ export const CommunityProvider = ({
 
       const configData = configResponse.data
       config.current = configData
+
       const categorySlugs = Object.keys(config.current.categories)
       onLoadCategories(categorySlugs)
       categories.current = categorySlugs.map(
         (key: string) => config.current.categories[key]
+      )
+
+      const categoryInProposalSlugs = Object.keys(
+        config.current.categoriesInProposal
+      )
+      categoriesInProposal.current = categoryInProposalSlugs.map(
+        (key: string) => config.current.categoriesInProposal[key]
       )
 
       // Only fetch once places
@@ -250,6 +261,7 @@ export const CommunityProvider = ({
         places,
         config: config.current,
         categories: categories.current,
+        categoriesInProposal: categoriesInProposal.current,
         iconMarkers
       }}
     >
