@@ -91,19 +91,19 @@ export type SuggestReturnType = {
 }
 type Props = { onResponseSuccess?: () => void }
 const useSuggest = ({ onResponseSuccess }: Props = {}): SuggestReturnType => {
-  const { mapSlug, categories } = useMapData()
+  const { mapSlug, categoriesInProposal } = useMapData()
   const [legalTermsAccepted, setLegalTermsAccepted] = useState<boolean>(false)
   const [address, setAddress] = useState<AddressType | null>(null)
   const [addressAditionalInfo, setAddressAditionalInfo] = useState('')
   const [addressLatLng, setLatLng] = useState<LatLngLiteral | null>(null)
   const [category, setCategory] = useState<Category | null>(
-    categories.length === 1 ? categories[0] : null
+    categoriesInProposal.length === 1 ? categoriesInProposal[0] : null
   )
   const [step, setStep] = useState(
     !category ? Step.category : !address ? Step.address : Step.form
   )
   const form = useForm({
-    entities: categories.map((entity: Category) => ({
+    entities: categoriesInProposal.map((entity: Category) => ({
       entity,
       entityType: EntityForm.suggestPlace
     })),

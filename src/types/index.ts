@@ -116,4 +116,5 @@ export type Config = {
   forms?: Record<string, Form>
   suggestPlaceForms?: Record<string, Form>
   categories: Record<string, Category>
+  categoriesInProposal: Record<string, Category>
 }

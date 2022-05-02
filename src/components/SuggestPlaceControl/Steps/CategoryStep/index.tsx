@@ -85,7 +85,7 @@ const CategoryItem = ({
 type Props = { suggest: SuggestReturnType }
 const CategoryStep = ({ suggest }: Props) => {
   const intl = useIntl()
-  const { categories } = useMapData()
+  const { categoriesInProposal } = useMapData()
   const legend = intl.formatMessage({
     defaultMessage: 'Categoría',
     id: 'K6pXDZ'
@@ -94,7 +94,7 @@ const CategoryStep = ({ suggest }: Props) => {
   if (!suggest.category || suggest.step === Step.category) {
     return (
       <ul className='grid sm:grid-cols-2 gap-2'>
-        {categories.map((category: Category, index: number) => (
+        {categoriesInProposal.map((category: Category, index: number) => (
           <li
             key={category.slug}
             onClick={() => suggest.onCategoryChange(category)}
@@ -103,7 +103,7 @@ const CategoryStep = ({ suggest }: Props) => {
               category={category}
               isChecked={category.slug === suggest.category?.slug}
             />
-            {index !== categories.length - 1 ? (
+            {index !== categoriesInProposal.length - 1 ? (
               <div className='h-px mb-1 w-full sm:hidden bg-gray-100' />
             ) : null}
           </li>
