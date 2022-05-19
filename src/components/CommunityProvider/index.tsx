@@ -11,7 +11,7 @@ import {
 } from 'react'
 import { useIntl } from 'react-intl'
 
-import { Category, Place, Config } from '@maps/types/index'
+import { Category, Place, FilterGroup, Config } from '@maps/types/index'
 import LoadingMap, { LoadingMapType } from '@maps/components/LoadingMap'
 import useQueryString, {
   UrlParam
@@ -61,6 +61,8 @@ interface ContextProps {
   places: Place[]
   categories: Category[]
   categoriesInProposal: Category[]
+  // TODO: check if customFilters can be Categories
+  customFilterGroupsData: FilterGroup[]
   setPlaces: Dispatch<SetStateAction<Place[]>>
   allPlaces: Place[]
   currentPlace: Place | null
@@ -77,6 +79,7 @@ const CommunityContext = createContext<ContextProps | null>({
   places: [],
   categories: [],
   categoriesInProposal: [],
+  customFilterGroupsData: [],
   allPlaces: [],
   community: null,
   currentPlace: null,
@@ -124,6 +127,7 @@ export const CommunityProvider = ({
   const allPlaces = useRef<Place[]>([])
   const categories = useRef<Category[]>([])
   const categoriesInProposal = useRef<Category[]>([])
+  const customFilterGroupsData = useRef<FilterGroup[]>([])
   const [loading, setLoading] = useState(true)
   const [fetchingConfig, setFetchingConfig] = useState(false)
   const [fetchingPlaces, setFetchingPlaces] = useState(false)
@@ -190,6 +194,11 @@ export const CommunityProvider = ({
       )
       categoriesInProposal.current = categoryInProposalSlugs.map(
         (key: string) => config.current.categoriesInProposal[key]
+      )
+
+      const customFilterGroupsSlugs = Object.keys(config.current.filterGroups)
+      customFilterGroupsData.current = customFilterGroupsSlugs.map(
+        (key: string) => config.current.filterGroups[key]
       )
 
       // Only fetch once places
@@ -262,6 +271,7 @@ export const CommunityProvider = ({
         config: config.current,
         categories: categories.current,
         categoriesInProposal: categoriesInProposal.current,
+        customFilterGroupsData: customFilterGroupsData.current,
         iconMarkers
       }}
     >

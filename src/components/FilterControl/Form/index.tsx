@@ -4,6 +4,8 @@ import { FormattedMessage } from 'react-intl'
 
 import useStyles from '@maps/components/CustomJsonForms/hooks/useStyles'
 import type { Category as CategoryType } from '@maps/types/index'
+import type { FilterGroup as FilterGroupType } from '@maps/types/index'
+import type { Filter as FilterType } from '@maps/types/index'
 import { useMapData } from '@maps/components/CommunityProvider'
 import Button, {
   Size as ButtonSize,
@@ -24,6 +26,7 @@ type Props = {
   currentState: State
   states: State[]
   categorySlugs: string[]
+  filterGroupSlugs: string[]
   setState: Dispatch<SetStateAction<State>>
   setSelectedCategories: Dispatch<SetStateAction<string[]>>
   onToggleFilters: () => void
@@ -32,17 +35,23 @@ const FilterForm = ({
   currentState,
   states,
   categorySlugs,
+  filterGroupSlugs,
   setState,
   setSelectedCategories,
   onToggleFilters
 }: Props) => {
   const { changeFiltersInUrl } = useQueryString()
   const styles = useStyles()
-  const { allPlaces, setPlaces, categories, config } = useMapData()
+  const { allPlaces, setPlaces, categories, customFilterGroupsData, config } =
+    useMapData()
   const showFilters = useShowFiltersWithDefaults(config.showFilters)
   const { filterPlaces } = useFilters()
   const onFilterSubmit = () => {
-    const filters = { state: currentState, categories: categorySlugs }
+    const filters = {
+      state: currentState,
+      categories: categorySlugs,
+      customFilterGroupsData: filterGroupSlugs
+    }
     setPlaces(
       filterPlaces({
         places: allPlaces,
@@ -67,6 +76,49 @@ const FilterForm = ({
         styles.verticalLayout
       )}
     >
+      {customFilterGroupsData.map((group: FilterGroupType) => {
+        return (
+          <Fieldset legend={group.name} key={group.slug}>
+            <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
+              {group.filters.map((filter: FilterType) => {
+                console.log('filterGroupSlugs')
+                console.log(filterGroupSlugs)
+                return (
+                  <li
+                    key={filter.slug}
+                    className='h-full w-full flex cursor-pointer relative'
+                  >
+                    <label
+                      className={cn(
+                        'w-full p-2 cursor-pointer  rounded border border-transparent',
+                        'hover:shadow-sm hover:border-gray-300'
+                      )}
+                    >
+                      <div className='flex md:items-center'>
+                        <Marker
+                          active
+                          withArrow={false}
+                          percentage={Percentage.full}
+                          color={MarkerColor.brand}
+                          size={MarkerSize.normal}
+                          isSelected={true}
+                          iconKey={false}
+                          isFilter={true}
+                        />
+                        <div className='flex-0 flex sm:flex-col ml-2 flex-row items-center sm:items-start'>
+                          <div className='text-sm text-gray-800 cursor-pointer sm:font-medium text-xs sm:text-sm'>
+                            {filter.name}
+                          </div>
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                )
+              })}
+            </ul>
+          </Fieldset>
+        )
+      })}
       {states.length > 1 ? (
         <Fieldset
           legend={<FormattedMessage defaultMessage='Por estado' id='GI//kj' />}
@@ -108,6 +160,8 @@ const FilterForm = ({
         >
           <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
             {categories.map((category: CategoryType) => {
+              console.log('CATEGORIES IN FORM')
+              console.log(categorySlugs)
               const isSelected = categorySlugs.includes(category.slug)
               return (
                 <li

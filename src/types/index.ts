@@ -50,6 +50,16 @@ export type Category = {
   description: string | null
   shareInTwitterText?: string
 }
+export type FilterGroup = {
+  slug: string
+  name: string
+  filters: []
+}
+
+export type Filter = {
+  slug: string
+  name: string
+}
 
 export type Form = {
   slug: string

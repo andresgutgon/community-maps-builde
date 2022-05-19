@@ -14,7 +14,8 @@ export type CrowdfundingRange = { min: number; max: number }
 export const DEFAULT_SHOW_FILTERS: ShowFilters = {
   status: true,
   crowdfunding: true,
-  categories: true
+  categories: true,
+  filters: true
 }
 export const CROWDFOUNDING_RANGES: Partial<Record<State, CrowdfundingRange>> = {
   [State.starting]: { min: 0, max: 5 },

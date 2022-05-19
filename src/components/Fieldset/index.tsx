@@ -9,7 +9,7 @@ const Fieldset = ({ legend, children }: Props) => {
   if (!children) return null
 
   return (
-    <fieldset className={styles.group.layout}>
+    <fieldset className={styles.group.layout} key={children.key}>
       <legend className={styles.group.label}>{legend}</legend>
       {children}
     </fieldset>
