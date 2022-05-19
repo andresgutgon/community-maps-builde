@@ -74,6 +74,7 @@ export type Form = {
 export type Place = {
   slug: string
   category_slug: string
+  custom_filter_slugs: [] | null
   map_slug: string
   form_slug: string | null
   lat: string

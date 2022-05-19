@@ -50,7 +50,7 @@ const FilterForm = ({
     const filters = {
       state: currentState,
       categories: categorySlugs,
-      customFilterGroupsData: filterGroupSlugs
+      custom: filterGroupSlugs
     }
     setPlaces(
       filterPlaces({
@@ -81,8 +81,8 @@ const FilterForm = ({
           <Fieldset legend={group.name} key={group.slug}>
             <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
               {group.filters.map((filter: FilterType) => {
-                console.log('filterGroupSlugs')
-                console.log(filterGroupSlugs)
+                // console.log('filterGroupSlugs')
+                // console.log(filterGroupSlugs)
                 return (
                   <li
                     key={filter.slug}
@@ -160,8 +160,8 @@ const FilterForm = ({
         >
           <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
             {categories.map((category: CategoryType) => {
-              console.log('CATEGORIES IN FORM')
-              console.log(categorySlugs)
+              // console.log('CATEGORIES IN FORM')
+              // console.log(categorySlugs)
               const isSelected = categorySlugs.includes(category.slug)
               return (
                 <li

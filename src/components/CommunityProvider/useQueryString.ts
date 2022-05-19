@@ -18,10 +18,10 @@ function useHostWindow(): ReturnTypeHostWindow {
   }, [])
 }
 
-const MATCHER = new RegExp(/(?<filterKey>st|cat)\[(?<filterValue>.*)\]/)
+const MATCHER = new RegExp(/(?<filterKey>st|cat|cus)\[(?<filterValue>.*)\]/)
 const DEFAULT_URL_PARAMS = {
   placeSlug: null,
-  filters: { categories: [], state: State.all }
+  filters: { categories: [], state: State.all, custom: [] }
 }
 export type UrlParam = { placeSlug: string | null; filters: Filters }
 function readParams(queryString: string) {
@@ -37,6 +37,10 @@ function readParams(queryString: string) {
   const filtersQuery = queryParams.get('mapFilters')?.split(';') || []
   const filters = filtersQuery.reduce((memo: Filters, item: string) => {
     const filterGroups = item.match(MATCHER)?.groups || {}
+    console.log('FILTER GROUPS')
+    console.log(filterGroups)
+    console.log('MEMO')
+    console.log(memo)
     if (Object.keys(filterGroups).length !== 2) return memo
 
     const { filterKey, filterValue } = filterGroups
@@ -45,6 +49,8 @@ function readParams(queryString: string) {
       memo.categories = filterValue.split(',') || []
     } else if (filterKey === 'st' && states.includes(filterValue as State)) {
       memo.state = filterValue as State
+    } else if (filterKey === 'cus') {
+      memo.custom = filterValue.split(',') || []
     }
     return memo
   }, DEFAULT_URL_PARAMS.filters)
@@ -53,8 +59,8 @@ function readParams(queryString: string) {
     filters
   }
 }
-function writeParams({ categories, state }: Filters): string {
-  return `cat[${categories.join(',')}];st[${state}]`
+function writeParams({ categories, state, custom }: Filters): string {
+  return `cat[${categories.join(',')}];st[${state}];cus[${custom.join(',')}]`
 }
 
 type ReturnType = {
@@ -62,6 +68,7 @@ type ReturnType = {
   mapUrl: string
   urlParams: UrlParam
   onLoadCategories: (categorySlugs: string[]) => void
+  onLoadFilterGroups: (filterSlugs: string[]) => void
   changeFiltersInUrl: (filters: Filters) => void
 }
 const useQueryString = (): ReturnType => {
@@ -100,6 +107,8 @@ const useQueryString = (): ReturnType => {
 
   const onLoadCategories = (categorySlugs: string[]) => {
     const filters = urlParams.filters
+    console.log('CATEGORY FILTERS')
+    console.log(categorySlugs)
     const categories = filters.categories
     setUrlParams({
       ...urlParams,
@@ -108,6 +117,22 @@ const useQueryString = (): ReturnType => {
         categories: !categories.length
           ? categorySlugs
           : categories.filter((c) => categorySlugs.includes(c))
+      }
+    })
+  }
+
+  const onLoadFilterGroups = (customFilterSlugs: string[]) => {
+    const filters = urlParams.filters
+    console.log('CUSTOM FILTERS')
+    console.log(customFilterSlugs)
+    const custom = filters.custom
+    setUrlParams({
+      ...urlParams,
+      filters: {
+        ...filters,
+        custom: !custom.length
+          ? customFilterSlugs
+          : custom.filter((c) => customFilterSlugs.includes(c))
       }
     })
   }
@@ -128,6 +153,7 @@ const useQueryString = (): ReturnType => {
     mapUrl,
     changeFiltersInUrl,
     onLoadCategories,
+    onLoadFilterGroups,
     loadingUrlParams,
     urlParams
   }

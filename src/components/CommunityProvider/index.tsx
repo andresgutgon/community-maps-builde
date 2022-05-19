@@ -11,7 +11,9 @@ import {
 } from 'react'
 import { useIntl } from 'react-intl'
 
-import { Category, Place, FilterGroup, Config } from '@maps/types/index'
+import { Category, Place, Config } from '@maps/types/index'
+import type { FilterGroup as FilterGroupType } from '@maps/types/index'
+import type { Filter as FilterType } from '@maps/types/index'
 import LoadingMap, { LoadingMapType } from '@maps/components/LoadingMap'
 import useQueryString, {
   UrlParam
@@ -120,8 +122,13 @@ export const CommunityProvider = ({
     return cssStyleTag
   }, [])
   const { filterPlaces } = useFilters()
-  const { loadingUrlParams, urlParams, onLoadCategories, mapUrl } =
-    useQueryString()
+  const {
+    loadingUrlParams,
+    urlParams,
+    onLoadCategories,
+    onLoadFilterGroups,
+    mapUrl
+  } = useQueryString()
   const config = useRef<Config | null>(null)
   const [places, setPlaces] = useState<Place[]>([])
   const allPlaces = useRef<Place[]>([])
@@ -196,10 +203,19 @@ export const CommunityProvider = ({
         (key: string) => config.current.categoriesInProposal[key]
       )
 
-      const customFilterGroupsSlugs = Object.keys(config.current.filterGroups)
-      customFilterGroupsData.current = customFilterGroupsSlugs.map(
+      const customFilterGroupSlugs = Object.keys(config.current.filterGroups)
+      customFilterGroupsData.current = customFilterGroupSlugs.map(
         (key: string) => config.current.filterGroups[key]
       )
+      const customFilterSlugs = []
+      console.log('ON PROVIDER')
+      console.log(config.current.filterGroups)
+      config.current.filterGroups.map((group: FilterGroupType) =>
+        group.filters.map((filter: FilterType) =>
+          customFilterSlugs.push(filter.slug)
+        )
+      )
+      onLoadFilterGroups(customFilterSlugs)
 
       // Only fetch once places
       setFetchingPlaces(true)
@@ -248,6 +264,7 @@ export const CommunityProvider = ({
     filterPlaces,
     urlParams,
     onLoadCategories,
+    onLoadFilterGroups,
     buildIconMarkers
   ])
 
