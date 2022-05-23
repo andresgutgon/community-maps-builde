@@ -119,6 +119,9 @@ const FilterForm = ({
                           <div className='text-sm text-gray-800 cursor-pointer sm:font-medium text-xs sm:text-sm'>
                             {filter.name}
                           </div>
+                          <span className='text-xs text-gray-500 hidden sm:block'>
+                            {filter.description}
+                          </span>
                         </div>
                       </div>
                     </label>
