@@ -37,10 +37,6 @@ function readParams(queryString: string) {
   const filtersQuery = queryParams.get('mapFilters')?.split(';') || []
   const filters = filtersQuery.reduce((memo: Filters, item: string) => {
     const filterGroups = item.match(MATCHER)?.groups || {}
-    console.log('FILTER GROUPS')
-    console.log(filterGroups)
-    console.log('MEMO')
-    console.log(memo)
     if (Object.keys(filterGroups).length !== 2) return memo
 
     const { filterKey, filterValue } = filterGroups
@@ -52,6 +48,10 @@ function readParams(queryString: string) {
     } else if (filterKey === 'cus') {
       memo.custom = filterValue.split(',') || []
     }
+    console.log('CAT on URL Params')
+    console.log(memo.categories)
+    console.log('CUS on URL Params')
+    console.log(memo.custom)
     return memo
   }, DEFAULT_URL_PARAMS.filters)
   return {
@@ -67,8 +67,10 @@ type ReturnType = {
   loadingUrlParams: boolean
   mapUrl: string
   urlParams: UrlParam
-  onLoadCategories: (categorySlugs: string[]) => void
-  onLoadFilterGroups: (filterSlugs: string[]) => void
+  onLoadCategorization: (
+    categorySlugs: string[],
+    customFilterSlugs: string[]
+  ) => void
   changeFiltersInUrl: (filters: Filters) => void
 }
 const useQueryString = (): ReturnType => {
@@ -105,31 +107,32 @@ const useQueryString = (): ReturnType => {
     }
   }, [setMapUrl, host, queryString, isIframe])
 
-  const onLoadCategories = (categorySlugs: string[]) => {
+  const onLoadCategorization = (
+    categorySlugs: string[],
+    customFilterSlugs: string[]
+  ) => {
     const filters = urlParams.filters
-    console.log('CATEGORY FILTERS')
-    console.log(categorySlugs)
     const categories = filters.categories
+    const custom = filters.custom
+    const filter_test = {
+      ...filters,
+      categories: !categories.length
+        ? categorySlugs
+        : categories.filter((c) => categorySlugs.includes(c)),
+      custom: !custom.length
+        ? customFilterSlugs
+        : custom.filter((c) => customFilterSlugs.includes(c))
+    }
+    console.log('LOAD CATEGORIZATION')
+    console.log(filters)
+    console.log(filter_test)
     setUrlParams({
       ...urlParams,
       filters: {
         ...filters,
         categories: !categories.length
           ? categorySlugs
-          : categories.filter((c) => categorySlugs.includes(c))
-      }
-    })
-  }
-
-  const onLoadFilterGroups = (customFilterSlugs: string[]) => {
-    const filters = urlParams.filters
-    console.log('CUSTOM FILTERS')
-    console.log(customFilterSlugs)
-    const custom = filters.custom
-    setUrlParams({
-      ...urlParams,
-      filters: {
-        ...filters,
+          : categories.filter((c) => categorySlugs.includes(c)),
         custom: !custom.length
           ? customFilterSlugs
           : custom.filter((c) => customFilterSlugs.includes(c))
@@ -152,8 +155,7 @@ const useQueryString = (): ReturnType => {
   return {
     mapUrl,
     changeFiltersInUrl,
-    onLoadCategories,
-    onLoadFilterGroups,
+    onLoadCategorization,
     loadingUrlParams,
     urlParams
   }

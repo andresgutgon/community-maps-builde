@@ -122,13 +122,8 @@ export const CommunityProvider = ({
     return cssStyleTag
   }, [])
   const { filterPlaces } = useFilters()
-  const {
-    loadingUrlParams,
-    urlParams,
-    onLoadCategories,
-    onLoadFilterGroups,
-    mapUrl
-  } = useQueryString()
+  const { loadingUrlParams, urlParams, onLoadCategorization, mapUrl } =
+    useQueryString()
   const config = useRef<Config | null>(null)
   const [places, setPlaces] = useState<Place[]>([])
   const allPlaces = useRef<Place[]>([])
@@ -191,7 +186,6 @@ export const CommunityProvider = ({
       config.current = configData
 
       const categorySlugs = Object.keys(config.current.categories)
-      onLoadCategories(categorySlugs)
       categories.current = categorySlugs.map(
         (key: string) => config.current.categories[key]
       )
@@ -208,14 +202,14 @@ export const CommunityProvider = ({
         (key: string) => config.current.filterGroups[key]
       )
       const customFilterSlugs = []
-      console.log('ON PROVIDER')
-      console.log(config.current.filterGroups)
       config.current.filterGroups.map((group: FilterGroupType) =>
         group.filters.map((filter: FilterType) =>
           customFilterSlugs.push(filter.slug)
         )
       )
-      onLoadFilterGroups(customFilterSlugs)
+
+      // build queries after we have correct categorization: Category + Custom
+      onLoadCategorization(categorySlugs, customFilterSlugs)
 
       // Only fetch once places
       setFetchingPlaces(true)
@@ -263,8 +257,7 @@ export const CommunityProvider = ({
     loading,
     filterPlaces,
     urlParams,
-    onLoadCategories,
-    onLoadFilterGroups,
+    onLoadCategorization,
     buildIconMarkers
   ])
 

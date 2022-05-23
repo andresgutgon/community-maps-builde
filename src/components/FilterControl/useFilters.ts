@@ -27,8 +27,6 @@ export type Filters = { state: State; categories: string[]; custom: string[] }
 function filterByCategory(categories: string[], showFilters: ShowFilters) {
   return (place: Place): boolean => {
     if (!showFilters?.categories) return true
-    console.log('FILTER BY CATEGORY')
-    console.log(categories)
     return categories.includes(place.category_slug)
   }
 }
@@ -36,16 +34,11 @@ function filterByCategory(categories: string[], showFilters: ShowFilters) {
 function filterByCustom(custom: string[], showFilters: ShowFilters) {
   return (place: Place): boolean => {
     if (!showFilters?.customFilters) return true
-    console.log('FILTER BY CUSTOM')
-    console.log(custom)
-    console.log(place.filters)
-    console.log(place.filters.includes(custom))
-    const containsAll = custom.every((element) => {
-      return place.filters.includes(element)
+    const containsAny = false
+    custom.every((element) => {
+      if (place.filters.includes(element)) containsAny = true
     })
-
-    return containsAll
-    // return custom.includes(place.category_slug)
+    return containsAny
   }
 }
 
@@ -83,8 +76,6 @@ const useFilters = (): ReturnType => {
     filters: { state, categories, custom },
     showFilters
   }) => {
-    console.log('HERE Are the places')
-    console.log(places)
     const show = buildShowFilters(showFilters)
     const isAllState = State.all === state
     const isActive = State.active === state
@@ -92,21 +83,20 @@ const useFilters = (): ReturnType => {
     const categoriesFilterFn = filterByCategory(categories, show)
     const customFilterFn = filterByCustom(custom, show)
     const rangeFilterFn = filterByRange(state, show)
+
     return places.filter((place: Place) => {
       const included = categoriesFilterFn(place)
       const customIncluded = customFilterFn(place)
       const inRange = rangeFilterFn(place)
-
-      console.log('INCLUDED')
+      console.log('included')
       console.log(included)
-      console.log('CUSTOM INCLUDED')
+      console.log('customIncluded')
       console.log(customIncluded)
-
       if (isAllState) return included && customIncluded
       if (showActiveFilter && isActive)
         return included && customIncluded && place.active
       if (isActive) return included && customIncluded
-
+      // TODO: check inRange filtering. Right now not used.
       return included && customIncluded && inRange
     })
   }
