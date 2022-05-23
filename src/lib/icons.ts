@@ -7,5 +7,6 @@ export const ICONS: Record<CategoryIcon, string> = {
   [CategoryIcon.car]: 'fa-car',
   [CategoryIcon.van]: 'fa-shuttle-van',
   [CategoryIcon.charger]: 'fa-bolt',
-  [CategoryIcon.bike]: 'fa-bicycle'
+  [CategoryIcon.bike]: 'fa-bicycle',
+  [CategoryIcon.solar_panel]: 'fa-solar-panel'
 }

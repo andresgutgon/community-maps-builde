@@ -32,7 +32,8 @@ export enum CategoryIcon {
   car = 'car',
   van = 'van',
   bike = 'bike',
-  charger = 'charger'
+  charger = 'charger',
+  solar_panel = 'solar_panel'
 }
 
 export type Map = {
@@ -59,6 +60,9 @@ export type FilterGroup = {
 export type Filter = {
   slug: string
   name: string
+  iconKey: CategoryIcon | null
+  iconColor: MarkerColor | null
+  description: string | null
 }
 
 export type Form = {
