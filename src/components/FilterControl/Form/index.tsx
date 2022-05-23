@@ -108,10 +108,11 @@ const FilterForm = ({
                           active
                           withArrow={false}
                           percentage={Percentage.full}
-                          color={MarkerColor.brand}
+                          color={filter.iconColor || MarkerColor.brand}
                           size={MarkerSize.normal}
                           isSelected={isSelected}
                           iconKey={false}
+                          iconKey={filter.iconKey}
                           isFilter={true}
                         />
                         <div className='flex-0 flex sm:flex-col ml-2 flex-row items-center sm:items-start'>
