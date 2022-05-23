@@ -47,10 +47,12 @@ const FilterControl = () => {
     if (!Form) setLoading(true)
     setOpen(!open)
   }
-  console.log('On filter control index')
-  const [categorySlugs, filterGroupSlugs, setSelectedCategories] = useState<
-    string[]
-  >(filters.categories, filters.custom)
+  const [categorySlugs, setSelectedCategories] = useState<string[]>(
+    filters.categories
+  )
+  const [customFilterSlugs, setSelectedCustomFilters] = useState<string[]>(
+    filters.custom
+  )
   const [state, setState] = useState<State>(filters.state)
   const closeFilter = () => setOpen(false)
   useMapEvents({ click: closeFilter, mousedown: closeFilter })
@@ -85,7 +87,6 @@ const FilterControl = () => {
         crowdfundingStates={crowdfundingStates}
         onToggleFilters={onToggleFilters}
         categorySlugs={categorySlugs}
-        filterGroupSlugs={filterGroupSlugs}
       />
       {Form && open ? (
         <Form
@@ -93,8 +94,9 @@ const FilterControl = () => {
           states={states}
           setState={setState}
           categorySlugs={categorySlugs}
-          filterGroupSlugs={filterGroupSlugs}
+          customFilterSlugs={customFilterSlugs}
           setSelectedCategories={setSelectedCategories}
+          setSelectedCustomFilters={setSelectedCustomFilters}
           onToggleFilters={onToggleFilters}
         />
       ) : null}

@@ -26,18 +26,20 @@ type Props = {
   currentState: State
   states: State[]
   categorySlugs: string[]
-  filterGroupSlugs: string[]
+  customFilterSlugs: string[]
   setState: Dispatch<SetStateAction<State>>
   setSelectedCategories: Dispatch<SetStateAction<string[]>>
+  setSelectedCustomFilters: Dispatch<SetStateAction<string[]>>
   onToggleFilters: () => void
 }
 const FilterForm = ({
   currentState,
   states,
   categorySlugs,
-  filterGroupSlugs,
+  customFilterSlugs,
   setState,
   setSelectedCategories,
+  setSelectedCustomFilters,
   onToggleFilters
 }: Props) => {
   const { changeFiltersInUrl } = useQueryString()
@@ -50,7 +52,7 @@ const FilterForm = ({
     const filters = {
       state: currentState,
       categories: categorySlugs,
-      custom: filterGroupSlugs
+      custom: customFilterSlugs
     }
     setPlaces(
       filterPlaces({
@@ -69,6 +71,13 @@ const FilterForm = ({
         : [...categorySlugs, slug]
     )
   }
+  const onCustomFilterToggle = (slug: string) => {
+    setSelectedCustomFilters(
+      customFilterSlugs.includes(slug)
+        ? customFilterSlugs.filter((i) => i !== slug)
+        : [...customFilterSlugs, slug]
+    )
+  }
   return (
     <div
       className={cn(
@@ -81,9 +90,11 @@ const FilterForm = ({
           <Fieldset legend={group.name} key={group.slug}>
             <ul className='xs:grid xs:grid-cols-2 sm:grid-cols-3 xs:gap-2'>
               {group.filters.map((filter: FilterType) => {
+                const isSelected = customFilterSlugs.includes(filter.slug)
                 return (
                   <li
                     key={filter.slug}
+                    onClick={() => onCustomFilterToggle(filter.slug)}
                     className='h-full w-full flex cursor-pointer relative'
                   >
                     <label
@@ -99,7 +110,7 @@ const FilterForm = ({
                           percentage={Percentage.full}
                           color={MarkerColor.brand}
                           size={MarkerSize.normal}
-                          isSelected={true}
+                          isSelected={isSelected}
                           iconKey={false}
                           isFilter={true}
                         />

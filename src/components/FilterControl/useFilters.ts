@@ -88,10 +88,6 @@ const useFilters = (): ReturnType => {
       const included = categoriesFilterFn(place)
       const customIncluded = customFilterFn(place)
       const inRange = rangeFilterFn(place)
-      console.log('included')
-      console.log(included)
-      console.log('customIncluded')
-      console.log(customIncluded)
       if (isAllState) return included && customIncluded
       if (showActiveFilter && isActive)
         return included && customIncluded && place.active

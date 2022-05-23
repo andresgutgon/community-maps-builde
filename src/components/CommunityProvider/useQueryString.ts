@@ -48,10 +48,6 @@ function readParams(queryString: string) {
     } else if (filterKey === 'cus') {
       memo.custom = filterValue.split(',') || []
     }
-    console.log('CAT on URL Params')
-    console.log(memo.categories)
-    console.log('CUS on URL Params')
-    console.log(memo.custom)
     return memo
   }, DEFAULT_URL_PARAMS.filters)
   return {
@@ -123,9 +119,6 @@ const useQueryString = (): ReturnType => {
         ? customFilterSlugs
         : custom.filter((c) => customFilterSlugs.includes(c))
     }
-    console.log('LOAD CATEGORIZATION')
-    console.log(filters)
-    console.log(filter_test)
     setUrlParams({
       ...urlParams,
       filters: {
