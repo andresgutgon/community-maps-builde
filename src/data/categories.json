@@ -14,16 +14,16 @@
     "name": "Furgonetas",
     "description": "Furgonetas disponibles en este punto"
   },
-  "bike_charger": {
-    "slug": "bike_charger",
-    "iconKey": "bike_charger",
+  "bike": {
+    "slug": "bike",
+    "iconKey": "bike",
     "iconColor": "green",
     "name": "Bicicletas eléctricas",
     "description": "Dispones de bicicletas en este tipo de puntos"
   },
-  "car_charger": {
-    "slug": "car_charger",
-    "iconKey": "car_charger",
+  "charger": {
+    "slug": "charger",
+    "iconKey": "charger",
     "iconColor": "blue",
     "name": "Cargadores de coches",
     "description": "Estos puntos tienen cargadores de coches"

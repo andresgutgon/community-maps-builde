@@ -9,7 +9,7 @@ const STATUS_MAPPING = {
   Previst: 'planned',
   Operatiu: 'active'
 }
-const forms = ['first-form', 'bike_charger', null]
+const forms = ['first-form', 'bike', null]
 const randomProgress = (min, max) => {
   const amount = Math.floor(Math.random() * (max - min + 1)) + min
   return {

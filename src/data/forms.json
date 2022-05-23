@@ -201,8 +201,8 @@
       ]
     }
   },
-  "bike_charger": {
-    "slug": "bike_charger",
+  "bike": {
+    "slug": "bike",
     "jsonSchema": {
       "type":"object",
       "properties":{

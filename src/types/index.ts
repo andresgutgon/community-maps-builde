@@ -31,8 +31,8 @@ export type TileStyle = keyof typeof TILES
 export enum CategoryIcon {
   car = 'car',
   van = 'van',
-  bike_charger = 'bike_charger',
-  car_charger = 'car_charger'
+  bike = 'bike',
+  charger = 'charger'
 }
 
 export type Map = {
