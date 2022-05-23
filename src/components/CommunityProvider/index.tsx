@@ -202,11 +202,13 @@ export const CommunityProvider = ({
         (key: string) => config.current.filterGroups[key]
       )
       const customFilterSlugs = []
-      config.current.filterGroups.map((group: FilterGroupType) =>
-        group.filters.map((filter: FilterType) =>
-          customFilterSlugs.push(filter.slug)
+      if (config.current.filterGroups) {
+        config.current.filterGroups.map((group: FilterGroupType) =>
+          group.filters.map((filter: FilterType) =>
+            customFilterSlugs.push(filter.slug)
+          )
         )
-      )
+      }
 
       // build queries after we have correct categorization: Category + Custom
       onLoadCategorization(categorySlugs, customFilterSlugs)
