@@ -39,6 +39,7 @@ const FilterControl = () => {
   const showAnyFilter =
     showFilters.status ||
     showFilters.crowdfunding ||
+    showFilters.customFilters ||
     (showFilters.categories && categories.length > 1)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
