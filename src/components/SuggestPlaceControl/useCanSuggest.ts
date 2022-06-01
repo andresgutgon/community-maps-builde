@@ -3,12 +3,9 @@ import { useMapData } from '@maps/components/CommunityProvider'
 // `suggestPlaceForms` and inside a form with the key: `suggest_place_generic`
 const useCanSuggest = (): boolean => {
   const {
-    config: { suggestPlaceForms },
-    categories
+    config: { hasProposal }
   } = useMapData()
-  return (
-    categories.length > 0 && Object.keys(suggestPlaceForms || {}).length > 0
-  )
+  return hasProposal
 }
 
 export default useCanSuggest

@@ -127,12 +127,6 @@
       "value": "¡Copiado!"
     }
   ],
-  "FmR1T5": [
-    {
-      "type": 0,
-      "value": "Elige el tipo de lugar"
-    }
-  ],
   "GI//kj": [
     {
       "type": 0,
@@ -185,12 +179,6 @@
     {
       "type": 0,
       "value": "Cerrar filtros"
-    }
-  ],
-  "LxAGKW": [
-    {
-      "type": 0,
-      "value": "¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar"
     }
   ],
   "MwlsML": [
@@ -291,12 +279,6 @@
       "value": "Dirección"
     }
   ],
-  "VMmmhi": [
-    {
-      "type": 0,
-      "value": "Elige una categoría para el lugar que vas a sugerir"
-    }
-  ],
   "VTfGzG": [
     {
       "type": 0,
@@ -319,12 +301,6 @@
     {
       "type": 0,
       "value": "Debes seleccionar un valor de la lista"
-    }
-  ],
-  "bPxeVs": [
-    {
-      "type": 0,
-      "value": "Sugierenos un lugar"
     }
   ],
   "c13AgS": [
@@ -409,12 +385,6 @@
     {
       "type": 1,
       "value": "rate"
-    }
-  ],
-  "kUKcmK": [
-    {
-      "type": 0,
-      "value": "Sugiérenos un lugar"
     }
   ],
   "l4IlHe": [
@@ -543,12 +513,6 @@
     {
       "type": 0,
       "value": "Siguiente"
-    }
-  ],
-  "yq+tl0": [
-    {
-      "type": 0,
-      "value": "Sugerir lugar"
     }
   ],
   "zaaFVR": [

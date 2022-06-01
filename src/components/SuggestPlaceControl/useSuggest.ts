@@ -33,33 +33,25 @@ const useCopies = ({ form, step }: UseCopiesProps): ReturnCopy => {
   const intl = useIntl()
   let description = null
   let button = intl.formatMessage({ defaultMessage: 'Siguiente', id: 'w2xatL' })
-  const title = intl.formatMessage({
-    defaultMessage: 'Sugierenos un lugar',
-    id: 'bPxeVs'
-  })
+  const {
+    config: {
+      proposalCtaLabel,
+      proposalFormLabel,
+      proposalFormStepCategoryLabel,
+      proposalFormStepAddressLabel,
+      proposalFormStepFormLabel
+    }
+  } = useMapData()
+
+  const title = proposalFormLabel
 
   if (step === Step.category) {
-    description = intl.formatMessage({
-      defaultMessage: 'Elige una categoría para el lugar que vas a sugerir',
-      id: 'VMmmhi'
-    })
+    description = proposalFormStepCategoryLabel
   } else if (step === Step.address) {
-    description = intl.formatMessage({
-      defaultMessage:
-        '¿Dónde está el lugar? Busca la direccón donde quieres sugerir el lugar',
-      id: 'LxAGKW'
-    })
+    description = proposalFormStepAddressLabel
   } else if (step === Step.form && !form?.response?.ok) {
-    const defaultDescription = intl.formatMessage({
-      defaultMessage: 'Elige el tipo de lugar',
-      id: 'FmR1T5'
-    })
-    description = form?.instance?.description || defaultDescription
-    const defaultButton = intl.formatMessage({
-      id: 'yq+tl0',
-      defaultMessage: 'Sugerir lugar'
-    })
-    button = form?.instance?.formButtonLabel || defaultButton
+    description = form?.instance?.description || proposalFormStepFormLabel
+    button = form?.instance?.formButtonLabel || proposalCtaLabel
   }
 
   const submitButton = form?.submitting

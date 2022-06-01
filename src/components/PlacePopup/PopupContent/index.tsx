@@ -147,10 +147,8 @@ const PlaceContent = ({
   isModalLoading,
   onClick
 }: PlaceContentProps) => {
-  const {
-    config: { forms }
-  } = useMapData()
-  const form = useRef<Form | null>(forms[place.form_slug]).current
+  const { config } = useMapData()
+  const form = useRef<Form | null>(config.forms[place.form_slug]).current
   const intl = useIntl()
   const schema = useSchema({ place })
   const { name, address, lat, lng } = place
@@ -163,6 +161,12 @@ const PlaceContent = ({
     defaultMessage: 'Cargando'
   })}...`
   const buttonLabel = isModalLoading ? buttonLoading : form?.ctaLabel || button
+  const landingButtonLabel = isModalLoading
+    ? buttonLoading
+    : place?.landingCtaLabel || button
+  const onClickLanding = () => {
+    window.open(config.landingBaseUrl.concat(place.slug), '_top')
+  }
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col space-y-2 p-3'>
@@ -184,6 +188,16 @@ const PlaceContent = ({
           <ShareTwitter place={place} />
           <CopyUrl place={place} />
         </div>
+        {place.landingSchemaData && place.landingJsonSchema ? (
+          <Button
+            disabled={isModalLoading}
+            size={ButtonSize.sm}
+            style={ButtonStyles.branded}
+            onClick={onClickLanding}
+          >
+            {landingButtonLabel}
+          </Button>
+        ) : null}
         {place.form_slug ? (
           <Button
             disabled={isModalLoading}

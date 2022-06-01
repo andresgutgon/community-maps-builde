@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { useMapData } from '@maps/components/CommunityProvider'
 
 import Button, {
   Size as ButtonSize,
@@ -20,6 +21,9 @@ const SuggestPlaceControl = () => {
     setModalLoading(true)
     setModal(true)
   }
+  const {
+    config: { proposalCtaLabel }
+  } = useMapData()
 
   if (!canSuggest) return null
 
@@ -41,10 +45,7 @@ const SuggestPlaceControl = () => {
                 {'...'}
               </>
             ) : (
-              <FormattedMessage
-                defaultMessage='Sugiérenos un lugar'
-                id='kUKcmK'
-              />
+              proposalCtaLabel
             )}
           </Button>
         }

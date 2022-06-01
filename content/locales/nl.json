@@ -59,9 +59,6 @@
   "FagJhM": {
     "defaultMessage": "Gekopieerd!"
   },
-  "FmR1T5": {
-    "defaultMessage": "Toon het type"
-  },
   "GI//kj": {
     "defaultMessage": "Volgens status"
   },
@@ -89,9 +86,6 @@
   "Kdq+g3": {
     "defaultMessage": "Sluit filter"
   },
-  "LxAGKW": {
-    "defaultMessage": "Zoek op adres om een locatie voor te stellen"
-  },
   "MwlsML": {
     "defaultMessage": "Sluit modal"
   },
@@ -116,9 +110,6 @@
   "Tq7tlV": {
     "defaultMessage": "Adres"
   },
-  "VMmmhi": {
-    "defaultMessage": "Kies een type voor jouw locatie"
-  },
   "VTfGzG": {
     "defaultMessage": "Filter"
   },
@@ -130,9 +121,6 @@
   },
   "at9R+C": {
     "defaultMessage": "Selecteer een waarde uit de lijst."
-  },
-  "bPxeVs": {
-    "defaultMessage": "Stel een locatie voor"
   },
   "c13AgS": {
     "defaultMessage": "Er was een probleem met het laden van {mapSlug}"
@@ -154,9 +142,6 @@
   },
   "k3fpzo": {
     "defaultMessage": "Voor een bijdrage groter dan {value} wordt jouw tarief {timeRate} {rate}"
-  },
-  "kUKcmK": {
-    "defaultMessage": "Stel een locatie voor"
   },
   "l4IlHe": {
     "defaultMessage": "Privacy-beleid"
@@ -205,9 +190,6 @@
   },
   "w2xatL": {
     "defaultMessage": "Ga verder"
-  },
-  "yq+tl0": {
-    "defaultMessage": "Stel een locatie voor"
   },
   "zaaFVR": {
     "defaultMessage": "Check het emailadres aub"
