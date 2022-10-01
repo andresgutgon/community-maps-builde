@@ -25,15 +25,19 @@ const FullscreenControl = () => {
     setExpanded(!expanded)
   }, [expanded])
   useEffect(() => {
-    screenfull.on('change', () => {
-      setExpanded(!!document.fullscreenElement)
-    })
+    try {
+      screenfull.on('change', () => {
+        setExpanded(!!document.fullscreenElement)
+      })
+    } catch (_e) {}
     return () => {
-      screenfull.off('change', onToggleFullscreen)
+      try {
+        screenfull?.off('change', onToggleFullscreen)
+      } catch (_e) {}
     }
   }, [onToggleFullscreen])
 
-  if (!screenfull.isEnabled) return null
+  if (!screenfull || !screenfull.isEnabled) return null
 
   return (
     <ReactControl position='topleft'>

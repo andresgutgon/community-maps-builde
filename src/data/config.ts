@@ -26,6 +26,7 @@ const data = {
     cookiesLink: 'https://www.sommobilitat.coop/cookies/'
   },
   forms: forms as Record<string, Form>,
+  categoriesInProposal: {},
   suggestPlaceForms: suggestPlaceForms as Record<string, Form>
 }
 
